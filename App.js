@@ -1,19 +1,15 @@
-import { View } from "react-native";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 
-// From https://simpleicons.org/?q=expo
-import ExpoLogo from "./assets/expo.svg";
+import Root from "./src/navigations/Root";
+import { Theme } from "./src/settings/Theme";
 
 export default function App() {
+  const [login, setLogin] = useState(false);
+
   return (
-    <View
-      style={{
-        backgroundColor: "black",
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <ExpoLogo width={120} height={120} fill="white" />
-    </View>
+    <NavigationContainer theme={Theme}>
+      <Root />
+    </NavigationContainer>
   );
 }
