@@ -7,7 +7,7 @@ function Search() {
     <Container>
       <Input placeholder="검색" autoCapitalize="none" />
       <Btn>
-        <FontAwesome name="search" size={15} color="white" />
+        <FontAwesome name="search" size={20} color="white" />
       </Btn>
     </Container>
   );
@@ -30,7 +30,10 @@ const Input = styled.TextInput`
 `;
 
 const Btn = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
   border-radius: 6px;
   background-color: #ff7d0d;
-  padding: 4%;
 `;
