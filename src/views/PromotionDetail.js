@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import winwin from "../assets/winwin.png";
 import CameraRoll from "@react-native-community/cameraroll";
 import { PermissionsAndroid, Platform } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import Item from "../components/Item";
 
 const mockApi = [
   {
@@ -30,6 +32,9 @@ const mockApi = [
 ];
 
 const PromotionDetail = () => {
+  const [item, setItem] = useState([]);
+  const [ref, setRef] = useState(null);
+
   // Asking Camera Access , Android
   // IOS should be done.
   const hasAndroidPermission = async () => {
@@ -49,8 +54,23 @@ const PromotionDetail = () => {
     CameraRoll.getAlbums({ assetType: "Photos" });
   };
 
+  const addItemArray = () => {
+    const index = Date.now();
+    setItem([...item, { id: item.length, index }]);
+  };
+
+  useEffect(() => {
+    addItemArray();
+  }, []);
+
   return (
-    <Container>
+    <Container
+      ref={(ref) => setRef(ref)}
+      onContentSizeChange={() => {
+        // Optional chain is essential.....
+        ref?.scrollToEnd({ animated: true });
+      }}
+    >
       <ImageContainer>
         <Swiper showsButtons={false}>
           {mockApi.map((info) => (
@@ -98,6 +118,17 @@ const PromotionDetail = () => {
             </DateBtn>
           </End>
         </Duration>
+        <Detail>
+          <Text>행사 내역</Text>
+          {item.map((data) => (
+            <Item key={data.id} index={data.index} />
+          ))}
+        </Detail>
+        <ItemPlusBtnContainer>
+          <ItemPlusBtn onPress={addItemArray}>
+            <AntDesign name="pluscircle" size={36} color="#FF7D0D" />
+          </ItemPlusBtn>
+        </ItemPlusBtnContainer>
       </RevisionContainer>
     </Container>
   );
@@ -105,77 +136,65 @@ const PromotionDetail = () => {
 
 export default PromotionDetail;
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
 `;
 const ImageContainer = styled.View`
-  flex: 1;
+  height: 220px;
 `;
 const RevisionContainer = styled.View`
-  flex: 2;
   padding: 0 3%;
 `;
-
 const ImageUpload = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-
 const SwiperImage = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
 `;
-
 const Text = styled.Text`
   color: #000;
   font-size: 18px;
 `;
-
 const CategoryText = styled(Text)`
   font-size: 14px;
 `;
-
 const DateText = styled(Text)`
   color: #aaa;
 `;
-
 const Image = styled.Image`
   width: 100%;
   height: 100%;
 `;
-
 const Btn = styled.TouchableOpacity`
   margin: 2% 0;
   padding: 2%;
   border: 1px solid black;
   border-radius: 6px;
 `;
-
+const ItemPlusBtn = styled.TouchableOpacity``;
 const CategoryBtn = styled(Btn)`
   border: none;
   padding: 1%;
   margin-right: 2%;
   background-color: #eeeeee;
 `;
-
 const DateBtn = styled(Btn)`
   align-items: center;
   width: 80%;
   border: 1px solid #aaa;
 `;
-
 const TextInput = styled.TextInput`
   background-color: #f8f8f8;
   height: 52px;
   padding: 0 2%;
 `;
-
 const Category = styled.View`
   flex-direction: row;
   align-items: center;
 `;
-
 const Duration = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -186,3 +205,11 @@ const Start = styled.View`
   width: 50%;
 `;
 const End = styled(Start)``;
+const Detail = styled.View`
+  margin-top: 3%;
+`;
+const ItemPlusBtnContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin: 5% 0 2% 0;
+`;
