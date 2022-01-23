@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../views/Login";
-import CreateUser from "../views/CreateUser";
+import Register from "../views/Register";
 
 const ModalStack = createNativeStackNavigator();
 
@@ -12,7 +12,7 @@ const Modal = () => (
     </ModalStack.Group>
 
     <ModalStack.Group screenOptions={{ presentation: "modal" }}>
-      <ModalStack.Screen name="CreateUser" component={CreateUser} />
+      <ModalStack.Screen name="Register" component={Register} />
     </ModalStack.Group>
   </ModalStack.Navigator>
 );

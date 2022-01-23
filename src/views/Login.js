@@ -5,19 +5,19 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 
 const Login = ({ navigation }) => {
-  const [id, setId] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [showing, setShowing] = useState(true);
 
-  const handleId = (event) => {
-    setId(event.target.value);
+  const handleId = (text) => {
+    setUserId(text);
   };
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
+  const handlePassword = (text) => {
+    setPassword(text);
   };
 
   // Send login data to BE to search user data matched.
-  const sendLoginData = async () => {
+  const submitUserInfo = async () => {
     await Axios.post("sampleApi", { id, password });
   };
 
@@ -28,14 +28,14 @@ const Login = ({ navigation }) => {
       <Input
         placeholder="아이디"
         onChange={handleId}
-        value={id}
+        value={userId}
         autoCapitalize="none"
       />
       <PasswordContainer>
         <Input
           placeholder="비밀번호"
           secureTextEntry={showing ? false : true}
-          onChange={handlePassword}
+          onChangeText={(text) => handlePassword(text)}
           value={password}
           autoCapitalize="none"
         />
@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
       <LoginBtn onPress={() => navigation.navigate("Stack")}>
         <BtnText>로그인</BtnText>
       </LoginBtn>
-      <CreateBtn onPress={() => navigation.navigate("CreateUser")}>
+      <CreateBtn onPress={() => navigation.navigate("Register")}>
         <CreateText>가입하기</CreateText>
       </CreateBtn>
     </Container>
