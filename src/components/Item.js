@@ -1,38 +1,50 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 
-const Item = ({ index }) => {
-  const [name, setName] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [promotionQuantity, setPromotionQuantity] = useState(null);
-  const [prQuantity, setPrQuantiy] = useState(null);
+const Item = ({ data }) => {
+  const [name, setName] = useState(data.itemName);
+  const [price, setPrice] = useState(data.price);
+  const [promotionQuantity, setPromotionQuantity] = useState(data.quantity);
+  const [prQuantity, setPrQuantiy] = useState(data.prQuantity);
 
-  const handleName = (event) => {
-    setName(event.target.value);
+  const handleName = (text) => {
+    data.itemName = text;
+    setName(data.itemName);
   };
-  const handlePrice = (event) => {
-    setPrice(event.target.value);
+  const handlePrice = (text) => {
+    data.price = text;
+    setPrice(data.price);
   };
-  const handlePromotionQuantity = (event) => {
-    setPromotionQuantity(event.target.value);
+  const handlePromotionQuantity = (text) => {
+    data.quantity = text;
+    setPromotionQuantity(data.quantity);
   };
-  const handlePrQuantity = (event) => {
-    setPrQuantiy(event.target.value);
+  const handlePrQuantity = (text) => {
+    data.prQuantity = text;
+    setPrQuantiy(data.prQuantity);
   };
 
   return (
-    <Container key={index}>
-      <TextInput onChange={handleName} value={name} placeholder="제품명" />
-      <TextInput onChange={handlePrice} value={price} placeholder="판매가격" />
+    <Container>
       <TextInput
-        onChange={handlePromotionQuantity}
-        value={promotionQuantity}
-        placeholder="행사수량"
+        onChangeText={(text) => handleName(text)}
+        value={name}
+        placeholder={data.itemName}
       />
       <TextInput
-        onChange={handlePrQuantity}
+        onChangeText={(text) => handlePrice(text)}
+        value={price}
+        placeholder={data.price}
+      />
+      <TextInput
+        onChangeText={(text) => handlePromotionQuantity(text)}
+        value={promotionQuantity}
+        placeholder={data.quantity}
+      />
+      <TextInput
+        onChangeText={(text) => handlePrQuantity(text)}
         value={prQuantity}
-        placeholder="PR수량"
+        placeholder={data.prQuantity}
       />
     </Container>
   );

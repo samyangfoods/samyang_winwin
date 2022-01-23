@@ -8,31 +8,39 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Item from "../components/Item";
 
-const mockApi = [
-  {
-    id: 1,
-    image: winwin,
-    description: "",
-  },
-  {
-    id: 2,
-    image: winwin,
-    description: "",
-  },
-  {
-    id: 3,
-    image: winwin,
-    description: "",
-  },
-  {
-    id: 4,
-    image: winwin,
-    description: "",
-  },
-];
+// 행사 데이터를 이 페이지에서 받아옴.
+// 컨텍스트 API 설계 필요.
+
+const mockApi = {
+  id: 1,
+  image: [winwin, winwin, winwin, winwin],
+  description: [
+    {
+      index: 1,
+      itemName: "삼양라면",
+      price: "1000",
+      quantity: "100",
+      prQuantity: "100",
+    },
+    {
+      index: 2,
+      itemName: "불닭볶음면",
+      price: "10000",
+      quantity: "10",
+      prQuantity: "10",
+    },
+    {
+      index: 3,
+      itemName: "과자",
+      price: "10",
+      quantity: "100",
+      prQuantity: "10",
+    },
+  ],
+};
 
 const PromotionDetail = () => {
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState(mockApi.description);
   const [ref, setRef] = useState(null);
 
   // Asking Camera Access , Android
@@ -55,13 +63,21 @@ const PromotionDetail = () => {
   };
 
   const addItemArray = () => {
-    const index = Date.now();
-    setItem([...item, { id: item.length, index }]);
+    setItem([
+      ...item,
+      {
+        index: Date.now(),
+        itemName: "제품명",
+        price: "판매가격",
+        quantity: "행사수량",
+        prQuantity: "PR수량",
+      },
+    ]);
   };
 
-  useEffect(() => {
-    addItemArray();
-  }, []);
+  const onSubmit = () => {
+    console.log(item);
+  };
 
   return (
     <Container
@@ -73,9 +89,9 @@ const PromotionDetail = () => {
     >
       <ImageContainer>
         <Swiper showsButtons={false}>
-          {mockApi.map((info) => (
-            <SwiperImage key={info.id}>
-              <Image source={info.image} />
+          {mockApi.image.map((data) => (
+            <SwiperImage key={mockApi.id}>
+              <Image source={data} />
             </SwiperImage>
           ))}
         </Swiper>
@@ -100,7 +116,12 @@ const PromotionDetail = () => {
         <TextInput placeholder="나이스마트 수성점" />
         <Category>
           <CategoryBtn>
-            <MaterialCommunityIcons name="file-table" size={15} color="black" />
+            <MaterialCommunityIcons
+              onPress={onSubmit}
+              name="file-table"
+              size={15}
+              color="black"
+            />
           </CategoryBtn>
           <CategoryText>전단행사</CategoryText>
         </Category>
@@ -121,7 +142,7 @@ const PromotionDetail = () => {
         <Detail>
           <Text>행사 내역</Text>
           {item.map((data) => (
-            <Item key={data.id} index={data.index} />
+            <Item key={data.index} data={data} />
           ))}
         </Detail>
         <ItemPlusBtnContainer>
