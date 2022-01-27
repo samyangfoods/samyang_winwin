@@ -1,8 +1,8 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "../views/Main";
-import PromotionDetail from "../views/PromotionDetail";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import PromotionCreate from "../views/PromotionCreate";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +20,17 @@ const Stack = () => {
         options={{
           tabBarIcon: ({ color, size }) => {
             return <FontAwesome name="bell" size={size} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="행사등록"
+        component={PromotionCreate}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons name="tune" size={size} color={color} />
+            );
           },
         }}
       />

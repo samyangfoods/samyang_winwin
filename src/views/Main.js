@@ -6,10 +6,10 @@ import sample from "../assets/sample.png";
 import picture from "../assets/picture.jpg";
 import Promotion from "../components/Promotion";
 
-// storeName or superMarketName
+// storeName // superMarketName
 // start_date / end_date or startDate / endDate
 // userid or userId
-// 천일상사를 위한 데이터 필요
+
 const mockApi = [
   {
     id: Date.now(),
