@@ -23,21 +23,6 @@ const Stack = () => {
           },
         }}
       />
-      <Tab.Screen
-        name="Promotion Detail"
-        component={PromotionDetail}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return (
-              <MaterialCommunityIcons
-                name="tune-vertical"
-                size={size}
-                color={color}
-              />
-            );
-          },
-        }}
-      />
     </Tab.Navigator>
   );
 };

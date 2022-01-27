@@ -11,39 +11,9 @@ import * as ImagePicker from "expo-image-picker";
 // 행사 데이터를 이 페이지에서 받아옴.
 // 컨텍스트 API 설계 필요.
 
-const mockApi = {
-  id: Date.now(),
-  storeName: "우주마트 태양점",
-  category: "엔드행사",
-  image: [winwin, winwin, winwin, winwin],
-  startDate: "2022-01-01T05:39:47.675Z",
-  endDate: "2022-01-30T05:39:47.675Z",
-  description: [
-    {
-      index: 1,
-      itemName: "삼양라면",
-      price: "1000",
-      quantity: "100",
-      prQuantity: "100",
-    },
-    {
-      index: 2,
-      itemName: "불닭볶음면",
-      price: "10000",
-      quantity: "10",
-      prQuantity: "10",
-    },
-    {
-      index: 3,
-      itemName: "과자",
-      price: "10",
-      quantity: "100",
-      prQuantity: "10",
-    },
-  ],
-};
+const PromotionDetail = ({ route, navigation }) => {
+  const mockApi = route.params.promotionData[0];
 
-const PromotionDetail = () => {
   // Promotion Item from Database to Hooks
   const [item, setItem] = useState(mockApi.description);
 
@@ -189,7 +159,7 @@ const PromotionDetail = () => {
         </ImageUpload>
         {/* Placeholder should contain store name from DB. */}
         <Category>
-          <TextInput placeholder={mockApi.storeName} />
+          <TextInput placeholder={mockApi.superMarketName} />
           <StyledPicker
             item={pickedData}
             items={data}
@@ -233,7 +203,7 @@ const PromotionDetail = () => {
           <Text style={{ color: "#fff" }}>수정하기</Text>
         </FooterBtn>
         <FooterBtn
-          onPress={removeProtmotion}
+          onPress={() => navigation.goBack()}
           style={{ backgroundColor: "#B4B4B4" }}
         >
           <Text style={{ color: "#fff" }}>삭제하기</Text>
@@ -278,6 +248,7 @@ const BtnContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15%;
 `;
 const ImageUpload = styled.View`
   flex-direction: row;
