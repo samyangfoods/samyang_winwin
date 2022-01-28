@@ -116,14 +116,17 @@ const mockApi = [
   },
 ];
 
-const Main = ({ navigation }) => {
+const Main = ({ navigation, route }) => {
   // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
-
   return (
     <Container>
       <Top>
-        <Search searchText={searchText} setSearchText={setSearchText} />
+        <Search
+          route={route}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       </Top>
       <Bottom>
         {mockApi.map((data) => (
@@ -140,17 +143,11 @@ const Container = styled.View`
   flex: 1;
   padding: 0 5%;
 `;
-
 const Top = styled.View`
   flex: 1;
-  align-items: center;
   z-index: 100;
-  background-color: #fff;
 `;
 const Bottom = styled.ScrollView`
   flex: 10;
-`;
-
-const Text = styled.Text`
-  font-size: 16px;
+  margin-top: 8%;
 `;

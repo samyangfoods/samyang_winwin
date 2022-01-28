@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text } from "react-native";
 import { Axios } from "react-native-axios";
 import styled from "styled-components/native";

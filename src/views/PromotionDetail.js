@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import winwin from "../assets/winwin.png";
-import { AntDesign } from "@expo/vector-icons";
 import Calender from "../components/Calender";
 import Category from "../components/Category";
 import ImageAccess from "../components/ImageAccess";
@@ -33,7 +32,7 @@ const PromotionDetail = ({ route, navigation }) => {
   const [dateEnd, setDateEnd] = useState(new Date(mockApi.endDate));
 
   // Access User's Photo Album
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(mockApi.image);
 
   // Add Textinput, Submit and Remove
   const addItemArray = () => {
@@ -61,6 +60,7 @@ const PromotionDetail = ({ route, navigation }) => {
   };
   const removeProtmotion = async () => {
     // Push promotion ID to DB, and DB will delete data through the given ID.
+    // Confirmation Process would be good.
     console.log(mockApi.id);
   };
 

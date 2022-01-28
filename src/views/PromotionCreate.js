@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import Search from "../components/Search";
-import { AntDesign } from "@expo/vector-icons";
 import Calender from "../components/Calender";
 import Category from "../components/Category";
 import ImageAccess from "../components/ImageAccess";
 import ItemArray from "../components/ItemArray";
 
-const PromotionCreate = () => {
+const PromotionCreate = ({ route }) => {
   // Promotion Item from Database to Hooks
   const [item, setItem] = useState([
     {
@@ -18,7 +17,6 @@ const PromotionCreate = () => {
       prQuantity: "PR수량",
     },
   ]);
-
   // Ref Variable to help auto scroll
   const [ref, setRef] = useState(null);
 
@@ -33,7 +31,7 @@ const PromotionCreate = () => {
   const [dateEnd, setDateEnd] = useState(new Date());
 
   // Access User's Photo Album
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
 
   // Add Textinput, Submit and Remove
   const addItemArray = () => {
@@ -63,7 +61,11 @@ const PromotionCreate = () => {
   return (
     <Container>
       <Top>
-        <Search searchText={searchText} setSearchText={setSearchText} />
+        <Search
+          route={route}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       </Top>
 
       <Bottom
@@ -153,7 +155,7 @@ const Top = styled.View`
 `;
 const Bottom = styled.ScrollView`
   flex: 10;
-  margin-top: 3%;
+  margin-top: 8%;
 `;
 const StoreInfo = styled.View`
   flex-direction: row;
