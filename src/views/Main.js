@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import Search from "../components/Search";
 import winwin from "../assets/winwin.png";
@@ -117,10 +117,13 @@ const mockApi = [
 ];
 
 const Main = ({ navigation }) => {
+  // Send Text Variable to Search Component
+  const [searchText, setSearchText] = useState(null);
+
   return (
     <Container>
       <Top>
-        <Search />
+        <Search searchText={searchText} setSearchText={setSearchText} />
       </Top>
       <Bottom>
         {mockApi.map((data) => (
@@ -141,6 +144,8 @@ const Container = styled.View`
 const Top = styled.View`
   flex: 1;
   align-items: center;
+  z-index: 100;
+  background-color: #fff;
 `;
 const Bottom = styled.ScrollView`
   flex: 10;

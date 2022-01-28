@@ -2,12 +2,30 @@ import React from "react";
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 
-function Search() {
+function Search({ searchText, setSearchText }) {
+  const handleText = (txt) => {
+    setSearchText(txt);
+  };
+
+  const handleSearch = () => {
+    console.log(searchText);
+  };
+
   return (
     <Container>
-      <Input placeholder="검색" autoCapitalize="none" />
+      <Input
+        placeholder="검색"
+        autoCapitalize="none"
+        onChangeText={(text) => handleText(text)}
+        value={searchText}
+      />
       <Btn>
-        <FontAwesome name="search" size={20} color="white" />
+        <FontAwesome
+          onPress={handleSearch}
+          name="search"
+          size={20}
+          color="white"
+        />
       </Btn>
     </Container>
   );
@@ -18,6 +36,9 @@ export default Search;
 const Container = styled.View`
   flex-direction: row;
   align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 3%;
 `;
 
 const Input = styled.TextInput`

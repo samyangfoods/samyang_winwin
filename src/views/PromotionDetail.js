@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import winwin from "../assets/winwin.png";
 import { AntDesign } from "@expo/vector-icons";
-import Item from "../components/Item";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "react-native-woodpicker";
-import * as ImagePicker from "expo-image-picker";
-
-// 행사 데이터를 이 페이지에서 받아옴.
-// 컨텍스트 API 설계 필요.
+import Calender from "../components/Calender";
+import Category from "../components/Category";
+import ImageAccess from "../components/ImageAccess";
+import ItemArray from "../components/ItemArray";
 
 const PromotionDetail = ({ route, navigation }) => {
   const mockApi = route.params.promotionData[0];
@@ -28,72 +25,15 @@ const PromotionDetail = ({ route, navigation }) => {
       ? { label: "엔드행사", value: 2 }
       : { label: "기타행사", value: 3 }
   );
-  const data = [
-    { label: "전단행사", value: 1 },
-    { label: "엔드행사", value: 2 },
-    { label: "기타행사", value: 3 },
-  ];
 
   // Setting Promotion Start Date
   const [dateStart, setDateStart] = useState(new Date(mockApi.startDate));
-  const [modeStart, setModeStart] = useState("date");
-  const [showStart, setShowStart] = useState(false);
 
   // Setting Promotion End Date
   const [dateEnd, setDateEnd] = useState(new Date(mockApi.endDate));
-  const [modeEnd, setModeEnd] = useState("date");
-  const [showEnd, setShowEnd] = useState(false);
 
   // Access User's Photo Album
   const [image, setImage] = useState(null);
-  const accessAlbum = async () => {
-    // No permissions are necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
-  // Functions for Setting Start Date
-  const showDatepickerStart = () => {
-    setShowStart(true);
-    setModeStart("date");
-  };
-  const onChangeStart = (event, selectedDate) => {
-    const currentDate = selectedDate || dateStart;
-    setDateStart(currentDate);
-    setShowStart(false);
-  };
-  const convertDateStart = () => {
-    const year = dateStart.getFullYear();
-    const month = dateStart.getMonth() + 1;
-    const date = dateStart.getDate();
-
-    return `${year}년 ${month}월 ${date}일`;
-  };
-
-  // Functions for Setting End Date
-  const showDatepickerEnd = () => {
-    setShowEnd(true);
-    setModeEnd("date");
-  };
-  const onChangeEnd = (event, selectedDate) => {
-    const currentDate = selectedDate || dateEnd;
-    setDateEnd(currentDate);
-    setShowEnd(false);
-  };
-  const convertDateEnd = () => {
-    const year = dateEnd.getFullYear();
-    const month = dateEnd.getMonth() + 1;
-    const date = dateEnd.getDate();
-
-    return `${year}년 ${month}월 ${date}일`;
-  };
 
   // Add Textinput, Submit and Remove
   const addItemArray = () => {
@@ -124,14 +64,18 @@ const PromotionDetail = ({ route, navigation }) => {
     console.log(mockApi.id);
   };
 
+  useEffect(() => {
+    ref?.scrollTo({ y: -100, animated: false });
+  }, []);
+
   return (
     <Container
       ref={(ref) => setRef(ref)}
       onContentSizeChange={() => {
-        // Optional chain is essential.....
         ref?.scrollToEnd({ animated: true });
       }}
     >
+      {/* Image Swiper */}
       <ImageContainer>
         <Swiper showsButtons={false}>
           {mockApi.image.map((data) => (
@@ -141,60 +85,43 @@ const PromotionDetail = ({ route, navigation }) => {
           ))}
         </Swiper>
       </ImageContainer>
+
+      {/* Containers for information change */}
       <RevisionContainer>
+        {/* Image */}
         <Text>이미지 등록</Text>
-        <ImageUpload>
-          <Btn onPress={accessAlbum}>
-            <Text>이미지 1</Text>
-          </Btn>
-          <Btn onPress={accessAlbum}>
-            <Text>이미지 2</Text>
-          </Btn>
-          <Btn onPress={accessAlbum}>
-            <Text>이미지 3</Text>
-          </Btn>
-          <Btn onPress={accessAlbum}>
-            <Text>이미지 4</Text>
-          </Btn>
-        </ImageUpload>
-        {/* Placeholder should contain store name from DB. */}
-        <Category>
+        <ImageAccess image={image} setImage={setImage} />
+
+        {/* Protmotion Type */}
+        <PromotionCategory>
           <TextInput placeholder={mockApi.superMarketName} />
-          <StyledPicker
-            item={pickedData}
-            items={data}
-            onItemChange={setPickedData}
-            title="행사 종류"
-            placeholder="행사 종류를 선택하세요"
-            textInputStyle={{ textAlign: "center" }}
-          />
-        </Category>
+          <Category pickedData={pickedData} setPickedData={setPickedData} />
+        </PromotionCategory>
+
+        {/* Duration */}
         <Duration>
           <Start>
             <Text>시작일</Text>
-            <DateBtn onPress={showDatepickerStart}>
-              <DateText>{convertDateStart()}</DateText>
-            </DateBtn>
+            <Calender date={dateStart} setDate={setDateStart} />
           </Start>
           <End>
             <Text>종료일</Text>
-            <DateBtn onPress={showDatepickerEnd}>
-              <DateText>{convertDateEnd()}</DateText>
-            </DateBtn>
+            <Calender date={dateEnd} setDate={setDateEnd} />
           </End>
         </Duration>
+
+        {/* Item Detail */}
         <Detail>
           <Text>행사 내역</Text>
-          {item.map((data) => (
-            <Item key={data.index} data={data} />
-          ))}
+          <ItemArray
+            item={item}
+            setItem={setItem}
+            addItemArray={addItemArray}
+          />
         </Detail>
-        <ItemPlusBtnContainer>
-          <ItemPlusBtn onPress={addItemArray}>
-            <AntDesign name="pluscircle" size={36} color="#FF7D0D" />
-          </ItemPlusBtn>
-        </ItemPlusBtnContainer>
       </RevisionContainer>
+
+      {/* Submit and Remove Button Container */}
       <BtnContainer>
         <FooterBtn
           onPress={submitPromotionChanged}
@@ -209,25 +136,6 @@ const PromotionDetail = ({ route, navigation }) => {
           <Text style={{ color: "#fff" }}>삭제하기</Text>
         </FooterBtn>
       </BtnContainer>
-      {/* Start Date Modal  */}
-      {showStart && (
-        <DateTimePicker
-          testID="dateTimePickerStart"
-          value={dateStart}
-          mode={modeStart}
-          onChange={onChangeStart}
-        />
-      )}
-
-      {/* End Date Modal  */}
-      {showEnd && (
-        <DateTimePicker
-          testID="dateTimePickerEnd"
-          value={dateEnd}
-          mode={modeEnd}
-          onChange={onChangeEnd}
-        />
-      )}
     </Container>
   );
 };
@@ -250,10 +158,6 @@ const BtnContainer = styled.View`
   justify-content: center;
   margin-bottom: 15%;
 `;
-const ImageUpload = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
 const SwiperImage = styled.View`
   flex: 1;
   justify-content: center;
@@ -263,23 +167,9 @@ const Text = styled.Text`
   color: #000;
   font-size: 18px;
 `;
-const DateText = styled(Text)`
-  color: #aaa;
-`;
 const Image = styled.Image`
   width: 100%;
   height: 100%;
-`;
-const Btn = styled.TouchableOpacity`
-  margin: 2% 0;
-  padding: 2%;
-  border: 1px solid black;
-  border-radius: 6px;
-`;
-const DateBtn = styled(Btn)`
-  align-items: center;
-  width: 80%;
-  border: 1px solid #aaa;
 `;
 const TextInput = styled.TextInput`
   background-color: #f8f8f8;
@@ -290,19 +180,13 @@ const TextInput = styled.TextInput`
   margin-right: 5%;
   text-align: center;
 `;
-const Category = styled.View`
+const PromotionCategory = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
   height: 50px;
   padding: 0 2%;
   margin: 3% 0;
-`;
-const StyledPicker = styled(Picker)`
-  width: 100px;
-  height: 100%;
-  border: 1px solid #000;
-  border-radius: 6px;
 `;
 const Duration = styled.View`
   flex-direction: row;
@@ -317,12 +201,6 @@ const End = styled(Start)``;
 const Detail = styled.View`
   margin-top: 3%;
 `;
-const ItemPlusBtnContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  margin: 5% 0 2% 0;
-`;
-const ItemPlusBtn = styled.TouchableOpacity``;
 const FooterBtn = styled.TouchableOpacity`
   border-radius: 6px;
   padding: 2% 13%;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 import { Axios } from "react-native-axios";
 import styled from "styled-components/native";
@@ -8,6 +8,7 @@ const Login = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [showing, setShowing] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleId = (text) => {
     setUserId(text);
@@ -16,10 +17,20 @@ const Login = ({ navigation }) => {
     setPassword(text);
   };
 
+  const checkUserLogin = () => {
+    if (isLoggedIn) {
+      navigation.navigate("Stack");
+    }
+  };
+
   // Send login data to BE to search user data matched.
   const submitUserInfo = async () => {
     await Axios.post("sampleApi", { id, password });
   };
+
+  useEffect(() => {
+    checkUserLogin();
+  }, []);
 
   return (
     <Container>
