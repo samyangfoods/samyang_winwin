@@ -13,9 +13,10 @@ import Promotion from "../components/Promotion";
 const mockApi = [
   {
     id: Date.now(),
+    clientName: "천일상사",
     superMarketName: "우주마트 태양점",
     category: "엔드행사",
-    image: [winwin, winwin, winwin, winwin],
+    image: [winwin, sample, picture],
     startDate: "2022-01-01T05:39:47.675Z",
     endDate: "2022-01-30T05:39:47.675Z",
     description: [
@@ -44,9 +45,10 @@ const mockApi = [
   },
   {
     id: Date.now() + 1,
+    clientName: "천일상사",
     superMarketName: "삼양마트 윈윈점",
     category: "전단행사",
-    image: [sample],
+    image: [sample, winwin],
     startDate: "2022-11-01T05:39:47.675Z",
     endDate: "2022-12-30T05:39:47.675Z",
     description: [
@@ -61,9 +63,10 @@ const mockApi = [
   },
   {
     id: Date.now() + 2,
+    clientName: "천일상사",
     superMarketName: "고기마트 식물점",
     category: "기타행사",
-    image: [picture, picture],
+    image: [picture, winwin],
     startDate: "2022-05-01T05:39:47.675Z",
     endDate: "2022-06-30T05:39:47.675Z",
     description: [
@@ -92,9 +95,10 @@ const mockApi = [
   },
   {
     id: Date.now() + 3,
+    clientName: "천일상사",
     superMarketName: "식물마트 고기점",
     category: "기타행사",
-    image: [picture, picture, picture, picture],
+    image: [sample, picture, winwin, picture],
     startDate: "2021-05-01T05:39:47.675Z",
     endDate: "2021-06-30T05:39:47.675Z",
     description: [

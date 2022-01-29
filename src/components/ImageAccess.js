@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -10,21 +10,40 @@ import * as ImagePicker from "expo-image-picker";
 // 현재 로직은 부족함 --> ex) "이미지 1" 을 두 번 터치할 경우 이미지가 각각 저장될 것으로 사료됨. 변경이나 삭제가 일어나지 않음.
 
 function ImageAccess({ image, setImage }) {
-  let image1 = image[0] ? image[0] : null;
-  let image2 = image[1] ? image[1] : null;
-  let image3 = image[2] ? image[2] : null;
-  let image4 = image[3] ? image[3] : null;
   let imageObj = [];
+  let image1 = {
+    index: 0,
+    uri: image[0] ? image[0] : null,
+  };
+  let image2 = {
+    index: 1,
+    uri: image[1] ? image[1] : null,
+  };
+  let image3 = {
+    index: 2,
+    uri: image[2] ? image[2] : null,
+  };
+  let image4 = {
+    index: 3,
+    uri: image[3] ? image[3] : null,
+  };
 
   const setImageObj = () => {
-    if (image1 !== null) imageObj.push(image1);
-    if (image2 !== null) imageObj.push(image2);
-    if (image3 !== null) imageObj.push(image3);
-    if (image4 !== null) imageObj.push(image4);
+    if (image1.uri !== null) imageObj.push(image1);
+    if (image2.uri !== null) imageObj.push(image2);
+    if (image3.uri !== null) imageObj.push(image3);
+    if (image4.uri !== null) imageObj.push(image4);
+  };
+
+  const handleArray = (index, uri) => {
+    console.log("imageObj✅✅✅✅✅", imageObj);
+    const newArr = imageObj.filter((res) => res.index !== index);
+    newArr.push({ index, uri });
+    console.log("newArr🔥🔥🔥", newArr);
+    setImage(newArr);
   };
 
   const accessAlbum = async (index) => {
-    // No permissions are necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -33,34 +52,14 @@ function ImageAccess({ image, setImage }) {
     });
     if (!result.cancelled) {
       switch (index) {
+        case 0:
+          return handleArray(0, result.uri);
         case 1:
-          let newArr1 = imageObj.filter((res) => res !== image1);
-          image1 = result.uri;
-          newArr1.push(image1);
-          imageObj = newArr1;
-          setImage(imageObj);
-          return console.log(index, imageObj);
+          return handleArray(1, result.uri);
         case 2:
-          let newArr2 = imageObj.filter((res) => res !== image2);
-          image2 = result.uri;
-          newArr2.push(image2);
-          imageObj = newArr2;
-          setImage(imageObj);
-          return console.log(index, imageObj);
+          return handleArray(2, result.uri);
         case 3:
-          let newArr3 = imageObj.filter((res) => res !== image3);
-          image3 = result.uri;
-          newArr3.push(image3);
-          imageObj = newArr3;
-          setImage(imageObj);
-          return console.log(index, imageObj);
-        case 4:
-          let newArr4 = imageObj.filter((res) => res !== image4);
-          image4 = result.uri;
-          newArr4.push(image4);
-          imageObj = newArr4;
-          setImage(imageObj);
-          return console.log(index, imageObj);
+          return handleArray(3, result.uri);
         default:
       }
     }
@@ -68,22 +67,43 @@ function ImageAccess({ image, setImage }) {
 
   useEffect(() => {
     setImageObj();
-  }, []);
+    // console.log("useEffect", imageObj);
+  });
 
   return (
     <Container>
       <HorizontalDiv>
-        <Btn onPress={() => accessAlbum(1)}>
-          <Text>{image1 ? image1.toString().slice(0, 5) : "이미지1"}</Text>
+        <Btn
+          onPress={() => accessAlbum(0)}
+          style={{
+            backgroundColor: image[0] ? "#aaa" : "null",
+          }}
+        >
+          <Text>{image[0] ? "등록완료" : image[0]}</Text>
         </Btn>
-        <Btn onPress={() => accessAlbum(2)}>
-          <Text>{image2 ? image2.toString().slice(0, 5) : "이미지2"}</Text>
+        <Btn
+          onPress={() => accessAlbum(1)}
+          style={{
+            backgroundColor: image[1] ? "#aaa" : "null",
+          }}
+        >
+          <Text>{image[1] ? "등록완료" : image[1]}</Text>
         </Btn>
-        <Btn onPress={() => accessAlbum(3)}>
-          <Text>{image3 ? image3.toString().slice(0, 5) : "이미지3"}</Text>
+        <Btn
+          onPress={() => accessAlbum(2)}
+          style={{
+            backgroundColor: image[2] ? "#aaa" : "null",
+          }}
+        >
+          <Text>{image[2] ? "등록완료" : imageObj[2]}</Text>
         </Btn>
-        <Btn onPress={() => accessAlbum(4)}>
-          <Text>{image4 ? image4.toString().slice(0, 5) : "이미지4"}</Text>
+        <Btn
+          onPress={() => accessAlbum(3)}
+          style={{
+            backgroundColor: image[3] ? "#aaa" : "null",
+          }}
+        >
+          <Text>{image[3] ? "등록완료" : imageObj[3]}</Text>
         </Btn>
       </HorizontalDiv>
     </Container>
