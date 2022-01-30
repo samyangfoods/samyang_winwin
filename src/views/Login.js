@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text } from "react-native";
-import { Axios } from "react-native-axios";
 import styled from "styled-components/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Axios } from "react-native-axios";
 import { Ionicons } from "@expo/vector-icons";
+import logo from "../assets/logo.png";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [showing, setShowing] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleId = (text) => {
     setUserId(text);
@@ -25,8 +25,11 @@ const Login = ({ navigation }) => {
   };
 
   // Send login data to BE to search user data matched.
+  // BE will verify user info and issue a token.
+  // FE will receive the token and save it to user's localstorage.
   const submitUserInfo = async () => {
-    await Axios.post("sampleApi", { id, password });
+    navigation.navigate("Stack");
+    // await Axios.post("sampleApi", { id, password });
   };
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const Login = ({ navigation }) => {
 
   return (
     <Container>
-      <Text style={{ fontSize: 25, marginBottom: 80 }}>삼양 로고</Text>
+      <Image source={logo} />
       <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
       <Input
         placeholder="아이디"
@@ -59,7 +62,7 @@ const Login = ({ navigation }) => {
           )}
         </PasswordIcon>
       </PasswordContainer>
-      <LoginBtn onPress={() => navigation.navigate("Stack")}>
+      <LoginBtn onPress={submitUserInfo}>
         <BtnText>로그인</BtnText>
       </LoginBtn>
       <CreateBtn onPress={() => navigation.navigate("Register")}>
@@ -114,3 +117,8 @@ const PasswordIcon = styled.TouchableOpacity`
   right: 0;
   margin-right: 1%;
 `;
+const Image = styled.Image`
+  width: 200px;
+  height: 100px;
+`;
+const Text = styled.Text``;

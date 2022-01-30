@@ -3,8 +3,8 @@ import styled from "styled-components/native";
 import Search from "../components/Search";
 import Calender from "../components/Calender";
 import Category from "../components/Category";
-import ImageAccess from "../components/ImageAccess";
-import ItemArray from "../components/ItemArray";
+import ImageAccess from "../components/images/ImageAccess";
+import ItemArray from "../components/items/ItemArray";
 
 const PromotionCreate = ({ route }) => {
   // Promotion Item from Database to Hooks

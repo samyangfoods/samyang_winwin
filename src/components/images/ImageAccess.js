@@ -30,7 +30,6 @@ function ImageAccess({ image, setImage }) {
   const handleArray = (index, uri) => {
     const newArr = imageObj.filter((res) => res !== image[index]);
     newArr.push(uri);
-    console.log("newArr After🔥", newArr);
     setImage(newArr);
   };
 

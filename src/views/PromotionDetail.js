@@ -4,8 +4,8 @@ import Swiper from "react-native-swiper";
 import winwin from "../assets/winwin.png";
 import Calender from "../components/Calender";
 import Category from "../components/Category";
-import ImageAccess from "../components/ImageAccess";
-import ItemArray from "../components/ItemArray";
+import ImageAccess from "../components/images/ImageAccess";
+import ItemArray from "../components/items/ItemArray";
 
 const PromotionDetail = ({ route, navigation }) => {
   const mockApi = route.params.promotionData[0];

@@ -1,17 +1,24 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "../views/Main";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import PromotionCreate from "../views/PromotionCreate";
+import { FontAwesome5 } from "@expo/vector-icons";
+import styled from "styled-components/native";
 
 const Tab = createBottomTabNavigator();
 
-const Stack = () => {
+const Stack = ({ route, navigation }) => {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: "#FF7D0D",
         tabBarShowLabel: false,
+        headerRight: () => (
+          <Btn onPress={() => navigation.navigate("사용자 정보")}>
+            <FontAwesome5 name="user-alt" size={24} color="#aaa" />
+          </Btn>
+        ),
       }}
     >
       <Tab.Screen
@@ -39,3 +46,7 @@ const Stack = () => {
 };
 
 export default Stack;
+
+const Btn = styled.TouchableOpacity`
+  padding-right: 10%;
+`;

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Text } from "react-native";
 import { Axios } from "react-native-axios";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
+import logo from "../assets/logo.png";
+import Address from "./Address";
+import { AntDesign } from "@expo/vector-icons";
 
 const Register = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
@@ -15,6 +17,7 @@ const Register = ({ navigation }) => {
   const [address, setAddress] = useState(null);
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const handleUserId = (text) => {
     setUserId(text);
@@ -59,7 +62,8 @@ const Register = ({ navigation }) => {
 
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <Text style={{ fontSize: 30, marginBottom: 40 }}>회 원 가 입</Text>
+      <Image source={logo} />
+      <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
       <Input
         placeholder="아이디"
         value={userId}
@@ -100,7 +104,7 @@ const Register = ({ navigation }) => {
         </PasswordIcon>
       </PasswordContainer>
 
-      <HorizontalContainer>
+      <HorizontalDiv>
         <InputShort
           placeholder="채널"
           value={channel}
@@ -114,8 +118,9 @@ const Register = ({ navigation }) => {
           // autoCapitalize="none"
           onChangeText={(text) => handleStoreName(text)}
         />
-      </HorizontalContainer>
-      <HorizontalContainer>
+      </HorizontalDiv>
+
+      <HorizontalDiv>
         <InputShort
           placeholder="전화번호"
           value={phoneNumber}
@@ -129,23 +134,37 @@ const Register = ({ navigation }) => {
           autoCapitalize="none"
           onChangeText={(text) => handleUserImage(text)}
         />
-      </HorizontalContainer>
+      </HorizontalDiv>
 
-      <Input
-        placeholder="주소"
-        value={address}
-        autoCapitalize="none"
-        onChangeText={(text) => handleAddress(text)}
-      />
+      {/* Load Address component with modal shape, not using navigate. */}
+      <Btn onPress={() => setModal(true)}>
+        <Text>{address ? address.roadAddress : "주소 검색"}</Text>
+      </Btn>
 
       {/* Need to add the terms of use */}
 
       <LoginBtn>
         <BtnText onPress={submitUserInformation}>가입 신청하기</BtnText>
       </LoginBtn>
+
       <CreateBtn onPress={() => navigation.goBack()}>
         <CreateText>뒤로가기</CreateText>
       </CreateBtn>
+
+      {modal && (
+        <AddressContainer>
+          <BtnAddressContainer>
+            <BtnAddress onPress={() => setModal(false)}>
+              <AntDesign name="close" size={30} color="black" />
+            </BtnAddress>
+          </BtnAddressContainer>
+          <Address
+            setAddress={setAddress}
+            address={address}
+            setModal={setModal}
+          />
+        </AddressContainer>
+      )}
     </Container>
   );
 };
@@ -161,7 +180,7 @@ const Input = styled.TextInput`
   width: 300px;
   border: 1px solid #eee;
   padding: 3% 5%;
-  margin: 3% 0;
+  margin: 0 0 3% 0;
 `;
 const InputShort = styled(Input)`
   width: 140px;
@@ -176,12 +195,11 @@ const LoginBtn = styled.TouchableOpacity`
   margin-top: 10%;
   border-radius: 7px;
 `;
-
 const PasswordContainer = styled.View`
   flex-direction: row;
   align-items: center;
 `;
-
+const Text = styled.Text``;
 const BtnText = styled.Text`
   font-weight: 900;
   color: #fff;
@@ -200,9 +218,35 @@ const PasswordIcon = styled.TouchableOpacity`
   right: 0;
   margin-right: 1%;
 `;
-
-const HorizontalContainer = styled.View`
+const HorizontalDiv = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 300px;
+`;
+const Image = styled.Image`
+  width: 200px;
+  height: 100px;
+`;
+const Btn = styled.TouchableOpacity`
+  width: 300px;
+  border: 1px solid #eee;
+  padding: 3% 5%;
+  margin: 0 0 3% 0;
+`;
+
+const AddressContainer = styled.View`
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+`;
+const BtnAddress = styled.TouchableOpacity`
+  margin: 7% 3% 0 0;
+`;
+
+const BtnAddressContainer = styled.View`
+  align-items: flex-end;
 `;
