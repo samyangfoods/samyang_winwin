@@ -5,36 +5,37 @@ import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import winwin from "../../assets/winwin.png";
 
-const MarketInput = () => {
+const MarketInfoChange = ({ navigation, route }) => {
+  const mockApi = route.params.marketData[0];
   const [modal, setModal] = useState(false);
-  const [address, setAddress] = useState(null);
-  const [image, setImage] = useState(null);
+  const [address, setAddress] = useState(mockApi.address);
+  const [image, setImage] = useState(mockApi.image);
 
   return (
     <Container>
       <MarketInputForm>
         <Text>소매점명</Text>
-        <TextInput placeholder="소매점명을 입력하세요" />
+        <TextInput placeholder={mockApi.superMarketName} />
 
         <HorizontalDiv>
           <VerticalDiv>
             <Text>평수</Text>
-            <TextInput placeholder="평수를 입력하세요" />
+            <TextInput placeholder={mockApi.size} />
           </VerticalDiv>
           <VerticalDiv>
             <Text>POS 수</Text>
-            <TextInput placeholder="POS 수량을 입력하세요" />
+            <TextInput placeholder={mockApi.pos} />
           </VerticalDiv>
         </HorizontalDiv>
 
         <HorizontalDiv>
           <VerticalDiv>
             <Text>전화번호</Text>
-            <TextInput placeholder="'-' 없이 입력하세요" />
+            <TextInput placeholder={mockApi.phoneNumber} />
           </VerticalDiv>
           <VerticalDiv>
             <Text>월 평균 매출</Text>
-            <TextInput placeholder="월 평균 매출을 입력하세요" />
+            <TextInput placeholder={mockApi.average} />
           </VerticalDiv>
         </HorizontalDiv>
 
@@ -51,13 +52,24 @@ const MarketInput = () => {
 
         <Text>이미지 등록</Text>
         <ImageUpload
-          placeholder={image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"}
+          placeholder={
+            mockApi.image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
+          }
           image={image}
           setImage={setImage}
         />
-        <LoginBtn>
-          <BtnText>등록하기</BtnText>
-        </LoginBtn>
+        {/* Submit and Remove Button Container */}
+        <BtnContainer>
+          <FooterBtn style={{ backgroundColor: "#FF7D0D" }}>
+            <Text style={{ color: "#fff" }}>수정하기</Text>
+          </FooterBtn>
+          <FooterBtn
+            onPress={() => navigation.goBack()}
+            style={{ backgroundColor: "#B4B4B4" }}
+          >
+            <Text style={{ color: "#fff" }}>삭제하기</Text>
+          </FooterBtn>
+        </BtnContainer>
       </MarketInputForm>
 
       {modal && (
@@ -74,7 +86,7 @@ const MarketInput = () => {
   );
 };
 
-export default MarketInput;
+export default MarketInfoChange;
 
 const Container = styled.ScrollView`
   width: 100%;
@@ -128,16 +140,16 @@ const Image = styled.Image`
   width: 250px;
   height: 250px;
 `;
-const LoginBtn = styled.TouchableOpacity`
-  display: flex;
+
+const FooterBtn = styled.TouchableOpacity`
+  border-radius: 6px;
+  padding: 2% 13%;
+  margin: 3% 2%;
+`;
+
+const BtnContainer = styled.View`
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #ff7d0d;
-  padding: 3% 0;
-  margin-top: 10%;
-  border-radius: 7px;
-`;
-const BtnText = styled.Text`
-  font-weight: 900;
-  color: #fff;
+  margin-bottom: 15%;
 `;

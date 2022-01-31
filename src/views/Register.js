@@ -40,9 +40,6 @@ const Register = ({ navigation }) => {
   const handleUserImage = (text) => {
     setUserImage(text);
   };
-  const handleAddress = (text) => {
-    setAddress(text);
-  };
 
   const submitUserInformation = async () => {
     const userObj = {
@@ -136,7 +133,6 @@ const Register = ({ navigation }) => {
         />
       </HorizontalDiv>
 
-      {/* Load Address component with modal shape, not using navigate. */}
       <Btn onPress={() => setModal(true)}>
         <Text>{address ? address.roadAddress : "주소 검색"}</Text>
       </Btn>
@@ -158,11 +154,7 @@ const Register = ({ navigation }) => {
               <AntDesign name="close" size={30} color="black" />
             </BtnAddress>
           </BtnAddressContainer>
-          <Address
-            setAddress={setAddress}
-            address={address}
-            setModal={setModal}
-          />
+          <Address setAddress={setAddress} setModal={setModal} />
         </AddressContainer>
       )}
     </Container>
@@ -233,12 +225,9 @@ const Btn = styled.TouchableOpacity`
   padding: 3% 5%;
   margin: 0 0 3% 0;
 `;
-
 const AddressContainer = styled.View`
   flex-direction: column;
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-color: #fff;

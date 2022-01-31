@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 
-function UserInfo() {
+const Profile = () => {
   return (
     <Container>
       <Top></Top>
@@ -12,9 +12,9 @@ function UserInfo() {
       </Bottom>
     </Container>
   );
-}
+};
 
-export default UserInfo;
+export default Profile;
 
 const Container = styled.SafeAreaView`
   justify-content: center;

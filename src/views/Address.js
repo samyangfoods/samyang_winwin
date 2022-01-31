@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import Postcode from "@actbase/react-daum-postcode";
 
-function Address({ setAddress, address, setModal }) {
+function Address({ setAddress, setModal }) {
   return (
     <Container>
       <StyledPostcode

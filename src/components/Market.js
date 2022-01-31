@@ -1,68 +1,43 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
 
-const Promotion = ({ data, navigation }) => {
-  const endDate = new Date(data.endDate);
-  const today = new Date();
-
+const Market = ({ data, navigation }) => {
   return (
     <Container>
       <Top>
-        <TopLeft>
-          <Ionicons name="location-sharp" size={20} color="#ff7d0d" />
-          <Text>{data.clientName}</Text>
-        </TopLeft>
         <TypeText
           style={{
-            backgroundColor:
-              endDate.getTime() > today.getTime()
-                ? data.category === "전단행사"
-                  ? "#ff7d0d"
-                  : data.category === "엔드행사"
-                  ? "#217AFF"
-                  : "green"
-                : "gray",
+            backgroundColor: "#ff7d0d",
           }}
         >
-          {data.category}
+          {data.budget}
         </TypeText>
       </Top>
 
       <Middle>
         <StoreInformation>
           <StoreInfoLeft>
-            <Image source={data.image[0]} />
+            <Image source={data.image} />
           </StoreInfoLeft>
 
           <StoreInfoRight>
             <Title>{data.superMarketName}</Title>
             <Duration>
               <StartDate>
-                <Text>시작일</Text>
-                <DateText>{data.startDate.slice(0, 10)}</DateText>
+                <DateText>평수 : {data.size}</DateText>
               </StartDate>
               <EndDate>
-                <Text>종료일</Text>
-                <DateText>{data.endDate.slice(0, 10)}</DateText>
+                <DateText>POS : {data.pos}</DateText>
               </EndDate>
             </Duration>
           </StoreInfoRight>
         </StoreInformation>
-
-        <ProtmotionDetail>
-          {data.description.map((res) => (
-            <Text key={res.index}>{res.itemName}</Text>
-          ))}
-        </ProtmotionDetail>
       </Middle>
 
       <Bottom>
         <RouteBtn
           onPress={() =>
-            navigation.navigate("행사상세", {
-              promotionData: [data],
-            })
+            navigation.navigate("소매점 수정하기", { marketData: [data] })
           }
         >
           <DetailText>상세보기 →</DetailText>
@@ -72,7 +47,7 @@ const Promotion = ({ data, navigation }) => {
   );
 };
 
-export default Promotion;
+export default Market;
 
 const Container = styled.View`
   margin: 2% 0;
@@ -83,10 +58,7 @@ const Container = styled.View`
 const Top = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-`;
-const TopLeft = styled.View`
-  flex-direction: row;
+  justify-content: flex-end;
 `;
 const Middle = styled.View``;
 const Bottom = styled.View`
@@ -114,10 +86,6 @@ const StartDate = styled.View`
   justify-content: center;
 `;
 const EndDate = styled(StartDate)``;
-const ProtmotionDetail = styled.View`
-  flex-direction: row;
-  padding: 3% 5%;
-`;
 const Title = styled.Text`
   font-size: 18px;
   padding-left: 3%;

@@ -3,8 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Modal from "./Modal";
 import Stack from "./Stack";
 import PromotionDetail from "../views/PromotionDetail";
-import UserInfo from "../views/UserInfo";
-import Address from "../views/Address";
+import Profile from "../views/Profile";
 
 const Nav = createNativeStackNavigator();
 
@@ -20,15 +19,7 @@ const Root = () => (
     />
     <Nav.Screen
       name="사용자 정보"
-      component={UserInfo}
-      options={{
-        headerShown: true,
-        presentation: "modal",
-      }}
-    />
-    <Nav.Screen
-      name="주소 검색"
-      component={Address}
+      component={Profile}
       options={{
         headerShown: true,
         presentation: "modal",

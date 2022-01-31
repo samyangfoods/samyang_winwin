@@ -78,7 +78,7 @@ const PromotionCreate = ({ route }) => {
         <Text>소매점명</Text>
         <TextInput placeholder="매점명을 입력하세요." />
 
-        <StoreInfo>
+        <HorizontalDiv>
           <VerticalDiv>
             <Text>주소</Text>
             <ShortInput placeholder="주소" />
@@ -87,7 +87,7 @@ const PromotionCreate = ({ route }) => {
             <Text>POS 수량</Text>
             <ShortInput placeholder="POS 수량" />
           </VerticalDiv>
-        </StoreInfo>
+        </HorizontalDiv>
 
         {/* Images */}
         <ImageContainer>
@@ -157,15 +157,6 @@ const Bottom = styled.ScrollView`
   flex: 10;
   margin-top: 8%;
 `;
-const StoreInfo = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin: 3% 0;
-`;
-const ImageContainer = styled(StoreInfo)`
-  flex-direction: column;
-`;
 const VerticalDiv = styled.View`
   flex-direction: column;
   width: 50%;
@@ -177,6 +168,9 @@ const HorizontalDiv = styled.View`
 `;
 const Text = styled.Text`
   font-size: 16px;
+`;
+const ImageContainer = styled(HorizontalDiv)`
+  flex-direction: column;
 `;
 const TextInput = styled.TextInput`
   padding: 2%;
