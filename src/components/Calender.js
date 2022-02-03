@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateText, DateBtn } from "../styles/Component";
+import { BasicContainer } from "../styles/Style";
 
 function Calender({ date, setDate }) {
   const [mode, setMode] = useState("date");
@@ -21,7 +22,7 @@ function Calender({ date, setDate }) {
   };
 
   return (
-    <Container>
+    <BasicContainer>
       <DateBtn onPress={showDatepicker}>
         <DateText>{`${year}년 ${month}월 ${date_}일`}</DateText>
       </DateBtn>
@@ -35,28 +36,8 @@ function Calender({ date, setDate }) {
           onChange={onChange}
         />
       )}
-    </Container>
+    </BasicContainer>
   );
 }
 
 export default Calender;
-
-const Container = styled.View``;
-
-const Text = styled.Text`
-  font-size: 16px;
-`;
-const DateText = styled(Text)`
-  color: #aaa;
-`;
-const Btn = styled.TouchableOpacity`
-  margin: 2% 0;
-  padding: 2%;
-  border: 1px solid black;
-  border-radius: 6px;
-`;
-const DateBtn = styled(Btn)`
-  align-items: center;
-  width: 80%;
-  border: 1px solid #aaa;
-`;

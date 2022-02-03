@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Axios } from "react-native-axios";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../assets/logo.png";
+import { Text } from "../styles/Style";
+import {
+  Container,
+  Image,
+  Input,
+  LoginBtn,
+  PasswordContainer,
+  BtnText,
+  CreateBtn,
+  CreateText,
+  PasswordIcon,
+} from "../styles/Auth";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
@@ -42,7 +53,7 @@ const Login = ({ navigation }) => {
       <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
       <Input
         placeholder="아이디"
-        onChange={handleId}
+        onChangeText={(text) => handleId(text)}
         value={userId}
         autoCapitalize="none"
       />
@@ -73,52 +84,3 @@ const Login = ({ navigation }) => {
 };
 
 export default Login;
-
-const Container = styled.View`
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
-const Input = styled.TextInput`
-  width: 300px;
-  border: 1px solid #eee;
-  padding: 3% 5%;
-  margin: 3% 0;
-`;
-const LoginBtn = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ff7d0d;
-  width: 300px;
-  padding: 3% 0;
-  margin-top: 10%;
-  border-radius: 7px;
-`;
-const PasswordContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-const BtnText = styled.Text`
-  font-weight: 900;
-  color: #fff;
-`;
-const CreateBtn = styled(LoginBtn)`
-  border: 1px solid #d3cdcd;
-  padding: 3% 0;
-  margin-top: 8%;
-  background-color: #fff;
-`;
-const CreateText = styled(BtnText)`
-  color: #d3cdcd;
-`;
-const PasswordIcon = styled.TouchableOpacity`
-  position: absolute;
-  right: 0;
-  margin-right: 1%;
-`;
-const Image = styled.Image`
-  width: 200px;
-  height: 100px;
-`;
-const Text = styled.Text``;

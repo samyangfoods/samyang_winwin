@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Search from "../components/Search";
 import winwin from "../assets/winwin.png";
 import sample from "../assets/sample.png";
 import picture from "../assets/picture.jpg";
 import Promotion from "../components/Promotion";
+import { MainContainer, Top, Bottom } from "../styles/Lounge";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
@@ -124,7 +124,7 @@ const Main = ({ navigation, route }) => {
   // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
   return (
-    <Container>
+    <MainContainer>
       <Top>
         <Search
           route={route}
@@ -137,21 +137,8 @@ const Main = ({ navigation, route }) => {
           <Promotion navigation={navigation} key={data.id} data={data} />
         ))}
       </Bottom>
-    </Container>
+    </MainContainer>
   );
 };
 
 export default Main;
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 5%;
-`;
-const Top = styled.View`
-  flex: 1;
-  z-index: 100;
-`;
-const Bottom = styled.ScrollView`
-  flex: 10;
-  margin-top: 8%;
-`;

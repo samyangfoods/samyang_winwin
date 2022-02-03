@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import styled from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
 import ImageAddButton from "./ImageAddButton";
+import { BasicContainer } from "../../styles/Style";
+import { HorizontalDiv } from "../../styles/Component";
 
 // 2022-01-28 현재 개략적인 프레임만 작성 완료. ✅
 // 이미지가 각각 Hooks 에 담길 수 있도록 image 변수를 세분화 해야 함. ✅
@@ -60,23 +61,15 @@ function ImageAccess({ image, setImage }) {
   }, [imageObj]);
 
   return (
-    <Container>
+    <BasicContainer>
       <HorizontalDiv>
         <ImageAddButton index={0} image={image} accessAlbum={accessAlbum} />
         <ImageAddButton index={1} image={image} accessAlbum={accessAlbum} />
         <ImageAddButton index={2} image={image} accessAlbum={accessAlbum} />
         <ImageAddButton index={3} image={image} accessAlbum={accessAlbum} />
       </HorizontalDiv>
-    </Container>
+    </BasicContainer>
   );
 }
 
 export default ImageAccess;
-
-const Container = styled.View``;
-
-const HorizontalDiv = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 3% 0;
-`;

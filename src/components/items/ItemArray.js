@@ -1,11 +1,12 @@
 import React from "react";
-import styled from "styled-components/native";
 import Item from "./Item";
 import { AntDesign } from "@expo/vector-icons";
+import { BasicContainer } from "../../styles/Style";
+import { ItemPlusBtnContainer, ItemPlusBtn } from "../../styles/Component";
 
-function ItemArray({ item, setItem, addItemArray }) {
+function ItemArray({ item, addItemArray }) {
   return (
-    <Container>
+    <BasicContainer>
       {item.map((data) => (
         <Item key={data.index} data={data} />
       ))}
@@ -15,17 +16,8 @@ function ItemArray({ item, setItem, addItemArray }) {
           <AntDesign name="pluscircle" size={36} color="#FF7D0D" />
         </ItemPlusBtn>
       </ItemPlusBtnContainer>
-    </Container>
+    </BasicContainer>
   );
 }
 
 export default ItemArray;
-
-const Container = styled.View``;
-
-const ItemPlusBtnContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  margin: 5% 0 2% 0;
-`;
-const ItemPlusBtn = styled.TouchableOpacity``;

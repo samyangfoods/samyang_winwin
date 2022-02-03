@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Search from "../../components/Search";
 import winwin from "../../assets/winwin.png";
 import sample from "../../assets/sample.png";
 import picture from "../../assets/picture.jpg";
 import Market from "../../components/Market";
+import { MainContainer, Top, Bottom } from "../../styles/Lounge";
 
 const mockApi = [
   {
@@ -27,9 +27,9 @@ const mockApi = [
     budget: "100만원",
     size: "70",
     pos: "3",
-    phoneNumber: "01099995555",
-    average: "300만원",
-    address: { roadAddress: "우리은하 태양계 지구" },
+    phoneNumber: "1234",
+    average: "100만원",
+    address: { roadAddress: "캘리포니아 오렌지 카운티" },
   },
   {
     id: Date.now() + 2,
@@ -39,18 +39,17 @@ const mockApi = [
     budget: "50만원",
     size: "100",
     pos: "2",
-    phoneNumber: "01099995555",
-    average: "300만원",
-    address: { roadAddress: "우리은하 태양계 지구" },
+    phoneNumber: "가나다라",
+    average: "3000000000만원",
+    address: { roadAddress: "베를린시 독일 마을" },
   },
 ];
 
 const MarketList = ({ navigation, route }) => {
-  // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
 
   return (
-    <Container>
+    <MainContainer>
       <Top>
         <Search
           route={route}
@@ -63,21 +62,8 @@ const MarketList = ({ navigation, route }) => {
           <Market navigation={navigation} key={data.id} data={data} />
         ))}
       </Bottom>
-    </Container>
+    </MainContainer>
   );
 };
 
 export default MarketList;
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 5%;
-`;
-const Top = styled.View`
-  flex: 1;
-  z-index: 100;
-`;
-const Bottom = styled.ScrollView`
-  flex: 10;
-  margin-top: 8%;
-`;

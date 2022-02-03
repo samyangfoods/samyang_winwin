@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import Search from "../components/Search";
-import Calender from "../components/Calender";
-import Category from "../components/Category";
-import ImageAccess from "../components/images/ImageAccess";
-import ItemArray from "../components/items/ItemArray";
+import Search from "../../components/Search";
+import Calender from "../../components/Calender";
+import Category from "../../components/Category";
+import ImageAccess from "../../components/images/ImageAccess";
+import ItemArray from "../../components/items/ItemArray";
+import { Text } from "../../styles/Style";
+import {
+  ProtmotionCreateContainer,
+  Top,
+  Bottom,
+  VerticalDiv,
+  HorizontalDiv,
+  ImageContainer,
+  TextInput,
+  ShortInput,
+  Detail,
+  BtnContainer,
+  FooterBtn,
+} from "../../styles/PromotionStyle";
 
 const PromotionCreate = ({ route }) => {
   // Promotion Item from Database to Hooks
@@ -59,7 +73,7 @@ const PromotionCreate = ({ route }) => {
   };
 
   return (
-    <Container>
+    <ProtmotionCreateContainer>
       <Top>
         <Search
           route={route}
@@ -137,64 +151,8 @@ const PromotionCreate = ({ route }) => {
           <Text style={{ color: "#fff" }}>등록하기</Text>
         </FooterBtn>
       </BtnContainer>
-    </Container>
+    </ProtmotionCreateContainer>
   );
 };
 
 export default PromotionCreate;
-
-const Container = styled.View`
-  flex: 1;
-  padding: 0 5%;
-`;
-const Top = styled.View`
-  flex: 1;
-  align-items: center;
-  padding: 0.5% 0;
-  z-index: 100;
-`;
-const Bottom = styled.ScrollView`
-  flex: 10;
-  margin-top: 8%;
-`;
-const VerticalDiv = styled.View`
-  flex-direction: column;
-  width: 50%;
-`;
-const HorizontalDiv = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 3% 0;
-`;
-const Text = styled.Text`
-  font-size: 16px;
-`;
-const ImageContainer = styled(HorizontalDiv)`
-  flex-direction: column;
-`;
-const TextInput = styled.TextInput`
-  padding: 2%;
-  margin: 1% 0;
-  text-align: center;
-  border: 1px solid #eee;
-  border-radius: 6px;
-`;
-const ShortInput = styled(TextInput)`
-  width: 100%;
-`;
-const Detail = styled.View`
-  margin-top: 3%;
-`;
-const BtnContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 3% 0;
-`;
-const FooterBtn = styled.TouchableOpacity`
-  align-items: center;
-  width: 80%;
-  padding: 2% 13%;
-  margin: 3% 2%;
-  border-radius: 6px;
-`;

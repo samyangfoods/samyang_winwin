@@ -1,41 +1,85 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import winwin from "../../assets/winwin.png";
+import { BasicContainer, Text } from "../../styles/Style";
+import {
+  MarketInputForm,
+  VerticalDiv,
+  HorizontalDiv,
+  TextInput,
+  Btn,
+  AddressContainer,
+  BtnAddress,
+  BtnAddressContainer,
+  ThumbnailContainer,
+  Image,
+  FooterBtn,
+  BtnContainer,
+} from "../../styles/MarketDetail";
 
 const MarketInfoChange = ({ navigation, route }) => {
   const mockApi = route.params.marketData[0];
   const [modal, setModal] = useState(false);
   const [address, setAddress] = useState(mockApi.address);
   const [image, setImage] = useState(mockApi.image);
+  const [marketName, setMarketName] = useState(mockApi.superMarketName);
+  const [size, setSize] = useState(mockApi.size);
+  const [pos, setPos] = useState(mockApi.pos);
+  const [phoneNumber, setPhoneNumber] = useState(mockApi.phoneNumber);
+  const [income, setIncome] = useState(mockApi.average);
+
+  const handleName = (text) => {
+    setMarketName(text);
+  };
+  const handleSize = (text) => {
+    setSize(text);
+  };
+  const handlePos = (text) => {
+    setPos(text);
+  };
+  const handlePhoneNumber = (text) => {
+    setPhoneNumber(text);
+  };
+  const handleIncome = (text) => {
+    setIncome(text);
+  };
 
   return (
-    <Container>
+    <BasicContainer>
       <MarketInputForm>
         <Text>소매점명</Text>
-        <TextInput placeholder={mockApi.superMarketName} />
+        <TextInput
+          onChangeText={(text) => handleName(text)}
+          value={marketName}
+        />
 
         <HorizontalDiv>
           <VerticalDiv>
             <Text>평수</Text>
-            <TextInput placeholder={mockApi.size} />
+            <TextInput onChangeText={(text) => handleSize(text)} value={size} />
           </VerticalDiv>
           <VerticalDiv>
             <Text>POS 수</Text>
-            <TextInput placeholder={mockApi.pos} />
+            <TextInput onChangeText={(text) => handlePos(text)} value={pos} />
           </VerticalDiv>
         </HorizontalDiv>
 
         <HorizontalDiv>
           <VerticalDiv>
             <Text>전화번호</Text>
-            <TextInput placeholder={mockApi.phoneNumber} />
+            <TextInput
+              onChangeText={(text) => handlePhoneNumber(text)}
+              value={phoneNumber}
+            />
           </VerticalDiv>
           <VerticalDiv>
             <Text>월 평균 매출</Text>
-            <TextInput placeholder={mockApi.average} />
+            <TextInput
+              onChangeText={(text) => handleIncome(text)}
+              value={income}
+            />
           </VerticalDiv>
         </HorizontalDiv>
 
@@ -82,74 +126,8 @@ const MarketInfoChange = ({ navigation, route }) => {
           <Address setAddress={setAddress} setModal={setModal} />
         </AddressContainer>
       )}
-    </Container>
+    </BasicContainer>
   );
 };
 
 export default MarketInfoChange;
-
-const Container = styled.ScrollView`
-  width: 100%;
-  height: 100%;
-`;
-const MarketInputForm = styled(Container)`
-  padding: 5%;
-`;
-const VerticalDiv = styled.View`
-  flex-direction: column;
-  width: 50%;
-`;
-const HorizontalDiv = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 3% 0;
-`;
-const Text = styled.Text`
-  font-size: 16px;
-  padding-bottom: 3%;
-`;
-const TextInput = styled.TextInput`
-  padding: 2%;
-  margin: 1% 0;
-  text-align: center;
-  border: 1px solid #eee;
-  border-radius: 6px;
-`;
-const Btn = styled.TouchableOpacity`
-  border: 1px solid #eee;
-  padding: 3% 5%;
-  margin: 0 0 3% 0;
-`;
-const AddressContainer = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-`;
-const BtnAddress = styled.TouchableOpacity`
-  margin: 7% 3% 0 0;
-`;
-const BtnAddressContainer = styled.View`
-  align-items: flex-end;
-`;
-const ThumbnailContainer = styled.View`
-  align-items: center;
-  margin: 3% 0;
-`;
-const Image = styled.Image`
-  width: 250px;
-  height: 250px;
-`;
-
-const FooterBtn = styled.TouchableOpacity`
-  border-radius: 6px;
-  padding: 2% 13%;
-  margin: 3% 2%;
-`;
-
-const BtnContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15%;
-`;

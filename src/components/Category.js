@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components/native";
-import { Picker } from "react-native-woodpicker";
+import { BasicContainer } from "../styles/Style";
+import { StyledPicker } from "../styles/Component";
 
 function Category({ pickedData, setPickedData }) {
   const category = [
@@ -10,7 +10,7 @@ function Category({ pickedData, setPickedData }) {
   ];
 
   return (
-    <Container>
+    <BasicContainer>
       <StyledPicker
         item={pickedData}
         items={category}
@@ -19,17 +19,8 @@ function Category({ pickedData, setPickedData }) {
         placeholder="행사 종류를 선택하세요"
         textInputStyle={{ textAlign: "center" }}
       />
-    </Container>
+    </BasicContainer>
   );
 }
 
 export default Category;
-
-const Container = styled.View``;
-
-const StyledPicker = styled(Picker)`
-  height: 40px;
-  border: 1px solid #000;
-  border-radius: 6px;
-  padding: 0 2%;
-`;

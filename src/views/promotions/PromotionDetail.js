@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
-import winwin from "../assets/winwin.png";
-import Calender from "../components/Calender";
-import Category from "../components/Category";
-import ImageAccess from "../components/images/ImageAccess";
-import ItemArray from "../components/items/ItemArray";
+import winwin from "../../assets/winwin.png";
+import Calender from "../../components/Calender";
+import Category from "../../components/Category";
+import ImageAccess from "../../components/images/ImageAccess";
+import ItemArray from "../../components/items/ItemArray";
+import {
+  PromotionDetailContainer,
+  RevisionContainer,
+  SwiperContainer,
+  BtnContainer,
+  SwiperImage,
+  BtnText,
+  MarketName,
+  Image,
+  PromotionCategory,
+  Duration,
+  Start,
+  End,
+  PromotionDetailFooterBtn,
+  Detail,
+} from "../../styles/PromotionStyle";
+import { Text } from "../../styles/Style";
 
 const PromotionDetail = ({ route, navigation }) => {
   const mockApi = route.params.promotionData[0];
@@ -69,14 +85,14 @@ const PromotionDetail = ({ route, navigation }) => {
   }, []);
 
   return (
-    <Container
+    <PromotionDetailContainer
       ref={(ref) => setRef(ref)}
       onContentSizeChange={() => {
         ref?.scrollToEnd({ animated: true });
       }}
     >
       {/* Image Swiper */}
-      <ImageContainer>
+      <SwiperContainer>
         <Swiper showsButtons={false}>
           {mockApi.image.map((data) => (
             <SwiperImage key={mockApi.id}>
@@ -84,7 +100,7 @@ const PromotionDetail = ({ route, navigation }) => {
             </SwiperImage>
           ))}
         </Swiper>
-      </ImageContainer>
+      </SwiperContainer>
 
       {/* Containers for information change */}
       <RevisionContainer>
@@ -94,7 +110,7 @@ const PromotionDetail = ({ route, navigation }) => {
 
         {/* Protmotion Type */}
         <PromotionCategory>
-          <TextInput placeholder={mockApi.superMarketName} />
+          <MarketName placeholder={mockApi.superMarketName} />
           <Category pickedData={pickedData} setPickedData={setPickedData} />
         </PromotionCategory>
 
@@ -123,86 +139,21 @@ const PromotionDetail = ({ route, navigation }) => {
 
       {/* Submit and Remove Button Container */}
       <BtnContainer>
-        <FooterBtn
+        <PromotionDetailFooterBtn
           onPress={submitPromotionChanged}
           style={{ backgroundColor: "#FF7D0D" }}
         >
-          <Text style={{ color: "#fff" }}>수정하기</Text>
-        </FooterBtn>
-        <FooterBtn
+          <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
+        </PromotionDetailFooterBtn>
+        <PromotionDetailFooterBtn
           onPress={() => navigation.goBack()}
           style={{ backgroundColor: "#B4B4B4" }}
         >
-          <Text style={{ color: "#fff" }}>삭제하기</Text>
-        </FooterBtn>
+          <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>
+        </PromotionDetailFooterBtn>
       </BtnContainer>
-    </Container>
+    </PromotionDetailContainer>
   );
 };
 
 export default PromotionDetail;
-
-const Container = styled.ScrollView`
-  flex: 1;
-`;
-const ImageContainer = styled.View`
-  height: 220px;
-`;
-const RevisionContainer = styled.View`
-  padding: 0 3%;
-  margin-top: 3%;
-`;
-const BtnContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15%;
-`;
-const SwiperImage = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-const Text = styled.Text`
-  color: #000;
-  font-size: 18px;
-`;
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
-const TextInput = styled.TextInput`
-  background-color: #f8f8f8;
-  color: black;
-  width: 240px;
-  height: 50px;
-  padding: 0 2%;
-  margin-right: 5%;
-  text-align: center;
-`;
-const PromotionCategory = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  padding: 0 2%;
-  margin: 3% 0;
-`;
-const Duration = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const Start = styled.View`
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-`;
-const End = styled(Start)``;
-const Detail = styled.View`
-  margin-top: 3%;
-`;
-const FooterBtn = styled.TouchableOpacity`
-  border-radius: 6px;
-  padding: 2% 13%;
-  margin: 3% 2%;
-`;

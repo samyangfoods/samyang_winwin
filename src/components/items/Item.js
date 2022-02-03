@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
+import { ItemContainer, ItemInput } from "../../styles/Component";
 
 const Item = ({ data }) => {
   const [name, setName] = useState(data.itemName);
@@ -25,41 +25,29 @@ const Item = ({ data }) => {
   };
 
   return (
-    <Container>
-      <TextInput
+    <ItemContainer>
+      <ItemInput
         onChangeText={(text) => handleName(text)}
         value={name}
         placeholder={data.itemName}
       />
-      <TextInput
+      <ItemInput
         onChangeText={(text) => handlePrice(text)}
         value={price}
         placeholder={data.price}
       />
-      <TextInput
+      <ItemInput
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionQuantity}
         placeholder={data.quantity}
       />
-      <TextInput
+      <ItemInput
         onChangeText={(text) => handlePrQuantity(text)}
         value={prQuantity}
         placeholder={data.prQuantity}
       />
-    </Container>
+    </ItemContainer>
   );
 };
 
 export default Item;
-
-const Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 2%;
-`;
-const TextInput = styled.TextInput`
-  text-align: center;
-  border: 1px solid #eee;
-  width: 22%;
-  height: 35px;
-`;
