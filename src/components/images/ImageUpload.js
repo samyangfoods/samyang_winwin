@@ -15,6 +15,12 @@ const ImageAccess = ({ placeholder, setImage }) => {
       quality: 1,
     });
     if (!result.cancelled) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        console.log(reader.result);
+      };
+      reader.readAsDataURL(result.uri);
+
       setImage(result.uri);
     }
   };

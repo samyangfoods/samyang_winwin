@@ -92,7 +92,7 @@ const MarketInfoChange = ({ navigation, route }) => {
         Mock API does not handle this point. */}
         {image && (
           <ThumbnailContainer>
-            <Image source={winwin} />
+            <Image source={image === mockApi.image ? winwin : { uri: image }} />
           </ThumbnailContainer>
         )}
 

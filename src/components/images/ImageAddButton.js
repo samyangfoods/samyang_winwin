@@ -7,7 +7,6 @@ import {
 } from "../../styles/Component";
 
 const ImageAddButton = ({ index, image, accessAlbum }) => {
-  console.log("ImageAddButton", image[index]);
   return (
     <ImageAddButtonContainer>
       <ImageAddBtn
@@ -15,7 +14,11 @@ const ImageAddButton = ({ index, image, accessAlbum }) => {
         style={{ backgroundColor: image[index] ? "#aaa" : "null" }}
       >
         {image[index] ? (
-          <Thumbnail source={{ uri: image[index] }} />
+          <Thumbnail
+            source={
+              typeof image[index] === "number" ? null : { uri: image[index] }
+            }
+          />
         ) : (
           <ImageAddButtonTitle>
             {image[index]

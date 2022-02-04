@@ -97,9 +97,9 @@ const PromotionDetail = ({ route, navigation }) => {
       {/* Image Swiper */}
       <SwiperContainer>
         <Swiper showsButtons={false}>
-          {mockApi.image.map((data) => (
+          {image.map((data) => (
             <SwiperImage key={mockApi.id}>
-              <Image source={data} />
+              <Image source={data || { uri: data }} />
             </SwiperImage>
           ))}
         </Swiper>
