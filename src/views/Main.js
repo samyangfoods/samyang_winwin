@@ -18,7 +18,7 @@ const mockApi = [
     category: "엔드행사",
     image: [winwin, sample, picture],
     startDate: "2022-01-01T05:39:47.675Z",
-    endDate: "2022-01-30T05:39:47.675Z",
+    endDate: "2023-01-30T05:39:47.675Z",
     description: [
       {
         index: 1,
@@ -132,6 +132,7 @@ const Main = ({ navigation, route }) => {
           setSearchText={setSearchText}
         />
       </Top>
+
       <Bottom>
         {mockApi.map((data) => (
           <Promotion navigation={navigation} key={data.id} data={data} />

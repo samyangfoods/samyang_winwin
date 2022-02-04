@@ -1,5 +1,4 @@
 import React from "react";
-import winwin from "../../assets/winwin.png";
 import {
   ImageAddButtonContainer,
   ImageAddButtonTitle,
@@ -8,6 +7,7 @@ import {
 } from "../../styles/Component";
 
 const ImageAddButton = ({ index, image, accessAlbum }) => {
+  console.log("ImageAddButton", image[index]);
   return (
     <ImageAddButtonContainer>
       <ImageAddBtn
@@ -15,7 +15,7 @@ const ImageAddButton = ({ index, image, accessAlbum }) => {
         style={{ backgroundColor: image[index] ? "#aaa" : "null" }}
       >
         {image[index] ? (
-          <Thumbnail source={winwin} />
+          <Thumbnail source={{ uri: image[index] }} />
         ) : (
           <ImageAddButtonTitle>
             {image[index]

@@ -41,7 +41,14 @@ function ImageAccess({ image, setImage }) {
       aspect: [4, 3],
       quality: 1,
     });
+
     if (!result.cancelled) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        console.log(reader.result);
+      };
+      reader.readAsDataURL(result.uri);
+
       switch (index) {
         case 0:
           return handleArray(0, result.uri);

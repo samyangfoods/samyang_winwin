@@ -2,7 +2,6 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
-import winwin from "../../assets/winwin.png";
 import { BasicContainer, Text } from "../../styles/Style";
 import {
   MarketInputForm,
@@ -113,7 +112,7 @@ const MarketInput = () => {
 
         {image && (
           <ThumbnailContainer>
-            <Image source={winwin} />
+            <Image source={{ uri: image }} />
           </ThumbnailContainer>
         )}
 

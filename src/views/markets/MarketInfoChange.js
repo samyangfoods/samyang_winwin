@@ -88,6 +88,8 @@ const MarketInfoChange = ({ navigation, route }) => {
           <Text>{address ? address.roadAddress : "주소 검색"}</Text>
         </Btn>
 
+        {/* This page needs to convert photo url into proper types. 
+        Mock API does not handle this point. */}
         {image && (
           <ThumbnailContainer>
             <Image source={winwin} />
