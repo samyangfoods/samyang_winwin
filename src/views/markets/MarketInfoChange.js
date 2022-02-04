@@ -17,7 +17,7 @@ import {
   Image,
   FooterBtn,
   BtnContainer,
-} from "../../styles/MarketDetail";
+} from "../../styles/MarketStyle";
 
 const MarketInfoChange = ({ navigation, route }) => {
   const mockApi = route.params.marketData[0];

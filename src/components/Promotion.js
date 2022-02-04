@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   RouteBtn,
@@ -76,7 +75,9 @@ const Promotion = ({ data, navigation }) => {
 
           <ProtmotionDetail>
             {data.description.map((res) => (
-              <Text key={res.index}>{res.itemName}</Text>
+              <Text style={{ marginRight: 5 }} key={res.index}>
+                {res.itemName}
+              </Text>
             ))}
           </ProtmotionDetail>
         </PromotionBottom>

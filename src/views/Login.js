@@ -29,7 +29,9 @@ const Login = ({ navigation }) => {
     setPassword(text);
   };
 
-  const checkUserLogin = () => {
+  const checkUserLogin = async () => {
+    const userData = await AsyncStorage.getItem("userData");
+    setIsLoggedIn(Boolean(userData));
     if (isLoggedIn) {
       navigation.navigate("Stack");
     }
@@ -40,12 +42,15 @@ const Login = ({ navigation }) => {
   // FE will receive the token and save it to user's localstorage.
   const submitUserInfo = async () => {
     navigation.navigate("Stack");
-    // await Axios.post("sampleApi", { id, password });
+
+    // await Axios.post("sampleApi", { id, password }).then((res) =>
+    //   AsyncStorage.setItem("userData", res)
+    // );
   };
 
   useEffect(() => {
     checkUserLogin();
-  }, []);
+  });
 
   return (
     <Container>

@@ -20,6 +20,8 @@ import {
   End,
   PromotionDetailFooterBtn,
   Detail,
+  ItemCategory,
+  TextBox,
 } from "../../styles/PromotionStyle";
 import { Text } from "../../styles/Style";
 
@@ -63,6 +65,7 @@ const PromotionDetail = ({ route, navigation }) => {
       },
     ]);
   };
+
   const submitPromotionChanged = () => {
     const promotionObj = {
       id: 1,
@@ -129,6 +132,20 @@ const PromotionDetail = ({ route, navigation }) => {
         {/* Item Detail */}
         <Detail>
           <Text>행사 내역</Text>
+          <ItemCategory>
+            <TextBox>
+              <Text>제품명</Text>
+            </TextBox>
+            <TextBox>
+              <Text>가격</Text>
+            </TextBox>
+            <TextBox>
+              <Text>수량</Text>
+            </TextBox>
+            <TextBox>
+              <Text>PR수량</Text>
+            </TextBox>
+          </ItemCategory>
           <ItemArray
             item={item}
             setItem={setItem}

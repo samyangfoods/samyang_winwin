@@ -1,5 +1,4 @@
 // PromotionCreate, PromotionDetail
-
 import styled from "styled-components/native";
 import { Text } from "./Style";
 
@@ -28,6 +27,16 @@ export const MarketName = styled.TextInput`
   padding: 0 2%;
   margin-right: 5%;
   text-align: center;
+`;
+export const ItemCategory = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 2% 0 0 0;
+`;
+export const TextBox = styled.View`
+  align-items: center;
+  width: 22%;
 `;
 
 // PromotionCreate

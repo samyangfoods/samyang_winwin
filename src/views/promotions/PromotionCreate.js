@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Search from "../../components/Search";
 import Calender from "../../components/Calender";
 import Category from "../../components/Category";
@@ -18,6 +17,8 @@ import {
   Detail,
   BtnContainer,
   FooterBtn,
+  ItemCategory,
+  TextBox,
 } from "../../styles/PromotionStyle";
 
 const PromotionCreate = ({ route }) => {
@@ -135,6 +136,20 @@ const PromotionCreate = ({ route }) => {
 
         <Detail>
           <Text>행사 내역</Text>
+          <ItemCategory>
+            <TextBox>
+              <Text>제품명</Text>
+            </TextBox>
+            <TextBox>
+              <Text>가격</Text>
+            </TextBox>
+            <TextBox>
+              <Text>수량</Text>
+            </TextBox>
+            <TextBox>
+              <Text>PR수량</Text>
+            </TextBox>
+          </ItemCategory>
           <ItemArray
             item={item}
             setItem={setItem}

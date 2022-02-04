@@ -17,7 +17,7 @@ import {
   Image,
   LoginBtn,
   BtnText,
-} from "../../styles/MarketDetail";
+} from "../../styles/MarketStyle";
 
 const MarketInput = () => {
   const [modal, setModal] = useState(false);

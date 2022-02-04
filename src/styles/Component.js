@@ -1,6 +1,5 @@
 // Calender, Category, Search, Address, Item, ItemArray
 // ImageAccess, ImageAddButton, ImageUpload
-
 import styled from "styled-components/native";
 import { Text } from "./Style";
 import { Picker } from "react-native-woodpicker";
