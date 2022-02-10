@@ -1,5 +1,7 @@
 ### Samyang Winwin
 
+수정
+
 ## Description
 
 삼양 관리사원(이하 회사)과 대리점 고객(이하 고객) 간 데이터 관리를 위한 Web-view 형식의 어플리케이션입니다.
