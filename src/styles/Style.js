@@ -9,3 +9,5 @@ export const Text = styled.Text`
   font-size: 14px;
 `;
 export const BasicContainer = styled.View``;
+
+export const ScrollContainer = styled.ScrollView``;

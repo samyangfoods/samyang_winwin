@@ -9,7 +9,6 @@ export const MainContainer = styled.View`
 `;
 export const Top = styled.View`
   flex: 1;
-  z-index: 100;
 `;
 export const Bottom = styled.ScrollView`
   flex: 10;

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import winwin from "../../assets/winwin.png";
-import { BasicContainer, Text } from "../../styles/Style";
+import { ScrollContainer, Text } from "../../styles/Style";
 import {
   MarketInputForm,
   VerticalDiv,
@@ -47,7 +47,7 @@ const MarketInfoChange = ({ navigation, route }) => {
   };
 
   return (
-    <BasicContainer>
+    <ScrollContainer>
       <MarketInputForm>
         <Text>소매점명</Text>
         <TextInput
@@ -128,7 +128,7 @@ const MarketInfoChange = ({ navigation, route }) => {
           <Address setAddress={setAddress} setModal={setModal} />
         </AddressContainer>
       )}
-    </BasicContainer>
+    </ScrollContainer>
   );
 };
 

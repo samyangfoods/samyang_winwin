@@ -2,7 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
-import { BasicContainer, Text } from "../../styles/Style";
+import { ScrollContainer, Text } from "../../styles/Style";
 import {
   MarketInputForm,
   VerticalDiv,
@@ -58,7 +58,7 @@ const MarketInput = () => {
   };
 
   return (
-    <BasicContainer>
+    <ScrollContainer>
       <MarketInputForm>
         <Text>소매점명</Text>
         <TextInput
@@ -137,7 +137,7 @@ const MarketInput = () => {
           <Address setAddress={setAddress} setModal={setModal} />
         </AddressContainer>
       )}
-    </BasicContainer>
+    </ScrollContainer>
   );
 };
 
