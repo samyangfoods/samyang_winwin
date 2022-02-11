@@ -4,7 +4,8 @@ import winwin from "../../assets/winwin.png";
 import sample from "../../assets/sample.png";
 import picture from "../../assets/picture.jpg";
 import Market from "../../components/Market";
-import { MainContainer, Top, Bottom } from "../../styles/Lounge";
+import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
+import { AntDesign } from "@expo/vector-icons";
 
 const mockApi = [
   {
@@ -62,6 +63,9 @@ const MarketList = ({ navigation, route }) => {
           <Market navigation={navigation} key={data.id} data={data} />
         ))}
       </Bottom>
+      <PlusBtn onPress={() => navigation.navigate("소매점 등록")}>
+        <AntDesign name="plus" size={24} color="white" />
+      </PlusBtn>
     </MainContainer>
   );
 };

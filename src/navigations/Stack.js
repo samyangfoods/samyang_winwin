@@ -26,15 +26,7 @@ const Stack = ({ navigation }) => {
           },
         }}
       />
-      <Tab.Screen
-        name="사용자 정보"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <FontAwesome name="bell" size={size} color={color} />;
-          },
-        }}
-      />
+
       <Tab.Screen
         name="행사등록"
         component={PromotionCreate}
@@ -47,23 +39,12 @@ const Stack = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="소매점 목록"
-        component={MarketList}
+        name="사용자 정보"
+        component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => {
-            return <FontAwesome name="google" size={size} color={color} />;
+            return <FontAwesome name="user" size={size} color={color} />;
           },
-          headerRight: () => null,
-        }}
-      />
-      <Tab.Screen
-        name="소매점 등록"
-        component={MarketInput}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <FontAwesome name="commenting" size={size} color={color} />;
-          },
-          headerRight: () => null,
         }}
       />
     </Tab.Navigator>

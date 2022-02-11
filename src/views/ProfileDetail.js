@@ -8,7 +8,7 @@ const ProfileDetail = ({ navigation, route }) => {
   return (
     <Container>
       {mockApi.map((res) => (
-        <Text>{res}</Text>
+        <Text key={res}>{res}</Text>
       ))}
 
       <LoginBtn onPress={() => navigation.navigate("소매점 등록")}>
