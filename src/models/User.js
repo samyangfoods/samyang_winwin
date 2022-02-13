@@ -10,7 +10,7 @@ const UserSchema = mongoose.Schema(
     storeName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     userImage: { type: String, required: true },
-    address: {
+    userAddress: {
       warehouse: { type: String, required: true },
       lat: { type: String },
       lng: { type: String },
