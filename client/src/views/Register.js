@@ -58,6 +58,7 @@ const Register = ({ navigation }) => {
     setUserImage(text);
   };
 
+  // userName, role
   const submitUserInformation = async () => {
     const userObj = {
       userId,

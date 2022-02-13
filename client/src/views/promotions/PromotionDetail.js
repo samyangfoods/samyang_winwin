@@ -22,6 +22,7 @@ import {
   Detail,
   ItemCategory,
   TextBox,
+  HorizontalSeparator,
 } from "../../styles/PromotionStyle";
 import { Text } from "../../styles/Style";
 
@@ -146,6 +147,7 @@ const PromotionDetail = ({ route, navigation }) => {
               <Text>PR수량</Text>
             </TextBox>
           </ItemCategory>
+          <HorizontalSeparator />
           <ItemArray
             item={item}
             setItem={setItem}

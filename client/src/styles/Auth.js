@@ -70,7 +70,6 @@ export const Btn = styled.TouchableOpacity`
   margin: 0 0 3% 0;
 `;
 export const AddressContainer = styled.View`
-  flex-direction: column;
   position: absolute;
   width: 100%;
   height: 100%;

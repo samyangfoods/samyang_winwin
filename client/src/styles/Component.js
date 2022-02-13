@@ -1,7 +1,7 @@
 // Calender, Category, Search, Address, Item, ItemArray
 // ImageAccess, ImageAddButton, ImageUpload
 import styled from "styled-components/native";
-import { Text } from "./Style";
+import { BasicContainer, Text } from "./Style";
 import { Picker } from "react-native-woodpicker";
 import Postcode from "@actbase/react-daum-postcode";
 
@@ -19,19 +19,24 @@ export const HorizontalDiv = styled.View`
 `;
 
 // Calender
+export const CalenderContainer = styled(BasicContainer)`
+  width: 100%;
+`;
 export const DateText = styled(Text)`
   color: #aaa;
 `;
 export const DateBtn = styled(Btn)`
   align-items: center;
-  width: 80%;
-  border: 1px solid #aaa;
+  justify-content: center;
+  width: 100%;
+  height: 35px;
+  border: 1px solid #eee;
 `;
 
 // Category
 export const StyledPicker = styled(Picker)`
-  height: 40px;
-  border: 1px solid #000;
+  height: 36px;
+  border: 1px solid #eee;
   border-radius: 6px;
   padding: 0 2%;
 `;

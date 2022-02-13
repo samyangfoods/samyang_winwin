@@ -19,56 +19,72 @@ import {
   FooterBtn,
   ItemCategory,
   TextBox,
+  HorizontalSeparator,
 } from "../../styles/PromotionStyle";
+import Address from "../Address";
+import { Btn } from "../../styles/Auth";
 
 const PromotionCreate = ({ route }) => {
-  // Promotion Item from Database to Hooks
-  const [item, setItem] = useState([
-    {
-      index: Date.now(),
-      itemName: "제품명",
-      price: "판매가격",
-      quantity: "행사수량",
-      prQuantity: "PR수량",
-    },
-  ]);
-  // Ref Variable to help auto scroll
   const [ref, setRef] = useState(null);
-
-  // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
-
-  // Promotion Type Picker
-  const [pickedData, setPickedData] = useState();
-
-  // Setting Promotion Start / End Date
+  const [modal, setModal] = useState(false);
+  const [superMarketName, setSuperMarketName] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [pos, setPos] = useState(null);
+  const [image, setImage] = useState([]);
   const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(new Date());
+  const [promotionCost, setPromotionCost] = useState(null);
+  const [promotionType, setPromotionType] = useState({
+    label: "전단행사",
+    value: 1,
+  });
+  const [promotionDetail, setPromotionDetail] = useState([
+    {
+      index: Date.now(),
+      productName: "제품명",
+      price: "판매가격",
+      promotionValue: "행사수량",
+      prValue: "PR수량",
+    },
+  ]);
 
-  // Access User's Photo Album
-  const [image, setImage] = useState([]);
+  const handleSuperMarketName = (text) => {
+    setSuperMarketName(text);
+  };
+  const handlePos = (text) => {
+    setPos(text);
+  };
+  const handlePromotionCost = (text) => {
+    setPromotionCost(text);
+  };
 
-  // Add Textinput, Submit and Remove
   const addItemArray = () => {
-    setItem([
-      ...item,
+    setPromotionDetail([
+      ...promotionDetail,
       {
         index: Date.now(),
-        itemName: "제품명",
+        productName: "제품명",
         price: "판매가격",
-        quantity: "행사수량",
-        prQuantity: "PR수량",
+        promotionValue: "행사수량",
+        prValue: "PR수량",
       },
     ]);
+    ref?.scrollToEnd({ animated: true });
   };
   const submitPromotion = () => {
     const promotionObj = {
-      id: 1,
-      storeName: "우주마트 태양점",
-      image: [winwin, winwin, winwin, winwin],
+      id: Date.now(),
+      superMarketName,
+      address,
+      pos,
+      image,
       startDate: dateStart,
       endDate: dateEnd,
-      description: item,
+      promotionType,
+      promotionCost,
+      promotionDetail,
+      isLive: true,
     };
     console.log(promotionObj);
   };
@@ -83,44 +99,59 @@ const PromotionCreate = ({ route }) => {
         />
       </Top>
 
-      <Bottom
-        ref={(ref) => setRef(ref)}
-        onContentSizeChange={() => {
-          // Optional chain is essential.....
-          ref?.scrollToEnd({ animated: true });
-        }}
-      >
-        <Text>소매점명</Text>
-        <TextInput placeholder="매점명을 입력하세요." />
-
+      <Bottom ref={(ref) => setRef(ref)}>
+        {/* SuperMarket Name & Promotion Type */}
         <HorizontalDiv>
           <VerticalDiv>
-            <Text>주소</Text>
-            <ShortInput placeholder="주소" />
+            <Text>소매점명</Text>
+            <TextInput
+              placeholder="매점명을 입력하세요."
+              value={superMarketName}
+              onChangeText={(text) => handleSuperMarketName(text)}
+            />
           </VerticalDiv>
           <VerticalDiv>
-            <Text>POS 수량</Text>
-            <ShortInput placeholder="POS 수량" />
+            <Text>행사종류</Text>
+            <Category
+              pickedData={promotionType}
+              setPickedData={setPromotionType}
+            />
           </VerticalDiv>
         </HorizontalDiv>
+
+        {/* POS Quantity & Promotion Cost */}
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>POS 수량</Text>
+            <ShortInput
+              placeholder="POS 수량"
+              keyboardType="numeric"
+              value={pos}
+              onChangeText={(text) => handlePos(text)}
+            />
+          </VerticalDiv>
+          <VerticalDiv>
+            <Text>지원금액</Text>
+            <ShortInput
+              placeholder="지원금액"
+              keyboardType="numeric"
+              value={promotionCost}
+              onChangeText={(text) => handlePromotionCost(text)}
+            />
+          </VerticalDiv>
+        </HorizontalDiv>
+
+        {/* Address */}
+        <Text>주소</Text>
+        <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
+          <Text>{address?.roadAddress || "주소 입력"}</Text>
+        </Btn>
 
         {/* Images */}
         <ImageContainer>
           <Text>이미지 등록</Text>
           <ImageAccess image={image} setImage={setImage} />
         </ImageContainer>
-
-        {/* Category and Budget */}
-        <HorizontalDiv>
-          <VerticalDiv>
-            <Text>행사종류</Text>
-            <Category pickedData={pickedData} setPickedData={setPickedData} />
-          </VerticalDiv>
-          <VerticalDiv>
-            <Text>지원금액</Text>
-            <ShortInput placeholder="지원금액" />
-          </VerticalDiv>
-        </HorizontalDiv>
 
         {/* Duration */}
         <HorizontalDiv>
@@ -150,9 +181,10 @@ const PromotionCreate = ({ route }) => {
               <Text>PR수량</Text>
             </TextBox>
           </ItemCategory>
+          <HorizontalSeparator />
           <ItemArray
-            item={item}
-            setItem={setItem}
+            item={promotionDetail}
+            setItem={setPromotionDetail}
             addItemArray={addItemArray}
           />
         </Detail>
@@ -166,6 +198,9 @@ const PromotionCreate = ({ route }) => {
           <Text style={{ color: "#fff" }}>등록하기</Text>
         </FooterBtn>
       </BtnContainer>
+
+      {/* Address Modal Component */}
+      {modal && <Address setAddress={setAddress} setModal={setModal} />}
     </ProtmotionCreateContainer>
   );
 };
