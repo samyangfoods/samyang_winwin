@@ -14,7 +14,6 @@ export const HorizontalDiv = styled.View`
 `;
 export const TextInput = styled.TextInput`
   padding: 2%;
-  margin: 1% 0;
   text-align: center;
   border: 1px solid #eee;
   border-radius: 6px;
@@ -38,21 +37,26 @@ export const TextBox = styled.View`
   align-items: center;
   width: 22%;
 `;
+export const HorizontalSeparator = styled.View`
+  width: 100%;
+  height: 1px;
+  border: 1px solid #f2f2f2;
+  margin: 2% 0 0 0;
+`;
 
 // PromotionCreate
 export const ProtmotionCreateContainer = styled.View`
   flex: 1;
-  padding: 0 5%;
 `;
 export const Top = styled.View`
   flex: 1;
   align-items: center;
   padding: 0.5% 0;
-  z-index: 100;
 `;
 export const Bottom = styled.ScrollView`
   flex: 10;
   margin-top: 8%;
+  padding: 0 5%;
 `;
 export const ImageContainer = styled(HorizontalDiv)`
   flex-direction: column;

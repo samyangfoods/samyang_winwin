@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { ItemContainer, ItemInput } from "../../styles/Component";
 
 const Item = ({ data }) => {
-  const [name, setName] = useState(data.itemName);
+  const [productName, setProductName] = useState(data.productName);
   const [price, setPrice] = useState(data.price);
-  const [promotionQuantity, setPromotionQuantity] = useState(data.quantity);
-  const [prQuantity, setPrQuantiy] = useState(data.prQuantity);
+  const [promotionValue, setPromotionValue] = useState(data.promotionValue);
+  const [prValue, setPrValue] = useState(data.prValue);
 
   const handleName = (text) => {
     data.itemName = text;
-    setName(data.itemName);
+    setProductName(data.itemName);
   };
   const handlePrice = (text) => {
     data.price = text;
@@ -17,19 +17,19 @@ const Item = ({ data }) => {
   };
   const handlePromotionQuantity = (text) => {
     data.quantity = text;
-    setPromotionQuantity(data.quantity);
+    setPromotionValue(data.quantity);
   };
   const handlePrQuantity = (text) => {
     data.prQuantity = text;
-    setPrQuantiy(data.prQuantity);
+    setPrValue(data.prQuantity);
   };
 
   return (
     <ItemContainer>
       <ItemInput
         onChangeText={(text) => handleName(text)}
-        value={name}
-        placeholder={data.itemName}
+        value={productName}
+        placeholder={data.productName}
       />
       <ItemInput
         onChangeText={(text) => handlePrice(text)}
@@ -38,13 +38,13 @@ const Item = ({ data }) => {
       />
       <ItemInput
         onChangeText={(text) => handlePromotionQuantity(text)}
-        value={promotionQuantity}
-        placeholder={data.quantity}
+        value={promotionValue}
+        placeholder={data.promotionValue}
       />
       <ItemInput
         onChangeText={(text) => handlePrQuantity(text)}
-        value={prQuantity}
-        placeholder={data.prQuantity}
+        value={prValue}
+        placeholder={data.prValue}
       />
     </ItemContainer>
   );
