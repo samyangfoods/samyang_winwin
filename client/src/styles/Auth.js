@@ -6,6 +6,10 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   align-items: center;
   justify-content: center;
+  margin: 5% 0 15% 0;
+  height: 100%;
+`;
+export const ScrollView = styled.ScrollView`
   height: 100%;
 `;
 export const Image = styled.Image`
