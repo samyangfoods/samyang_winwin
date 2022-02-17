@@ -3,7 +3,6 @@
 import styled from "styled-components/native";
 import { BasicContainer, Text } from "./Style";
 import { Picker } from "react-native-woodpicker";
-import Postcode from "@actbase/react-daum-postcode";
 
 // Universal
 export const Btn = styled.TouchableOpacity`
@@ -68,12 +67,6 @@ export const AutoCompleteContainer = styled.View`
   padding: 0 5%;
   border: 1px solid #eee;
   background-color: #fff;
-`;
-
-// Address
-export const StyledPostcode = styled(Postcode)`
-  width: 100%;
-  height: 100%;
 `;
 
 // Item

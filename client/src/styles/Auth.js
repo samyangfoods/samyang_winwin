@@ -3,14 +3,18 @@
 import styled from "styled-components/native";
 
 // Universal
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   align-items: center;
   justify-content: center;
-  margin: 5% 0 15% 0;
   height: 100%;
 `;
+export const SubContainer = styled.View`
+  align-items: center;
+`;
+
 export const ScrollView = styled.ScrollView`
-  height: 100%;
+  width: 100%;
+  margin: 5% 0 10% 0;
 `;
 export const Image = styled.Image`
   width: 200px;
@@ -72,17 +76,4 @@ export const Btn = styled.TouchableOpacity`
   border: 1px solid #eee;
   padding: 3% 5%;
   margin: 0 0 3% 0;
-`;
-export const AddressContainer = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-`;
-export const BtnAddress = styled.TouchableOpacity`
-  margin: 7% 3% 0 0;
-`;
-
-export const BtnAddressContainer = styled.View`
-  align-items: flex-end;
 `;

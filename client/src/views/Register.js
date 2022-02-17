@@ -8,6 +8,7 @@ import { Text } from "../styles/Style";
 import {
   Container,
   ScrollView,
+  SubContainer,
   Image,
   Input,
   LoginBtn,
@@ -17,9 +18,6 @@ import {
   CreateText,
   PasswordIcon,
   Btn,
-  AddressContainer,
-  BtnAddress,
-  BtnAddressContainer,
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
 import * as ImagePicker from "expo-image-picker";
@@ -120,122 +118,126 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <ScrollView ref={(ref) => setRef(ref)}>
-      <Container>
-        <Image source={logo} />
-        <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
+    <Container>
+      <ScrollView ref={(ref) => setRef(ref)}>
+        <SubContainer>
+          <Image source={logo} />
+          <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
 
-        <Image
-          source={userImage ? { uri: userImage } : defaultUser}
-          style={{ width: 100, height: 100, borderRadius: 100 }}
-        />
+          <Image
+            source={userImage ? { uri: userImage } : defaultUser}
+            style={{ width: 100, height: 100, borderRadius: 100 }}
+          />
 
-        <AntDesign
-          name="camerao"
-          size={32}
-          color="black"
-          style={{ marginTop: 15, marginBottom: 10 }}
-          onPress={addUserImage}
-        />
+          <AntDesign
+            name="camerao"
+            size={32}
+            color="black"
+            style={{ marginTop: 15, marginBottom: 10 }}
+            onPress={addUserImage}
+          />
 
-        <Input
-          placeholder="아이디"
-          value={userId}
-          autoCapitalize="none"
-          onChangeText={(text) => handleUserId(text)}
-          ref={idRef}
-          onSubmitEditing={() => passwordRef.current?.focus()}
-          blurOnSubmit={false}
-        />
-        <PasswordContainer>
           <Input
-            placeholder="비밀번호"
-            secureTextEntry={showing ? false : true}
-            value={password}
+            placeholder="아이디"
+            value={userId}
             autoCapitalize="none"
-            onChangeText={(text) => handlePassword(text)}
-            ref={passwordRef}
-            onSubmitEditing={() => passwordConfirmationRef.current?.focus()}
+            onChangeText={(text) => handleUserId(text)}
+            ref={idRef}
+            onSubmitEditing={() => passwordRef.current?.focus()}
             blurOnSubmit={false}
           />
-          <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
-            {showing ? (
-              <Ionicons name="eye-off-outline" size={24} color="black" />
-            ) : (
-              <Ionicons name="eye-outline" size={24} color="black" />
-            )}
-          </PasswordIcon>
-        </PasswordContainer>
+          <PasswordContainer>
+            <Input
+              placeholder="비밀번호"
+              secureTextEntry={showing ? false : true}
+              value={password}
+              autoCapitalize="none"
+              onChangeText={(text) => handlePassword(text)}
+              ref={passwordRef}
+              onSubmitEditing={() => passwordConfirmationRef.current?.focus()}
+              blurOnSubmit={false}
+            />
+            <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
+              {showing ? (
+                <Ionicons name="eye-off-outline" size={24} color="black" />
+              ) : (
+                <Ionicons name="eye-outline" size={24} color="black" />
+              )}
+            </PasswordIcon>
+          </PasswordContainer>
 
-        <PasswordContainer>
+          <PasswordContainer>
+            <Input
+              placeholder="비밀번호 확인"
+              secureTextEntry={showingConfirmation ? false : true}
+              value={passwordConfirmation}
+              autoCapitalize="none"
+              onChangeText={(text) => handlePasswordConfirmation(text)}
+              ref={passwordConfirmationRef}
+              onSubmitEditing={() => channelRef.current?.focus()}
+              blurOnSubmit={false}
+            />
+            <PasswordIcon
+              onPress={() => setShowingConfirmation((prev) => !prev)}
+            >
+              {showingConfirmation ? (
+                <Ionicons name="eye-off-outline" size={24} color="black" />
+              ) : (
+                <Ionicons name="eye-outline" size={24} color="black" />
+              )}
+            </PasswordIcon>
+          </PasswordContainer>
+
           <Input
-            placeholder="비밀번호 확인"
-            secureTextEntry={showingConfirmation ? false : true}
-            value={passwordConfirmation}
+            placeholder="채널"
+            value={channel}
             autoCapitalize="none"
-            onChangeText={(text) => handlePasswordConfirmation(text)}
-            ref={passwordConfirmationRef}
-            onSubmitEditing={() => channelRef.current?.focus()}
+            onChangeText={(text) => handleChannel(text)}
+            keyboardType="numeric"
+            ref={channelRef}
+            onSubmitEditing={() => storeNameRef.current?.focus()}
             blurOnSubmit={false}
           />
-          <PasswordIcon onPress={() => setShowingConfirmation((prev) => !prev)}>
-            {showingConfirmation ? (
-              <Ionicons name="eye-off-outline" size={24} color="black" />
-            ) : (
-              <Ionicons name="eye-outline" size={24} color="black" />
-            )}
-          </PasswordIcon>
-        </PasswordContainer>
+          <Input
+            placeholder="점포명"
+            value={storeName}
+            onChangeText={(text) => handleStoreName(text)}
+            ref={storeNameRef}
+            onSubmitEditing={() => phoneNumberRef.current?.focus()}
+            blurOnSubmit={false}
+          />
 
-        <Input
-          placeholder="채널"
-          value={channel}
-          autoCapitalize="none"
-          onChangeText={(text) => handleChannel(text)}
-          keyboardType="numeric"
-          ref={channelRef}
-          onSubmitEditing={() => storeNameRef.current?.focus()}
-          blurOnSubmit={false}
-        />
-        <Input
-          placeholder="점포명"
-          value={storeName}
-          onChangeText={(text) => handleStoreName(text)}
-          ref={storeNameRef}
-          onSubmitEditing={() => phoneNumberRef.current?.focus()}
-          blurOnSubmit={false}
-        />
+          <Input
+            placeholder="전화번호"
+            value={phoneNumber}
+            autoCapitalize="none"
+            onChangeText={(text) => handlePhoneNumber(text)}
+            keyboardType="numeric"
+            ref={phoneNumberRef}
+          />
 
-        <Input
-          placeholder="전화번호"
-          value={phoneNumber}
-          autoCapitalize="none"
-          onChangeText={(text) => handlePhoneNumber(text)}
-          keyboardType="numeric"
-          ref={phoneNumberRef}
-        />
+          <Btn onPress={handleModal}>
+            <Text>{address ? address.roadAddress : "주소 검색"}</Text>
+          </Btn>
 
-        <Btn onPress={handleModal}>
-          <Text>{address ? address.roadAddress : "주소 검색"}</Text>
-        </Btn>
+          {/* Need to add the terms of use */}
 
-        {/* Need to add the terms of use */}
+          <LoginBtn
+            onPress={submitUserInformation}
+            style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
+            disabled={!btnActivation}
+          >
+            <BtnText>가입 신청하기</BtnText>
+          </LoginBtn>
 
-        <LoginBtn
-          onPress={submitUserInformation}
-          style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
-          disabled={!btnActivation}
-        >
-          <BtnText>가입 신청하기</BtnText>
-        </LoginBtn>
-
-        <CreateBtn onPress={goBack}>
-          <CreateText>뒤로가기</CreateText>
-        </CreateBtn>
-      </Container>
+          <CreateBtn onPress={goBack}>
+            <CreateText>뒤로가기</CreateText>
+          </CreateBtn>
+        </SubContainer>
+      </ScrollView>
 
       {modal && <Address setAddress={setAddress} setModal={setModal} />}
-    </ScrollView>
+    </Container>
   );
 };
 
