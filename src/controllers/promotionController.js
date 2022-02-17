@@ -47,7 +47,7 @@ const getPromotionById = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc    Fetch single promotion
-// @route   Get   /api/promotion/:promotionId
+// @route   Post   /api/promotion
 // @access  Private
 const createPromotion = expressAsyncHandler(async (req, res) => {
   const {
@@ -106,7 +106,7 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
   return res.send({ promotion })
 })
 
-// @desc    Modify a promotion
+// @desc    Update a promotion
 // @route   Put   /api/promotion/:promotionId
 // @access  Private
 const updatePromotionById = expressAsyncHandler(async (req, res) => {
