@@ -24,7 +24,7 @@ function Address({ setAddress, setModal, modalIsClosed }) {
         jsOptions={{ animation: true, focusInput: false }}
         onSelected={(data) => {
           setAddress(data);
-          setModal(false);
+          handleViewPosition();
         }}
       />
     </AddressContainer>

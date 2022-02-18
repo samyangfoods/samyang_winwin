@@ -63,20 +63,21 @@ const Login = ({ navigation }) => {
 
     try {
       setLoginLoading(true);
-      const response = await axios.post("apiaddress", { userId, password });
+      // const response = await axios.post("apiaddress", { userId, password });
 
       // Redux Here.
-      dispatch(
-        userSlice.actions.setUser({
-          userId: response.data.data.userId,
-          accessToken: response.data.data.accessToken,
-        })
-      );
 
-      await AsyncStorage.setItem(
-        "refreshToken",
-        response.data.data.refreshToken
-      );
+      // dispatch(
+      //   userSlice.actions.setUser({
+      //     userId: response.data.data.userId,
+      //     accessToken: response.data.data.accessToken,
+      //   })
+      // );
+
+      // await AsyncStorage.setItem(
+      //   "refreshToken",
+      //   response.data.data.refreshToken
+      // );
 
       navigation.navigate("Stack");
     } catch (error) {

@@ -76,20 +76,33 @@ const Register = ({ navigation }) => {
 
   // userName, role
   const submitUserInformation = async () => {
-    const userObj = {
-      userId,
-      password,
-      passwordConfirmation,
-      channel,
-      storeName,
-      phoneNumber,
-      userImage,
-      address,
-    };
-    // await Axios.post("http://localhost:5000/user/register", userObj)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    Alert.alert("알림", "회원가입이 완료되었습니다.");
+    try {
+      if (!/[\d\w\W\S]{8,}/.test(password)) {
+        return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
+      }
+
+      const userObj = {
+        userId,
+        password,
+        passwordConfirmation,
+        channel,
+        storeName,
+        phoneNumber,
+        userImage,
+        address,
+      };
+      // await Axios.post("http://localhost:5000/user/register", userObj)
+      //   .then((res) => console.log(res))
+      //   .catch((err) => console.log(err));
+
+      Alert.alert("알림", "회원가입이 완료되었습니다.");
+      navigation.goBack();
+    } catch (error) {
+      const errorResponse = error.response;
+      if (errorResponse) {
+        Alert.alert("알림", errorResponse.data.message);
+      }
+    }
   };
 
   const goBack = useCallback(() => {
@@ -195,6 +208,15 @@ const Register = ({ navigation }) => {
               )}
             </PasswordIcon>
           </PasswordContainer>
+          {passwordConfirmation ? (
+            password !== passwordConfirmation ? (
+              <Text style={{ color: "red" }}>
+                비밀번호가 일치하지 않습니다.
+              </Text>
+            ) : (
+              <Text style={{ color: "green" }}>비밀번호가 일치합니다.</Text>
+            )
+          ) : null}
 
           <Input
             placeholder="채널"
