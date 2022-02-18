@@ -3,6 +3,7 @@ const app = express()
 import promotionRouter from './routes/promotionRoute.js'
 import userRouter from './routes/userRoute.js'
 import commentRouter from './routes/commentRoute.js'
+import marketRouter from './routes/marketRoute.js'
 import mongoose from 'mongoose'
 import generateFakeData from '../faker2.js'
 
@@ -24,6 +25,7 @@ const server = async () => {
 
     app.use('/api/user', userRouter)
     app.use('/api/promotion', promotionRouter)
+    app.use('/api/market', marketRouter)
     app.use('/api/promotion/:promotionId/comment', commentRouter)
 
     app.listen(PORT, async () => {

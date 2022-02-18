@@ -1,17 +1,19 @@
-import express from 'express'
-const marketRouter = express.Router()
+import { Router } from 'express'
+const marketRouter = Router({ mergeParams: true })
 import {
-  getMarket,
+  getMarkets,
   getMarketById,
   createMarket,
   updateMarketById,
   deleteMarketById,
-} from '../controllers/promotionController.js'
+  searchMarkets,
+} from '../controllers/marketController.js'
 
-marketRouter.route('/').get(getMarket)
+marketRouter.route('/search').get(searchMarkets)
+marketRouter.route('/').get(getMarkets)
 marketRouter.route('/:marketId').get(getMarketById)
 marketRouter.route('/').post(createMarket)
 marketRouter.route('/:marketId').put(updateMarketById)
 marketRouter.route('/:marketId').delete(deleteMarketById)
 
-export default promotionRouter
+export default marketRouter

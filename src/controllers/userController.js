@@ -40,7 +40,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     storeName,
     phoneNumber,
     userImage,
-    address,
+    userAddress,
     role,
   } = req.body
 
@@ -52,7 +52,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   if (!phoneNumber)
     return res.status(400).send({ err: 'phoneNumber is required' })
   if (!userImage) return res.status(400).send({ err: 'userImage is required' })
-  if (!address) return res.status(400).send({ err: 'address is required' })
+  if (!userAddress)
+    return res.status(400).send({ err: 'userAddress is required' })
 
   const userExists = await User.findOne({ userId })
 
@@ -68,7 +69,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     storeName,
     phoneNumber,
     userImage,
-    address,
+    userAddress,
     role,
   })
 
@@ -80,7 +81,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       storeName: user.storeName,
       phoneNumber: user.phoneNumber,
       userImage: user.userImage,
-      address: user.address,
+      userAddress: user.userAddress,
       role: user.role,
       token: generateToken(user._id),
     })

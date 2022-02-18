@@ -7,19 +7,44 @@ const { ObjectId } = mongoose.Types
 // @desc    Fetch all markets
 // @route   Get   /api/markets
 // @access  Private
-const getMarekets = expressAsyncHandler(async (req, res) => {
+const getMarkets = expressAsyncHandler(async (req, res) => {
   // page가 없으면 0으로 처리
   let { page = 0 } = req.query
   page = parseInt(page)
 
-  console.log('page :', page)
   const markets = await Market.find({})
     // UpdatedAt 최근순으로
     .sort({ updatedAt: -1 })
-    // 스킵숫자
-    .skip(page * 3)
-    // 프론트로 보내줄 숫자
-    .limit(3)
+  // 스킵숫자
+  // .skip(page * 3)
+  // 프론트로 보내줄 숫자
+  // .limit(3)
+  // .populate([
+  //   { path: 'user' },
+  //   { path: 'comments', populate: { path: 'user' } },
+  // ])
+
+  return res.send({ markets })
+})
+
+// @desc    Search  markets
+// @route   Get   /api/market/search?keyword=""
+// @access  Private
+const searchMarkets = expressAsyncHandler(async (req, res) => {
+  const keyword = {
+    marketName: {
+      $regex: req.query.keyword,
+      $options: 'i',
+    },
+  }
+
+  const markets = await Market.find({ ...keyword })
+    // UpdatedAt 최근순으로
+    .sort({ updatedAt: -1 })
+  // 스킵숫자
+  // .skip(page * 3)
+  // 프론트로 보내줄 숫자
+  // .limit(3)
   // .populate([
   //   { path: 'user' },
   //   { path: 'comments', populate: { path: 'user' } },
@@ -61,13 +86,13 @@ const createMarket = expressAsyncHandler(async (req, res) => {
     return res.status(400).send({ err: 'marketName must be String' })
   if (size && typeof size !== 'string')
     return res.status(400).send({ err: 'size must be String' })
-  if (pos && typeof pos !== 'number')
-    return res.status(400).send({ err: 'pos must be Number' })
+  if (pos && typeof pos !== 'string')
+    return res.status(400).send({ err: 'pos must be String' })
   if (phone && typeof phone !== 'string')
     return res.status(400).send({ err: 'phone must be String' })
   if (averageSales && typeof averageSales !== 'string')
     return res.status(400).send({ err: 'averageSales must be String' })
-  if (marketAddress && typeof marketAddress !== 'string')
+  if (marketAddress && typeof marketAddress !== 'object')
     return res.status(400).send({ err: 'marketAddress must be string' })
   if (marketImage && typeof marketImage !== 'string')
     return res.status(400).send({ err: 'marketImage must be String' })
@@ -91,7 +116,7 @@ const createMarket = expressAsyncHandler(async (req, res) => {
 // @desc    Update a market
 // @route   Put   /api/market/:marketId
 // @access  Private
-const updatePromotionById = expressAsyncHandler(async (req, res) => {
+const updateMarketById = expressAsyncHandler(async (req, res) => {
   const { marketId } = req.params
   const {
     marketName,
@@ -116,13 +141,13 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
 
   let market = await Market.findById(marketId)
 
-  if (marketName) promotion.marketName = marketName
-  if (size) promotion.size = size
-  if (pos) promotion.pos = pos
-  if (phone) promotion.phone = phone
-  if (averageSales) promotion.averageSales = averageSales
-  if (marketAddress) promotion.marketAddress = marketAddress
-  if (marketImage) promotion.marketImage = marketImage
+  if (marketName) market.marketName = marketName
+  if (size) market.size = size
+  if (pos) market.pos = pos
+  if (phone) market.phone = phone
+  if (averageSales) market.averageSales = averageSales
+  if (marketAddress) market.marketAddress = marketAddress
+  if (marketImage) market.marketImage = marketImage
 
   await market.save()
 
@@ -132,7 +157,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
 // @desc    Delete a market
 // @route   delete   /api/market/:marketId
 // @access  Private
-const deleteMarektById = expressAsyncHandler(async (req, res) => {
+const deleteMarketById = expressAsyncHandler(async (req, res) => {
   const { marketId } = req.params
   if (!ObjectId.isValid(marketId))
     res.status(400).send({ err: 'invalid marketId' })
@@ -141,4 +166,11 @@ const deleteMarektById = expressAsyncHandler(async (req, res) => {
   return res.send({ market })
 })
 
-export { getMarekets, getMarketById, updatePromotionById, deleteMarektById }
+export {
+  getMarkets,
+  getMarketById,
+  createMarket,
+  updateMarketById,
+  deleteMarketById,
+  searchMarkets,
+}
