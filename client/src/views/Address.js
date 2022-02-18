@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyledPostcode,
   AddressContainer,
@@ -7,18 +7,16 @@ import {
 } from "../styles/Address";
 import { AntDesign } from "@expo/vector-icons";
 
-function Address({ setAddress, setModal }) {
-  const [ref, setRef] = useState(null);
+function Address({ setAddress, setModal, modalIsClosed }) {
+  const handleViewPosition = () => {
+    setModal(false);
+    modalIsClosed();
+  };
 
   return (
-    <AddressContainer
-      ref={(ref) => setRef(ref)}
-      onContentSizeChange={() => {
-        ref?.scrollTo({ y: 0, animated: false });
-      }}
-    >
+    <AddressContainer>
       <BtnAddressContainer>
-        <BtnAddress onPress={() => setModal(false)}>
+        <BtnAddress onPress={handleViewPosition}>
           <AntDesign name="close" size={30} color="black" />
         </BtnAddress>
       </BtnAddressContainer>

@@ -17,6 +17,8 @@ import {
 import { ActivityIndicator, Alert } from "react-native";
 // Need to Import EncryptedStorage (-> Should solve RN error)
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import userSlice from "../redux/slices/user";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
@@ -27,6 +29,7 @@ const Login = ({ navigation }) => {
   const idRef = useRef();
   const passwordRef = useRef();
   const btnActivation = Boolean(userId && password);
+  const dispatch = useDispatch();
 
   // If system finds current login data, then navigation would move to the main page.
   const checkUserLogin = async () => {
@@ -60,9 +63,20 @@ const Login = ({ navigation }) => {
 
     try {
       setLoginLoading(true);
-      // const response = await axios.post("apiaddress", {userId, password})
+      const response = await axios.post("apiaddress", { userId, password });
 
       // Redux Here.
+      dispatch(
+        userSlice.actions.setUser({
+          userId: response.data.data.userId,
+          accessToken: response.data.data.accessToken,
+        })
+      );
+
+      await AsyncStorage.setItem(
+        "refreshToken",
+        response.data.data.refreshToken
+      );
 
       navigation.navigate("Stack");
     } catch (error) {

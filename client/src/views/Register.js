@@ -21,9 +21,9 @@ import {
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
 import * as ImagePicker from "expo-image-picker";
+import { Alert } from "react-native";
 
 const Register = ({ navigation }) => {
-  const [registerLoading, setResigterLoading] = useState(false);
   const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordConfirmation, setPasswordConfirmation] = useState(null);
@@ -86,9 +86,10 @@ const Register = ({ navigation }) => {
       userImage,
       address,
     };
-    await Axios.post("http://localhost:5000/user/register", userObj)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    // await Axios.post("http://localhost:5000/user/register", userObj)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    Alert.alert("알림", "회원가입이 완료되었습니다.");
   };
 
   const goBack = useCallback(() => {
@@ -112,9 +113,16 @@ const Register = ({ navigation }) => {
     }
   };
 
+  // This will scroll to the top when the address modal is on.
   const handleModal = () => {
     setModal(true);
     ref?.scrollTo({ y: 0, animated: true });
+  };
+
+  // Scroll will go to the top place when address component installed.
+  // This function will lead container to end scroll.
+  const modalIsClosed = () => {
+    ref?.scrollToEnd({ animated: false });
   };
 
   return (
@@ -236,7 +244,13 @@ const Register = ({ navigation }) => {
         </SubContainer>
       </ScrollView>
 
-      {modal && <Address setAddress={setAddress} setModal={setModal} />}
+      {modal && (
+        <Address
+          setAddress={setAddress}
+          setModal={setModal}
+          modalIsClosed={modalIsClosed}
+        />
+      )}
     </Container>
   );
 };
