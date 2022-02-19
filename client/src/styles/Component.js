@@ -63,10 +63,24 @@ export const SearchBtn = styled.TouchableOpacity`
   background-color: #ff7d0d;
 `;
 export const AutoCompleteContainer = styled.View`
-  height: 150%;
-  padding: 0 5%;
-  border: 1px solid #eee;
+  position: relative;
   background-color: #fff;
+  border: 0.5px solid #aaa;
+  height: 220%;
+  z-index: 999;
+`;
+
+export const MySearchText = styled.View`
+  padding-bottom: 3%;
+  margin-bottom: 3%;
+  border-bottom-color: #aaa;
+  border-bottom-width: 0.5px;
+`;
+
+export const SearchResult = styled.View``;
+
+export const SearchTextResult = styled.View`
+  padding: 5%;
 `;
 
 // Item

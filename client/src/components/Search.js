@@ -6,14 +6,36 @@ import {
   SearchInput,
   SearchBtn,
   AutoCompleteContainer,
+  SearchTextResult,
+  MySearchText,
+  SearchResult,
 } from "../styles/Component";
 import { Axios } from "react-native-axios";
 
 // 어떤 것을 어떻게 검색해야 할 지 결정하기
+const marketNameMockApi = [
+  "Samyang",
+  "Sayang",
+  "OhYang",
+  "Winwin",
+  "Windraw",
+  "Winlose",
+  "Project",
+  "Proproject",
+  "Prozect",
+];
 
-function Search({ route, searchText, setSearchText }) {
+const Search = ({ route, searchText, setSearchText }) => {
   // Put API results in this hook
   const [autocomplete, setAutocomplete] = useState(null);
+  const [sampleArray, setSampleArray] = useState([]);
+
+  const sampleSearchLogic = (text) => {
+    const arr = marketNameMockApi.filter((data) =>
+      data.toLocaleLowerCase().startsWith(text)
+    );
+    setSampleArray(arr);
+  };
 
   const handleText = async (text) => {
     setSearchText(text);
@@ -22,6 +44,9 @@ function Search({ route, searchText, setSearchText }) {
         // await Axios.post("api", { text })
         //   .then((res) => "Autocomplete Results")
         //   .catch((error) => console.log(error));
+
+        // Sample Logic !!!!! 👈
+        sampleSearchLogic(text);
         return console.log("행사현황 입니다.", searchText);
       case "행사등록":
         // await Axios.post("api", { text })
@@ -62,11 +87,24 @@ function Search({ route, searchText, setSearchText }) {
       </SearchContainer>
       {searchText !== "" && searchText !== null && (
         <AutoCompleteContainer>
-          <Text>{searchText || autocomplete}</Text>
+          <SearchTextResult>
+            <MySearchText>
+              <Text style={{ color: "#aaa", marginBottom: 5 }}>
+                나의 검색어
+              </Text>
+              <Text>{searchText}</Text>
+            </MySearchText>
+            <SearchResult>
+              <Text style={{ color: "#aaa", marginBottom: 5 }}>검색 결과</Text>
+              {sampleArray.map((res) => (
+                <Text key={res}>{res}</Text>
+              ))}
+            </SearchResult>
+          </SearchTextResult>
         </AutoCompleteContainer>
       )}
     </BasicContainer>
   );
-}
+};
 
 export default Search;
