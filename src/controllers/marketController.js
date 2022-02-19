@@ -31,6 +31,7 @@ const getMarkets = expressAsyncHandler(async (req, res) => {
 // @route   Get   /api/market/search?keyword=""
 // @access  Private
 const searchMarkets = expressAsyncHandler(async (req, res) => {
+  console.log(req.query)
   const keyword = {
     marketName: {
       $regex: req.query.keyword,

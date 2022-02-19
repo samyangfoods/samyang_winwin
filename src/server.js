@@ -1,12 +1,15 @@
 import express from 'express'
 const app = express()
+
+// Import Router
 import promotionRouter from './routes/promotionRoute.js'
 import userRouter from './routes/userRoute.js'
 import commentRouter from './routes/commentRoute.js'
 import marketRouter from './routes/marketRoute.js'
 import mongoose from 'mongoose'
-import generateFakeData from '../faker2.js'
 
+// etc
+import generateFakeData from '../faker2.js'
 import colors from 'colors'
 
 const server = async () => {
@@ -27,6 +30,9 @@ const server = async () => {
     app.use('/api/promotion', promotionRouter)
     app.use('/api/market', marketRouter)
     app.use('/api/promotion/:promotionId/comment', commentRouter)
+
+    // 외부에서 이미지를 읽을 수 있도록 권한 설정
+    app.use('/uploads', express.static('uploads'))
 
     app.listen(PORT, async () => {
       console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`.rainbow)

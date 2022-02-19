@@ -44,6 +44,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     role,
   } = req.body
 
+  console.log(req.file)
+
   if (!userId) return res.status(400).send({ err: 'userId is required' })
   if (!password) return res.status(400).send({ err: 'password is required' })
   if (!channel) return res.status(400).send({ err: 'channel is required' })
