@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { BasicContainer, Text } from "../styles/Style";
 import {
-  SearchContainer,
+  SearchElementContainer,
   SearchInput,
   SearchBtn,
   AutoCompleteContainer,
   SearchTextResult,
   MySearchText,
   SearchResult,
+  SearchContainer,
 } from "../styles/Component";
 import { Axios } from "react-native-axios";
 
@@ -71,8 +72,8 @@ const Search = ({ route, searchText, setSearchText }) => {
   };
 
   return (
-    <BasicContainer>
-      <SearchContainer>
+    <SearchContainer>
+      <SearchElementContainer>
         <SearchInput
           placeholder="검색"
           autoCapitalize="none"
@@ -84,7 +85,8 @@ const Search = ({ route, searchText, setSearchText }) => {
         </SearchBtn>
 
         {/* Autocomplete */}
-      </SearchContainer>
+      </SearchElementContainer>
+
       {searchText !== "" && searchText !== null && (
         <AutoCompleteContainer>
           <SearchTextResult>
@@ -103,7 +105,7 @@ const Search = ({ route, searchText, setSearchText }) => {
           </SearchTextResult>
         </AutoCompleteContainer>
       )}
-    </BasicContainer>
+    </SearchContainer>
   );
 };
 

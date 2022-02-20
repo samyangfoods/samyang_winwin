@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "plugins": [
+      "expo-community-flipper"
+    ],
+    "android": {
+      "package": "com.ggong.winwin"
+    }
+  }
+}

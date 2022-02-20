@@ -42,6 +42,10 @@ export const StyledPicker = styled(Picker)`
 
 // Search
 export const SearchContainer = styled.View`
+  z-index: 10;
+`;
+
+export const SearchElementContainer = styled.View`
   align-items: center;
   justify-content: center;
   flex-direction: row;
@@ -63,11 +67,10 @@ export const SearchBtn = styled.TouchableOpacity`
   background-color: #ff7d0d;
 `;
 export const AutoCompleteContainer = styled.View`
-  position: relative;
   background-color: #fff;
   border: 0.5px solid #aaa;
   height: 220%;
-  z-index: 999;
+  z-index: 20;
 `;
 
 export const MySearchText = styled.View`
