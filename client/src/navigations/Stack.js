@@ -3,13 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "../views/Main";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import PromotionCreate from "../views/promotions/PromotionCreate";
-import MarketInput from "../views/markets/MarketInput";
-import MarketList from "../views/markets/MarketList";
-import Profile from "../views/Profile";
+import Profile from "../views/profiles/Profile";
 
 const Tab = createBottomTabNavigator();
 
-const Stack = ({ navigation }) => {
+const Stack = () => {
   return (
     <Tab.Navigator
       screenOptions={{

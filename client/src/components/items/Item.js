@@ -6,22 +6,22 @@ const Item = ({ data }) => {
   const [price, setPrice] = useState(data.price);
   const [promotionValue, setPromotionValue] = useState(data.promotionValue);
   const [prValue, setPrValue] = useState(data.prValue);
-
+  console.log(data);
   const handleName = (text) => {
-    data.itemName = text;
-    setProductName(data.itemName);
+    data.productName = text;
+    setProductName(data.productName);
   };
   const handlePrice = (text) => {
     data.price = text;
     setPrice(data.price);
   };
   const handlePromotionQuantity = (text) => {
-    data.quantity = text;
-    setPromotionValue(data.quantity);
+    data.promotionValue = text;
+    setPromotionValue(data.promotionValue);
   };
   const handlePrQuantity = (text) => {
-    data.prQuantity = text;
-    setPrValue(data.prQuantity);
+    data.prValue = text;
+    setPrValue(data.prValue);
   };
 
   return (

@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Modal from "./Modal";
 import Stack from "./Stack";
 import PromotionDetail from "../views/promotions/PromotionDetail";
-import Profile from "../views/Profile";
+import Profile from "../views/profiles/Profile";
 import MarketInfoChange from "../views/markets/MarketInfoChange";
-import ProfileDetail from "../views/ProfileDetail";
-import UserInfo from "../views/UserInfo";
+import ProfileDetail from "../views/profiles/ProfileDetail";
+import UserInfo from "../views/profiles/UserInfo";
 import MarketInput from "../views/markets/MarketInput";
 import MarketList from "../views/markets/MarketList";
 

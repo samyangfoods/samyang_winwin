@@ -2,24 +2,56 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Axios } from "react-native-axios/lib/axios";
 import styled from "styled-components/native";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 import {
-  AddressContainer,
   Btn,
-  BtnAddress,
-  BtnAddressContainer,
   BtnText,
   CreateBtn,
   CreateText,
+  Image,
+  Input,
   InputShort,
   LoginBtn,
-} from "../styles/Auth";
-import Address from "./Address";
+} from "../../styles/Auth";
+import Address from "../Address";
+import defaultUser from "../../assets/defaultUser.png";
+import * as ImagePicker from "expo-image-picker";
 
 const UserInfo = ({ navigation, route }) => {
-  const [modal, setModal] = useState(false);
-  const [address, setAddress] = useState(null);
   const mockApi = route.params.userInfo;
+  const [modal, setModal] = useState(false);
+  const [channel, setChannel] = useState(mockApi.channel);
+  const [client, setClient] = useState(mockApi.client);
+  const [phoneNumber, setPhoneNumber] = useState(mockApi.phoneNumber);
+  const [address, setAddress] = useState(mockApi.address);
+  const [userImage, setUserImage] = useState(null);
+
+  const addUserImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        console.log("userProfile Uploaded", reader.result);
+      };
+      reader.readAsDataURL(result.uri);
+      setUserImage(result.uri);
+    }
+  };
+
+  const handleChannel = (text) => {
+    setChannel(text);
+  };
+  const handleClient = (text) => {
+    setClient(text);
+  };
+  const handlePhoneNumber = (text) => {
+    setPhoneNumber(text);
+  };
 
   const submitNewUserInfo = async () => {
     const newUserInfo = {};
@@ -36,32 +68,50 @@ const UserInfo = ({ navigation, route }) => {
         <Text>사용자 정보</Text>
       </Top>
       <Bottom>
+        <Image
+          source={userImage ? { uri: userImage } : defaultUser}
+          style={{ width: 100, height: 100, borderRadius: 100 }}
+        />
+
+        <AntDesign
+          name="camerao"
+          size={32}
+          color="black"
+          style={{ marginTop: 15, marginBottom: 10 }}
+          onPress={addUserImage}
+        />
+
         <HorizontalDiv>
           <VerticalDiv>
             <Text>채널</Text>
-            <InputShort placeholder={mockApi.channel} />
+            <InputShort
+              value={channel}
+              onChangeText={(text) => handleChannel(text)}
+            />
           </VerticalDiv>
           <VerticalDiv>
             <Text>점포명</Text>
-            <InputShort placeholder={mockApi.client} />
+            <InputShort
+              value={client}
+              onChangeText={(text) => handleClient(text)}
+            />
           </VerticalDiv>
         </HorizontalDiv>
 
         <HorizontalDiv>
           <VerticalDiv>
             <Text>전화번호</Text>
-            <InputShort placeholder={mockApi.phoneNumber} />
-          </VerticalDiv>
-          <VerticalDiv>
-            <Text>이미지</Text>
-            <InputShort placeholder={mockApi.client} />
+            <Input
+              value={phoneNumber}
+              onChangeText={(text) => handlePhoneNumber(text)}
+            />
           </VerticalDiv>
         </HorizontalDiv>
 
         <AddressDiv>
           <Text>주소</Text>
           <Btn onPress={() => setModal(true)}>
-            <Text>{address ? address : mockApi.address}</Text>
+            <Text>{address}</Text>
           </Btn>
         </AddressDiv>
 
@@ -74,16 +124,7 @@ const UserInfo = ({ navigation, route }) => {
         </CreateBtn>
       </Bottom>
 
-      {modal && (
-        <AddressContainer>
-          <BtnAddressContainer>
-            <BtnAddress onPress={() => setModal(false)}>
-              <AntDesign name="close" size={30} color="black" />
-            </BtnAddress>
-          </BtnAddressContainer>
-          <Address setAddress={setAddress} setModal={setModal} />
-        </AddressContainer>
-      )}
+      {modal && <Address setAddress={setAddress} setModal={setModal} />}
     </Container>
   );
 };
@@ -114,7 +155,6 @@ const LogoImage = styled.Image`
 const AddressDiv = styled.View`
   width: 100%;
 `;
-
 const HorizontalDiv = styled.View`
   flex-direction: row;
   margin-bottom: 5%;

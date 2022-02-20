@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import winwin from "../assets/winwin.png";
+import winwin from "../../assets/winwin.png";
 import { AntDesign } from "@expo/vector-icons";
 
 // Getting user data with context api or redux ...

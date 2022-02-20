@@ -76,7 +76,6 @@ const PromotionDetail = ({ route, navigation }) => {
       endDate: dateEnd,
       description: item,
     };
-    console.log(promotionObj);
   };
   const removeProtmotion = async () => {
     // Push promotion ID to DB, and DB will delete data through the given ID.

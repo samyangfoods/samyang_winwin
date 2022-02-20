@@ -86,7 +86,6 @@ const PromotionCreate = ({ route }) => {
       promotionDetail,
       isLive: true,
     };
-    console.log(promotionObj);
   };
 
   return (

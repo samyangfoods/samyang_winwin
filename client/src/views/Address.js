@@ -10,7 +10,7 @@ import { AntDesign } from "@expo/vector-icons";
 function Address({ setAddress, setModal, modalIsClosed }) {
   const handleViewPosition = () => {
     setModal(false);
-    modalIsClosed();
+    if (modalIsClosed) return modalIsClosed();
   };
 
   return (
@@ -23,8 +23,9 @@ function Address({ setAddress, setModal, modalIsClosed }) {
       <StyledPostcode
         jsOptions={{ animation: true, focusInput: false }}
         onSelected={(data) => {
-          setAddress(data);
-          handleViewPosition();
+          setAddress(data.roadAddress);
+          if (modalIsClosed) return handleViewPosition();
+          setModal(false);
         }}
       />
     </AddressContainer>

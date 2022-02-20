@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { BtnText, CreateBtn, CreateText, LoginBtn } from "../styles/Auth";
+import { BtnText, CreateBtn, CreateText, LoginBtn } from "../../styles/Auth";
 
 const ProfileDetail = ({ navigation, route }) => {
   const mockApi = route.params.marketList[0];
