@@ -101,7 +101,7 @@ const createComment = expressAsyncHandler(async (req, res) => {
   return res.send({ comment })
 })
 
-const getCommentById = expressAsyncHandler(async (req, res) => {
+const getComments = expressAsyncHandler(async (req, res) => {
   // page가 없을때 0으로 처리
   let { page = 0 } = req.query
 
@@ -164,4 +164,4 @@ const deleteCommentById = expressAsyncHandler(async (req, res) => {
   return res.send({ comment })
 })
 
-export { createComment, getCommentById, patchCommentById, deleteCommentById }
+export { createComment, getComments, patchCommentById, deleteCommentById }

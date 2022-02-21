@@ -78,3 +78,41 @@ ES6 표준을 준수합니다.
 | ------ | ---------- | ------ |
 | 장부호 | 기획       | 백엔드 |
 | 이현상 | 프론트엔드 | 백엔드 |
+
+## Backend API
+
+1. Model : Market
+   <Protected API>
+   Create a Market : POST http://localhost:5000/api/market
+   Get Markets : GET http://localhost:5000/api/market
+   Get a Market : GET http://localhost:5000/api/market/:marketId
+   Update a Market : PUT http://localhost:5000/api/market/:marketId
+   Delete a Market : DELETE http://localhost:5000/api/market/:marketId
+
+2. Model : User
+   Create a User : POST http://localhost:5000/api/user/register
+   Login User : GET http://localhost:5000/api/user/login
+
+   <Protected API>
+   Get Users : GET http://localhost:5000/api/user
+   Get a userProfile : GET http://localhost:5000/api/user/:userId
+   Update a User : PUT http://localhost:5000/api/user/:userId
+   Delete a User : DELETE http://localhost:5000/api/user/:userId
+
+3. Model : Promotion
+   <Protected API>
+   Create a Promotion : POST http://localhost:5000/api/promotion
+   Get Promotions : GET http://localhost:5000/api/promotion
+   Get a Promotion : GET http://localhost:5000/api/promotion/:promotionId
+   Update a Promotion : PUT http://localhost:5000/api/promotion/:promotionId
+   Delete a Promotion : DELETE http://localhost:5000/api/promotion/:promotionId
+
+4. Model : Comment
+   <Protected API>
+   Create a Comment : POST http://localhost:5000/api/promotion/:promotionId/comment
+   Get Comments : GET http://localhost:5000/api/promotion/:promotionId/comment
+   Update a Comment : PATCH http://localhost:5000/api/promotion/:promotionId/comment/:commentId
+   Delete a Comment : DELETE http://localhost:5000/api/promotion/:promotionId/comment/:commentId
+   <!-- 소매점 검색시 response ( marketName, _id) -->
+
+   <!-- 행사현황에서 검색필드 ( 전단행사/앤드행사 ) -->
