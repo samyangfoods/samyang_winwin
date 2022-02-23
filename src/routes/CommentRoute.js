@@ -2,13 +2,13 @@ import { Router } from 'express'
 const commentRouter = Router({ mergeParams: true })
 import {
   createComment,
-  getCommentById,
+  getComments,
   patchCommentById,
   deleteCommentById,
 } from '../controllers/commentController.js'
 
 commentRouter.route('/').post(createComment)
-commentRouter.route('/').get(getCommentById)
+commentRouter.route('/').get(getComments)
 commentRouter.route('/:commentId').patch(patchCommentById)
 commentRouter.route('/:commentId').delete(deleteCommentById)
 
