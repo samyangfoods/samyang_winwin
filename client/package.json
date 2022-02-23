@@ -26,6 +26,7 @@
     "react-native-axios": "^0.17.1",
     "react-native-encrypted-storage": "^4.0.2",
     "react-native-flipper": "^0.131.1",
+    "react-native-popup-menu": "^0.15.12",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-svg": "12.1.1",

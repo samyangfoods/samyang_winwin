@@ -5,6 +5,7 @@ import { Theme } from "./src/settings/Theme";
 import { Provider } from "react-redux";
 import store from "./src/redux/store/index";
 import { connectToDevTools } from "react-devtools-core";
+import { MenuProvider } from "react-native-popup-menu";
 
 export default function App() {
   // flipper setting
@@ -17,7 +18,9 @@ export default function App() {
   return (
     <NavigationContainer theme={Theme}>
       <Provider store={store}>
-        <Root />
+        <MenuProvider>
+          <Root />
+        </MenuProvider>
       </Provider>
     </NavigationContainer>
   );
