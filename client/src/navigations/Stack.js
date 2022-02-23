@@ -1,7 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "../views/Main";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import PromotionCreate from "../views/promotions/PromotionCreate";
 import Profile from "../views/profiles/Profile";
 
@@ -20,7 +22,7 @@ const Stack = () => {
         component={Main}
         options={{
           tabBarIcon: ({ color, size }) => {
-            return <FontAwesome name="bell" size={size} color={color} />;
+            return <Feather name="list" size={size} color={color} />;
           },
         }}
       />
@@ -30,9 +32,7 @@ const Stack = () => {
         component={PromotionCreate}
         options={{
           tabBarIcon: ({ color, size }) => {
-            return (
-              <MaterialCommunityIcons name="tune" size={size} color={color} />
-            );
+            return <Ionicons name="create-outline" size={size} color={color} />;
           },
         }}
       />

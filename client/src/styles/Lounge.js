@@ -11,7 +11,7 @@ export const Top = styled.View`
   flex: 1;
   margin-top: 2%;
 `;
-export const Bottom = styled.ScrollView`
+export const Bottom = styled.FlatList`
   flex: 10;
   margin-top: 8%;
 `;

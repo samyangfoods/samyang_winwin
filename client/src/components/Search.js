@@ -12,6 +12,7 @@ import {
   SearchContainer,
 } from "../styles/Component";
 import { Axios } from "react-native-axios";
+import axios from "axios";
 
 // 어떤 것을 어떻게 검색해야 할 지 결정하기
 const marketNameMockApi = [
@@ -41,14 +42,16 @@ const Search = ({ route, searchText, setSearchText }) => {
   const handleText = async (text) => {
     setSearchText(text);
     switch (route.name) {
+      // 🔥🔥🔥 행사 카테고리 -> 엔드행사, 전단행사, 기타행사 🔥🔥🔥
       case "행사현황":
-        // await Axios.post("api", { text })
+        // await Axios.post("api", { text,  })
         //   .then((res) => "Autocomplete Results")
         //   .catch((error) => console.log(error));
 
         // Sample Logic !!!!! 👈
         sampleSearchLogic(text);
         return console.log("행사현황 입니다.", searchText);
+      // 🔥🔥🔥 소매점 검색 -> 삼양마트, 우주마트 등. 🔥🔥🔥
       case "행사등록":
         // await Axios.post("api", { text })
         //   .then((res) => "Autocomplete Results")

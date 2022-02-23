@@ -3,6 +3,7 @@ import * as ImagePicker from "expo-image-picker";
 import ImageAddButton from "./ImageAddButton";
 import { BasicContainer } from "../../styles/Style";
 import { HorizontalDiv } from "../../styles/Component";
+import { Alert } from "react-native";
 
 // 2022-01-28 현재 개략적인 프레임만 작성 완료. ✅
 // 이미지가 각각 Hooks 에 담길 수 있도록 image 변수를 세분화 해야 함. ✅
@@ -21,17 +22,31 @@ function ImageAccess({ image, setImage }) {
   let image3 = image[2] ? image[2] : null;
   let image4 = image[3] ? image[3] : null;
 
+  const clearImageObj = () => {
+    imageObj.splice(0);
+  };
   const setImageObj = () => {
     if (image1 !== null) imageObj.push(image1);
     if (image2 !== null) imageObj.push(image2);
     if (image3 !== null) imageObj.push(image3);
     if (image4 !== null) imageObj.push(image4);
+
+    console.log("ImageAccess", imageObj.length);
+    console.log("ImageAccess", imageObj);
   };
 
   const handleArray = (index, uri) => {
-    const newArr = imageObj.filter((res) => res !== image[index]);
-    newArr.push(uri);
-    setImage(newArr);
+    if (index <= imageObj.length) {
+      if (imageObj.length === 0) {
+        imageObj.push(uri);
+      } else {
+        imageObj.splice(index, 1, uri);
+      }
+    } else {
+      // when index is bigger than array's length
+      return Alert.alert("알림", "이미지를 순서대로 첨부해주세요.");
+    }
+    setImage(imageObj);
   };
 
   const accessAlbum = async (index) => {

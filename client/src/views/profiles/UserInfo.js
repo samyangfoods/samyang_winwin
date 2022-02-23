@@ -135,7 +135,8 @@ const Container = styled.View`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 5% 0;
+  justify-content: center;
+  padding: 0 0 5% 0;
 `;
 const Top = styled.View`
   flex-direction: column;

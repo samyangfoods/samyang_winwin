@@ -6,7 +6,7 @@ const Item = ({ data }) => {
   const [price, setPrice] = useState(data.price);
   const [promotionValue, setPromotionValue] = useState(data.promotionValue);
   const [prValue, setPrValue] = useState(data.prValue);
-  console.log(data);
+
   const handleName = (text) => {
     data.productName = text;
     setProductName(data.productName);

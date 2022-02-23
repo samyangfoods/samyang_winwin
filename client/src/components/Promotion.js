@@ -18,15 +18,15 @@ import {
 } from "../styles/Map";
 import { Title, Text } from "../styles/Style";
 
-const Promotion = ({ data, navigation }) => {
-  const endDate = new Date(data.endDate);
+const Promotion = ({ item, navigation }) => {
+  const endDate = new Date(item.endDate);
   const today = new Date();
 
   return (
     <RouteBtn
       onPress={() =>
         navigation.navigate("행사상세", {
-          promotionData: [data],
+          promotionData: [item],
         })
       }
     >
@@ -34,49 +34,49 @@ const Promotion = ({ data, navigation }) => {
         <PromotionTop>
           <Client>
             <Ionicons name="location-sharp" size={20} color="#ff7d0d" />
-            <Text>{data.clientName}</Text>
+            <Text>{item.clientName}</Text>
           </Client>
           <TypeText
             style={{
               backgroundColor:
                 endDate.getTime() > today.getTime()
-                  ? data.category === "전단행사"
+                  ? item.category === "전단행사"
                     ? "#ff7d0d"
-                    : data.category === "엔드행사"
+                    : item.category === "엔드행사"
                     ? "#217AFF"
                     : "green"
                   : "gray",
             }}
           >
-            {data.category}
+            {item.category}
           </TypeText>
         </PromotionTop>
 
         <PromotionBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={data.image[0]} />
+              <Image source={item.image[0]} />
             </StoreInfoLeft>
 
             <StoreInfoRight>
-              <Title>{data.superMarketName}</Title>
+              <Title>{item.superMarketName}</Title>
               <HorizontalDiv>
                 <TextBox>
                   <Text>시작일</Text>
-                  <SmallText>{data.startDate.slice(0, 10)}</SmallText>
+                  <SmallText>{item.startDate.slice(0, 10)}</SmallText>
                 </TextBox>
                 <TextBox>
                   <Text>종료일</Text>
-                  <SmallText>{data.endDate.slice(0, 10)}</SmallText>
+                  <SmallText>{item.endDate.slice(0, 10)}</SmallText>
                 </TextBox>
               </HorizontalDiv>
             </StoreInfoRight>
           </StoreInformation>
 
           <ProtmotionDetail>
-            {data.description.map((res) => (
+            {item.description.map((res) => (
               <Text style={{ marginRight: 5 }} key={res.index}>
-                {res.itemName}
+                {res.productName}
               </Text>
             ))}
           </ProtmotionDetail>

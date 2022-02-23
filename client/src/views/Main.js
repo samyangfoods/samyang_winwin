@@ -123,6 +123,11 @@ const mockApi = [
 const Main = ({ navigation, route }) => {
   // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
+
+  const renderItem = ({ item }) => {
+    return <Promotion item={item} navigation={navigation} />;
+  };
+
   return (
     <MainContainer>
       <Top>
@@ -133,11 +138,11 @@ const Main = ({ navigation, route }) => {
         />
       </Top>
 
-      <Bottom>
-        {mockApi.map((data) => (
-          <Promotion navigation={navigation} key={data.id} data={data} />
-        ))}
-      </Bottom>
+      <Bottom
+        data={mockApi}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+      />
     </MainContainer>
   );
 };
