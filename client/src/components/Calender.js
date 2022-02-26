@@ -16,7 +16,7 @@ function Calender({ date, setDate }) {
   };
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setDate(currentDate);
+    setDate(new Date(currentDate));
     setShow(false);
   };
 

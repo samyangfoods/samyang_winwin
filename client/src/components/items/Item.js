@@ -12,15 +12,15 @@ const Item = ({ data }) => {
     setProductName(data.productName);
   };
   const handlePrice = (text) => {
-    data.price = text;
+    data.price = parseInt(text);
     setPrice(data.price);
   };
   const handlePromotionQuantity = (text) => {
-    data.promotionValue = text;
+    data.promotionValue = parseInt(text);
     setPromotionValue(data.promotionValue);
   };
   const handlePrQuantity = (text) => {
-    data.prValue = text;
+    data.prValue = parseInt(text);
     setPrValue(data.prValue);
   };
 
@@ -29,22 +29,22 @@ const Item = ({ data }) => {
       <ItemInput
         onChangeText={(text) => handleName(text)}
         value={productName}
-        placeholder={data.productName}
+        placeholder={"제품명"}
       />
       <ItemInput
         onChangeText={(text) => handlePrice(text)}
         value={price}
-        placeholder={data.price}
+        placeholder={"가격"}
       />
       <ItemInput
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionValue}
-        placeholder={data.promotionValue}
+        placeholder={"수량"}
       />
       <ItemInput
         onChangeText={(text) => handlePrQuantity(text)}
         value={prValue}
-        placeholder={data.prValue}
+        placeholder={"PR수량"}
       />
     </ItemContainer>
   );

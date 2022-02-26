@@ -1,128 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
-import winwin from "../assets/winwin.png";
-import sample from "../assets/sample.png";
-import picture from "../assets/picture.jpg";
 import Promotion from "../components/Promotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
+import axios from "axios";
+import { Text } from "../styles/Style";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
 // userid or userId
 
-const mockApi = [
-  {
-    id: Date.now(),
-    clientName: "천일상사",
-    superMarketName: "우주마트 태양점",
-    category: "엔드행사",
-    image: [winwin, sample, picture],
-    startDate: "2022-01-01T05:39:47.675Z",
-    endDate: "2023-01-30T05:39:47.675Z",
-    description: [
-      {
-        index: 1,
-        productName: "삼양라면",
-        price: "1000",
-        promotionValue: "100",
-        prValue: "100",
-      },
-      {
-        index: 2,
-        productName: "불닭볶음면",
-        price: "10000",
-        promotionValue: "10",
-        prValue: "10",
-      },
-      {
-        index: 3,
-        productName: "과자",
-        price: "10",
-        promotionValue: "100",
-        prValue: "10",
-      },
-    ],
-  },
-  {
-    id: Date.now() + 1,
-    clientName: "천일상사",
-    superMarketName: "삼양마트 윈윈점",
-    category: "전단행사",
-    image: [sample, winwin],
-    startDate: "2022-11-01T05:39:47.675Z",
-    endDate: "2022-12-30T05:39:47.675Z",
-    description: [
-      {
-        index: 1,
-        productName: "짜짜로니",
-        price: "1000",
-        promotionValue: "100",
-        prValue: "100",
-      },
-    ],
-  },
-  {
-    id: Date.now() + 2,
-    clientName: "천일상사",
-    superMarketName: "고기마트 식물점",
-    category: "기타행사",
-    image: [picture, winwin],
-    startDate: "2022-05-01T05:39:47.675Z",
-    endDate: "2022-06-30T05:39:47.675Z",
-    description: [
-      {
-        index: 1,
-        productName: "물품1",
-        price: "1000",
-        promotionValue: "100",
-        prValue: "100",
-      },
-      {
-        index: 2,
-        productName: "물품2",
-        price: "10000",
-        promotionValue: "10",
-        prValue: "10",
-      },
-      {
-        index: 3,
-        productName: "물품3",
-        price: "10",
-        promotionValue: "100",
-        prValue: "10",
-      },
-    ],
-  },
-  {
-    id: Date.now() + 3,
-    clientName: "천일상사",
-    superMarketName: "식물마트 고기점",
-    category: "기타행사",
-    image: [sample, picture, winwin, picture],
-    startDate: "2021-05-01T05:39:47.675Z",
-    endDate: "2021-06-30T05:39:47.675Z",
-    description: [
-      {
-        index: 1,
-        productName: "물품1",
-        price: "1000",
-        promotionValue: "100",
-        prValue: "100",
-      },
-      {
-        index: 2,
-        productName: "물품2",
-        price: "10000",
-        promotionValue: "10",
-        prValue: "10",
-      },
-    ],
-  },
-];
-
 const Main = ({ navigation, route }) => {
   // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
+  const [promotions, setPromotions] = useState(null);
+
+  const loadPromotions = async () => {
+    const { data } = await axios.get("http://localhost:5000/api/promotion");
+    setPromotions(data.promotions);
+  };
+
+  useEffect(() => {
+    loadPromotions();
+  }, []);
 
   const renderItem = ({ item }) => {
     return <Promotion item={item} navigation={navigation} />;
@@ -137,12 +36,15 @@ const Main = ({ navigation, route }) => {
           setSearchText={setSearchText}
         />
       </Top>
-
-      <Bottom
-        data={mockApi}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-      />
+      {promotions?.length !== 0 ? (
+        <Bottom
+          data={promotions}
+          keyExtractor={(item) => Date.now()}
+          renderItem={renderItem}
+        />
+      ) : (
+        <Text style={{ flex: 1 }}>등록된 행사가 없습니다.</Text>
+      )}
     </MainContainer>
   );
 };

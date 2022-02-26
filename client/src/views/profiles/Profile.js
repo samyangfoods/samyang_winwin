@@ -1,68 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import winwin from "../../assets/winwin.png";
 import { AntDesign } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { ActivityIndicator, Alert } from "react-native";
 
 // Getting user data with context api or redux ...
-const userInfo = {
-  id: "winwin1234",
-  name: "홍길동",
-  client: "윈윈상사",
-  channel: "특약점",
-  phoneNumber: "010-1111-2222",
-  market: ["지구마트 태양점", "카톡마트", "윈윈할인마트"],
-  image: winwin,
-  address: "대구광역시 달서구 이곡동",
-};
 
 const Profile = ({ navigation }) => {
+  const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
+  const [userInfo, setUserInfo] = useState(null);
+
+  const loadUserInfo = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/api/user/${userId}`
+    );
+    setUserInfo(response.data.user);
+  };
+
+  const handleLogOut = () => {
+    Alert.alert("알림", "로그아웃 되었습니다.");
+    navigation.navigate("Modal");
+  };
+
+  useEffect(() => {
+    loadUserInfo();
+  }, []);
+
   return (
     <Container>
-      <Top>
-        <TopTitle>
-          <Left>
-            <Text>사용자 정보</Text>
-          </Left>
-          <Right>
-            <Text
-              style={{ color: "#FA4A0C" }}
-              onPress={() =>
-                navigation.navigate("사용자 정보변경", { userInfo })
-              }
-            >
-              수정하기
-            </Text>
-          </Right>
-        </TopTitle>
-        <UserCard>
-          <CardLeft>
-            <Image source={userInfo.image} />
-          </CardLeft>
-          <CardRight>
-            <Name>{userInfo.client}</Name>
-            <Text>{userInfo.name}</Text>
-            <HorizontalSeparator />
-            <Text>{userInfo.phoneNumber}</Text>
-            <HorizontalSeparator />
-            <Text>{userInfo.channel}</Text>
-            <Text>{userInfo.address}</Text>
-          </CardRight>
-        </UserCard>
-      </Top>
-      <Bottom>
-        <Btn>
-          <Text>행사 (준비중입니다.)</Text>
-          <AntDesign name="right" size={16} color="black" />
-        </Btn>
-        <Btn>
-          <Text>주문 (준비중입니다.)</Text>
-          <AntDesign name="right" size={16} color="black" />
-        </Btn>
-        <Btn onPress={() => navigation.navigate("소매점 목록")}>
-          <Text>소매점 목록</Text>
-          <AntDesign name="right" size={16} color="black" />
-        </Btn>
-      </Bottom>
+      {userInfo ? (
+        <>
+          <Top>
+            <TopTitle>
+              <Left>
+                <Text>사용자 정보</Text>
+              </Left>
+              <Right>
+                <Text
+                  style={{ color: "#FA4A0C" }}
+                  onPress={() =>
+                    navigation.navigate("사용자 정보변경", { userInfo })
+                  }
+                >
+                  수정하기
+                </Text>
+              </Right>
+            </TopTitle>
+            <UserCard>
+              <CardLeft>
+                <Image source={{ uri: userInfo?.userImage }} />
+              </CardLeft>
+              <CardRight>
+                <Name>{userInfo.userName}</Name>
+                <Text>{userInfo.storeName}</Text>
+                <HorizontalSeparator />
+                <Text>{userInfo.phoneNumber}</Text>
+                <HorizontalSeparator />
+                <Text>{userInfo.channel}</Text>
+                <Text>{userInfo.address}</Text>
+              </CardRight>
+            </UserCard>
+          </Top>
+
+          <Bottom>
+            <Btn>
+              <Text>행사 (준비중입니다.)</Text>
+              <AntDesign name="right" size={16} color="black" />
+            </Btn>
+            <Btn>
+              <Text>주문 (준비중입니다.)</Text>
+              <AntDesign name="right" size={16} color="black" />
+            </Btn>
+            <Btn onPress={() => navigation.navigate("소매점 목록")}>
+              <Text>소매점 목록</Text>
+              <AntDesign name="right" size={16} color="black" />
+            </Btn>
+            <Btn onPress={handleLogOut}>
+              <Text>로그아웃</Text>
+              <AntDesign name="right" size={16} color="black" />
+            </Btn>
+          </Bottom>
+        </>
+      ) : (
+        <ActivityIndicator />
+      )}
     </Container>
   );
 };

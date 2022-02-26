@@ -49,6 +49,7 @@ const Login = ({ navigation }) => {
   const handlePassword = useCallback((text) => {
     setPassword(text.trim());
   }, []);
+
   // Send login data to BE to search user data matched.
   // BE will verify user info and issue a token.
   // FE will receive the token and save it to user's localstorage.
@@ -63,16 +64,18 @@ const Login = ({ navigation }) => {
 
     try {
       setLoginLoading(true);
-      // const response = await axios.post("apiaddress", { userId, password });
+      const { data: userInfo } = await axios.post(
+        "http://localhost:5000/api/user/login",
+        { userId, password }
+      );
 
       // Redux Here.
-
-      // dispatch(
-      //   userSlice.actions.setUser({
-      //     userId: response.data.data.userId,
-      //     accessToken: response.data.data.accessToken,
-      //   })
-      // );
+      dispatch(
+        userSlice.actions.setUser({
+          userId: userInfo._id,
+          token: userInfo.token,
+        })
+      );
 
       // await AsyncStorage.setItem(
       //   "refreshToken",
@@ -81,10 +84,7 @@ const Login = ({ navigation }) => {
 
       navigation.navigate("Stack");
     } catch (error) {
-      const errorResponse = error.response;
-      if (errorResponse) {
-        Alert.alert("알림", errorResponse.data.message);
-      }
+      Alert.alert("알림", error);
     } finally {
       setLoginLoading(false);
     }

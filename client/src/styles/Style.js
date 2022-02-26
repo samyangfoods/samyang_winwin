@@ -11,3 +11,5 @@ export const Text = styled.Text`
 export const BasicContainer = styled.View``;
 
 export const ScrollContainer = styled.ScrollView``;
+
+export const BasicTouchableOpacity = styled.TouchableOpacity;

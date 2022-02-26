@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { BasicContainer, Text } from "../styles/Style";
+import { Text } from "../styles/Style";
 import {
   SearchElementContainer,
   SearchInput,
@@ -11,7 +11,6 @@ import {
   SearchResult,
   SearchContainer,
 } from "../styles/Component";
-import { Axios } from "react-native-axios";
 import axios from "axios";
 
 // 어떤 것을 어떻게 검색해야 할 지 결정하기
@@ -29,7 +28,6 @@ const marketNameMockApi = [
 
 const Search = ({ route, searchText, setSearchText }) => {
   // Put API results in this hook
-  const [autocomplete, setAutocomplete] = useState(null);
   const [sampleArray, setSampleArray] = useState([]);
 
   const sampleSearchLogic = (text) => {

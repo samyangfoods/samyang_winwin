@@ -14,7 +14,6 @@ import { Text } from "../../styles/Style";
 import sample from "../../assets/sample.png";
 
 const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
-  console.log(index, Boolean(image[index]), "Hello");
   return (
     <ImageAddButtonContainer>
       <Menu>

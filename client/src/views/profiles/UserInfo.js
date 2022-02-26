@@ -1,6 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Axios } from "react-native-axios/lib/axios";
 import styled from "styled-components/native";
 import logo from "../../assets/logo.png";
 import {
@@ -16,15 +15,18 @@ import {
 import Address from "../Address";
 import defaultUser from "../../assets/defaultUser.png";
 import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
+import { Alert } from "react-native";
 
 const UserInfo = ({ navigation, route }) => {
-  const mockApi = route.params.userInfo;
+  const userInfo = route.params.userInfo;
+
   const [modal, setModal] = useState(false);
-  const [channel, setChannel] = useState(mockApi.channel);
-  const [client, setClient] = useState(mockApi.client);
-  const [phoneNumber, setPhoneNumber] = useState(mockApi.phoneNumber);
-  const [address, setAddress] = useState(mockApi.address);
-  const [userImage, setUserImage] = useState(null);
+  const [channel, setChannel] = useState(userInfo.channel);
+  const [storeName, setStoreName] = useState(userInfo.storeName);
+  const [phoneNumber, setPhoneNumber] = useState(userInfo.phoneNumber);
+  const [address, setAddress] = useState(userInfo.userAddress.warehouse);
+  const [userImage, setUserImage] = useState(userInfo.userImage);
 
   const addUserImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -46,19 +48,34 @@ const UserInfo = ({ navigation, route }) => {
   const handleChannel = (text) => {
     setChannel(text);
   };
-  const handleClient = (text) => {
-    setClient(text);
+  const handleStoreName = (text) => {
+    setStoreName(text);
   };
   const handlePhoneNumber = (text) => {
     setPhoneNumber(text);
   };
 
   const submitNewUserInfo = async () => {
-    const newUserInfo = {};
-    // Send new user info to BE with user's own id (ex)ObjectId in MongoDB.
-    // BE will find previous data with the given id and update them ( ex. findOneAndUpdate )
+    const newUserInfo = {
+      userImage,
+      channel,
+      storeName,
+      phoneNumber,
+      userAddress: { warehouse: address },
+    };
+    try {
+      // Send new user info to BE with user's own id (ex)ObjectId in MongoDB.
+      // BE will find previous data with the given id and update them ( ex. findOneAndUpdate )
+      const response = await axios.put(
+        `http://localhost:5000/api/user/${userInfo_id}`,
+        newUserInfo
+      );
 
-    //   await Axios.post("Api", {newUserInfo}).then(res => back to profile).catch(error => console.log(error));
+      Alert.alert("알림", "사용자 정보가 변경되었습니다.");
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert("알림", error);
+    }
   };
 
   return (
@@ -92,8 +109,8 @@ const UserInfo = ({ navigation, route }) => {
           <VerticalDiv>
             <Text>점포명</Text>
             <InputShort
-              value={client}
-              onChangeText={(text) => handleClient(text)}
+              value={storeName}
+              onChangeText={(text) => handleStoreName(text)}
             />
           </VerticalDiv>
         </HorizontalDiv>

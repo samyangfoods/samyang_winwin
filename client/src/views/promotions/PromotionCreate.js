@@ -23,8 +23,12 @@ import {
 } from "../../styles/PromotionStyle";
 import Address from "../Address";
 import { Btn } from "../../styles/Auth";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { Alert } from "react-native";
 
 const PromotionCreate = ({ route }) => {
+  const userId = useSelector((state) => state.user.userId);
   const [ref, setRef] = useState(null);
   const [searchText, setSearchText] = useState(null);
   const [modal, setModal] = useState(false);
@@ -41,11 +45,10 @@ const PromotionCreate = ({ route }) => {
   });
   const [promotionDetail, setPromotionDetail] = useState([
     {
-      index: Date.now(),
-      productName: "제품명",
-      price: "판매가격",
-      promotionValue: "행사수량",
-      prValue: "PR수량",
+      productName: "",
+      price: "",
+      promotionValue: "",
+      prValue: "",
     },
   ]);
 
@@ -53,39 +56,52 @@ const PromotionCreate = ({ route }) => {
     setSuperMarketName(text);
   };
   const handlePos = (text) => {
-    setPos(text);
+    setPos(parseInt(text));
   };
   const handlePromotionCost = (text) => {
-    setPromotionCost(text);
+    setPromotionCost(parseInt(text));
   };
 
   const addItemArray = () => {
     setPromotionDetail([
       ...promotionDetail,
       {
-        index: Date.now(),
-        productName: "제품명",
-        price: "판매가격",
-        promotionValue: "행사수량",
-        prValue: "PR수량",
+        productName: "",
+        price: "",
+        promotionValue: "",
+        prValue: "",
       },
     ]);
     ref?.scrollToEnd({ animated: true });
   };
-  const submitPromotion = () => {
+
+  const submitPromotion = async () => {
     const promotionObj = {
-      id: Date.now(),
       superMarketName,
       address,
       pos,
       image,
-      startDate: dateStart,
-      endDate: dateEnd,
-      promotionType,
+      start_date: dateStart,
+      end_date: dateEnd,
+      promotionType: promotionType.label,
       promotionCost,
       promotionDetail,
-      isLive: true,
+      islive: true,
+      userId,
     };
+
+    try {
+      console.log(promotionObj);
+      console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥", dateStart, typeof dateStart);
+      console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥", dateEnd, typeof dateEnd);
+
+      const response = await axios.post(
+        "http://localhost:5000/api/promotion",
+        promotionObj
+      );
+    } catch (error) {
+      Alert.alert("알림", error);
+    }
   };
 
   return (
@@ -143,7 +159,7 @@ const PromotionCreate = ({ route }) => {
         {/* Address */}
         <Text>주소</Text>
         <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
-          <Text>{address?.roadAddress || "주소 입력"}</Text>
+          <Text>{address ? address : "주소 입력"}</Text>
         </Btn>
 
         {/* Images */}

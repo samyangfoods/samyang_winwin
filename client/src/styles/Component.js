@@ -3,12 +3,6 @@
 import styled from "styled-components/native";
 import { BasicContainer, Text } from "./Style";
 import { Picker } from "react-native-woodpicker";
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from "react-native-popup-menu";
 
 // Universal
 export const Btn = styled.TouchableOpacity`
@@ -48,7 +42,7 @@ export const StyledPicker = styled(Picker)`
 
 // Search
 export const SearchContainer = styled.View`
-  z-index: 10;
+  /* z-index: 10; */
 `;
 export const SearchElementContainer = styled.View`
   align-items: center;

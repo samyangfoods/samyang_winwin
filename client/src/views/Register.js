@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Axios } from "react-native-axios";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../assets/logo.png";
 import Address from "./Address";
@@ -22,8 +21,10 @@ import {
 import defaultUser from "../assets/defaultUser.png";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
+import axios from "axios";
 
 const Register = ({ navigation }) => {
+  const [userName, setUserName] = useState(null);
   const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordConfirmation, setPasswordConfirmation] = useState(null);
@@ -31,12 +32,13 @@ const Register = ({ navigation }) => {
   const [storeName, setStoreName] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [userImage, setUserImage] = useState(null);
-  const [address, setAddress] = useState(null);
+  const [userAddress, setAddress] = useState(null);
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
   const [modal, setModal] = useState(false);
   const [ref, setRef] = useState(null);
 
+  const nameRef = useRef();
   const idRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
@@ -45,16 +47,20 @@ const Register = ({ navigation }) => {
   const phoneNumberRef = useRef();
 
   const btnActivation = Boolean(
-    userId &&
+    userName &&
+      userId &&
       password &&
       passwordConfirmation &&
       channel &&
       storeName &&
       phoneNumber &&
       userImage &&
-      address
+      userAddress
   );
 
+  const handleUserName = useCallback((text) => {
+    setUserName(text);
+  }, []);
   const handleUserId = useCallback((text) => {
     setUserId(text);
   }, []);
@@ -76,32 +82,33 @@ const Register = ({ navigation }) => {
 
   // userName, role
   const submitUserInformation = async () => {
+    console.log("Submit here 🔥🔥🔥🔥🔥🔥🔥");
+    const userObj = {
+      userName,
+      userId,
+      password,
+      passwordConfirmation,
+      channel,
+      storeName,
+      phoneNumber,
+      userImage,
+      userAddress: { warehouse: userAddress },
+    };
+    console.log(userObj);
     try {
       if (!/[\d\w\W\S]{8,}/.test(password)) {
         return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
       }
 
-      const userObj = {
-        userId,
-        password,
-        passwordConfirmation,
-        channel,
-        storeName,
-        phoneNumber,
-        userImage,
-        address,
-      };
-      // await Axios.post("http://localhost:5000/user/register", userObj)
-      //   .then((res) => console.log(res))
-      //   .catch((err) => console.log(err));
+      const response = await axios.post(
+        "http://localhost:5000/api/user/register",
+        userObj
+      );
 
       Alert.alert("알림", "회원가입이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {
-      const errorResponse = error.response;
-      if (errorResponse) {
-        Alert.alert("알림", errorResponse.data.message);
-      }
+      Alert.alert("알림", error);
     }
   };
 
@@ -158,6 +165,15 @@ const Register = ({ navigation }) => {
             onPress={addUserImage}
           />
 
+          <Input
+            placeholder="이름"
+            value={userName}
+            autoCapitalize="none"
+            onChangeText={(text) => handleUserName(text)}
+            ref={nameRef}
+            onSubmitEditing={() => idRef.current?.focus()}
+            blurOnSubmit={false}
+          />
           <Input
             placeholder="아이디"
             value={userId}
@@ -247,7 +263,7 @@ const Register = ({ navigation }) => {
           />
 
           <Btn onPress={handleModal}>
-            <Text>{address ? address.roadAddress : "주소 검색"}</Text>
+            <Text>{userAddress ? userAddress : "주소 검색"}</Text>
           </Btn>
 
           {/* Need to add the terms of use */}
