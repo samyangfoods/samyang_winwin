@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../assets/logo.png";
 import { Text } from "../styles/Style";
@@ -19,6 +18,7 @@ import { ActivityIndicator, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import userSlice from "../redux/slices/user";
+import { useLogin } from "../hooks/userHooks";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
@@ -34,8 +34,8 @@ const Login = ({ navigation }) => {
   // If system finds current login data, then navigation would move to the main page.
   const checkUserLogin = async () => {
     const userData = await AsyncStorage.getItem("userData");
-    setIsLoggedIn(Boolean(userData));
-    if (isLoggedIn) {
+    if (userData) {
+      setIsLoggedIn(Boolean(userData));
       navigation.navigate("Stack");
     }
   };
@@ -55,32 +55,21 @@ const Login = ({ navigation }) => {
   // FE will receive the token and save it to user's localstorage.
   const submitUserInfo = useCallback(async () => {
     if (loginLoading) return;
-
     if (!userId || !userId.trim())
       return Alert.alert("알림", "아이디를 입력해주세요.");
-
     if (!password || !password.trim())
       return Alert.alert("알림", "비밀번호를 입력해주세요.");
 
     try {
       setLoginLoading(true);
-      const { data: userInfo } = await axios.post(
-        "http://localhost:5000/api/user/login",
-        { userId, password }
-      );
+      const response = await useLogin(userId, password);
 
-      // Redux Here.
       dispatch(
         userSlice.actions.setUser({
-          userId: userInfo._id,
-          token: userInfo.token,
+          userId: response._id,
+          token: response.token,
         })
       );
-
-      // await AsyncStorage.setItem(
-      //   "refreshToken",
-      //   response.data.data.refreshToken
-      // );
 
       navigation.navigate("Stack");
     } catch (error) {

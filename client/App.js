@@ -6,8 +6,10 @@ import { Provider } from "react-redux";
 import store from "./src/redux/store/index";
 import { connectToDevTools } from "react-devtools-core";
 import { MenuProvider } from "react-native-popup-menu";
+import { LogBox } from "react-native";
 
 export default function App() {
+  LogBox.ignoreLogs(["Remote debugger"]);
   // flipper setting
   if (__DEV__) {
     connectToDevTools({

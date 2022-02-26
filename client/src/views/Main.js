@@ -4,6 +4,7 @@ import Promotion from "../components/Promotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
 import axios from "axios";
 import { Text } from "../styles/Style";
+import { usePromotions } from "../hooks/promotionHooks";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
@@ -15,7 +16,7 @@ const Main = ({ navigation, route }) => {
   const [promotions, setPromotions] = useState(null);
 
   const loadPromotions = async () => {
-    const { data } = await axios.get("http://localhost:5000/api/promotion");
+    const data = await usePromotions();
     setPromotions(data.promotions);
   };
 

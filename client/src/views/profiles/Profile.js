@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ActivityIndicator, Alert } from "react-native";
+import { useProfile } from "../../hooks/userHooks";
 
 // Getting user data with context api or redux ...
 
@@ -13,20 +14,25 @@ const Profile = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const loadUserInfo = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/api/user/${userId}`
-    );
-    setUserInfo(response.data.user);
+    const response = await useProfile(userId);
+    setUserInfo(response.user);
   };
 
-  const handleLogOut = () => {
-    Alert.alert("알림", "로그아웃 되었습니다.");
-    navigation.navigate("Modal");
+  const convertImageFormat = async (url) => {
+    const reader = new FileReader();
+
+    const newUrl = reader.readAsDataURL(url);
+    return { uri: url };
   };
 
   useEffect(() => {
     loadUserInfo();
   }, []);
+
+  const handleLogOut = () => {
+    Alert.alert("알림", "로그아웃 되었습니다.");
+    navigation.navigate("Modal");
+  };
 
   return (
     <Container>
@@ -50,7 +56,7 @@ const Profile = ({ navigation }) => {
             </TopTitle>
             <UserCard>
               <CardLeft>
-                <Image source={{ uri: userInfo?.userImage }} />
+                <Image source={{ uri: userInfo.userImage }} />
               </CardLeft>
               <CardRight>
                 <Name>{userInfo.userName}</Name>
@@ -84,7 +90,7 @@ const Profile = ({ navigation }) => {
           </Bottom>
         </>
       ) : (
-        <ActivityIndicator />
+        <ActivityIndicator style={{ flex: 1 }} />
       )}
     </Container>
   );

@@ -19,9 +19,10 @@ import {
   Btn,
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
-import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
+import { useRegister } from "../hooks/userHooks";
 
 const Register = ({ navigation }) => {
   const [userName, setUserName] = useState(null);
@@ -82,7 +83,6 @@ const Register = ({ navigation }) => {
 
   // userName, role
   const submitUserInformation = async () => {
-    console.log("Submit here 🔥🔥🔥🔥🔥🔥🔥");
     const userObj = {
       userName,
       userId,
@@ -94,42 +94,32 @@ const Register = ({ navigation }) => {
       userImage,
       userAddress: { warehouse: userAddress },
     };
-    console.log(userObj);
-    try {
-      if (!/[\d\w\W\S]{8,}/.test(password)) {
-        return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
-      }
 
-      const response = await axios.post(
-        "http://localhost:5000/api/user/register",
-        userObj
-      );
+    if (!/[\d\w\W\S]{8,}/.test(password)) {
+      return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
+    }
 
+    const data = await useRegister(userObj);
+    if (data) {
       Alert.alert("알림", "회원가입이 완료되었습니다.");
       navigation.goBack();
-    } catch (error) {
-      Alert.alert("알림", error);
+    } else {
+      Alert.alert("알림", "오류가 발생하였습니다.");
     }
   };
-
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
 
   const addUserImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
+      base64: true,
       aspect: [4, 3],
       quality: 1,
     });
     if (!result.cancelled) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        console.log("userProfile Uploaded", reader.result);
-      };
-      reader.readAsDataURL(result.uri);
-      setUserImage(result.uri);
+      const imageFormat = "JPEG" || "JPG" || "PNG";
+      const base64Image = `data:${imageFormat};base64,${result.base64}`;
+      setUserImage(base64Image);
     }
   };
 
@@ -144,6 +134,10 @@ const Register = ({ navigation }) => {
   const modalIsClosed = () => {
     ref?.scrollToEnd({ animated: false });
   };
+
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   return (
     <Container>
