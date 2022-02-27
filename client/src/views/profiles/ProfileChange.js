@@ -14,7 +14,7 @@ import {
 } from "../../styles/Auth";
 import Address from "../../components/Address";
 import defaultUser from "../../assets/defaultUser.png";
-import { Alert } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { useImageBase64 } from "../../hooks/util";
 import { useProfileChange } from "../../hooks/userHooks";
 import { useSelector } from "react-redux";
@@ -24,6 +24,7 @@ const UserInfo = ({ navigation, route }) => {
   const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState(userInfo.userName);
   const [channel, setChannel] = useState(userInfo.channel);
   const [storeName, setStoreName] = useState(userInfo.storeName);
@@ -50,6 +51,8 @@ const UserInfo = ({ navigation, route }) => {
   };
 
   const submitNewUserInfo = async () => {
+    if (isLoading) return;
+
     const newUserInfo = {
       channel,
       userName,
@@ -61,13 +64,15 @@ const UserInfo = ({ navigation, route }) => {
     };
 
     try {
-      const response = await useProfileChange(userInfo._id, newUserInfo, token);
-      console.log("response 🔥🔥🔥", response);
+      setIsLoading(true);
+      await useProfileChange(userInfo._id, newUserInfo, token);
       Alert.alert("알림", "사용자 정보가 변경되었습니다.");
       navigation.goBack();
     } catch (error) {
-      console.log(error);
-      Alert.alert("알림", error);
+      console.log("Error in profile change", error);
+      Alert.alert("알림", "오류가 발생하였습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -136,7 +141,9 @@ const UserInfo = ({ navigation, route }) => {
         </AddressDiv>
 
         <LoginBtn>
-          <BtnText onPress={submitNewUserInfo}>수정하기</BtnText>
+          <BtnText onPress={submitNewUserInfo}>
+            {isLoading ? <ActivityIndicator color="white" /> : "수정하기"}
+          </BtnText>
         </LoginBtn>
 
         <CreateBtn onPress={() => navigation.goBack()}>

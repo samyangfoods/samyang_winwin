@@ -18,11 +18,13 @@ import {
   FooterBtn,
   BtnContainer,
 } from "../../styles/MarketStyle";
+import { useMarketDelete } from "../../hooks/marketHooks";
+import { ActivityIndicator, Alert } from "react-native";
 
 const MarketInfoChange = ({ navigation, route }) => {
   const marketData = route.params.marketData[0];
-
   const [modal, setModal] = useState(false);
+  const [marketId] = useState(marketData._id);
   const [address, setAddress] = useState(marketData.marketAddress.warehouse);
   const [image, setImage] = useState(marketData.marketImage);
   const [marketName, setMarketName] = useState(marketData.marketName);
@@ -30,6 +32,9 @@ const MarketInfoChange = ({ navigation, route }) => {
   const [pos, setPos] = useState(marketData.pos);
   const [phoneNumber, setPhoneNumber] = useState(marketData.phone);
   const [income, setIncome] = useState(marketData.averageSales);
+
+  const [changeLoading, setChangeLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleName = (text) => {
     setMarketName(text);
@@ -45,6 +50,29 @@ const MarketInfoChange = ({ navigation, route }) => {
   };
   const handleIncome = (text) => {
     setIncome(text);
+  };
+
+  const processMarketDelete = async (marketId) => {
+    const response = await useMarketDelete(marketId);
+    console.log("market change response 🔥🔥🔥🔥", response);
+    if (response) {
+      Alert.alert("알림", "삭제되었습니다.");
+      navigation.goBack();
+    }
+  };
+
+  const triggerDeleteButton = (marketId) => {
+    setDeleteLoading(true);
+    try {
+      Alert.alert("알림", "삭제하시겠습니까?", [
+        { text: "네", onPress: () => processMarketDelete(marketId) },
+        { text: "아니오" },
+      ]);
+    } catch (error) {
+      Alert.alert("알림", "오류가 발생했습니다.");
+    } finally {
+      setDeleteLoading(false);
+    }
   };
 
   return (
@@ -115,10 +143,12 @@ const MarketInfoChange = ({ navigation, route }) => {
             <Text style={{ color: "#fff" }}>수정하기</Text>
           </FooterBtn>
           <FooterBtn
-            onPress={() => navigation.goBack()}
+            onPress={() => triggerDeleteButton(marketId)}
             style={{ backgroundColor: "#B4B4B4" }}
           >
-            <Text style={{ color: "#fff" }}>삭제하기</Text>
+            <Text style={{ color: "#fff" }}>
+              {deleteLoading ? <ActivityIndicator color="white" /> : "삭제하기"}
+            </Text>
           </FooterBtn>
         </BtnContainer>
       </MarketInputForm>

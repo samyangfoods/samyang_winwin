@@ -22,8 +22,7 @@ import * as SecureStore from "expo-secure-store";
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [showing, setShowing] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showing, setShowing] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const idRef = useRef();
   const passwordRef = useRef();

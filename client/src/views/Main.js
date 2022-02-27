@@ -35,9 +35,11 @@ const Main = ({ navigation, route }) => {
           setSearchText={setSearchText}
         />
       </Top>
+
       {promotions?.length !== 0 ? (
         <Bottom
           data={promotions}
+          // Need unique key here 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
           keyExtractor={(item) => Date.now()}
           renderItem={renderItem}
         />
