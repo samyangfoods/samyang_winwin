@@ -15,8 +15,8 @@ import {
 import Address from "../../components/Address";
 import defaultUser from "../../assets/defaultUser.png";
 import { ActivityIndicator, Alert } from "react-native";
-import { useImageBase64 } from "../../hooks/util";
-import { useProfileChange } from "../../hooks/userHooks";
+import { useImageBase64 } from "../../hooks/Util";
+import { useProfileChange } from "../../hooks/UserHooks";
 import { useSelector } from "react-redux";
 
 const UserInfo = ({ navigation, route }) => {
@@ -70,7 +70,7 @@ const UserInfo = ({ navigation, route }) => {
       navigation.goBack();
     } catch (error) {
       console.log("Error in profile change", error);
-      Alert.alert("알림", "오류가 발생하였습니다.");
+      Alert.alert("알림", "오류가 발생했습니다.");
     } finally {
       setIsLoading(false);
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import EachPromotion from "../components/EachPromotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
-import { usePromotions } from "../hooks/promotionHooks";
+import { usePromotions } from "../hooks/PromotionHooks";
 import NotFound from "../components/NotFound";
 
 // storeName // superMarketName

@@ -20,8 +20,8 @@ import {
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
 import { Alert } from "react-native";
-import { useRegister } from "../hooks/userHooks";
-import { useImageBase64 } from "../hooks/util";
+import { useRegister } from "../hooks/UserHooks";
+import { useImageBase64 } from "../hooks/Util";
 
 const Register = ({ navigation }) => {
   const [userName, setUserName] = useState(null);

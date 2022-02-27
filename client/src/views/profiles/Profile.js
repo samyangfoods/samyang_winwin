@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { ActivityIndicator, Alert } from "react-native";
-import { useProfile } from "../../hooks/userHooks";
+import { useProfile } from "../../hooks/UserHooks";
 import * as SecureStore from "expo-secure-store";
 
 const Profile = ({ navigation }) => {

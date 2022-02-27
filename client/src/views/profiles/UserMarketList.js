@@ -3,7 +3,8 @@ import Search from "../../components/Search";
 import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
 import { AntDesign } from "@expo/vector-icons";
 import EachMarket from "../../components/EachMarket";
-import { useMarketList } from "../../hooks/marketHooks";
+import { useMarketList } from "../../hooks/MarketHooks";
+import NotFound from "../../components/NotFound";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);

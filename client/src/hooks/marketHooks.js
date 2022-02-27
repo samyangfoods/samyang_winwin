@@ -1,6 +1,5 @@
 import axios from "axios";
-import { Alert } from "react-native";
-import { basicApiUrl } from "./userHooks";
+import { basicApiUrl } from "./UserHooks";
 
 export const useMarketList = async () => {
   const { data } = await axios.get(`${basicApiUrl}/market`);
@@ -16,6 +15,6 @@ export const useMarketCreate = async (marketObj) => {
 
 export const useMarketDelete = async (marketId) => {
   const { config } = await axios.delete(`${basicApiUrl}/market/${marketId}`);
-  console.log("market hooks ✅✅✅✅✅✅✅✅✅", config);
-  return Boolean(config);
+
+  return config;
 };

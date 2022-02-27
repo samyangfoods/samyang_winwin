@@ -9,7 +9,7 @@ import {
   SearchTextResult,
   SearchContainer,
 } from "../styles/Component";
-import { useSearchText } from "../hooks/searchHooks";
+import { useSearchText } from "../hooks/SearchHooks";
 
 // 어떤 것을 어떻게 검색해야 할 지 결정하기
 const marketNameMockApi = [

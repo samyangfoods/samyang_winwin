@@ -3,7 +3,7 @@ import ImageAddButton from "./ImageAddButton";
 import { BasicContainer } from "../../styles/Style";
 import { HorizontalDiv } from "../../styles/Component";
 import { Alert } from "react-native";
-import { useImageBase64 } from "../../hooks/util";
+import { useImageBase64 } from "../../hooks/Util";
 
 const ImageAccess = ({ image, setImage }) => {
   let imageObj = [];

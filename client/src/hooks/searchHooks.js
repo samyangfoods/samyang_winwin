@@ -1,5 +1,5 @@
 import axios from "axios";
-import { basicApiUrl } from "./userHooks";
+import { basicApiUrl } from "./UserHooks";
 
 // 자동완성으로 추출된 소매점을 터치하면 상세 화면으로 이동
 export const useSearchText = async (text) => {

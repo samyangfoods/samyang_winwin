@@ -2,7 +2,6 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import Address from "../../components/Address";
 import ImageUpload from "../../components/images/ImageUpload";
-import winwin from "../../assets/winwin.png";
 import { ScrollContainer, Text } from "../../styles/Style";
 import {
   MarketInputForm,
@@ -18,7 +17,7 @@ import {
   FooterBtn,
   BtnContainer,
 } from "../../styles/MarketStyle";
-import { useMarketDelete } from "../../hooks/marketHooks";
+import { useMarketDelete } from "../../hooks/MarketHooks";
 import { ActivityIndicator, Alert } from "react-native";
 
 const MarketInfoChange = ({ navigation, route }) => {
@@ -54,13 +53,11 @@ const MarketInfoChange = ({ navigation, route }) => {
 
   const processMarketDelete = async (marketId) => {
     const response = await useMarketDelete(marketId);
-    console.log("market change response 🔥🔥🔥🔥", response);
     if (response) {
       Alert.alert("알림", "삭제되었습니다.");
       navigation.goBack();
     }
   };
-
   const triggerDeleteButton = (marketId) => {
     setDeleteLoading(true);
     try {
@@ -78,13 +75,9 @@ const MarketInfoChange = ({ navigation, route }) => {
   return (
     <ScrollContainer>
       <MarketInputForm>
-        {/* This page needs to convert photo url into proper types. 
-        Mock API does not handle this point. */}
         {image && (
           <ThumbnailContainer>
-            <Image
-              source={image === marketData.image ? winwin : { uri: image }}
-            />
+            <Image source={{ uri: image }} />
           </ThumbnailContainer>
         )}
 
@@ -140,7 +133,9 @@ const MarketInfoChange = ({ navigation, route }) => {
         {/* Submit and Remove Button Container */}
         <BtnContainer>
           <FooterBtn style={{ backgroundColor: "#FF7D0D" }}>
-            <Text style={{ color: "#fff" }}>수정하기</Text>
+            <Text style={{ color: "#fff" }}>
+              {changeLoading ? <ActivityIndicator color="white" /> : "수정하기"}
+            </Text>
           </FooterBtn>
           <FooterBtn
             onPress={() => triggerDeleteButton(marketId)}

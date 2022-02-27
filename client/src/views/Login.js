@@ -16,7 +16,7 @@ import {
 import { ActivityIndicator, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import userSlice from "../redux/slices/user";
-import { useLogin, useTokenLogin } from "../hooks/userHooks";
+import { useLogin, useTokenLogin } from "../hooks/UserHooks";
 import * as SecureStore from "expo-secure-store";
 
 const Login = ({ navigation }) => {

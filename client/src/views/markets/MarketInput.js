@@ -14,7 +14,7 @@ import {
   LoginBtn,
   BtnText,
 } from "../../styles/MarketStyle";
-import { useMarketCreate } from "../../hooks/marketHooks";
+import { useMarketCreate } from "../../hooks/MarketHooks";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 
