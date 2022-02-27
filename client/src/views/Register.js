@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../assets/logo.png";
-import Address from "./Address";
+import Address from "../components/Address";
 import { AntDesign } from "@expo/vector-icons";
 import { Text } from "../styles/Style";
 import {
@@ -21,6 +21,7 @@ import {
 import defaultUser from "../assets/defaultUser.png";
 import { Alert } from "react-native";
 import { useRegister } from "../hooks/userHooks";
+import { useImageBase64 } from "../hooks/util";
 
 const Register = ({ navigation }) => {
   const [userName, setUserName] = useState(null);

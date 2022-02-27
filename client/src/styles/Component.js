@@ -71,13 +71,6 @@ export const AutoCompleteContainer = styled.View`
   height: 220%;
   z-index: 20;
 `;
-export const MySearchText = styled.View`
-  padding-bottom: 3%;
-  margin-bottom: 3%;
-  border-bottom-color: #aaa;
-  border-bottom-width: 0.5px;
-`;
-export const SearchResult = styled.View``;
 export const SearchTextResult = styled.View`
   padding: 5%;
 `;

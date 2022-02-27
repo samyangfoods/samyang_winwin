@@ -12,7 +12,7 @@ import {
   InputShort,
   LoginBtn,
 } from "../../styles/Auth";
-import Address from "../Address";
+import Address from "../../components/Address";
 import defaultUser from "../../assets/defaultUser.png";
 import { Alert } from "react-native";
 import { useImageBase64 } from "../../hooks/util";

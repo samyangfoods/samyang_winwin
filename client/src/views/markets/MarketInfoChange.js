@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import Address from "../Address";
+import Address from "../../components/Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import winwin from "../../assets/winwin.png";
 import { ScrollContainer, Text } from "../../styles/Style";

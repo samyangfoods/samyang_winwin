@@ -7,11 +7,9 @@ import {
   SearchBtn,
   AutoCompleteContainer,
   SearchTextResult,
-  MySearchText,
-  SearchResult,
   SearchContainer,
 } from "../styles/Component";
-import axios from "axios";
+import { useSearchText } from "../hooks/searchHooks";
 
 // 어떤 것을 어떻게 검색해야 할 지 결정하기
 const marketNameMockApi = [
@@ -45,16 +43,12 @@ const Search = ({ route, searchText, setSearchText }) => {
         // await Axios.post("api", { text,  })
         //   .then((res) => "Autocomplete Results")
         //   .catch((error) => console.log(error));
-
-        // Sample Logic !!!!! 👈
-        sampleSearchLogic(text);
         return console.log("행사현황 입니다.", searchText);
       // 🔥🔥🔥 소매점 검색 -> 삼양마트, 우주마트 등. 🔥🔥🔥
-      case "행사등록":
-        // await Axios.post("api", { text })
-        //   .then((res) => "Autocomplete Results")
-        //   .catch((error) => console.log(error));
-        return console.log("행사등록 입니다.", searchText);
+      case "소매점 목록":
+        // let response = await useSearchText(text);
+        sampleSearchLogic(text);
+        return console.log("소매점 목록 입니다.", searchText);
       default:
         return;
     }
@@ -65,8 +59,8 @@ const Search = ({ route, searchText, setSearchText }) => {
       case "행사현황":
         // use axios and send searchText to backend
         return console.log("행사현황 입니다.", searchText);
-      case "행사등록":
-        return console.log("행사등록 입니다.", searchText);
+      case "소매점 목록":
+        return console.log("소매점 목록 입니다.", searchText);
       default:
         return;
     }
@@ -91,18 +85,9 @@ const Search = ({ route, searchText, setSearchText }) => {
       {searchText !== "" && searchText !== null && (
         <AutoCompleteContainer>
           <SearchTextResult>
-            <MySearchText>
-              <Text style={{ color: "#aaa", marginBottom: 5 }}>
-                나의 검색어
-              </Text>
-              <Text>{searchText}</Text>
-            </MySearchText>
-            <SearchResult>
-              <Text style={{ color: "#aaa", marginBottom: 5 }}>검색 결과</Text>
-              {sampleArray.map((res) => (
-                <Text key={res}>{res}</Text>
-              ))}
-            </SearchResult>
+            {sampleArray.map((res) => (
+              <Text key={res}>{res}</Text>
+            ))}
           </SearchTextResult>
         </AutoCompleteContainer>
       )}

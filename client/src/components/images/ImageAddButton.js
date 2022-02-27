@@ -11,7 +11,6 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { Text } from "../../styles/Style";
-import sample from "../../assets/sample.png";
 
 const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
   return (
@@ -23,19 +22,9 @@ const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
           }}
         >
           {image[index] ? (
-            <Thumbnail
-              source={
-                typeof image[index] === "number"
-                  ? sample
-                  : { uri: image[index] }
-              }
-            />
+            <Thumbnail source={{ uri: image[index] }} />
           ) : (
-            <ImageAddButtonTitle>
-              {image[index]
-                ? image[index].toString().slice(0, 5)
-                : `이미지${index + 1}`}
-            </ImageAddButtonTitle>
+            <ImageAddButtonTitle>{`이미지${index + 1}`}</ImageAddButtonTitle>
           )}
         </MenuTrigger>
 

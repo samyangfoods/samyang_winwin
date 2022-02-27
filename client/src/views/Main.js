@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
-import Promotion from "../components/EachPromotion";
+import EachPromotion from "../components/EachPromotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
 import { Text } from "../styles/Style";
 import { usePromotions } from "../hooks/promotionHooks";
@@ -21,7 +21,7 @@ const Main = ({ navigation, route }) => {
 
   useEffect(() => {
     loadPromotions();
-  }, []);
+  }, [promotions]);
 
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;

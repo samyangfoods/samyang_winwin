@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Address from "../Address";
+import Address from "../../components/Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import { ScrollContainer, Text } from "../../styles/Style";
 import { AntDesign } from "@expo/vector-icons";

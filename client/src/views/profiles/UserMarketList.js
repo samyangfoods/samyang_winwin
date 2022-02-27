@@ -16,7 +16,7 @@ const MarketList = ({ navigation, route }) => {
 
   useEffect(() => {
     loadMarketList();
-  }, []);
+  }, [markets]);
 
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;

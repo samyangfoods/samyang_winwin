@@ -17,7 +17,7 @@ const Profile = ({ navigation }) => {
 
   useEffect(() => {
     loadUserInfo();
-  }, []);
+  }, [userInfo]);
 
   const handleLogOut = async () => {
     await SecureStore.deleteItemAsync("token");

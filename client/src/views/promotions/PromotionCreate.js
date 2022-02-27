@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Search from "../../components/Search";
 import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
@@ -7,7 +6,6 @@ import ItemArray from "../../components/items/ItemArray";
 import { Text } from "../../styles/Style";
 import {
   ProtmotionCreateContainer,
-  Top,
   Bottom,
   VerticalDiv,
   HorizontalDiv,
@@ -21,16 +19,15 @@ import {
   TextBox,
   HorizontalSeparator,
 } from "../../styles/PromotionStyle";
-import Address from "../Address";
+import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 
-const PromotionCreate = ({ route }) => {
+const PromotionCreate = () => {
   const userId = useSelector((state) => state.user.userId);
   const [ref, setRef] = useState(null);
-  const [searchText, setSearchText] = useState(null);
   const [modal, setModal] = useState(false);
   const [superMarketName, setSuperMarketName] = useState(null);
   const [address, setAddress] = useState(null);
@@ -91,10 +88,6 @@ const PromotionCreate = ({ route }) => {
     };
 
     try {
-      console.log(promotionObj);
-      console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥", dateStart, typeof dateStart);
-      console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥", dateEnd, typeof dateEnd);
-
       const response = await axios.post(
         "http://localhost:5000/api/promotion",
         promotionObj
@@ -106,14 +99,6 @@ const PromotionCreate = ({ route }) => {
 
   return (
     <ProtmotionCreateContainer>
-      <Top>
-        <Search
-          route={route}
-          searchText={searchText}
-          setSearchText={setSearchText}
-        />
-      </Top>
-
       <Bottom ref={(ref) => setRef(ref)}>
         {/* SuperMarket Name & Promotion Type */}
         <HorizontalDiv>
