@@ -20,15 +20,16 @@ import {
 } from "../../styles/MarketStyle";
 
 const MarketInfoChange = ({ navigation, route }) => {
-  const mockApi = route.params.marketData[0];
+  const marketData = route.params.marketData[0];
+
   const [modal, setModal] = useState(false);
-  const [address, setAddress] = useState(mockApi.address);
-  const [image, setImage] = useState(mockApi.image);
-  const [marketName, setMarketName] = useState(mockApi.superMarketName);
-  const [size, setSize] = useState(mockApi.size);
-  const [pos, setPos] = useState(mockApi.pos);
-  const [phoneNumber, setPhoneNumber] = useState(mockApi.phoneNumber);
-  const [income, setIncome] = useState(mockApi.average);
+  const [address, setAddress] = useState(marketData.marketAddress.warehouse);
+  const [image, setImage] = useState(marketData.marketImage);
+  const [marketName, setMarketName] = useState(marketData.marketName);
+  const [size, setSize] = useState(marketData.size);
+  const [pos, setPos] = useState(marketData.pos);
+  const [phoneNumber, setPhoneNumber] = useState(marketData.phone);
+  const [income, setIncome] = useState(marketData.averageSales);
 
   const handleName = (text) => {
     setMarketName(text);
@@ -49,6 +50,25 @@ const MarketInfoChange = ({ navigation, route }) => {
   return (
     <ScrollContainer>
       <MarketInputForm>
+        {/* This page needs to convert photo url into proper types. 
+        Mock API does not handle this point. */}
+        {image && (
+          <ThumbnailContainer>
+            <Image
+              source={image === marketData.image ? winwin : { uri: image }}
+            />
+          </ThumbnailContainer>
+        )}
+
+        <Text>이미지 등록</Text>
+        <ImageUpload
+          placeholder={
+            marketData.image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
+          }
+          image={image}
+          setImage={setImage}
+        />
+
         <Text>소매점명</Text>
         <TextInput
           onChangeText={(text) => handleName(text)}
@@ -60,6 +80,7 @@ const MarketInfoChange = ({ navigation, route }) => {
             <Text>평수</Text>
             <TextInput onChangeText={(text) => handleSize(text)} value={size} />
           </VerticalDiv>
+
           <VerticalDiv>
             <Text>POS 수</Text>
             <TextInput onChangeText={(text) => handlePos(text)} value={pos} />
@@ -85,25 +106,9 @@ const MarketInfoChange = ({ navigation, route }) => {
 
         <Text>주소 검색</Text>
         <Btn onPress={() => setModal(true)}>
-          <Text>{address ? address.roadAddress : "주소 검색"}</Text>
+          <Text>{address ? address : "주소 검색"}</Text>
         </Btn>
 
-        {/* This page needs to convert photo url into proper types. 
-        Mock API does not handle this point. */}
-        {image && (
-          <ThumbnailContainer>
-            <Image source={image === mockApi.image ? winwin : { uri: image }} />
-          </ThumbnailContainer>
-        )}
-
-        <Text>이미지 등록</Text>
-        <ImageUpload
-          placeholder={
-            mockApi.image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
-          }
-          image={image}
-          setImage={setImage}
-        />
         {/* Submit and Remove Button Container */}
         <BtnContainer>
           <FooterBtn style={{ backgroundColor: "#FF7D0D" }}>

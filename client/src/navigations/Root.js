@@ -5,10 +5,10 @@ import Stack from "./Stack";
 import PromotionDetail from "../views/promotions/PromotionDetail";
 import Profile from "../views/profiles/Profile";
 import MarketInfoChange from "../views/markets/MarketInfoChange";
-import ProfileDetail from "../views/profiles/ProfileDetail";
-import UserInfo from "../views/profiles/UserInfo";
+import MarketInfo from "../views/markets/MarketInfo";
+import ProfileChange from "../views/profiles/ProfileChange";
 import MarketInput from "../views/markets/MarketInput";
-import MarketList from "../views/markets/MarketList";
+import UserMarketList from "../views/profiles/UserMarketList";
 
 const Nav = createNativeStackNavigator();
 
@@ -31,7 +31,7 @@ const Root = () => (
     />
     <Nav.Screen
       name="사용자 정보변경"
-      component={UserInfo}
+      component={ProfileChange}
       options={{
         headerShown: false,
       }}
@@ -44,12 +44,12 @@ const Root = () => (
     />
     <Nav.Screen
       name="매장 정보"
-      component={ProfileDetail}
+      component={MarketInfo}
       options={{ headerShown: false }}
     />
     <Nav.Screen
       name="소매점 목록"
-      component={MarketList}
+      component={UserMarketList}
       options={{ headerShown: true }}
     />
     <Nav.Screen

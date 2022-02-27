@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import { ActivityIndicator, Alert } from "react-native";
 import { useProfile } from "../../hooks/userHooks";
-
-// Getting user data with context api or redux ...
+import * as SecureStore from "expo-secure-store";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
-  const token = useSelector((state) => state.user.token);
   const [userInfo, setUserInfo] = useState(null);
 
   const loadUserInfo = async () => {
@@ -18,18 +15,12 @@ const Profile = ({ navigation }) => {
     setUserInfo(response.user);
   };
 
-  const convertImageFormat = async (url) => {
-    const reader = new FileReader();
-
-    const newUrl = reader.readAsDataURL(url);
-    return { uri: url };
-  };
-
   useEffect(() => {
     loadUserInfo();
   }, []);
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    await SecureStore.deleteItemAsync("token");
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");
   };

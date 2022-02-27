@@ -1,28 +1,15 @@
 import React from "react";
-import * as ImagePicker from "expo-image-picker";
 import { BasicContainer } from "../../styles/Style";
 import { Text } from "../../styles/Style";
 import { HorizontalDiv, ImageUploadBtn } from "../../styles/Component";
+import { useImageBase64 } from "../../hooks/util";
 
 // Component to Add only One Image
 
 const ImageAccess = ({ placeholder, setImage }) => {
   const accessAlbum = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        console.log(reader.result);
-      };
-      reader.readAsDataURL(result.uri);
-
-      setImage(result.uri);
-    }
+    const response = await useImageBase64();
+    setImage(response);
   };
 
   return (

@@ -1,24 +1,26 @@
-import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import Address from "../Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import { ScrollContainer, Text } from "../../styles/Style";
+import { AntDesign } from "@expo/vector-icons";
 import {
   MarketInputForm,
   VerticalDiv,
   HorizontalDiv,
   TextInput,
   Btn,
-  AddressContainer,
-  BtnAddress,
-  BtnAddressContainer,
   ThumbnailContainer,
   Image,
   LoginBtn,
   BtnText,
 } from "../../styles/MarketStyle";
+import { useMarketCreate } from "../../hooks/marketHooks";
+import { useSelector } from "react-redux";
+import { Alert } from "react-native";
 
-const MarketInput = () => {
+const MarketInput = ({ navigation }) => {
+  const userId = useSelector((state) => state.user.userId);
+
   const [modal, setModal] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -46,20 +48,52 @@ const MarketInput = () => {
 
   const sumbitMarketInfo = async () => {
     const marketObj = {
-      address: address.roadAddress,
-      superMarketName: marketName,
+      marketName,
       size,
       pos,
-      phoneNumber,
-      income,
-      image,
+      phone: phoneNumber,
+      averageSales: income,
+      marketAddress: { warehouse: address },
+      marketImage: image,
+      userId,
     };
-    console.log(marketObj);
+    try {
+      const response = await useMarketCreate(marketObj);
+
+      Alert.alert("알림", "소매점이 등록되었습니다.");
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert("알림", error);
+    }
   };
 
   return (
     <ScrollContainer>
       <MarketInputForm>
+        {image ? (
+          <ThumbnailContainer>
+            <Image source={{ uri: image }} />
+          </ThumbnailContainer>
+        ) : (
+          <ThumbnailContainer>
+            <AntDesign
+              name="camerao"
+              size={48}
+              color="gray"
+              style={{ paddingTop: 30 }}
+            />
+            <Text style={{ color: "gray" }}>
+              아래 버튼을 눌러 이미지를 첨부해주세요.
+            </Text>
+          </ThumbnailContainer>
+        )}
+
+        <Text>이미지 등록</Text>
+        <ImageUpload
+          placeholder={image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"}
+          setImage={setImage}
+        />
+
         <Text>소매점명</Text>
         <TextInput
           placeholder="소매점명을 입력하세요"
@@ -107,36 +141,15 @@ const MarketInput = () => {
 
         <Text>주소 검색</Text>
         <Btn onPress={() => setModal(true)}>
-          <Text>{address ? address.roadAddress : "주소 검색"}</Text>
+          <Text>{address ? address : "주소 검색"}</Text>
         </Btn>
 
-        {image && (
-          <ThumbnailContainer>
-            <Image source={{ uri: image }} />
-          </ThumbnailContainer>
-        )}
-
-        <Text>이미지 등록</Text>
-        <ImageUpload
-          placeholder={image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"}
-          image={image}
-          setImage={setImage}
-        />
         <LoginBtn onPress={sumbitMarketInfo}>
           <BtnText>등록하기</BtnText>
         </LoginBtn>
       </MarketInputForm>
 
-      {modal && (
-        <AddressContainer>
-          <BtnAddressContainer>
-            <BtnAddress onPress={() => setModal(false)}>
-              <AntDesign name="close" size={30} color="black" />
-            </BtnAddress>
-          </BtnAddressContainer>
-          <Address setAddress={setAddress} setModal={setModal} />
-        </AddressContainer>
-      )}
+      {modal && <Address setAddress={setAddress} setModal={setModal} />}
     </ScrollContainer>
   );
 };

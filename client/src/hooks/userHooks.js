@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Platform } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 // OS에 따라 적합한 URL 형식 적용
 export const basicApiUrl =
@@ -12,7 +13,9 @@ export const useLogin = async (userId, password) => {
     userId,
     password,
   });
-  console.log("USERRRRRR🔥🔥🔥🔥🔥🔥🔥🔥", data);
+
+  await SecureStore.setItemAsync("token", data.token);
+
   return data;
 };
 
@@ -24,6 +27,21 @@ export const useRegister = async (userObj) => {
 
 export const useProfile = async (userId) => {
   const { data } = await axios.get(`${basicApiUrl}/user/${userId}`);
+
+  return data;
+};
+
+export const useProfileChange = async (userId, userObj, token) => {
+  const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  return data;
+};
+
+export const useTokenLogin = async (token) => {
+  // sample..
+  const { data } = await axios.post(`${basicApiUrl}/user/token`, token);
 
   return data;
 };

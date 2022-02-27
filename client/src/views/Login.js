@@ -14,11 +14,10 @@ import {
   PasswordIcon,
 } from "../styles/Auth";
 import { ActivityIndicator, Alert } from "react-native";
-// Need to Import EncryptedStorage (-> Should solve RN error)
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import userSlice from "../redux/slices/user";
-import { useLogin } from "../hooks/userHooks";
+import { useLogin, useTokenLogin } from "../hooks/userHooks";
+import * as SecureStore from "expo-secure-store";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
@@ -31,16 +30,23 @@ const Login = ({ navigation }) => {
   const btnActivation = Boolean(userId && password);
   const dispatch = useDispatch();
 
-  // If system finds current login data, then navigation would move to the main page.
+  // If system finds current login data with user's token, then navigation would move to the main page.
   const checkUserLogin = async () => {
-    const userData = await AsyncStorage.getItem("userData");
-    if (userData) {
-      setIsLoggedIn(Boolean(userData));
+    const token = await SecureStore.getItemAsync("token");
+    if (token) {
+      const response = await useTokenLogin(token);
+      dispatch(
+        userSlice.actions.setUser({
+          userId: response._id,
+          token: response.token,
+        })
+      );
       navigation.navigate("Stack");
     }
   };
+
   useEffect(() => {
-    checkUserLogin();
+    // checkUserLogin();
   });
 
   const handleId = useCallback((text) => {

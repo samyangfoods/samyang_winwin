@@ -15,11 +15,11 @@ import {
 } from "../styles/Map";
 import { Title } from "../styles/Style";
 
-const Market = ({ data, navigation }) => {
+const Market = ({ item, navigation }) => {
   return (
     <RouteBtn
       onPress={() =>
-        navigation.navigate("소매점 수정하기", { marketData: [data] })
+        navigation.navigate("소매점 수정하기", { marketData: [item] })
       }
     >
       <MapContainer>
@@ -29,24 +29,24 @@ const Market = ({ data, navigation }) => {
               backgroundColor: "#ff7d0d",
             }}
           >
-            {data.budget}
+            {item.averageSales + "만원"}
           </TypeText>
         </MarketTop>
 
         <MarketBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={data.image} />
+              <Image source={{ uri: item.marketImage }} />
             </StoreInfoLeft>
 
             <StoreInfoRight>
-              <Title>{data.superMarketName}</Title>
+              <Title>{item.marketName}</Title>
               <HorizontalDiv>
                 <TextBox>
-                  <SmallText>평수 : {data.size}</SmallText>
+                  <SmallText>평수 : {item.size}</SmallText>
                 </TextBox>
                 <TextBox>
-                  <SmallText>POS : {data.pos}</SmallText>
+                  <SmallText>POS : {item.pos}</SmallText>
                 </TextBox>
               </HorizontalDiv>
             </StoreInfoRight>

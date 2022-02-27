@@ -20,8 +20,6 @@ import {
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
 import { Alert } from "react-native";
-import axios from "axios";
-import * as ImagePicker from "expo-image-picker";
 import { useRegister } from "../hooks/userHooks";
 
 const Register = ({ navigation }) => {
@@ -109,18 +107,8 @@ const Register = ({ navigation }) => {
   };
 
   const addUserImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      base64: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      const imageFormat = "JPEG" || "JPG" || "PNG";
-      const base64Image = `data:${imageFormat};base64,${result.base64}`;
-      setUserImage(base64Image);
-    }
+    const reponse = await useImageBase64();
+    setUserImage(reponse);
   };
 
   // This will scroll to the top when the address modal is on.

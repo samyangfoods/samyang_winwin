@@ -4,6 +4,7 @@ import { BtnText, CreateBtn, CreateText, LoginBtn } from "../../styles/Auth";
 
 const ProfileDetail = ({ navigation, route }) => {
   const mockApi = route.params.marketList[0];
+  console.log(mockApi);
 
   return (
     <Container>

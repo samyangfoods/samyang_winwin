@@ -14,14 +14,17 @@ import {
 } from "../../styles/Auth";
 import Address from "../Address";
 import defaultUser from "../../assets/defaultUser.png";
-import * as ImagePicker from "expo-image-picker";
-import axios from "axios";
 import { Alert } from "react-native";
+import { useImageBase64 } from "../../hooks/util";
+import { useProfileChange } from "../../hooks/userHooks";
+import { useSelector } from "react-redux";
 
 const UserInfo = ({ navigation, route }) => {
   const userInfo = route.params.userInfo;
+  const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
+  const [userName, setUserName] = useState(userInfo.userName);
   const [channel, setChannel] = useState(userInfo.channel);
   const [storeName, setStoreName] = useState(userInfo.storeName);
   const [phoneNumber, setPhoneNumber] = useState(userInfo.phoneNumber);
@@ -29,22 +32,13 @@ const UserInfo = ({ navigation, route }) => {
   const [userImage, setUserImage] = useState(userInfo.userImage);
 
   const addUserImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        console.log("userProfile Uploaded", reader.result);
-      };
-      reader.readAsDataURL(result.uri);
-      setUserImage(result.uri);
-    }
+    const reponse = await useImageBase64();
+    setUserImage(reponse);
   };
 
+  const handleUserName = (text) => {
+    setUserName(text);
+  };
   const handleChannel = (text) => {
     setChannel(text);
   };
@@ -57,23 +51,22 @@ const UserInfo = ({ navigation, route }) => {
 
   const submitNewUserInfo = async () => {
     const newUserInfo = {
-      userImage,
       channel,
+      userName,
       storeName,
+      address: { warehouse: address },
       phoneNumber,
-      userAddress: { warehouse: address },
+      userImage,
+      role: "dealer",
     };
-    try {
-      // Send new user info to BE with user's own id (ex)ObjectId in MongoDB.
-      // BE will find previous data with the given id and update them ( ex. findOneAndUpdate )
-      const response = await axios.put(
-        `http://localhost:5000/api/user/${userInfo_id}`,
-        newUserInfo
-      );
 
+    try {
+      const response = await useProfileChange(userInfo._id, newUserInfo, token);
+      console.log("response 🔥🔥🔥", response);
       Alert.alert("알림", "사용자 정보가 변경되었습니다.");
       navigation.goBack();
     } catch (error) {
+      console.log(error);
       Alert.alert("알림", error);
     }
   };
@@ -97,6 +90,16 @@ const UserInfo = ({ navigation, route }) => {
           style={{ marginTop: 15, marginBottom: 10 }}
           onPress={addUserImage}
         />
+
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>사용자 이름</Text>
+            <Input
+              value={userName}
+              onChangeText={(text) => handleUserName(text)}
+            />
+          </VerticalDiv>
+        </HorizontalDiv>
 
         <HorizontalDiv>
           <VerticalDiv>
@@ -148,11 +151,9 @@ const UserInfo = ({ navigation, route }) => {
 
 export default UserInfo;
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 0 0 5% 0;
 `;
 const Top = styled.View`
