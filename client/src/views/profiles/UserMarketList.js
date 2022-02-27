@@ -31,11 +31,16 @@ const MarketList = ({ navigation, route }) => {
           setSearchText={setSearchText}
         />
       </Top>
-      <Bottom
-        data={markets}
-        keyExtractor={(item) => item._id}
-        renderItem={renderItem}
-      />
+
+      {markets?.length !== 0 ? (
+        <Bottom
+          data={markets}
+          keyExtractor={(item) => item._id}
+          renderItem={renderItem}
+        />
+      ) : (
+        <NotFound title={"소매점"} />
+      )}
 
       <PlusBtn onPress={() => navigation.navigate("소매점 등록")}>
         <AntDesign name="plus" size={24} color="white" />

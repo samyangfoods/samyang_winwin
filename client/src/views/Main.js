@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import EachPromotion from "../components/EachPromotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
-import { Text } from "../styles/Style";
 import { usePromotions } from "../hooks/promotionHooks";
+import NotFound from "../components/NotFound";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
 // userid or userId
 
 const Main = ({ navigation, route }) => {
-  // Send Text Variable to Search Component
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
 
@@ -43,7 +42,7 @@ const Main = ({ navigation, route }) => {
           renderItem={renderItem}
         />
       ) : (
-        <Text style={{ flex: 1 }}>등록된 행사가 없습니다.</Text>
+        <NotFound title={"행사"} />
       )}
     </MainContainer>
   );
