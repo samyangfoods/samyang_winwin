@@ -57,8 +57,10 @@ const MarketInput = ({ navigation }) => {
       marketImage: image,
       userId,
     };
+
     try {
       const response = await useMarketCreate(marketObj);
+      console.log("response", resposne);
 
       Alert.alert("알림", "소매점이 등록되었습니다.");
       navigation.goBack();

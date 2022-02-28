@@ -3,6 +3,9 @@
     "plugins": ["expo-community-flipper"],
     "android": {
       "package": "com.ggong.winwin"
+    },
+    "splash": {
+      "image": "./src/assets/sample.png"
     }
   }
 }

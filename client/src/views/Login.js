@@ -18,33 +18,47 @@ import { useDispatch } from "react-redux";
 import userSlice from "../redux/slices/user";
 import { useLogin, useTokenLogin } from "../hooks/UserHooks";
 import * as SecureStore from "expo-secure-store";
+import * as SplashScreen from "expo-splash-screen";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [showing, setShowing] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const [appLoading, setAppLoading] = useState(false);
   const idRef = useRef();
   const passwordRef = useRef();
   const btnActivation = Boolean(userId && password);
   const dispatch = useDispatch();
 
   // If system finds current login data with user's token, then navigation would move to the main page.
-  const checkUserLogin = async () => {
-    const token = await SecureStore.getItemAsync("token");
-    if (token) {
-      const response = await useTokenLogin(token);
-      dispatch(
-        userSlice.actions.setUser({
-          userId: response._id,
-          token: response.token,
-        })
-      );
-      navigation.navigate("Stack");
-    }
-  };
+
+  const onLayoutRootView = useCallback(async () => {
+    await SplashScreen.preventAutoHideAsync();
+    setTimeout(async () => await SplashScreen.hideAsync(), 500);
+  }, [appLoading]);
 
   useEffect(() => {
+    const checkUserLogin = async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        const token = await SecureStore.getItemAsync("token");
+        if (token) {
+          // const response = await useTokenLogin(token);
+          // dispatch(
+          //   userSlice.actions.setUser({
+          //     userId: response._id,
+          //     token: response.token,
+          //   })
+          // );
+          navigation.navigate("Stack");
+        }
+      } catch (error) {
+        console.log("error", error);
+      } finally {
+        setAppLoading(true);
+      }
+    };
     // checkUserLogin();
   });
 
@@ -90,7 +104,7 @@ const Login = ({ navigation }) => {
 
   return (
     // I need Keyboard Dismiss View
-    <Container>
+    <Container onLayout={onLayoutRootView}>
       <Image source={logo} />
       <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
       <Input

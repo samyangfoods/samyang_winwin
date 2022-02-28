@@ -72,6 +72,7 @@ const PromotionCreate = () => {
     ref?.scrollToEnd({ animated: true });
   };
 
+  // islive, role="dealer"
   const submitPromotion = async () => {
     const promotionObj = {
       superMarketName,

@@ -9,14 +9,18 @@ export const basicApiUrl =
     : "http://localhost:5000/api";
 
 export const useLogin = async (userId, password) => {
-  const { data } = await axios.post(`${basicApiUrl}/user/login`, {
-    userId,
-    password,
-  });
+  try {
+    const { data } = await axios.post(`${basicApiUrl}/user/login`, {
+      userId,
+      password,
+    });
 
-  await SecureStore.setItemAsync("token", data.token);
+    await SecureStore.setItemAsync("token", data.token);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const useRegister = async (userObj) => {

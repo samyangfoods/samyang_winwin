@@ -8,9 +8,13 @@ export const useMarketList = async () => {
 };
 
 export const useMarketCreate = async (marketObj) => {
-  const { data } = await axios.post(`${basicApiUrl}/market`, marketObj);
+  try {
+    const { data } = await axios.post(`${basicApiUrl}/market`, marketObj);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log("error", error);
+  }
 };
 
 export const useMarketDelete = async (marketId) => {
