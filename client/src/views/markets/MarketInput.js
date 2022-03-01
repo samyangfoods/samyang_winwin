@@ -29,6 +29,7 @@ const MarketInput = ({ navigation }) => {
   const [pos, setPos] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [income, setIncome] = useState(null);
+  const [ref, setRef] = useState(null);
 
   const handleName = (text) => {
     setMarketName(text);
@@ -46,6 +47,14 @@ const MarketInput = ({ navigation }) => {
     setIncome(text);
   };
 
+  const handleModal = () => {
+    setModal(true);
+    ref?.scrollTo({ y: 0, animated: false });
+  };
+  const modalIsClosed = () => {
+    ref?.scrollToEnd({ animated: false });
+  };
+
   const sumbitMarketInfo = async () => {
     const marketObj = {
       marketName,
@@ -59,9 +68,7 @@ const MarketInput = ({ navigation }) => {
     };
 
     try {
-      const response = await useMarketCreate(marketObj);
-      console.log("response", resposne);
-
+      await useMarketCreate(marketObj);
       Alert.alert("알림", "소매점이 등록되었습니다.");
       navigation.goBack();
     } catch (error) {
@@ -70,7 +77,7 @@ const MarketInput = ({ navigation }) => {
   };
 
   return (
-    <ScrollContainer>
+    <ScrollContainer ref={(ref) => setRef(ref)}>
       <MarketInputForm>
         {image ? (
           <ThumbnailContainer>
@@ -142,7 +149,7 @@ const MarketInput = ({ navigation }) => {
         </HorizontalDiv>
 
         <Text>주소 검색</Text>
-        <Btn onPress={() => setModal(true)}>
+        <Btn onPress={handleModal}>
           <Text>{address ? address : "주소 검색"}</Text>
         </Btn>
 
@@ -151,7 +158,13 @@ const MarketInput = ({ navigation }) => {
         </LoginBtn>
       </MarketInputForm>
 
-      {modal && <Address setAddress={setAddress} setModal={setModal} />}
+      {modal && (
+        <Address
+          setAddress={setAddress}
+          setModal={setModal}
+          modalIsClosed={modalIsClosed}
+        />
+      )}
     </ScrollContainer>
   );
 };
