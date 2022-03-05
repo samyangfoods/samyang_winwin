@@ -21,7 +21,11 @@ import {
 import defaultUser from "../assets/defaultUser.png";
 import { Alert } from "react-native";
 import { useRegister } from "../hooks/UserHooks";
-import { useImageBase64 } from "../hooks/Util";
+import {
+  useCleanUpPhoneNumberForm,
+  useImageBase64,
+  usePhoneNumberFormat,
+} from "../hooks/Util";
 
 const Register = ({ navigation }) => {
   const [userName, setUserName] = useState(null);
@@ -79,6 +83,10 @@ const Register = ({ navigation }) => {
   const handlePhoneNumber = useCallback((text) => {
     setPhoneNumber(text);
   }, []);
+  const cleanPhoneNumberFormat = (num) => {
+    const number = useCleanUpPhoneNumberForm(num);
+    setPhoneNumber(number);
+  };
 
   // userName, role
   const submitUserInformation = async () => {
@@ -243,6 +251,8 @@ const Register = ({ navigation }) => {
             onChangeText={(text) => handlePhoneNumber(text)}
             keyboardType="numeric"
             ref={phoneNumberRef}
+            onBlur={() => setPhoneNumber(usePhoneNumberFormat(phoneNumber))}
+            onPressIn={() => cleanPhoneNumberFormat(phoneNumber)}
           />
 
           <Btn onPress={handleModal}>

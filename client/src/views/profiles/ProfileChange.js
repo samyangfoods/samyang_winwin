@@ -15,7 +15,11 @@ import {
 import Address from "../../components/Address";
 import defaultUser from "../../assets/defaultUser.png";
 import { ActivityIndicator, Alert } from "react-native";
-import { useImageBase64 } from "../../hooks/Util";
+import {
+  useCleanUpPhoneNumberForm,
+  useImageBase64,
+  usePhoneNumberFormat,
+} from "../../hooks/Util";
 import { useProfileChange } from "../../hooks/UserHooks";
 import { useSelector } from "react-redux";
 
@@ -28,7 +32,9 @@ const UserInfo = ({ navigation, route }) => {
   const [userName, setUserName] = useState(userInfo.userName);
   const [channel, setChannel] = useState(userInfo.channel);
   const [storeName, setStoreName] = useState(userInfo.storeName);
-  const [phoneNumber, setPhoneNumber] = useState(userInfo.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(
+    usePhoneNumberFormat(userInfo.phoneNumber)
+  );
   const [address, setAddress] = useState(userInfo.userAddress.warehouse);
   const [userImage, setUserImage] = useState(userInfo.userImage);
 
@@ -49,6 +55,10 @@ const UserInfo = ({ navigation, route }) => {
   const handlePhoneNumber = (text) => {
     setPhoneNumber(text);
   };
+  const cleanPhoneNumberFormat = (num) => {
+    const number = useCleanUpPhoneNumberForm(num);
+    setPhoneNumber(number);
+  };
 
   const submitNewUserInfo = async () => {
     if (isLoading) return;
@@ -58,7 +68,7 @@ const UserInfo = ({ navigation, route }) => {
       userName,
       storeName,
       address: { warehouse: address },
-      phoneNumber,
+      phoneNumber: useCleanUpPhoneNumberForm(phoneNumber),
       userImage,
       role: "dealer",
     };
@@ -129,6 +139,8 @@ const UserInfo = ({ navigation, route }) => {
             <Input
               value={phoneNumber}
               onChangeText={(text) => handlePhoneNumber(text)}
+              onBlur={() => setPhoneNumber(usePhoneNumberFormat(phoneNumber))}
+              onPressIn={() => cleanPhoneNumberFormat(phoneNumber)}
             />
           </VerticalDiv>
         </HorizontalDiv>

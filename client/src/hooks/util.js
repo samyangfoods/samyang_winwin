@@ -16,3 +16,19 @@ export const useImageBase64 = async () => {
     return base64Image;
   }
 };
+
+export const usePhoneNumberFormat = (num) => {
+  let formatNum;
+
+  formatNum = num?.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+
+  return formatNum;
+};
+
+export const useCleanUpPhoneNumberForm = (num) => {
+  let formatNum;
+
+  formatNum = num?.replace(/-/gi, "");
+
+  return formatNum;
+};

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ActivityIndicator, Alert } from "react-native";
 import { useProfile } from "../../hooks/UserHooks";
 import * as SecureStore from "expo-secure-store";
+import { usePhoneNumberFormat } from "../../hooks/Util";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
@@ -53,7 +54,7 @@ const Profile = ({ navigation }) => {
                 <Name>{userInfo.userName}</Name>
                 <Text>{userInfo.storeName}</Text>
                 <HorizontalSeparator />
-                <Text>{userInfo.phoneNumber}</Text>
+                <Text>{usePhoneNumberFormat(userInfo.phoneNumber)}</Text>
                 <HorizontalSeparator />
                 <Text>{userInfo.channel}</Text>
                 <Text>{userInfo.address}</Text>

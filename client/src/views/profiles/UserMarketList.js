@@ -21,7 +21,7 @@ const MarketList = ({ navigation, route }) => {
   // websocekt or redux
   useEffect(() => {
     loadMarketList();
-    console.log("useEffect in UserMarketList is working on..", Date.now());
+    // console.log("useEffect in UserMarketList is working on..", Date.now());
   }, [markets]);
 
   const renderItem = ({ item }) => {
