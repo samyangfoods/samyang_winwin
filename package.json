@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "env-cmd node src/server.js",
     "dev": "env-cmd nodemon --ignore client.js src/server.js",
+    "dev2": "concurrently \"env-cmd nodemon --ignore client.js src/server.js\" \"cd ./client && npm run android\"",
     "start:front": "cd client && expo start",
     "dev:front": "cd client && expo start --dev-client"
   },
@@ -17,6 +18,7 @@
     "axios": "^0.25.0",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "concurrently": "^7.0.0",
     "dotenv": "^14.2.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.2",

@@ -6,7 +6,9 @@ import promotionRouter from './routes/promotionRoute.js'
 import userRouter from './routes/userRoute.js'
 import commentRouter from './routes/commentRoute.js'
 import marketRouter from './routes/marketRoute.js'
+import imageRouter from './routes/imageRoute.js'
 import mongoose from 'mongoose'
+import { upload } from './middleware/ImageUpload.js'
 
 // etc
 import generateFakeData from '../faker2.js'
@@ -30,6 +32,11 @@ const server = async () => {
     app.use('/api/promotion', promotionRouter)
     app.use('/api/market', marketRouter)
     app.use('/api/promotion/:promotionId/comment', commentRouter)
+    // app.use('/api/image', imageRouter)
+
+    app.post('/api/image', upload.single('image'), (req, res) => {
+      console.log(req.file)
+    })
 
     // 외부에서 이미지를 읽을 수 있도록 권한 설정
     app.use('/uploads', express.static('uploads'))
