@@ -15,14 +15,14 @@ const MarketList = ({ navigation, route }) => {
   const loadMarketList = useCallback(async () => {
     const { markets: response } = await useMarketList();
     setMarkets(response);
-  }, [setMarkets]);
+  }, [markets]);
 
   // TODO : Build websocket instead of this code push... need to fix useEffect memory leak warning
   // websocekt or redux
   useEffect(() => {
     loadMarketList();
     // console.log("useEffect in UserMarketList is working on..", Date.now());
-  }, [markets]);
+  });
 
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;
