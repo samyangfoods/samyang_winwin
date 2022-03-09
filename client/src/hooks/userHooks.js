@@ -30,7 +30,10 @@ export const useRegister = async (userObj) => {
 };
 
 export const useProfile = async (userId) => {
-  const { data } = await axios.get(`${basicApiUrl}/user/${userId}`);
+  const token = await SecureStore.getItemAsync("token");
+  const { data } = await axios.get(`${basicApiUrl}/user/${userId}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
 
   return data;
 };

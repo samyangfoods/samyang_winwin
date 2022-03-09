@@ -49,7 +49,6 @@ const authUser = expressAsyncHandler(async (req, res) => {
 // @desc    Register a new user
 // @route   POST /api/user
 // @access  Public
-
 const registerUser = expressAsyncHandler(async (req, res) => {
   const {
     userId,
