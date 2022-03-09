@@ -1,28 +1,33 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../../components/Search";
 import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
 import { AntDesign } from "@expo/vector-icons";
 import EachMarket from "../../components/EachMarket";
-import { useMarketList } from "../../hooks/MarketHooks";
 import NotFound from "../../components/NotFound";
 import { ActivityIndicator } from "react-native";
 import { BasicContainer, Text } from "../../styles/Style";
+import useSocket from "../../hooks/SocketHooks";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [markets, setMarkets] = useState(null);
+  const [socket, disconnect] = useSocket();
 
-  const loadMarketList = useCallback(async () => {
-    const { markets: response } = await useMarketList();
-    setMarkets(response);
-  }, [markets]);
-
-  // TODO : Build websocket instead of this code push... need to fix useEffect memory leak warning
-  // websocekt or redux
+  // Socket.io in order to read user market list
   useEffect(() => {
-    loadMarketList();
-    // console.log("useEffect in UserMarketList is working on..", Date.now());
-  });
+    const loadMarketList = (data) => {
+      setMarkets(data.markets);
+    };
+
+    socket.emit("userMarketList", "on");
+    socket.on("eachMarket", loadMarketList);
+
+    return () => {
+      if (socket) {
+        socket.off("eachMarket", loadMarketList);
+      }
+    };
+  }, [socket]);
 
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;

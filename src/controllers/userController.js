@@ -12,7 +12,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
   const { userId, password } = req.body;
 
   const user = await User.findOne({ userId });
-  console.log(user);
+  // console.log(user);
 
   if (user && (await user.matchPassword(password))) {
     return res.json({

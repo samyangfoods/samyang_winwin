@@ -1,5 +1,5 @@
 import axios from "axios";
-import { basicApiUrl } from "./UserHooks";
+import { basicApiUrl } from "./UrlSetting";
 
 export const usePromotions = async () => {
   const response = await axios.get(`${basicApiUrl}/promotion`);

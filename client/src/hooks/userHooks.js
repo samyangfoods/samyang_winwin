@@ -1,12 +1,6 @@
 import axios from "axios";
-import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
-
-// OS에 따라 적합한 URL 형식 적용
-export const basicApiUrl =
-  Platform.OS === "android"
-    ? "http://10.0.2.2:5000/api"
-    : "http://localhost:5000/api";
+import { basicApiUrl } from "./UrlSetting";
 
 export const useLogin = async (userId, password) => {
   try {

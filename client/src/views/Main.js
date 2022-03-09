@@ -4,6 +4,7 @@ import EachPromotion from "../components/EachPromotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
 import { usePromotions } from "../hooks/PromotionHooks";
 import NotFound from "../components/NotFound";
+import useSocket from "../hooks/SocketHooks";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
@@ -12,6 +13,7 @@ import NotFound from "../components/NotFound";
 const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
+  const [socket, disconnect] = useSocket();
 
   const loadPromotions = async () => {
     const data = await usePromotions();
@@ -19,7 +21,7 @@ const Main = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    loadPromotions();
+    // loadPromotions();
   }, [promotions]);
 
   const renderItem = ({ item }) => {
