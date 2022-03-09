@@ -19,7 +19,6 @@ const PromotionSchema = mongoose.Schema(
         prValue: { type: Number },
       },
     ],
-    islive: { type: Boolean, required: true, default: false },
 
     // 프로모션에 유저정보 선택저장.
     user: {
@@ -30,12 +29,6 @@ const PromotionSchema = mongoose.Schema(
       },
       channel: { type: String, required: true },
       storeName: { type: String, required: true },
-      phoneNumber: { type: String, required: true },
-      address: {
-        warehouse: { type: String, required: true },
-        lat: { type: String },
-        lng: { type: String },
-      },
     },
     // 프로모션에 달린 후기의 숫자를 내장 (pagenation에 필요)
     commentsCount: { type: Number, default: 0, required: true },

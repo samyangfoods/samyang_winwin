@@ -2,6 +2,13 @@ import mongoose from 'mongoose'
 
 const MarketSchema = mongoose.Schema(
   {
+    user: {
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'user',
+      },
+    },
     marketName: { type: String, required: true, unique: true },
     size: { type: String, required: true },
     pos: { type: String, required: true },

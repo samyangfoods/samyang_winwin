@@ -3,7 +3,24 @@ import expressAsyncHandler from 'express-async-handler'
 import { User } from '../models/User.js'
 import { Promotion } from '../models/Promotion.js'
 import generateToken from '../utils/generateToken.js'
-import { upload } from '../middleware/ImageUpload.js'
+
+import multer from 'multer'
+import path from 'path'
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, res, cb) {
+      cb(null, 'uploads')
+    },
+    filename(req, file, cb) {
+      //abc.png
+      const ext = path.extname(file.originalname) // 확장자 추출
+      const basename = path.basename(file.originalname, ext) //abc
+      cb(null, basename + new Date().getTime() + ext) // abc515585255852.png
+    },
+  }),
+  limits: { fileSize: 1024 * 1024 * 20 }, //20MB
+})
 
 // @desc    Auth user & get token
 // @route   POST   /api/user/login
@@ -32,72 +49,64 @@ const authUser = expressAsyncHandler(async (req, res) => {
 // @desc    Register a new user
 // @route   POST /api/user
 // @access  Public
-const registerUser = expressAsyncHandler(
-  upload.single('image'),
-  async (req, res) => {
-    const {
-      userId,
-      password,
-      channel,
-      userName,
-      storeName,
-      phoneNumber,
-      userImage,
-      userAddress,
-      role,
-    } = req.body
 
-    console.log(req.file)
+const registerUser = expressAsyncHandler(async (req, res) => {
+  const {
+    userId,
+    password,
+    channel,
+    userName,
+    storeName,
+    phoneNumber,
+    userAddress,
+    role,
+  } = req.body
 
-    if (!userId) return res.status(400).send({ err: 'userId is required' })
-    if (!password) return res.status(400).send({ err: 'password is required' })
-    if (!channel) return res.status(400).send({ err: 'channel is required' })
-    if (!userName) return res.status(400).send({ err: 'userName is required' })
-    if (!storeName)
-      return res.status(400).send({ err: 'storeName is required' })
-    if (!phoneNumber)
-      return res.status(400).send({ err: 'phoneNumber is required' })
-    if (!userImage)
-      return res.status(400).send({ err: 'userImage is required' })
-    if (!userAddress)
-      return res.status(400).send({ err: 'userAddress is required' })
+  if (!userId) return res.status(400).send({ err: 'userId is required' })
+  if (!password) return res.status(400).send({ err: 'password is required' })
+  if (!channel) return res.status(400).send({ err: 'channel is required' })
+  if (!userName) return res.status(400).send({ err: 'userName is required' })
+  if (!storeName) return res.status(400).send({ err: 'storeName is required' })
+  if (!phoneNumber)
+    return res.status(400).send({ err: 'phoneNumber is required' })
+  if (!userAddress)
+    return res.status(400).send({ err: 'userAddress is required' })
 
-    const userExists = await User.findOne({ userId })
+  const userExists = await User.findOne({ userId })
 
-    if (userExists) {
-      return res.status(400).send({ err: 'User already exists' })
-    }
-
-    const user = await User.create({
-      userId,
-      password,
-      channel,
-      userName,
-      storeName,
-      phoneNumber,
-      userImage,
-      userAddress,
-      role,
-    })
-
-    if (user) {
-      res.status(201).json({
-        userId: user.userId,
-        channel: user.channel,
-        userName: user.userName,
-        storeName: user.storeName,
-        phoneNumber: user.phoneNumber,
-        userImage: user.userImage,
-        userAddress: user.userAddress,
-        role: user.role,
-        token: generateToken(user._id),
-      })
-    } else {
-      res.status(400)
-      throw new Error('Invalid user data')
-    }
+  if (userExists) {
+    return res.status(400).send({ err: 'User already exists' })
   }
-)
+
+  const user = await User.create({
+    userId,
+    password,
+    channel,
+    userName,
+    storeName,
+    phoneNumber,
+    userImage: req.file.filename,
+    userAddress,
+    role,
+  })
+
+  if (user) {
+    res.status(201).json({
+      userId: user.userId,
+      channel: user.channel,
+      userName: user.userName,
+      storeName: user.storeName,
+      phoneNumber: user.phoneNumber,
+      userImage: user.userImage,
+      userAddress: user.userAddress,
+      role: user.role,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid user data')
+  }
+})
 
 // @desc    Get Users
 // @route   GET   /api/user
