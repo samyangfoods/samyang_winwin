@@ -10,11 +10,7 @@ const UserSchema = mongoose.Schema(
     storeName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     userImage: { type: String, required: true },
-    userAddress: {
-      warehouse: { type: String, required: true },
-      lat: { type: String },
-      lng: { type: String },
-    },
+    userAddress: { type: String, required: true },
     // role : dealer , salesperson , admin
     role: { type: String, required: true, default: 'dealer' },
   },
