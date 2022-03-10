@@ -1,5 +1,5 @@
 import axios from "axios";
-import { basicApiUrl } from "./UserHooks";
+import { basicApiUrl } from "./UrlSetting";
 
 export const useMarketList = async () => {
   const { data } = await axios.get(`${basicApiUrl}/market`);
