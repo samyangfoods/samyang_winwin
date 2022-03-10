@@ -14,11 +14,7 @@ const MarketSchema = mongoose.Schema(
     pos: { type: String, required: true },
     phone: { type: String, required: true },
     averageSales: { type: String, required: true },
-    marketAddress: {
-      warehouse: { type: String, required: true },
-      lat: { type: String },
-      lng: { type: String },
-    },
+    marketAddress: { type: String, required: true },
     // role : dealer , salesperson , admin
     marketImage: { type: String, required: true },
   },

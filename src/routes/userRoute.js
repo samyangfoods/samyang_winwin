@@ -10,7 +10,7 @@ import {
   getUserProfile,
 } from '../controllers/userController.js'
 import { protect } from '../middleware/authMiddleware.js'
-import { upload } from '../middleware/userImageUpload.js'
+import { upload } from '../middleware/imageUpload.js'
 
 // const upload = multer({
 //   storage: multer.diskStorage({

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 const imageRouter = Router()
 import { protect } from '../middleware/authMiddleware.js'
-import { upload } from '../middleware/userImageUpload.js'
+import { upload } from '../middleware/imageUpload.js'
 import {
   createUserImage,
   getUserImage,

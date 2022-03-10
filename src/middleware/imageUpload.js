@@ -1,11 +1,16 @@
 import multer from 'multer'
-import { v4 as uuid } from 'uuid'
+import path from 'path'
 import mime from 'mime-types'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, './uploads'),
-  filename: (req, file, cb) =>
-    cb(null, `${uuid()}.${mime.extension(file.mimetype)}`),
+  filename(req, file, cb) {
+    console.log(file)
+    //abc.png
+    const ext = path.extname(file.originalname) // 확장자 추출
+    const basename = path.basename(file.originalname, ext) //abc
+    cb(null, basename + new Date().getTime() + ext) // abc515585255852.png
+  },
 })
 
 const upload = multer({

@@ -4,24 +4,6 @@ import { User } from '../models/User.js'
 import { Promotion } from '../models/Promotion.js'
 import generateToken from '../utils/generateToken.js'
 
-import multer from 'multer'
-import path from 'path'
-
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, res, cb) {
-      cb(null, 'uploads')
-    },
-    filename(req, file, cb) {
-      //abc.png
-      const ext = path.extname(file.originalname) // 확장자 추출
-      const basename = path.basename(file.originalname, ext) //abc
-      cb(null, basename + new Date().getTime() + ext) // abc515585255852.png
-    },
-  }),
-  limits: { fileSize: 1024 * 1024 * 20 }, //20MB
-})
-
 // @desc    Auth user & get token
 // @route   POST   /api/user/login
 // @access  Private

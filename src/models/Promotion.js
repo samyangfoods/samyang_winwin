@@ -3,14 +3,19 @@ import { CommentSchema } from './Comment.js'
 
 const PromotionSchema = mongoose.Schema(
   {
-    superMarketName: { type: String, required: true },
-    address: { type: String, required: true },
+    marketName: { type: String, required: true },
+    marketAddress: { type: String, required: true },
     pos: { type: Number },
-    image: [{ type: String }],
+    images: {
+      img1: { type: String },
+      img2: { type: String },
+      img3: { type: String },
+      img4: { type: String },
+    },
     start_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
     promotionType: { type: String, required: true },
-    promotionCost: { type: Number, required: true },
+    promotionCost: { type: Number, required: true, default: 0 },
     promotionDetail: [
       {
         productName: { type: String },
