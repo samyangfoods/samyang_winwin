@@ -26,13 +26,18 @@ import {
   useImageBase64,
   usePhoneNumberFormat,
 } from "../hooks/Util";
+import Channel from "../components/Channel";
+import { HorizontalDiv } from "../styles/Component";
 
 const Register = ({ navigation }) => {
   const [userName, setUserName] = useState(null);
   const [userId, setUserId] = useState(null);
   const [password, setPassword] = useState(null);
   const [passwordConfirmation, setPasswordConfirmation] = useState(null);
-  const [channel, setChannel] = useState(null);
+  const [channel, setChannel] = useState({
+    label: "특약점",
+    value: 1,
+  });
   const [storeName, setStoreName] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [userImage, setUserImage] = useState(null);
@@ -74,9 +79,6 @@ const Register = ({ navigation }) => {
   const handlePasswordConfirmation = useCallback((text) => {
     setPasswordConfirmation(text);
   }, []);
-  const handleChannel = useCallback((text) => {
-    setChannel(text);
-  }, []);
   const handleStoreName = useCallback((text) => {
     setStoreName(text);
   }, []);
@@ -95,7 +97,7 @@ const Register = ({ navigation }) => {
       userId,
       password,
       passwordConfirmation,
-      channel,
+      channel: channel.label,
       storeName,
       phoneNumber,
       userImage,
@@ -202,7 +204,7 @@ const Register = ({ navigation }) => {
               autoCapitalize="none"
               onChangeText={(text) => handlePasswordConfirmation(text)}
               ref={passwordConfirmationRef}
-              onSubmitEditing={() => channelRef.current?.focus()}
+              onSubmitEditing={() => storeNameRef.current?.focus()}
               blurOnSubmit={false}
             />
             <PasswordIcon
@@ -224,25 +226,23 @@ const Register = ({ navigation }) => {
               <Text style={{ color: "green" }}>비밀번호가 일치합니다.</Text>
             )
           ) : null}
-
-          <Input
-            placeholder="채널"
-            value={channel}
-            autoCapitalize="none"
-            onChangeText={(text) => handleChannel(text)}
-            keyboardType="numeric"
-            ref={channelRef}
-            onSubmitEditing={() => storeNameRef.current?.focus()}
-            blurOnSubmit={false}
-          />
-          <Input
-            placeholder="점포명"
-            value={storeName}
-            onChangeText={(text) => handleStoreName(text)}
-            ref={storeNameRef}
-            onSubmitEditing={() => phoneNumberRef.current?.focus()}
-            blurOnSubmit={false}
-          />
+          <HorizontalDiv>
+            <Input
+              placeholder="점포명"
+              value={storeName}
+              onChangeText={(text) => handleStoreName(text)}
+              ref={storeNameRef}
+              onSubmitEditing={() => channelRef.current?.focus()}
+              blurOnSubmit={false}
+              style={{ width: 220 }}
+            />
+            <Channel
+              pickedData={channel}
+              setPickedData={setChannel}
+              ref={channelRef}
+              onSubmitEditing={() => phoneNumberRef.current?.focus()}
+            />
+          </HorizontalDiv>
 
           <Input
             placeholder="전화번호"
@@ -253,6 +253,7 @@ const Register = ({ navigation }) => {
             ref={phoneNumberRef}
             onBlur={() => setPhoneNumber(usePhoneNumberFormat(phoneNumber))}
             onPressIn={() => cleanPhoneNumberFormat(phoneNumber)}
+            style={{ marginBottom: 15 }}
           />
 
           <Btn onPress={handleModal}>

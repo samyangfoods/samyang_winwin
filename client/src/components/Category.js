@@ -2,7 +2,7 @@ import React from "react";
 import { BasicContainer } from "../styles/Style";
 import { StyledPicker } from "../styles/Component";
 
-function Category({ pickedData, setPickedData }) {
+const Category = ({ pickedData, setPickedData }) => {
   const category = [
     { label: "전단행사", value: 1 },
     { label: "엔드행사", value: 2 },
@@ -21,6 +21,6 @@ function Category({ pickedData, setPickedData }) {
       />
     </BasicContainer>
   );
-}
+};
 
 export default Category;

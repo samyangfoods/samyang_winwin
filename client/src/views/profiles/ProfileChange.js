@@ -1,6 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import logo from "../../assets/logo.png";
 import {
   Btn,
@@ -22,6 +21,16 @@ import {
 } from "../../hooks/Util";
 import { useProfileChange } from "../../hooks/UserHooks";
 import { useSelector } from "react-redux";
+import {
+  Container,
+  Top,
+  Bottom,
+  Text,
+  LogoImage,
+  AddressDiv,
+  HorizontalDiv,
+  VerticalDiv,
+} from "../../styles/profiles/UserProfileChange";
 
 const UserInfo = ({ navigation, route }) => {
   const userInfo = route.params.userInfo;
@@ -169,34 +178,3 @@ const UserInfo = ({ navigation, route }) => {
 };
 
 export default UserInfo;
-
-const Container = styled.ScrollView`
-  flex: 1;
-  flex-direction: column;
-  padding: 0 0 5% 0;
-`;
-const Top = styled.View`
-  flex-direction: column;
-  align-items: center;
-`;
-const Bottom = styled.View`
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5%;
-  padding: 0 12%;
-`;
-const Text = styled.Text``;
-const LogoImage = styled.Image`
-  width: 200px;
-  height: 100px;
-`;
-const AddressDiv = styled.View`
-  width: 100%;
-`;
-const HorizontalDiv = styled.View`
-  flex-direction: row;
-  margin-bottom: 5%;
-`;
-const VerticalDiv = styled.View`
-  margin: 0 2%;
-`;

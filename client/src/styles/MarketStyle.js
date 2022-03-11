@@ -76,3 +76,12 @@ export const BtnContainer = styled.View`
   justify-content: center;
   margin-bottom: 15%;
 `;
+
+// MarketInfo
+export const MarketContainer = styled.View`
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+`;

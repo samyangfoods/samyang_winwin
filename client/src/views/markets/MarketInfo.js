@@ -1,13 +1,14 @@
 import React from "react";
-import styled from "styled-components/native";
 import { BtnText, CreateBtn, CreateText, LoginBtn } from "../../styles/Auth";
+import { MarketContainer } from "../../styles/MarketStyle";
+import { Text } from "../../styles/Style";
 
 const ProfileDetail = ({ navigation, route }) => {
   const mockApi = route.params.marketList[0];
   console.log(mockApi);
 
   return (
-    <Container>
+    <MarketContainer>
       {mockApi.map((res) => (
         <Text key={res}>{res}</Text>
       ))}
@@ -19,18 +20,8 @@ const ProfileDetail = ({ navigation, route }) => {
       <CreateBtn onPress={() => navigation.goBack()}>
         <CreateText>뒤로가기</CreateText>
       </CreateBtn>
-    </Container>
+    </MarketContainer>
   );
 };
 
 export default ProfileDetail;
-
-const Container = styled.View`
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5%;
-`;
-
-const Text = styled.Text``;

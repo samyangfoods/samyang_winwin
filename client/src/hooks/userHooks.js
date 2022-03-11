@@ -42,7 +42,9 @@ export const useProfileChange = async (userId, userObj, token) => {
 
 export const useTokenLogin = async (token) => {
   // sample..
-  const { data } = await axios.post(`${basicApiUrl}/user/token`, token);
+  const { data } = await axios.get(`${basicApiUrl}/user/token`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
 
-  return data;
+  return data._id;
 };

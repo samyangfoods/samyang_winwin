@@ -34,8 +34,7 @@ const Login = ({ navigation }) => {
   // If system finds current login data with user's token, then navigation would move to the main page.
 
   const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.preventAutoHideAsync();
-    setTimeout(async () => await SplashScreen.hideAsync(), 500);
+    setTimeout(async () => await SplashScreen.hideAsync(), 350);
   }, [appLoading]);
 
   useEffect(() => {
@@ -43,23 +42,28 @@ const Login = ({ navigation }) => {
       try {
         await SplashScreen.preventAutoHideAsync();
         const token = await SecureStore.getItemAsync("token");
+
         if (token) {
-          // const response = await useTokenLogin(token);
-          // dispatch(
-          //   userSlice.actions.setUser({
-          //     userId: response._id,
-          //     token: response.token,
-          //   })
-          // );
+          const userObjectId = await useTokenLogin(token);
+
+          dispatch(
+            userSlice.actions.setUser({
+              userId: userObjectId,
+              token: token,
+            })
+          );
+
           navigation.navigate("Stack");
+        } else {
+          return null;
         }
       } catch (error) {
         console.log("error", error);
       } finally {
-        setAppLoading(true);
+        onLayoutRootView();
       }
     };
-    // checkUserLogin();
+    checkUserLogin();
   });
 
   const handleId = useCallback((text) => {
@@ -104,7 +108,7 @@ const Login = ({ navigation }) => {
 
   return (
     // I need Keyboard Dismiss View
-    <Container onLayout={onLayoutRootView}>
+    <Container>
       <Image source={logo} />
       <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
       <Input
