@@ -5,6 +5,7 @@ import { MainContainer, Top, Bottom } from "../styles/Lounge";
 import { usePromotions } from "../hooks/PromotionHooks";
 import NotFound from "../components/NotFound";
 import useSocket from "../hooks/SocketHooks";
+import DataLoading from "../components/DataLoading";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
@@ -38,15 +39,19 @@ const Main = ({ navigation, route }) => {
         />
       </Top>
 
-      {promotions?.length !== 0 ? (
-        <Bottom
-          data={promotions}
-          // Need unique key here 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-          keyExtractor={(item) => Date.now()}
-          renderItem={renderItem}
-        />
+      {promotions ? (
+        promotions.length !== 0 ? (
+          <Bottom
+            data={promotions}
+            // Need unique key here 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+            keyExtractor={(item) => Date.now()}
+            renderItem={renderItem}
+          />
+        ) : (
+          <NotFound title={"행사"} />
+        )
       ) : (
-        <NotFound title={"행사"} />
+        <DataLoading />
       )}
     </MainContainer>
   );

@@ -24,7 +24,7 @@ const MarketInfoChange = ({ navigation, route }) => {
   const marketData = route.params.marketData[0];
   const [modal, setModal] = useState(false);
   const [marketId] = useState(marketData._id);
-  const [address, setAddress] = useState(marketData.marketAddress.warehouse);
+  const [address, setAddress] = useState(marketData.marketAddress);
   const [image, setImage] = useState(marketData.marketImage);
   const [marketName, setMarketName] = useState(marketData.marketName);
   const [size, setSize] = useState(marketData.size);

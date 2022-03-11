@@ -23,14 +23,14 @@ export const useRegister = async (userObj) => {
   return data;
 };
 
-export const useProfile = async (userId) => {
-  const token = await SecureStore.getItemAsync("token");
-  const { data } = await axios.get(`${basicApiUrl}/user/${userId}`, {
-    headers: { authorization: `Bearer ${token}` },
-  });
+// export const useProfile = async (userId) => {
+//   const token = await SecureStore.getItemAsync("token");
+//   const { data } = await axios.get(`${basicApiUrl}/user/${userId}`, {
+//     headers: { authorization: `Bearer ${token}` },
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 export const useProfileChange = async (userId, userObj, token) => {
   const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {

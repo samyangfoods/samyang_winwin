@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import { ActivityIndicator, Alert } from "react-native";
-import { useProfile } from "../../hooks/UserHooks";
+import { Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { usePhoneNumberFormat } from "../../hooks/Util";
 import {
@@ -21,19 +20,29 @@ import {
   Btn,
   HorizontalSeparator,
 } from "../../styles/profiles/UserProfile";
+import useSocket from "../../hooks/SocketHooks";
+import DataLoading from "../../components/DataLoading";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
   const [userInfo, setUserInfo] = useState(null);
-
-  const loadUserInfo = async () => {
-    const response = await useProfile(userId);
-    setUserInfo(response.user);
-  };
+  const [socket, disconnect] = useSocket();
 
   useEffect(() => {
-    loadUserInfo();
-  }, [userInfo]);
+    const getUserInfo = async (data) => {
+      setUserInfo(data.user);
+    };
+
+    socket.emit("profile", { userId, token });
+    socket.on("getUserProfile", getUserInfo);
+
+    return () => {
+      if (socket) {
+        socket.off("getUserProfile", getUserInfo);
+      }
+    };
+  }, [socket]);
 
   const handleLogOut = async () => {
     await SecureStore.deleteItemAsync("token");
@@ -97,7 +106,7 @@ const Profile = ({ navigation }) => {
           </Bottom>
         </>
       ) : (
-        <ActivityIndicator style={{ flex: 1 }} />
+        <DataLoading />
       )}
     </Container>
   );

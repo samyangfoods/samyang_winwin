@@ -4,9 +4,8 @@ import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
 import { AntDesign } from "@expo/vector-icons";
 import EachMarket from "../../components/EachMarket";
 import NotFound from "../../components/NotFound";
-import { ActivityIndicator } from "react-native";
-import { BasicContainer, Text } from "../../styles/Style";
 import useSocket from "../../hooks/SocketHooks";
+import DataLoading from "../../components/DataLoading";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
@@ -54,12 +53,7 @@ const MarketList = ({ navigation, route }) => {
           <NotFound title={"소매점"} />
         )
       ) : (
-        <BasicContainer style={{ flex: 1, alignItems: "center" }}>
-          <ActivityIndicator color="#aaa" size="large" />
-          <Text style={{ color: "#aaa", marginTop: 10 }}>
-            데이터를 불러오는 중입니다.
-          </Text>
-        </BasicContainer>
+        <DataLoading />
       )}
 
       <PlusBtn onPress={() => navigation.navigate("소매점 등록")}>

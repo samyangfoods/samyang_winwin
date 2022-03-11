@@ -11,12 +11,26 @@ export const setSocketIo = (httpServer, app) => {
   io.on("connection", (socket) => {
     console.log("Socket is wokring..".rainbow, socket.id);
     let eachMarket;
+    let userProfile;
 
-    // userProfile -> userMarketList
+    // profile
+    socket.on("profile", (userInfo) => {
+      if (userProfile) clearInterval(userProfile);
+
+      userProfile = setInterval(async () => {
+        const { data } = await axios.get(
+          `${API_URL_BASIC}/user/${userInfo.userId}`,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
+        io.emit("getUserProfile", data);
+      }, 1000);
+    });
+
+    // userMarketList
     socket.on("userMarketList", () => {
-      if (eachMarket) {
-        clearInterval(eachMarket);
-      }
+      if (eachMarket) clearInterval(eachMarket);
 
       eachMarket = setInterval(async () => {
         const { data } = await axios.get(`${API_URL_BASIC}/market`);

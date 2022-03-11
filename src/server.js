@@ -10,7 +10,7 @@ import imageRouter from "./routes/imageRoute.js";
 import mongoose from "mongoose";
 
 // 🔥🔥🔥🔥 Socket.io added 🔥🔥🔥🔥
-import { setSocketIo } from "./sockets/marketSockets.js";
+import { setSocketIo } from "./sockets/sockets.js";
 // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 // etc

@@ -57,14 +57,14 @@ const MarketInput = ({ navigation }) => {
 
   const sumbitMarketInfo = async () => {
     const marketObj = {
+      user: { _id: userId },
       marketName,
       size,
       pos,
       phone: phoneNumber,
       averageSales: income,
-      marketAddress: { warehouse: address },
+      marketAddress: address,
       marketImage: image,
-      userId,
     };
 
     try {

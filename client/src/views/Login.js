@@ -33,10 +33,6 @@ const Login = ({ navigation }) => {
 
   // If system finds current login data with user's token, then navigation would move to the main page.
 
-  const onLayoutRootView = useCallback(async () => {
-    setTimeout(async () => await SplashScreen.hideAsync(), 350);
-  }, [appLoading]);
-
   useEffect(() => {
     const checkUserLogin = async () => {
       try {
@@ -60,7 +56,7 @@ const Login = ({ navigation }) => {
       } catch (error) {
         console.log("error", error);
       } finally {
-        onLayoutRootView();
+        setTimeout(async () => await SplashScreen.hideAsync(), 350);
       }
     };
     checkUserLogin();
