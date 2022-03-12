@@ -31,20 +31,29 @@ import {
   HorizontalDiv,
   VerticalDiv,
 } from "../../styles/profiles/UserProfileChange";
+import Channel from "../../components/Channel";
 
 const UserInfo = ({ navigation, route }) => {
-  const userInfo = route.params.userInfo;
+  const { userInfo } = route.params;
   const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState(userInfo.userName);
-  const [channel, setChannel] = useState(userInfo.channel);
+  const [channel, setChannel] = useState(
+    userInfo.channel === "특약점"
+      ? { label: "특약점", value: 1 }
+      : userInfo.channel === "중대형마트"
+      ? { label: "중대형마트", value: 2 }
+      : userInfo.channel === "기타"
+      ? { label: "기타", value: 3 }
+      : null
+  );
   const [storeName, setStoreName] = useState(userInfo.storeName);
   const [phoneNumber, setPhoneNumber] = useState(
     usePhoneNumberFormat(userInfo.phoneNumber)
   );
-  const [address, setAddress] = useState(userInfo.userAddress.warehouse);
+  const [address, setAddress] = useState(userInfo.userAddress);
   const [userImage, setUserImage] = useState(userInfo.userImage);
 
   const addUserImage = async () => {
@@ -54,9 +63,6 @@ const UserInfo = ({ navigation, route }) => {
 
   const handleUserName = (text) => {
     setUserName(text);
-  };
-  const handleChannel = (text) => {
-    setChannel(text);
   };
   const handleStoreName = (text) => {
     setStoreName(text);
@@ -73,10 +79,10 @@ const UserInfo = ({ navigation, route }) => {
     if (isLoading) return;
 
     const newUserInfo = {
-      channel,
+      channel: channel.label,
       userName,
       storeName,
-      address: { warehouse: address },
+      userAddress: address,
       phoneNumber: useCleanUpPhoneNumberForm(phoneNumber),
       userImage,
       role: "dealer",
@@ -127,18 +133,16 @@ const UserInfo = ({ navigation, route }) => {
 
         <HorizontalDiv>
           <VerticalDiv>
-            <Text>채널</Text>
-            <InputShort
-              value={channel}
-              onChangeText={(text) => handleChannel(text)}
-            />
-          </VerticalDiv>
-          <VerticalDiv>
             <Text>점포명</Text>
             <InputShort
               value={storeName}
               onChangeText={(text) => handleStoreName(text)}
+              style={{ width: 200 }}
             />
+          </VerticalDiv>
+          <VerticalDiv>
+            <Text style={{ marginLeft: 10 }}>채널</Text>
+            <Channel pickedData={channel} setPickedData={setChannel} />
           </VerticalDiv>
         </HorizontalDiv>
 

@@ -166,8 +166,8 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     return res.status(400).send({ err: "userName must be String" });
   if (storeName && typeof storeName !== "string")
     return res.status(400).send({ err: "storeName must be String" });
-  if (userAddress && typeof userAddress !== "object")
-    return res.status(400).send({ err: "address must be Object" });
+  if (userAddress && typeof userAddress !== "string")
+    return res.status(400).send({ err: "address must be String" });
   if (phoneNumber && typeof phoneNumber !== "string")
     return res.status(400).send({ err: "phoneNumber must be String" });
   if (userImage && typeof userImage !== "string")
