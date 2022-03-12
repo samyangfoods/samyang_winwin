@@ -50,7 +50,6 @@ const getPromotionById = expressAsyncHandler(async (req, res) => {
 // @route   Post   /api/promotion
 // @access  Private
 const createPromotion = expressAsyncHandler(async (req, res) => {
-  console.log(req.files)
   const {
     marketName,
     marketAddress,
@@ -60,6 +59,14 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
     promotionType,
     promotionDetail,
   } = req.body
+
+  const images = {
+    img1: req.files.file1[0].filename,
+    img2: req.files.file2[0].filename,
+    img3: req.files.file3[0].filename,
+    img4: req.files.file4[0].filename,
+  }
+
   const { promotionCost } = Number(req.body.promotionCost)
 
   // Promotion Validation
@@ -90,12 +97,7 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 
   let promotion = new Promotion({
     ...req.body,
-    images: {
-      img1: '1',
-      img2: '2',
-      img3: '3',
-      img4: '4',
-    },
+    images,
     user,
   })
 
