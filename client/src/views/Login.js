@@ -25,7 +25,6 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [showing, setShowing] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
-  const [appLoading, setAppLoading] = useState(false);
   const idRef = useRef();
   const passwordRef = useRef();
   const btnActivation = Boolean(userId && password);
@@ -49,8 +48,6 @@ const Login = ({ navigation }) => {
           );
 
           navigation.navigate("Stack");
-        } else {
-          return null;
         }
       } catch (error) {
         console.log("error", error);
@@ -59,7 +56,7 @@ const Login = ({ navigation }) => {
       }
     };
     checkUserLogin();
-  });
+  }, []);
 
   const handleId = useCallback((text) => {
     setUserId(text.trim());

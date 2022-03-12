@@ -87,14 +87,6 @@ const Profile = ({ navigation }) => {
           </Top>
 
           <Bottom>
-            <Btn>
-              <Text>행사 (준비중입니다.)</Text>
-              <AntDesign name="right" size={16} color="black" />
-            </Btn>
-            <Btn>
-              <Text>주문 (준비중입니다.)</Text>
-              <AntDesign name="right" size={16} color="black" />
-            </Btn>
             <Btn onPress={() => navigation.navigate("소매점 목록")}>
               <Text>소매점 목록</Text>
               <AntDesign name="right" size={16} color="black" />

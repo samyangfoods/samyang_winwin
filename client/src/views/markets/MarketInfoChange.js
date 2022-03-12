@@ -19,9 +19,13 @@ import {
 } from "../../styles/MarketStyle";
 import { useMarketDelete } from "../../hooks/MarketHooks";
 import { ActivityIndicator, Alert } from "react-native";
+import { useSelector } from "react-redux";
 
 const MarketInfoChange = ({ navigation, route }) => {
+  const token = useSelector((state) => state.user.token);
+
   const marketData = route.params.marketData[0];
+
   const [modal, setModal] = useState(false);
   const [marketId] = useState(marketData._id);
   const [address, setAddress] = useState(marketData.marketAddress);
@@ -51,18 +55,18 @@ const MarketInfoChange = ({ navigation, route }) => {
     setIncome(text);
   };
 
-  const processMarketDelete = async (marketId) => {
-    const response = await useMarketDelete(marketId);
+  const processMarketDelete = async (marketId, token) => {
+    const response = await useMarketDelete(marketId, token);
     if (response) {
       Alert.alert("알림", "삭제되었습니다.");
       navigation.goBack();
     }
   };
-  const triggerDeleteButton = (marketId) => {
+  const triggerDeleteButton = (marketId, token) => {
     setDeleteLoading(true);
     try {
       Alert.alert("알림", "삭제하시겠습니까?", [
-        { text: "네", onPress: () => processMarketDelete(marketId) },
+        { text: "네", onPress: () => processMarketDelete(marketId, token) },
         { text: "아니오" },
       ]);
     } catch (error) {
@@ -138,7 +142,7 @@ const MarketInfoChange = ({ navigation, route }) => {
             </Text>
           </FooterBtn>
           <FooterBtn
-            onPress={() => triggerDeleteButton(marketId)}
+            onPress={() => triggerDeleteButton(marketId, token)}
             style={{ backgroundColor: "#B4B4B4" }}
           >
             <Text style={{ color: "#fff" }}>

@@ -27,6 +27,8 @@ import { Alert } from "react-native";
 
 const PromotionCreate = () => {
   const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
+
   const [ref, setRef] = useState(null);
   const [modal, setModal] = useState(false);
   const [marketName, setMarketName] = useState(null);
@@ -53,10 +55,10 @@ const PromotionCreate = () => {
     setMarketName(text);
   };
   const handlePos = (text) => {
-    setPos(parseInt(text));
+    setPos(text);
   };
   const handlePromotionCost = (text) => {
-    setPromotionCost(parseInt(text));
+    setPromotionCost(text);
   };
 
   const addItemArray = () => {
@@ -89,14 +91,16 @@ const PromotionCreate = () => {
       promotionType: promotionType.label,
       promotionCost: parseInt(promotionCost),
       promotionDetail,
-      islive: true,
-      userId,
+      user: { _id: userId },
     };
 
     try {
       const response = await axios.post(
         "http://localhost:5000/api/promotion",
-        promotionObj
+        promotionObj,
+        {
+          headers: { token },
+        }
       );
     } catch (error) {
       Alert.alert("알림", error);

@@ -20,6 +20,7 @@ import { Alert } from "react-native";
 
 const MarketInput = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
   const [image, setImage] = useState(null);
@@ -67,7 +68,7 @@ const MarketInput = ({ navigation }) => {
       marketImage: image,
     };
     try {
-      await useMarketCreate(marketObj);
+      await useMarketCreate(marketObj, token);
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {

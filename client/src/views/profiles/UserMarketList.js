@@ -13,6 +13,7 @@ const MarketList = ({ navigation, route }) => {
   const [markets, setMarkets] = useState(null);
   const [socket, disconnect] = useSocket();
   const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
 
   // Socket.io in order to read user market list
   useEffect(() => {
@@ -22,7 +23,7 @@ const MarketList = ({ navigation, route }) => {
       }
     };
 
-    socket.emit("userMarketList", { userId });
+    socket.emit("userMarketList", { userId, token });
     socket.on("eachMarket", loadMarketList);
 
     return () => {
