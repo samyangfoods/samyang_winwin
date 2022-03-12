@@ -29,11 +29,11 @@ export const setSocketIo = (httpServer, app) => {
     });
 
     // userMarketList
-    socket.on("userMarketList", () => {
+    socket.on("userMarketList", ({ userId }) => {
       if (eachMarket) clearInterval(eachMarket);
 
       eachMarket = setInterval(async () => {
-        const { data } = await axios.get(`${API_URL_BASIC}/market`);
+        const { data } = await axios.get(`${API_URL_BASIC}/market/${userId}`);
         io.emit("eachMarket", data);
       }, 1000);
     });

@@ -57,7 +57,7 @@ const MarketInput = ({ navigation }) => {
 
   const sumbitMarketInfo = async () => {
     const marketObj = {
-      user: { _id: userId },
+      userId,
       marketName,
       size,
       pos,
@@ -66,13 +66,12 @@ const MarketInput = ({ navigation }) => {
       marketAddress: address,
       marketImage: image,
     };
-
     try {
       await useMarketCreate(marketObj);
-      Alert.alert("알림", "소매점이 등록되었습니다.");
+      Alert.alert("알림", "소매점 등록이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", String(error));
     }
   };
 

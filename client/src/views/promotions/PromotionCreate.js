@@ -29,7 +29,7 @@ const PromotionCreate = () => {
   const userId = useSelector((state) => state.user.userId);
   const [ref, setRef] = useState(null);
   const [modal, setModal] = useState(false);
-  const [superMarketName, setSuperMarketName] = useState(null);
+  const [marketName, setMarketName] = useState(null);
   const [address, setAddress] = useState(null);
   const [pos, setPos] = useState(null);
   const [image, setImage] = useState([]);
@@ -49,8 +49,8 @@ const PromotionCreate = () => {
     },
   ]);
 
-  const handleSuperMarketName = (text) => {
-    setSuperMarketName(text);
+  const handleMarketName = (text) => {
+    setMarketName(text);
   };
   const handlePos = (text) => {
     setPos(parseInt(text));
@@ -75,14 +75,19 @@ const PromotionCreate = () => {
   // islive, role="dealer"
   const submitPromotion = async () => {
     const promotionObj = {
-      superMarketName,
-      address,
-      pos,
-      image,
+      marketName,
+      marketAddress: address,
+      pos: parseInt(pos),
+      images: {
+        img1: image[0],
+        img2: image[1],
+        img3: image[2],
+        img4: image[3],
+      },
       start_date: dateStart,
       end_date: dateEnd,
       promotionType: promotionType.label,
-      promotionCost,
+      promotionCost: parseInt(promotionCost),
       promotionDetail,
       islive: true,
       userId,
@@ -107,8 +112,8 @@ const PromotionCreate = () => {
             <Text>소매점명</Text>
             <TextInput
               placeholder="매점명을 입력하세요."
-              value={superMarketName}
-              onChangeText={(text) => handleSuperMarketName(text)}
+              value={marketName}
+              onChangeText={(text) => handleMarketName(text)}
             />
           </VerticalDiv>
           <VerticalDiv>

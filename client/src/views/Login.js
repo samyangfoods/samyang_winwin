@@ -32,7 +32,6 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   // If system finds current login data with user's token, then navigation would move to the main page.
-
   useEffect(() => {
     const checkUserLogin = async () => {
       try {
@@ -92,7 +91,7 @@ const Login = ({ navigation }) => {
 
       navigation.navigate("Stack");
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", "오류 발생");
     } finally {
       setLoginLoading(false);
     }

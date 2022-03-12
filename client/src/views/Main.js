@@ -11,6 +11,8 @@ import DataLoading from "../components/DataLoading";
 // start_date / end_date or startDate / endDate
 // userid or userId
 
+//TODO: websocket, CRUD
+
 const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);

@@ -6,19 +6,23 @@ import EachMarket from "../../components/EachMarket";
 import NotFound from "../../components/NotFound";
 import useSocket from "../../hooks/SocketHooks";
 import DataLoading from "../../components/DataLoading";
+import { useSelector } from "react-redux";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [markets, setMarkets] = useState(null);
   const [socket, disconnect] = useSocket();
+  const userId = useSelector((state) => state.user.userId);
 
   // Socket.io in order to read user market list
   useEffect(() => {
     const loadMarketList = (data) => {
-      setMarkets(data.markets);
+      if (data) {
+        setMarkets([data.markets]);
+      }
     };
 
-    socket.emit("userMarketList", "on");
+    socket.emit("userMarketList", { userId });
     socket.on("eachMarket", loadMarketList);
 
     return () => {
@@ -43,7 +47,7 @@ const MarketList = ({ navigation, route }) => {
       </Top>
 
       {markets ? (
-        markets.length !== 0 ? (
+        markets[0] !== null ? (
           <Bottom
             data={markets}
             keyExtractor={(item) => item._id}
