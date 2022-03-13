@@ -50,6 +50,7 @@ const getPromotionById = expressAsyncHandler(async (req, res) => {
 // @route   Post   /api/promotion
 // @access  Private
 const createPromotion = expressAsyncHandler(async (req, res) => {
+  console.log(req.files)
   const {
     marketName,
     marketAddress,

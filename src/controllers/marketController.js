@@ -92,7 +92,7 @@ const createMarket = expressAsyncHandler(async (req, res) => {
   let market = new Market({
     ...req.body,
     user: req.user,
-    // marketImage: req.file.filename,
+    marketImage: req.file.filename,
   })
 
   await market.save()
