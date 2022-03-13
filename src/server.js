@@ -4,9 +4,7 @@ const app = express()
 // Import Router
 import promotionRouter from './routes/promotionRoute.js'
 import userRouter from './routes/userRoute.js'
-import commentRouter from './routes/commentRoute.js'
 import marketRouter from './routes/marketRoute.js'
-import imageRouter from './routes/imageRoute.js'
 import mongoose from 'mongoose'
 
 // 🔥🔥🔥🔥 Socket.io added 🔥🔥🔥🔥
@@ -36,8 +34,6 @@ const server = async () => {
     app.use('/api/user', userRouter)
     app.use('/api/promotion', promotionRouter)
     app.use('/api/market', marketRouter)
-    app.use('/api/promotion/:promotionId/comment', commentRouter)
-    app.use('/api/image', imageRouter)
 
     // 외부에서 이미지를 읽을 수 있도록 권한 설정
 
