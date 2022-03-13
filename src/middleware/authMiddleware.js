@@ -1,33 +1,27 @@
-import jwt from "jsonwebtoken";
-import expressAsyncHandler from "express-async-handler";
-import { User } from "../models/User.js";
+import jwt from 'jsonwebtoken'
+import expressAsyncHandler from 'express-async-handler'
+import { User } from '../models/User.js'
 
 const protect = expressAsyncHandler(async (req, res, next) => {
-  // let token
-
-  // if (
-  //   req.headers.authorization &&
-  //   req.headers.authorization.startsWith('Bearer')
-  // ) {
-  const { token } = req.headers;
+  const { token } = req.headers
 
   try {
     if (!token) {
-      res.status(401);
-      throw new Error("Not authorized, no token !!!");
+      res.status(401)
+      throw new Error('Not authorized, no token !!!')
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-    req.user = await User.findById(decoded.id).select("-password");
+    req.user = await User.findById(decoded.id).select('-password')
 
-    next();
+    next()
   } catch (error) {
-    console.error("authMiddleware", error);
-    res.status(401);
-    throw new Error("Not authorized, token failed !!");
+    console.error('authMiddleware', error)
+    res.status(401)
+    throw new Error('Not authorized, token failed !!')
   }
   // }
-});
+})
 
-export { protect };
+export { protect }

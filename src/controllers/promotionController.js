@@ -88,17 +88,10 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
   if (promotionDetail && typeof promotionDetail !== 'object')
     return res.status(400).send({ err: 'promotionDetail must be Object' })
 
-  // User Validation
-  if (!ObjectId.isValid(req.user._id))
-    return res.status(400).send({ err: 'userId is invalid ' })
-
-  let user = await User.findById(req.user._id)
-  if (!user) return res.status(400).send({ err: 'user does not exist !!' })
-
   let promotion = new Promotion({
     ...req.body,
     images,
-    user,
+    user: req.user,
   })
 
   await promotion.save()

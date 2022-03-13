@@ -12,8 +12,8 @@ const PromotionSchema = mongoose.Schema(
       img3: { type: String },
       img4: { type: String },
     },
-    start_date: { type: Date, required: true },
-    end_date: { type: Date, required: true },
+    start_date: { type: String, required: true },
+    end_date: { type: String, required: true },
     promotionType: { type: String, required: true },
     promotionCost: { type: Number, required: true, default: 0 },
     promotionDetail: [

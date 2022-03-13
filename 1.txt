@@ -1,0 +1,3 @@
+Production DataBaseName : samyangProjectProduction
+Delete commentRouter.js
+static IP address : 13.125.108.18
