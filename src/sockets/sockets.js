@@ -9,7 +9,7 @@ export const setSocketIo = (httpServer, app) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("Socket is wokring..".rainbow, socket.id);
+    console.log(socket.id, "Socket is working..".rainbow);
     let eachMarket;
     let userProfile;
 
@@ -45,6 +45,16 @@ export const setSocketIo = (httpServer, app) => {
         }, 1000);
       } catch (error) {
         return;
+      }
+    });
+
+    socket.on("disconnect", () => {
+      console.log(socket.id, "Socket disconnected..".rainbow);
+      if (userProfile) {
+        clearInterval(userProfile);
+      }
+      if (eachMarket) {
+        clearInterval(eachMarket);
       }
     });
   });

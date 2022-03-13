@@ -29,6 +29,7 @@ const Profile = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [socket, disconnect] = useSocket();
 
+  // websocket
   useEffect(() => {
     const getUserInfo = async (data) => {
       setUserInfo(data.user);
@@ -44,7 +45,9 @@ const Profile = ({ navigation }) => {
     };
   }, [socket]);
 
+  // logout
   const handleLogOut = async () => {
+    disconnect();
     await SecureStore.deleteItemAsync("token");
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");

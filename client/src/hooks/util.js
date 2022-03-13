@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 
 export const useImageBase64 = async () => {

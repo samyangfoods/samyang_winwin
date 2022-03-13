@@ -99,7 +99,6 @@ const Login = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    // I need Keyboard Dismiss View
     <Container>
       <Image source={logo} />
       <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>

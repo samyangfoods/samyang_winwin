@@ -14,8 +14,10 @@ const useSocket = () => {
   }, []);
 
   if (!socket) {
-    socket = io(`${socketUrl}`);
-    console.log("Websocket is now connected.", socket.id);
+    socket = io(`${socketUrl}`, {
+      transports: ["websocket"],
+    });
+    console.log("Websocket is now connected.");
   }
 
   return [socket, disconnect];
