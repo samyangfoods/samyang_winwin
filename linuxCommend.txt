@@ -1,0 +1,11 @@
+뒤로가기 : cd -
+
+파일보기 : cat package.json
+
+파일만들기 : vi aa.json
+
+폴더만들기 : mkdir aa
+
+PM2 서버실행하기  : sudo pm2 start npm -- start
+PM2 서버내리기 : sudo pm2 kill
+PM2 실행 리스트 보기 : sudo pm2 list
