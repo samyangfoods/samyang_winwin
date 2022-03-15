@@ -100,8 +100,8 @@ const Register = ({ navigation }) => {
       channel: channel.label,
       storeName,
       phoneNumber,
-      userImage,
-      userAddress: { warehouse: userAddress },
+      userImage: userImage.uri,
+      userAddress,
     };
 
     if (!/[\d\w\W\S]{8,}/.test(password)) {
@@ -146,7 +146,7 @@ const Register = ({ navigation }) => {
           <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
 
           <Image
-            source={userImage ? { uri: userImage } : defaultUser}
+            source={userImage ? { uri: userImage.base64 } : defaultUser}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
 
