@@ -12,7 +12,6 @@ import { setSocketIo } from './sockets/sockets.js'
 // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 // etc
-import generateFakeData from '../faker2.js'
 import colors from 'colors'
 
 const server = async () => {
