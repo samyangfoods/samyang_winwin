@@ -24,6 +24,7 @@ export const setSocketIo = (httpServer, app) => {
           const { data } = await axios.get(`${API_URL_BASIC}/user/${userId}`, {
             headers: { token },
           });
+
           io.emit("getUserProfile", data);
         }, 1000);
       } catch (error) {
