@@ -6,13 +6,21 @@ import { useImageBase64 } from "../../hooks/Util";
 
 // Component to Add only One Image
 
-const ImageAccess = ({ placeholder, setImage }) => {
+const ImageAccess = ({ placeholder, setMarketImage, setThumbnail }) => {
   const accessAlbum = async () => {
     const response = await useImageBase64();
 
     if (response === undefined) return;
 
-    setImage(response);
+    setThumbnail(response.base64);
+    setMarketImage({
+      uri:
+        Platform.OS === "android"
+          ? response.uri
+          : response.uri.replace("file://", ""),
+      filename: "marketImage",
+      type: "JPEG" || "JPG" || "PNG",
+    });
   };
 
   return (

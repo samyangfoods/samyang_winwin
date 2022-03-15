@@ -6,9 +6,6 @@ export const Container = styled.View`
   padding: 5%;
 `;
 export const Top = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 5%;
   width: 100%;
 `;
@@ -40,7 +37,6 @@ export const CardRight = styled.View`
   flex-direction: column;
 `;
 export const Bottom = styled.View`
-  flex: 3;
   padding-top: 5%;
 `;
 export const Text = styled.Text`

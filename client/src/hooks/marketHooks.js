@@ -10,9 +10,22 @@ export const useMarketList = async (token) => {
 };
 
 export const useMarketCreate = async (marketObj, token) => {
-  const { data } = await axios.post(`${basicApiUrl}/market`, marketObj, {
-    headers: { token },
+  const { data } = await axios({
+    method: "POST",
+    url: `${basicApiUrl}/market`,
+    data: marketObj,
+    headers: {
+      token,
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+      "x-auth": token,
+    },
   });
+  // }).post(`${basicApiUrl}/market`, marketObj.marketImage, {
+  //   headers: {
+  //     token,
+  //     "Content-Type": "multipart/form-data; boundary: marketImage",
+  //   },
 
   return data;
 };
