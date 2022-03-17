@@ -41,12 +41,9 @@ export const useRegister = async (userObj) => {
   formData.append("phoneNumber", phoneNumber);
   formData.append("userAddress", userAddress);
   formData.append("userImage", userImage);
-
-  const { data } = await axios.post(`${basicApiUrl}/user/register`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  // console.log("Form Data", formData);
+  //TODO: socket code rewrite and form data filereader filedataAsUrl
+  const { data } = await axios.post(`${basicApiUrl}/user/register`, formData);
 
   return data;
 };

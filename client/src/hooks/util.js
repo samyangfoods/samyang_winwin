@@ -13,7 +13,12 @@ export const useImageBase64 = async () => {
     const imageFormat = "JPEG" || "JPG" || "PNG";
     const base64Image = `data:${imageFormat};base64,${result.base64}`;
 
-    return { uri: result.uri, base64: base64Image };
+    return {
+      uri: result.uri,
+      type: result.type,
+      name: result.base64.slice(4, 10),
+      base64: base64Image,
+    };
   }
 };
 
