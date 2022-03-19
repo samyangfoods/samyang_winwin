@@ -19,7 +19,31 @@ export const useLogin = async (userId, password) => {
 };
 
 export const useRegister = async (userObj) => {
-  const { data } = await axios.post(`${basicApiUrl}/user/register`, userObj);
+  const formData = new FormData();
+  const {
+    userName,
+    userId,
+    password,
+    passwordConfirmation,
+    channel,
+    storeName,
+    phoneNumber,
+    userImage,
+    userAddress,
+  } = userObj;
+
+  formData.append("userName", userName);
+  formData.append("userId", userId);
+  formData.append("password", password);
+  formData.append("passwordConfirmation", passwordConfirmation);
+  formData.append("channel", channel);
+  formData.append("storeName", storeName);
+  formData.append("phoneNumber", phoneNumber);
+  formData.append("userAddress", userAddress);
+  formData.append("userImage", userImage);
+  // console.log("Form Data", formData);
+  //TODO: socket code rewrite and form data filereader filedataAsUrl
+  const { data } = await axios.post(`${basicApiUrl}/user/register`, formData);
 
   return data;
 };

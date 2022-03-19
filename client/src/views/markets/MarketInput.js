@@ -23,7 +23,8 @@ const MarketInput = ({ navigation }) => {
   const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
-  const [image, setImage] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+  const [marketImage, setMarketImage] = useState(null);
   const [address, setAddress] = useState(null);
   const [marketName, setMarketName] = useState(null);
   const [size, setSize] = useState(null);
@@ -47,28 +48,40 @@ const MarketInput = ({ navigation }) => {
   const handleIncome = (text) => {
     setIncome(text);
   };
-
   const handleModal = () => {
     setModal(true);
     ref?.scrollTo({ y: 0, animated: false });
   };
+
   const modalIsClosed = () => {
     ref?.scrollToEnd({ animated: false });
   };
 
+  // {uri: 경로, fileName: 파일이름, type: 확장자}
   const sumbitMarketInfo = async () => {
-    const marketObj = {
-      userId,
-      marketName,
-      size,
-      pos,
-      phone: phoneNumber,
-      averageSales: income,
-      marketAddress: address,
-      marketImage: image,
-    };
+    const formDataMarketImage = new FormData();
+    formDataMarketImage.append("marketImage", marketImage);
+    formDataMarketImage.append("userId", userId);
+    formDataMarketImage.append("marketName", marketName);
+    formDataMarketImage.append("size", size);
+    formDataMarketImage.append("pos", pos);
+    formDataMarketImage.append("phone", phoneNumber);
+    formDataMarketImage.append("averageSales", income);
+    formDataMarketImage.append("marketAddress", address);
+
+    // const marketObj = {
+    //   userId,
+    //   marketName,
+    //   size,
+    //   pos,
+    //   phone: phoneNumber,
+    //   averageSales: income,
+    //   marketAddress: address,
+    //   marketImage,
+    // };
+
     try {
-      await useMarketCreate(marketObj, token);
+      await useMarketCreate(formDataMarketImage, token);
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {
@@ -79,9 +92,9 @@ const MarketInput = ({ navigation }) => {
   return (
     <ScrollContainer ref={(ref) => setRef(ref)}>
       <MarketInputForm>
-        {image ? (
+        {thumbnail ? (
           <ThumbnailContainer>
-            <Image source={{ uri: image }} />
+            <Image source={{ uri: thumbnail }} />
           </ThumbnailContainer>
         ) : (
           <ThumbnailContainer>
@@ -89,9 +102,9 @@ const MarketInput = ({ navigation }) => {
               name="camerao"
               size={48}
               color="gray"
-              style={{ paddingTop: 30 }}
+              style={{ padding: 20 }}
             />
-            <Text style={{ color: "gray" }}>
+            <Text style={{ color: "gray", marginBottom: 15 }}>
               아래 버튼을 눌러 이미지를 첨부해주세요.
             </Text>
           </ThumbnailContainer>
@@ -99,8 +112,11 @@ const MarketInput = ({ navigation }) => {
 
         <Text>이미지 등록</Text>
         <ImageUpload
-          placeholder={image ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"}
-          setImage={setImage}
+          placeholder={
+            thumbnail ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
+          }
+          setMarketImage={setMarketImage}
+          setThumbnail={setThumbnail}
         />
 
         <Text>소매점명</Text>

@@ -41,6 +41,7 @@ const Register = ({ navigation }) => {
   const [storeName, setStoreName] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [userImage, setUserImage] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [userAddress, setAddress] = useState(null);
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
@@ -101,7 +102,7 @@ const Register = ({ navigation }) => {
       storeName,
       phoneNumber,
       userImage,
-      userAddress: { warehouse: userAddress },
+      userAddress,
     };
 
     if (!/[\d\w\W\S]{8,}/.test(password)) {
@@ -118,8 +119,14 @@ const Register = ({ navigation }) => {
   };
 
   const addUserImage = async () => {
-    const reponse = await useImageBase64();
-    setUserImage(reponse);
+    const response = await useImageBase64();
+    const obj = {
+      uri: response.uri,
+      type: response.type,
+      name: response.name,
+    };
+    setThumbnail(response.base64);
+    setUserImage(obj);
   };
 
   // This will scroll to the top when the address modal is on.
@@ -146,7 +153,7 @@ const Register = ({ navigation }) => {
           <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
 
           <Image
-            source={userImage ? { uri: userImage } : defaultUser}
+            source={userImage ? { uri: thumbnail } : defaultUser}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
 

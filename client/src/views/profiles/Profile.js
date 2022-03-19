@@ -52,7 +52,7 @@ const Profile = ({ navigation }) => {
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");
   };
-
+  // handleLogOut();
   return (
     <Container>
       {userInfo ? (

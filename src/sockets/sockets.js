@@ -3,6 +3,8 @@ import { Server } from "socket.io";
 
 const { API_URL_BASIC } = process.env;
 
+//TODO: 최적화 필요 --> 모든 정보를 한 번만 연결해서 받아올 수 있도록.
+// 프로필, 소매점 목록 시 각각 연결되고 있음 --> 한 번의 연결로 해결할 수 있도록 하고, 서버 부담 최소로 줄이기
 export const setSocketIo = (httpServer, app) => {
   const io = new Server(httpServer, {
     path: "/socket.io",
@@ -22,6 +24,7 @@ export const setSocketIo = (httpServer, app) => {
           const { data } = await axios.get(`${API_URL_BASIC}/user/${userId}`, {
             headers: { token },
           });
+
           io.emit("getUserProfile", data);
         }, 1000);
       } catch (error) {
