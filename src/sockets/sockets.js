@@ -9,7 +9,7 @@ export const setSocketIo = (httpServer, app) => {
   if (!API_URL_BASIC) throw new Error('API_URL_BASIC is required!!')
 
   const io = new Server(httpServer, {
-    path: '/socket.io',
+    path: '/api/socket.io',
   })
 
   io.on('connection', (socket) => {
