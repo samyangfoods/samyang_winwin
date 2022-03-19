@@ -41,7 +41,6 @@ const Register = ({ navigation }) => {
   const [storeName, setStoreName] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [userImage, setUserImage] = useState(null);
-  const [thumbnail, setThumbnail] = useState(null);
   const [userAddress, setAddress] = useState(null);
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
@@ -125,7 +124,7 @@ const Register = ({ navigation }) => {
       type: response.type,
       name: response.name,
     };
-    setThumbnail(response.base64);
+
     setUserImage(obj);
   };
 
@@ -153,7 +152,7 @@ const Register = ({ navigation }) => {
           <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
 
           <Image
-            source={userImage ? { uri: thumbnail } : defaultUser}
+            source={userImage ? { uri: userImage.uri } : defaultUser}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
 

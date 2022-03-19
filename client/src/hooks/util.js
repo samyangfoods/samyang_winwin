@@ -16,7 +16,7 @@ export const useImageBase64 = async () => {
     return {
       uri: result.uri,
       type: result.type,
-      name: result.base64.slice(4, 10),
+      name: result.uri,
       base64: base64Image,
     };
   }

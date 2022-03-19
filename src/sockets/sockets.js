@@ -7,7 +7,7 @@ const { API_URL_BASIC } = process.env;
 // 프로필, 소매점 목록 시 각각 연결되고 있음 --> 한 번의 연결로 해결할 수 있도록 하고, 서버 부담 최소로 줄이기
 export const setSocketIo = (httpServer, app) => {
   const io = new Server(httpServer, {
-    path: "/socket.io",
+    path: "/api/socket.io",
   });
 
   io.on("connection", (socket) => {

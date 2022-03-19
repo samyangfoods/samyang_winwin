@@ -39,11 +39,6 @@ const server = async () => {
     // 🔥🔥🔥🔥 Combine HTTP server & Socket.io 🔥🔥🔥🔥
     const httpServer = app.listen(PORT, async () => {
       console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`.rainbow);
-      // console.time('insert time: ')
-      // for (let i = 0; i < 20; i++) {
-      // await generateFakeData(10, 10, 10)
-      // console.timeEnd('insert time: ')
-      // }
     });
     setSocketIo(httpServer, app);
     // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥

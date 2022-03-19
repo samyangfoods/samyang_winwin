@@ -34,7 +34,7 @@ const Profile = ({ navigation }) => {
     const getUserInfo = async (data) => {
       setUserInfo(data.user);
     };
-
+    console.log("Profile entered")
     socket.emit("profile", { userId, token });
     socket.on("getUserProfile", getUserInfo);
 

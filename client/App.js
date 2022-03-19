@@ -18,6 +18,7 @@ export default function App() {
       port: 8097,
     });
   }
+  
   return (
     <NavigationContainer theme={Theme}>
       <Provider store={store}>
