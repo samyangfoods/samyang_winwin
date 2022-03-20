@@ -7,7 +7,7 @@ let socket;
 const useSocket = () => {
   const disconnect = useCallback(() => {
     if (socket) {
-      console.log("Websocket is now disconnected.");
+      console.log("Socket Hooks: Websocket is now disconnected.");
       socket.disconnect();
       socket = undefined;
     }
@@ -15,9 +15,11 @@ const useSocket = () => {
 
   if (!socket) {
     socket = io(`${socketUrl}`, {
-      transports: ["websocket"],
+      // transports: ["websocket"],
     });
-    console.log("Websocket is now connected.");
+    if (socket) {
+      console.log("Socket Hooks: Websocket is now connected.");
+    }
   }
 
   return [socket, disconnect];

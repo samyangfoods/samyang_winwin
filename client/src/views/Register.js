@@ -100,7 +100,7 @@ const Register = ({ navigation }) => {
       channel: channel.label,
       storeName,
       phoneNumber,
-      userImage: userImage.uri,
+      userImage,
       userAddress,
     };
 
@@ -118,8 +118,14 @@ const Register = ({ navigation }) => {
   };
 
   const addUserImage = async () => {
-    const reponse = await useImageBase64();
-    setUserImage(reponse);
+    const response = await useImageBase64();
+    const obj = {
+      uri: response.uri,
+      type: response.type,
+      name: response.name,
+    };
+
+    setUserImage(obj);
   };
 
   // This will scroll to the top when the address modal is on.
@@ -146,7 +152,7 @@ const Register = ({ navigation }) => {
           <Text style={{ fontSize: 20, marginBottom: 40 }}>회 원 가 입</Text>
 
           <Image
-            source={userImage ? { uri: userImage.base64 } : defaultUser}
+            source={userImage ? { uri: userImage.uri } : defaultUser}
             style={{ width: 100, height: 100, borderRadius: 100 }}
           />
 

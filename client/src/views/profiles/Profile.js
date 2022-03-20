@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import { useSelector } from 'react-redux'
 import { Alert } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { usePhoneNumberFormat } from '../../hooks/Util'
+=======
+import React, { useEffect, useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { Alert } from "react-native";
+import * as SecureStore from "expo-secure-store";
+import { useFileRead, usePhoneNumberFormat } from "../../hooks/Util";
+>>>>>>> cfd6e9232634ab84dafcfd02e4a157b9400839b2
 import {
   Container,
   Top,
@@ -24,16 +33,29 @@ import useSocket from '../../hooks/SocketHooks'
 import DataLoading from '../../components/DataLoading'
 
 const Profile = ({ navigation }) => {
+<<<<<<< HEAD
   const userId = useSelector((state) => state.user.userId)
   const token = useSelector((state) => state.user.token)
   const [userInfo, setUserInfo] = useState(null)
   const [socket, disconnect] = useSocket()
+=======
+  const userId = useSelector((state) => state.user.userId);
+  const token = useSelector((state) => state.user.token);
+  const [socket, disconnect] = useSocket();
+  const [userInfo, setUserInfo] = useState(null);
+>>>>>>> cfd6e9232634ab84dafcfd02e4a157b9400839b2
 
   // websocket
   useEffect(() => {
     const getUserInfo = async (data) => {
+<<<<<<< HEAD
       setUserInfo(data.user)
     }
+=======
+      const { user } = data;
+      setUserInfo(user);
+    };
+>>>>>>> cfd6e9232634ab84dafcfd02e4a157b9400839b2
 
     socket.emit('profile', { userId, token })
     socket.on('getUserProfile', getUserInfo)
@@ -77,7 +99,11 @@ const Profile = ({ navigation }) => {
             </TopTitle>
             <UserCard>
               <CardLeft>
-                <Image source={{ uri: userInfo.userImage }} />
+                <Image
+                  source={{
+                    uri: userInfo.userImage,
+                  }}
+                />
               </CardLeft>
               <CardRight>
                 <Name>{userInfo.userName}</Name>

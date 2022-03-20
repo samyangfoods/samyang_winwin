@@ -42,11 +42,9 @@ export const useRegister = async (userObj) => {
   formData.append("userAddress", userAddress);
   formData.append("userImage", userImage);
 
-  const { data } = await axios.post(`${basicApiUrl}/user/register`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  console.log("UserHooks coming here", basicApiUrl);
+
+  const { data } = await axios.post(`${basicApiUrl}/user/register`, formData);
 
   return data;
 };

@@ -22,7 +22,7 @@ const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
           }}
         >
           {image[index] ? (
-            <Thumbnail source={{ uri: image[index] }} />
+            <Thumbnail source={{ uri: image[index].uri }} />
           ) : (
             <ImageAddButtonTitle>{`이미지${index + 1}`}</ImageAddButtonTitle>
           )}

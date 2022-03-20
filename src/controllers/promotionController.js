@@ -177,6 +177,13 @@ const deletePromotionById = expressAsyncHandler(async (req, res) => {
   return res.send({ promotion })
 })
 
+const searchPromotions = expressAsyncHandler(async(req, res) => {
+  const {text} = req.body
+  const promotions = new Promotion.find({promotionType: text})
+
+  return promotions
+})
+
 export {
   getPromotions,
   getPromotionById,
@@ -184,4 +191,5 @@ export {
   updatePromotionById,
   patchPromotionById,
   deletePromotionById,
+  searchPromotions
 }

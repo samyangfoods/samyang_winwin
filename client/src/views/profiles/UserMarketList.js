@@ -19,7 +19,7 @@ const MarketList = ({ navigation, route }) => {
   useEffect(() => {
     const loadMarketList = (data) => {
       if (data) {
-        setMarkets([data.markets]);
+        setMarkets(data);
       }
     };
 

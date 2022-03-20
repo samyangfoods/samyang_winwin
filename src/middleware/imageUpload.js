@@ -5,7 +5,7 @@ import mime from "mime-types";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "./uploads"),
   filename(req, file, cb) {
-    console.log(file);
+    console.log("imageUpload storage", file);
     //abc.png
     const ext = path.extname(file.originalname); // 확장자 추출
     const basename = path.basename(file.originalname, ext); //abc
@@ -18,7 +18,6 @@ const upload = multer({
   // 이미지 파일만 업로드 되도록 설정 , 이미지 사이즈 제한
   fileFilter: (req, file, cb) => {
     // jpeg & png만 업로드 되도록 설정
-    // 🔥🔥🔥 jpg 추가 --> 갤럭시용 2022 03 13 이현상
 
     if (["image/jpeg", "image/png", "image/jpg"].includes(file.mimetype)) {
       cb(null, true);

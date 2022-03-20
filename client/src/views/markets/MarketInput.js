@@ -69,17 +69,6 @@ const MarketInput = ({ navigation }) => {
     formDataMarketImage.append("averageSales", income);
     formDataMarketImage.append("marketAddress", address);
 
-    // const marketObj = {
-    //   userId,
-    //   marketName,
-    //   size,
-    //   pos,
-    //   phone: phoneNumber,
-    //   averageSales: income,
-    //   marketAddress: address,
-    //   marketImage,
-    // };
-
     try {
       await useMarketCreate(formDataMarketImage, token);
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");
@@ -92,9 +81,9 @@ const MarketInput = ({ navigation }) => {
   return (
     <ScrollContainer ref={(ref) => setRef(ref)}>
       <MarketInputForm>
-        {thumbnail ? (
+        {marketImage ? (
           <ThumbnailContainer>
-            <Image source={{ uri: thumbnail }} />
+            <Image source={{ uri: marketImage.uri }} />
           </ThumbnailContainer>
         ) : (
           <ThumbnailContainer>
@@ -113,10 +102,9 @@ const MarketInput = ({ navigation }) => {
         <Text>이미지 등록</Text>
         <ImageUpload
           placeholder={
-            thumbnail ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
+            marketImage ? "이미지 변경" : "소매점 전면 사진 (간판 보이게)"
           }
           setMarketImage={setMarketImage}
-          setThumbnail={setThumbnail}
         />
 
         <Text>소매점명</Text>
