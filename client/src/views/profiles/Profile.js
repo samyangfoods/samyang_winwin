@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
-import { Alert } from "react-native";
-import * as SecureStore from "expo-secure-store";
-import { usePhoneNumberFormat } from "../../hooks/Util";
+import React, { useEffect, useState } from 'react'
+import { AntDesign } from '@expo/vector-icons'
+import { useSelector } from 'react-redux'
+import { Alert } from 'react-native'
+import * as SecureStore from 'expo-secure-store'
+import { usePhoneNumberFormat } from '../../hooks/Util'
 import {
   Container,
   Top,
@@ -19,39 +19,41 @@ import {
   Image,
   Btn,
   HorizontalSeparator,
-} from "../../styles/profiles/UserProfile";
-import useSocket from "../../hooks/SocketHooks";
-import DataLoading from "../../components/DataLoading";
+} from '../../styles/profiles/UserProfile'
+import useSocket from '../../hooks/SocketHooks'
+import DataLoading from '../../components/DataLoading'
 
 const Profile = ({ navigation }) => {
-  const userId = useSelector((state) => state.user.userId);
-  const token = useSelector((state) => state.user.token);
-  const [userInfo, setUserInfo] = useState(null);
-  const [socket, disconnect] = useSocket();
+  const userId = useSelector((state) => state.user.userId)
+  const token = useSelector((state) => state.user.token)
+  const [userInfo, setUserInfo] = useState(null)
+  const [socket, disconnect] = useSocket()
 
   // websocket
   useEffect(() => {
     const getUserInfo = async (data) => {
-      setUserInfo(data.user);
-    };
+      setUserInfo(data.user)
+    }
 
-    socket.emit("profile", { userId, token });
-    socket.on("getUserProfile", getUserInfo);
+    socket.emit('profile', { userId, token })
+    socket.on('getUserProfile', getUserInfo)
 
     return () => {
       if (socket) {
-        socket.off("getUserProfile", getUserInfo);
+        socket.off('getUserProfile', getUserInfo)
       }
-    };
-  }, [socket]);
+    }
+  }, [socket])
 
   // logout
   const handleLogOut = async () => {
-    disconnect();
-    await SecureStore.deleteItemAsync("token");
-    Alert.alert("알림", "로그아웃 되었습니다.");
-    navigation.navigate("Modal");
-  };
+    disconnect()
+    await SecureStore.deleteItemAsync('token')
+    Alert.alert('알림', '로그아웃 되었습니다.')
+    navigation.navigate('Modal')
+  }
+
+  // handleLogOut()
 
   return (
     <Container>
@@ -64,9 +66,9 @@ const Profile = ({ navigation }) => {
               </Left>
               <Right>
                 <Text
-                  style={{ color: "#FA4A0C" }}
+                  style={{ color: '#FA4A0C' }}
                   onPress={() =>
-                    navigation.navigate("사용자 정보변경", { userInfo })
+                    navigation.navigate('사용자 정보변경', { userInfo })
                   }
                 >
                   수정하기
@@ -90,13 +92,13 @@ const Profile = ({ navigation }) => {
           </Top>
 
           <Bottom>
-            <Btn onPress={() => navigation.navigate("소매점 목록")}>
+            <Btn onPress={() => navigation.navigate('소매점 목록')}>
               <Text>소매점 목록</Text>
-              <AntDesign name="right" size={16} color="black" />
+              <AntDesign name='right' size={16} color='black' />
             </Btn>
             <Btn onPress={handleLogOut}>
               <Text>로그아웃</Text>
-              <AntDesign name="right" size={16} color="black" />
+              <AntDesign name='right' size={16} color='black' />
             </Btn>
           </Bottom>
         </>
@@ -104,7 +106,7 @@ const Profile = ({ navigation }) => {
         <DataLoading />
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
