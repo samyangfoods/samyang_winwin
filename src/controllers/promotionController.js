@@ -63,10 +63,10 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 
   const images = {}
 
-  if (req.files.file1[0]) images.img1 = req.files.file1[0].filename
-  if (req.files.file2[0]) images.img2 = req.files.file2[0].filename
-  if (req.files.file3[0]) images.img3 = req.files.file3[0].filename
-  if (req.files.file4[0]) images.img4 = req.files.file4[0].filename
+  if (req.files.file1) images.img1 = req.files.file1[0].filename
+  if (req.files.file2) images.img2 = req.files.file2[0].filename
+  if (req.files.file3) images.img3 = req.files.file3[0].filename
+  if (req.files.file4) images.img4 = req.files.file4[0].filename
 
   // const images = {
   //   img1: req.files.file1[0].filename,
