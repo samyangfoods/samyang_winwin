@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = mongoose.Schema(
   {
@@ -12,24 +12,24 @@ const UserSchema = mongoose.Schema(
     userImage: { type: String, required: true },
     userAddress: { type: String, required: true },
     // role : dealer , salesperson , admin
-    role: { type: String, required: true, default: 'dealer' },
+    role: { type: String, required: true, default: "dealer" },
   },
   // 언제 생성되고 언제 업데이트가 되었는지
   { timestamps: true }
-)
+);
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
-}
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next()
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
   }
-  const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
-})
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-const User = mongoose.model('user', UserSchema)
+const User = mongoose.model("user", UserSchema);
 
-export { User, UserSchema }
+export { User, UserSchema };

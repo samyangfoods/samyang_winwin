@@ -31,8 +31,8 @@ const getMarkets = expressAsyncHandler(async (req, res) => {
 // @route   Get   /api/market/search?keyword=""
 // @access  Private
 const searchMarkets = expressAsyncHandler(async (req, res) => {
-  const {text} = req.body;
-  const markets = await Market.find()
+  const { text } = req.body;
+  const markets = await Market.find();
 
   // console.log(req.query);
   // const keyword = {
@@ -43,8 +43,8 @@ const searchMarkets = expressAsyncHandler(async (req, res) => {
   // };
 
   // const markets = await Market.find({ ...keyword })
-    // UpdatedAt 최근순으로
-    // .sort({ updatedAt: -1 });
+  // UpdatedAt 최근순으로
+  // .sort({ updatedAt: -1 });
   // 스킵숫자
   // .skip(page * 3)
   // 프론트로 보내줄 숫자
@@ -160,9 +160,9 @@ const deleteMarketById = expressAsyncHandler(async (req, res) => {
 const getMarketWithUserId = expressAsyncHandler(async (req, res) => {
   const { userId } = req.params;
 
-  const markets = await Market.findOne({ user: { _id: ObjectId(userId) } });
+  const markets = await Market.find({ user: { _id: ObjectId(userId) } });
 
-  return res.send({ markets });
+  return res.send(markets);
 });
 // 🔥🔥🔥🔥🔥
 

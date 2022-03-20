@@ -57,7 +57,7 @@ const Login = ({ navigation }) => {
     };
     checkUserLogin();
   }, []);
-  navigation.navigate("Stack");
+
   const handleId = useCallback((text) => {
     setUserId(text.trim());
   }, []);

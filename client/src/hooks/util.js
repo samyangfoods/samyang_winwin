@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import { Platform } from "react-native";
 
 export const useImageBase64 = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
@@ -15,11 +16,20 @@ export const useImageBase64 = async () => {
 
     return {
       uri: result.uri,
-      type: result.type,
+      type:
+        Platform.OS === "android" ? `image/jpeg` || `image/png` : `image/jpg`,
       name: result.uri,
-      base64: base64Image,
     };
   }
+};
+
+export const useFileRead = (imageUri) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(imageUri);
+
+  const { result } = reader;
+
+  return result;
 };
 
 export const usePhoneNumberFormat = (num) => {

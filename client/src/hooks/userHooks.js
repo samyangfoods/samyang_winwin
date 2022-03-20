@@ -41,8 +41,9 @@ export const useRegister = async (userObj) => {
   formData.append("phoneNumber", phoneNumber);
   formData.append("userAddress", userAddress);
   formData.append("userImage", userImage);
-  // console.log("Form Data", formData);
-  //TODO: socket code rewrite and form data filereader filedataAsUrl
+
+  console.log("UserHooks coming here", basicApiUrl);
+
   const { data } = await axios.post(`${basicApiUrl}/user/register`, formData);
 
   return data;

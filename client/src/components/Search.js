@@ -28,12 +28,12 @@ const marketNameMockApi = [
   "기타",
   "전달행사",
   "엔드엔드행사",
-  "기타베이스"
+  "기타베이스",
 ];
 
 const Search = ({ route, searchText, setSearchText }) => {
   // Put API results in this hook
-  const token = useSelector(state => state.user.token);
+  const token = useSelector((state) => state.user.token);
   const [sampleArray, setSampleArray] = useState([]);
 
   const sampleSearchLogic = (text) => {

@@ -24,9 +24,9 @@ import { Btn } from "../../styles/Auth";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
+import { usePromotionCreation } from "../../hooks/PromotionHooks";
 
 const PromotionCreate = () => {
-  const userId = useSelector((state) => state.user.userId);
   const token = useSelector((state) => state.user.token);
 
   const [ref, setRef] = useState(null);
@@ -74,34 +74,25 @@ const PromotionCreate = () => {
     ref?.scrollToEnd({ animated: true });
   };
 
-  // islive, role="dealer"
-  const submitPromotion = async () => {
+  const submitPromotion = () => {
     const promotionObj = {
       marketName,
       marketAddress: address,
       pos: parseInt(pos),
-      images: {
-        img1: image[0],
-        img2: image[1],
-        img3: image[2],
-        img4: image[3],
-      },
-      start_date: dateStart,
-      end_date: dateEnd,
+      image,
+      start_date: dateStart.toString(),
+      end_date: dateEnd.toString(),
       promotionType: promotionType.label,
       promotionCost: parseInt(promotionCost),
       promotionDetail,
-      user: { _id: userId },
     };
 
+    console.log(typeof promotionObj.start_date);
+
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/promotion",
-        promotionObj,
-        {
-          headers: { token },
-        }
-      );
+      const result = usePromotionCreation(promotionObj, token);
+      console.log("promotion creation result", result);
+      Alert.alert("알림", "행사가 등록되었습니다.");
     } catch (error) {
       Alert.alert("알림", error);
     }

@@ -1,11 +1,14 @@
 import { Platform } from "react-native";
 
-export const basicApiUrl = "https://api.samyangfoods.site/api";
+// Local Setting
+export const basicApiUrl =
+  Platform.OS === "android"
+    ? "http://10.0.2.2:5000/api"
+    : "http://localhost:5000/api";
 
-//   Platform.OS === "android"
-  //     ? "http://10.0.2.2:5000/api"
-  //     : "http://localhost:5000/api";
+export const socketUrl =
+  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
 
-export const socketUrl = "https://api.samyangfoods.site/";
-
-  //   Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
+// Production Setting
+// export const basicApiUrl = "https://api.samyangfoods.site/api";
+// export const socketUrl = "https://api.samyangfoods.site/";

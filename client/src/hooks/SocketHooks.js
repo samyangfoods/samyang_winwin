@@ -17,8 +17,7 @@ const useSocket = () => {
     socket = io(`${socketUrl}`, {
       // transports: ["websocket"],
     });
-    if(socket) {
-      console.log(socket)
+    if (socket) {
       console.log("Socket Hooks: Websocket is now connected.");
     }
   }

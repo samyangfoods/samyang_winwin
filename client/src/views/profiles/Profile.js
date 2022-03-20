@@ -3,7 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
-import { usePhoneNumberFormat } from "../../hooks/Util";
+import { useFileRead, usePhoneNumberFormat } from "../../hooks/Util";
 import {
   Container,
   Top,
@@ -32,9 +32,10 @@ const Profile = ({ navigation }) => {
   // websocket
   useEffect(() => {
     const getUserInfo = async (data) => {
-      setUserInfo(data.user);
+      const { user } = data;
+      setUserInfo(user);
     };
-    console.log("Profile entered")
+
     socket.emit("profile", { userId, token });
     socket.on("getUserProfile", getUserInfo);
 
@@ -52,7 +53,7 @@ const Profile = ({ navigation }) => {
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");
   };
-  // handleLogOut();
+
   return (
     <Container>
       {userInfo ? (
@@ -75,7 +76,11 @@ const Profile = ({ navigation }) => {
             </TopTitle>
             <UserCard>
               <CardLeft>
-                <Image source={{ uri: userInfo.userImage }} />
+                <Image
+                  source={{
+                    uri: userInfo.userImage,
+                  }}
+                />
               </CardLeft>
               <CardRight>
                 <Name>{userInfo.userName}</Name>
