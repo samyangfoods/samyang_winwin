@@ -61,12 +61,19 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
     promotionDetail,
   } = req.body
 
-  const images = {
-    img1: req.files.file1[0].filename,
-    img2: req.files.file2[0].filename,
-    img3: req.files.file3[0].filename,
-    img4: req.files.file4[0].filename,
-  }
+  const images = {}
+
+  if (req.files.file1[0]) images.img1 = req.files.file1[0].filename
+  if (req.files.file2[0]) images.img2 = req.files.file2[0].filename
+  if (req.files.file3[0]) images.img3 = req.files.file3[0].filename
+  if (req.files.file4[0]) images.img4 = req.files.file4[0].filename
+
+  // const images = {
+  //   img1: req.files.file1[0].filename,
+  //   img2: req.files.file2[0].filename,
+  //   img3: req.files.file3[0].filename,
+  //   img4: req.files.file4[0].filename,
+  // }
 
   const { promotionCost } = Number(req.body.promotionCost)
 
@@ -177,9 +184,9 @@ const deletePromotionById = expressAsyncHandler(async (req, res) => {
   return res.send({ promotion })
 })
 
-const searchPromotions = expressAsyncHandler(async(req, res) => {
-  const {text} = req.body
-  const promotions = new Promotion.find({promotionType: text})
+const searchPromotions = expressAsyncHandler(async (req, res) => {
+  const { text } = req.body
+  const promotions = new Promotion.find({ promotionType: text })
 
   return promotions
 })
@@ -191,5 +198,5 @@ export {
   updatePromotionById,
   patchPromotionById,
   deletePromotionById,
-  searchPromotions
+  searchPromotions,
 }
