@@ -6,12 +6,14 @@ import {
   createPromotion,
   updatePromotionById,
   deletePromotionById,
+  searchPromotions
 } from '../controllers/promotionController.js'
 
 import { protect } from '../middleware/authMiddleware.js'
 import { upload } from '../middleware/imageUpload.js'
 
 promotionRouter.route('/').get(protect, getPromotions)
+promotionRouter.route('/search').get(protect, searchPromotions)
 promotionRouter.route('/:promotionId').get(protect, getPromotionById)
 promotionRouter
   .route('/')

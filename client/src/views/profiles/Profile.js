@@ -26,8 +26,8 @@ import DataLoading from "../../components/DataLoading";
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
   const token = useSelector((state) => state.user.token);
-  const [userInfo, setUserInfo] = useState(null);
   const [socket, disconnect] = useSocket();
+  const [userInfo, setUserInfo] = useState(null);
 
   // websocket
   useEffect(() => {

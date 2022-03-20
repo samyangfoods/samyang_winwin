@@ -31,17 +31,20 @@ const getMarkets = expressAsyncHandler(async (req, res) => {
 // @route   Get   /api/market/search?keyword=""
 // @access  Private
 const searchMarkets = expressAsyncHandler(async (req, res) => {
-  console.log(req.query);
-  const keyword = {
-    marketName: {
-      $regex: req.query.keyword,
-      $options: "i",
-    },
-  };
+  const {text} = req.body;
+  const markets = await Market.find()
 
-  const markets = await Market.find({ ...keyword })
+  // console.log(req.query);
+  // const keyword = {
+  //   marketName: {
+  //     $regex: req.query.keyword,
+  //     $options: "i",
+  //   },
+  // };
+
+  // const markets = await Market.find({ ...keyword })
     // UpdatedAt 최근순으로
-    .sort({ updatedAt: -1 });
+    // .sort({ updatedAt: -1 });
   // 스킵숫자
   // .skip(page * 3)
   // 프론트로 보내줄 숫자
@@ -51,7 +54,7 @@ const searchMarkets = expressAsyncHandler(async (req, res) => {
   //   { path: 'comments', populate: { path: 'user' } },
   // ])
 
-  return res.send({ markets });
+  // return res.send({ markets });
 });
 
 // @desc    Fetch single market
