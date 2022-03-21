@@ -1,10 +1,14 @@
 import axios from "axios";
 import { basicApiUrl } from "./UrlSetting";
 
-export const usePromotions = async () => {
-  const response = await axios.get(`${basicApiUrl}/promotion`);
+export const usePromotions = async (token) => {
+  const {
+    data: { promotions },
+  } = await axios.get(`${basicApiUrl}/promotion`, {
+    headers: { token, "Access-Control-Allow-Origin": true },
+  });
 
-  return response.data;
+  return promotions;
 };
 
 export const usePromotionCreation = async (promotionObj, token) => {
@@ -24,19 +28,21 @@ export const usePromotionCreation = async (promotionObj, token) => {
   formData.append("marketName", marketName);
   formData.append("marketAddress", marketAddress);
   formData.append("pos", pos);
-  formData.append("file1", image[0]);
-  formData.append("file2", image[1]);
-  formData.append("file3", image[2]);
-  formData.append("file4", image[3]);
   formData.append("start_date", start_date);
   formData.append("end_date", end_date);
   formData.append("promotionType", promotionType);
   formData.append("promotionCost", promotionCost);
-  formData.append("promotionDetail", promotionDetail);
+  formData.append("file1", image[0]);
+  formData.append("file2", image[1]);
+  formData.append("file3", image[2]);
+  formData.append("file4", image[3]);
+  formData.append("promotionDetail", JSON.stringify(promotionDetail));
 
   const { data } = await axios.post(`${basicApiUrl}/promotion`, formData, {
     headers: { token },
   });
+
+  console.log(data);
 
   return data;
 };

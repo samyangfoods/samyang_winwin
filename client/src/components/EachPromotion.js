@@ -19,8 +19,11 @@ import {
 import { Title, Text } from "../styles/Style";
 
 const Promotion = ({ item, navigation }) => {
-  const endDate = new Date(item.endDate);
+  const endDate = new Date(item.end_date);
+  const startDate = new Date(item.start_date);
   const today = new Date();
+
+  console.log(JSON.parse(item?.promotionDetail));
 
   return (
     <RouteBtn
@@ -34,7 +37,7 @@ const Promotion = ({ item, navigation }) => {
         <PromotionTop>
           <Client>
             <Ionicons name="location-sharp" size={20} color="#ff7d0d" />
-            <Text>{item.clientName}</Text>
+            <Text>{item.user.storeName}</Text>
           </Client>
           <TypeText
             style={{
@@ -48,34 +51,34 @@ const Promotion = ({ item, navigation }) => {
                   : "gray",
             }}
           >
-            {item.category}
+            {item.promotionType}
           </TypeText>
         </PromotionTop>
 
         <PromotionBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={item.image[0]} />
+              <Image source={{ uri: item.images.img1 }} />
             </StoreInfoLeft>
 
             <StoreInfoRight>
-              <Title>{item.superMarketName}</Title>
+              <Title>{item.marketName}</Title>
               <HorizontalDiv>
                 <TextBox>
                   <Text>시작일</Text>
-                  <SmallText>{item.startDate.slice(0, 10)}</SmallText>
+                  <SmallText>{item.start_date.slice(0, 15)}</SmallText>
                 </TextBox>
                 <TextBox>
                   <Text>종료일</Text>
-                  <SmallText>{item.endDate.slice(0, 10)}</SmallText>
+                  <SmallText>{item.end_date.slice(0, 15)}</SmallText>
                 </TextBox>
               </HorizontalDiv>
             </StoreInfoRight>
           </StoreInformation>
 
           <ProtmotionDetail>
-            {item.description.map((res) => (
-              <Text style={{ marginRight: 5 }} key={res.index}>
+            {JSON.parse(item.promotionDetail).map((res) => (
+              <Text style={{ marginRight: 5 }} key={Date.now()}>
                 {res.productName}
               </Text>
             ))}

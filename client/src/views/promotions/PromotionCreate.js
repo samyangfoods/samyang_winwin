@@ -87,11 +87,8 @@ const PromotionCreate = () => {
       promotionDetail,
     };
 
-    console.log(typeof promotionObj.start_date);
-
     try {
-      const result = usePromotionCreation(promotionObj, token);
-      console.log("promotion creation result", result);
+      usePromotionCreation(promotionObj, token);
       Alert.alert("알림", "행사가 등록되었습니다.");
     } catch (error) {
       Alert.alert("알림", error);

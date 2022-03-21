@@ -6,6 +6,7 @@ import { usePromotions } from "../hooks/PromotionHooks";
 import NotFound from "../components/NotFound";
 import useSocket from "../hooks/SocketHooks";
 import DataLoading from "../components/DataLoading";
+import { useSelector } from "react-redux";
 
 // storeName // superMarketName
 // start_date / end_date or startDate / endDate
@@ -17,15 +18,16 @@ const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
   const [socket, disconnect] = useSocket();
-
-  const loadPromotions = async () => {
-    const data = await usePromotions();
-    setPromotions(data.promotions);
-  };
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
-    // loadPromotions();
-  }, [promotions]);
+    const loadPromotions = async (token) => {
+      const data = await usePromotions(token);
+      setPromotions(data);
+    };
+
+    loadPromotions(token);
+  }, []);
 
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;
@@ -46,7 +48,7 @@ const Main = ({ navigation, route }) => {
           <Bottom
             data={promotions}
             // Need unique key here 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-            keyExtractor={(item) => Date.now()}
+            keyExtractor={(item) => item._id}
             renderItem={renderItem}
           />
         ) : (
