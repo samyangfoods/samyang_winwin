@@ -44,6 +44,7 @@ const MarketList = ({ navigation, route }) => {
           route={route}
           searchText={searchText}
           setSearchText={setSearchText}
+          navigation={navigation}
         />
       </Top>
 

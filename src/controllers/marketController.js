@@ -32,8 +32,12 @@ const getMarkets = expressAsyncHandler(async (req, res) => {
 // @access  Private
 const searchMarkets = expressAsyncHandler(async (req, res) => {
   const { text } = req.body;
-  const markets = await Market.find();
+  const markets = await Market.find({
+    marketName: { $regex: text, $options: "i" },
+  });
+  console.log(markets);
 
+  return res.send(markets);
   // console.log(req.query);
   // const keyword = {
   //   marketName: {

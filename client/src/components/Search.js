@@ -12,42 +12,20 @@ import {
 import { useSearchText } from "../hooks/SearchHooks";
 import { useSelector } from "react-redux";
 
-// 어떤 것을 어떻게 검색해야 할 지 결정하기
-const marketNameMockApi = [
-  "Samyang",
-  "Sayang",
-  "OhYang",
-  "Winwin",
-  "Windraw",
-  "Winlose",
-  "Project",
-  "Proproject",
-  "Prozect",
-  "전단행사",
-  "엔드행사",
-  "기타",
-  "전달행사",
-  "엔드엔드행사",
-  "기타베이스",
-];
-
-const Search = ({ route, searchText, setSearchText }) => {
+const Search = ({ route, searchText, setSearchText, navigation }) => {
   // Put API results in this hook
   const token = useSelector((state) => state.user.token);
-  const [sampleArray, setSampleArray] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
-  const sampleSearchLogic = (text) => {
-    const arr = marketNameMockApi.filter((data) =>
-      data.toLocaleLowerCase().startsWith(text)
-    );
-    setSampleArray(arr);
+  const handleSearchAutoCompletion = async (text) => {
+    const result = await useSearchText(token, text, route.name);
+
+    setSearchResult(result);
   };
-
   // when a user inputs texts --> auto completion
   const handleText = async (text) => {
     setSearchText(text);
-    sampleSearchLogic(text);
-    useSearchText(token, text, route.name);
+    handleSearchAutoCompletion(text);
   };
 
   // when touches the search button
@@ -82,8 +60,22 @@ const Search = ({ route, searchText, setSearchText }) => {
       {searchText !== "" && searchText !== null && (
         <AutoCompleteContainer>
           <SearchTextResult>
-            {sampleArray.map((res) => (
-              <Text key={res}>{res}</Text>
+            {[...searchResult].map((res) => (
+              // TODO: Route에 따라 다른 곳으로 보내기, 행사 수정/ 소매점 수정
+              <Text
+                key={Math.random()}
+                onPress={() =>
+                  route.name === "소매점 목록"
+                    ? navigation.navigate("소매점 수정하기", {
+                        marketData: [res],
+                      })
+                    : navigation.navigate("행사 수정하기", {
+                        promotionData: [res],
+                      })
+                }
+              >
+                {res.marketName}
+              </Text>
             ))}
           </SearchTextResult>
         </AutoCompleteContainer>

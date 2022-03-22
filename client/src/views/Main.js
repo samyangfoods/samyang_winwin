@@ -37,6 +37,7 @@ const Main = ({ navigation, route }) => {
           route={route}
           searchText={searchText}
           setSearchText={setSearchText}
+          navigation={navigation}
         />
       </Top>
 

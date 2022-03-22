@@ -1,5 +1,5 @@
-import { Router } from 'express'
-const marketRouter = Router({ mergeParams: true })
+import { Router } from "express";
+const marketRouter = Router({ mergeParams: true });
 import {
   getMarkets,
   getMarketById,
@@ -8,23 +8,23 @@ import {
   deleteMarketById,
   searchMarkets,
   getMarketWithUserId,
-} from '../controllers/marketController.js'
+} from "../controllers/marketController.js";
 
-import { protect } from '../middleware/authMiddleware.js'
-import { upload } from '../middleware/imageUpload.js'
+import { protect } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/imageUpload.js";
 
-marketRouter.route('/search').get(protect, searchMarkets)
-marketRouter.route('/').get(protect, getMarkets)
+marketRouter.route("/search").post(protect, searchMarkets);
+marketRouter.route("/").get(protect, getMarkets);
 
 // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-marketRouter.route('/:userId').get(protect, getMarketWithUserId)
+marketRouter.route("/:userId").get(protect, getMarketWithUserId);
 // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-marketRouter.route('/:marketId').get(protect, getMarketById)
+marketRouter.route("/:marketId").get(protect, getMarketById);
 marketRouter
-  .route('/')
-  .post(protect, upload.single('marketImage'), createMarket)
-marketRouter.route('/:marketId').put(protect, updateMarketById)
-marketRouter.route('/:marketId').delete(protect, deleteMarketById)
+  .route("/")
+  .post(protect, upload.single("marketImage"), createMarket);
+marketRouter.route("/:marketId").put(protect, updateMarketById);
+marketRouter.route("/:marketId").delete(protect, deleteMarketById);
 
-export default marketRouter
+export default marketRouter;

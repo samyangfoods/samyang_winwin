@@ -7,28 +7,33 @@ import { basicApiUrl } from "./UrlSetting";
 export const useSearchApiWithPromotionType = async (token, text) => {
   const { promotions } = await axios.post(
     `${basicApiUrl}/promotion/search`,
-    text,
-    {
-      headers: token,
-    }
+    { text },
+    { headers: { token, "Access-Control-Allow-Origin": true } }
   );
   return promotions;
 };
 
 export const useSearchApiWithMarketName = async (token, text) => {
-  const { markets } = await axios.post(`${basicApiUrl}/markets/search`, text, {
-    headers: token,
-  });
-  return markets;
+  const { data } = await axios.post(
+    `${basicApiUrl}/market/search`,
+    { text },
+    { headers: { token, "Access-Control-Allow-Origin": true } }
+  );
+
+  return data;
 };
 
 export const useSearchText = async (token, text, routeName) => {
   switch (routeName) {
     case "행사현황":
-      useSearchApiWithPromotionType(token, text);
+      const dataWithPromotionType = await useSearchApiWithPromotionType(
+        token,
+        text
+      );
 
     case "소매점 목록":
-      useSearchApiWithMarketName(token, text);
+      const dataWithMarketName = await useSearchApiWithMarketName(token, text);
+      return dataWithMarketName;
 
     default:
       return;
