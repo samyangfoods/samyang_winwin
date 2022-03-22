@@ -34,3 +34,28 @@ export const useCleanUpPhoneNumberForm = (num) => {
 
   return formatNum;
 };
+
+export const useDateFormat = (date) => {
+  const data = new Date(date);
+  const month = data.getMonth() + 1;
+  const day = data.getDate();
+
+  const result = `${month}월 ${day}일`;
+
+  return result;
+};
+
+export const usePromotionDuration = (startDate, endDate) => {
+  const data = new Date(endDate) - new Date(startDate);
+  const result = new Date(data).getDate();
+
+  return `${result}일`;
+};
+
+export const useExpirationValidation = (today, endDate) => {
+  if (new Date(endDate).getTime() > today.getTime()) {
+    return true;
+  } else {
+    return false;
+  }
+};

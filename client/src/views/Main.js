@@ -8,11 +8,8 @@ import useSocket from "../hooks/SocketHooks";
 import DataLoading from "../components/DataLoading";
 import { useSelector } from "react-redux";
 
-// storeName // superMarketName
-// start_date / end_date or startDate / endDate
-// userid or userId
-
-//TODO: websocket, CRUD
+// 2022 03 21
+//TODO: websocket, promotion detail & update & delete
 
 const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
@@ -47,7 +44,6 @@ const Main = ({ navigation, route }) => {
         promotions.length !== 0 ? (
           <Bottom
             data={promotions}
-            // Need unique key here 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
             keyExtractor={(item) => item._id}
             renderItem={renderItem}
           />

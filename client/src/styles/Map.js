@@ -27,18 +27,19 @@ export const Image = styled.Image`
 `;
 export const HorizontalDiv = styled.View`
   flex-direction: row;
+  margin-top: 5%;
 `;
 export const TextBox = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 1%;
+  padding: 0 1%;
 `;
 export const SmallText = styled(Text)`
   font-size: 12px;
-  background-color: #ccc;
   border-radius: 6px;
-  padding: 1%;
-  margin-right: 8%;
+  padding: 1.5%;
 `;
 export const TypeText = styled(Text)`
   font-size: 14px;

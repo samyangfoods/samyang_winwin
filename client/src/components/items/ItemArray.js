@@ -8,7 +8,7 @@ function ItemArray({ item, addItemArray }) {
   return (
     <BasicContainer>
       {item.map((data) => (
-        <Item key={() => Date.now()} data={data} />
+        <Item key={Math.random()} data={data} />
       ))}
 
       <ItemPlusBtnContainer>

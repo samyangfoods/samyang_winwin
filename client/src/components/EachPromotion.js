@@ -17,13 +17,17 @@ import {
   ProtmotionDetail,
 } from "../styles/Map";
 import { Title, Text } from "../styles/Style";
+import {
+  useDateFormat,
+  useExpirationValidation,
+  usePromotionDuration,
+} from "../hooks/Util";
 
 const Promotion = ({ item, navigation }) => {
-  const endDate = new Date(item.end_date);
-  const startDate = new Date(item.start_date);
-  const today = new Date();
-
-  console.log(JSON.parse(item?.promotionDetail));
+  const endDate = useDateFormat(item.end_date);
+  const startDate = useDateFormat(item.start_date);
+  const duration = usePromotionDuration(item.start_date, item.end_date);
+  const expired = useExpirationValidation(new Date(), item.end_date);
 
   return (
     <RouteBtn
@@ -41,14 +45,13 @@ const Promotion = ({ item, navigation }) => {
           </Client>
           <TypeText
             style={{
-              backgroundColor:
-                endDate.getTime() > today.getTime()
-                  ? item.category === "전단행사"
-                    ? "#ff7d0d"
-                    : item.category === "엔드행사"
-                    ? "#217AFF"
-                    : "green"
-                  : "gray",
+              backgroundColor: expired
+                ? item.promotionType === "전단행사"
+                  ? "#ff7d0d"
+                  : item.promotionType === "엔드행사"
+                  ? "#217AFF"
+                  : "green"
+                : "gray",
             }}
           >
             {item.promotionType}
@@ -66,11 +69,15 @@ const Promotion = ({ item, navigation }) => {
               <HorizontalDiv>
                 <TextBox>
                   <Text>시작일</Text>
-                  <SmallText>{item.start_date.slice(0, 15)}</SmallText>
+                  <SmallText>{startDate}</SmallText>
                 </TextBox>
                 <TextBox>
                   <Text>종료일</Text>
-                  <SmallText>{item.end_date.slice(0, 15)}</SmallText>
+                  <SmallText>{endDate}</SmallText>
+                </TextBox>
+                <TextBox>
+                  <Text>기간</Text>
+                  <SmallText>{duration}</SmallText>
                 </TextBox>
               </HorizontalDiv>
             </StoreInfoRight>
@@ -78,7 +85,7 @@ const Promotion = ({ item, navigation }) => {
 
           <ProtmotionDetail>
             {JSON.parse(item.promotionDetail).map((res) => (
-              <Text style={{ marginRight: 5 }} key={Date.now()}>
+              <Text style={{ marginRight: 5 }} key={Math.random()}>
                 {res.productName}
               </Text>
             ))}

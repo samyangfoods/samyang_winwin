@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { ItemContainer, ItemInput } from "../../styles/Component";
 
 const Item = ({ data }) => {
-  const [productName, setProductName] = useState(data.productName);
-  const [price, setPrice] = useState(data.price);
-  const [promotionValue, setPromotionValue] = useState(data.promotionValue);
-  const [prValue, setPrValue] = useState(data.prValue);
+  const [productName, setProductName] = useState(data.productName.toString());
+  const [price, setPrice] = useState(data.price.toString());
+  const [promotionValue, setPromotionValue] = useState(
+    data.promotionValue.toString()
+  );
+  const [prValue, setPrValue] = useState(data.prValue.toString());
 
   const handleName = (text) => {
     data.productName = text;

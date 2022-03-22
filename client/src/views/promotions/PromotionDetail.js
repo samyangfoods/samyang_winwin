@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import Swiper from "react-native-swiper";
+import { useSelector } from "react-redux";
 import winwin from "../../assets/winwin.png";
 import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
+import { usePromotionUpdate } from "../../hooks/PromotionHooks";
 import {
   PromotionDetailContainer,
   RevisionContainer,
@@ -27,65 +30,74 @@ import {
 import { Text } from "../../styles/Style";
 
 const PromotionDetail = ({ route, navigation }) => {
-  const mockApi = route.params.promotionData[0];
+  const data = route.params.promotionData[0];
+  const token = useSelector((state) => state.user.token);
 
-  // Promotion Item from Database to Hooks
-  const [item, setItem] = useState(mockApi.description);
-
-  // Ref Variable to help auto scroll
-  const [ref, setRef] = useState(null);
-
-  // Promotion Type Picker
+  const [item, setItem] = useState(JSON.parse(data.promotionDetail));
   const [pickedData, setPickedData] = useState(
-    mockApi.category === "전단행사"
+    data.promotionType === "전단행사"
       ? { label: "전단행사", value: 1 }
-      : mockApi.category === "엔드행사"
+      : data.promotionType === "엔드행사"
       ? { label: "엔드행사", value: 2 }
       : { label: "기타행사", value: 3 }
   );
+  const [dateStart, setDateStart] = useState(new Date(data.start_date));
+  const [dateEnd, setDateEnd] = useState(new Date(data.end_date));
+  const [images, setImages] = useState([data.images]);
+  const [marketName, setMarketName] = useState(data.marketName);
 
-  // Setting Promotion Start Date
-  const [dateStart, setDateStart] = useState(new Date(mockApi.startDate));
-
-  // Setting Promotion End Date
-  const [dateEnd, setDateEnd] = useState(new Date(mockApi.endDate));
-
-  // Access User's Photo Album
-  const [image, setImage] = useState(mockApi.image);
+  const [ref, setRef] = useState(null);
 
   // Add Textinput, Submit and Remove
   const addItemArray = () => {
     setItem([
       ...item,
       {
-        index: Date.now(),
-        itemName: "제품명",
+        productName: "제품명",
         price: "판매가격",
-        quantity: "행사수량",
-        prQuantity: "PR수량",
+        promotionValue: "행사수량",
+        prValue: "PR수량",
       },
     ]);
   };
 
+  // Submit Changed Info
   const submitPromotionChanged = () => {
     const promotionObj = {
-      id: 1,
-      storeName: "우주마트 태양점",
-      image: [winwin, winwin, winwin, winwin],
-      startDate: dateStart,
-      endDate: dateEnd,
-      description: item,
+      marketName,
+      images,
+      start_date: dateStart.toString(),
+      end_date: dateEnd.toString(),
+      promotionDetail: item,
     };
+
+    try {
+      const result = usePromotionUpdate(token, promotionObj);
+      if (result) {
+        Alert.alert("알림", "행사 정보가 변경되었습니다.");
+        navigation.goBack();
+      } else {
+        Alert.alert("알림", "오류 발생");
+      }
+    } catch (error) {
+      Alert.alert("알림", error);
+    }
   };
+
+  // Remove Promotion
   const removeProtmotion = async () => {
     // Push promotion ID to DB, and DB will delete data through the given ID.
     // Confirmation Process would be good.
-    console.log(mockApi.id);
+    // console.log(data.id);
   };
 
   useEffect(() => {
     ref?.scrollTo({ y: -100, animated: false });
   }, []);
+
+  const handleMarketName = (text) => {
+    setMarketName(text);
+  };
 
   return (
     <PromotionDetailContainer
@@ -97,23 +109,26 @@ const PromotionDetail = ({ route, navigation }) => {
       {/* Image Swiper */}
       <SwiperContainer>
         <Swiper showsButtons={false}>
-          {image.map((data) => (
-            <SwiperImage key={mockApi.id}>
+          {images.map((data) => (
+            <SwiperImage key={Math.random()}>
               <Image source={data || { uri: data }} />
             </SwiperImage>
           ))}
         </Swiper>
       </SwiperContainer>
 
-      {/* Containers for information change */}
+      {/* Revision */}
       <RevisionContainer>
         {/* Image */}
         <Text>이미지 등록</Text>
-        <ImageAccess image={image} setImage={setImage} />
+        <ImageAccess image={images} setImage={setImages} />
 
         {/* Protmotion Type */}
         <PromotionCategory>
-          <MarketName placeholder={mockApi.superMarketName} />
+          <MarketName
+            onChangeText={(text) => handleMarketName(text)}
+            value={marketName}
+          />
           <Category pickedData={pickedData} setPickedData={setPickedData} />
         </PromotionCategory>
 

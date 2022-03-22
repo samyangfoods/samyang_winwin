@@ -21,7 +21,6 @@ import {
 } from "../../styles/PromotionStyle";
 import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { usePromotionCreation } from "../../hooks/PromotionHooks";
