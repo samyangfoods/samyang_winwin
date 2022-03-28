@@ -1,8 +1,8 @@
 import axios from "axios";
 import { basicApiUrl } from "./UrlSetting";
 
-export const useMarketList = async (token) => {
-  const { data } = await axios.get(`${basicApiUrl}/market`, {
+export const useMarketListWithId = async (userId, token) => {
+  const { data } = await axios.get(`${basicApiUrl}/market/${userId}`, {
     headers: { token },
   });
 
@@ -18,9 +18,20 @@ export const useMarketCreate = async (marketObj, token) => {
 };
 
 export const useMarketDelete = async (marketId, token) => {
-  const { config } = await axios.delete(`${basicApiUrl}/market/${marketId}`, {
+  const { config } = await axios.delete(
+    `${basicApiUrl}/market/list/${marketId}`,
+    {
+      headers: { token },
+    }
+  );
+
+  return config;
+};
+
+export const useMarketInfo = async (marketId, token) => {
+  const { data } = await axios.get(`${basicApiUrl}/market/list/${marketId}`, {
     headers: { token },
   });
 
-  return config;
+  return data.market;
 };

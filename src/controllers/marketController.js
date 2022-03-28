@@ -35,7 +35,6 @@ const searchMarkets = expressAsyncHandler(async (req, res) => {
   const markets = await Market.find({
     marketName: { $regex: text, $options: "i" },
   });
-  console.log(markets);
 
   return res.send(markets);
   // console.log(req.query);
@@ -66,6 +65,7 @@ const searchMarkets = expressAsyncHandler(async (req, res) => {
 // @access  Private
 const getMarketById = expressAsyncHandler(async (req, res) => {
   const { marketId } = req.params;
+
   if (!ObjectId.isValid(marketId))
     return res.status(400).send({ err: "invalid marketId" });
 

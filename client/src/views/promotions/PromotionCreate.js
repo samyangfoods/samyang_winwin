@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
@@ -10,7 +10,6 @@ import {
   VerticalDiv,
   HorizontalDiv,
   ImageContainer,
-  TextInput,
   ShortInput,
   Detail,
   BtnContainer,
@@ -24,6 +23,8 @@ import { Btn } from "../../styles/Auth";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { usePromotionCreation } from "../../hooks/PromotionHooks";
+import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
+import { useMarketInfo } from "../../hooks/MarketHooks";
 
 const PromotionCreate = () => {
   const token = useSelector((state) => state.user.token);
@@ -50,9 +51,6 @@ const PromotionCreate = () => {
     },
   ]);
 
-  const handleMarketName = (text) => {
-    setMarketName(text);
-  };
   const handlePos = (text) => {
     setPos(text);
   };
@@ -94,6 +92,16 @@ const PromotionCreate = () => {
     }
   };
 
+  useEffect(() => {
+    const setMarketInfo = async (marketId, token) => {
+      const { pos, marketAddress } = await useMarketInfo(marketId, token);
+
+      setPos(pos);
+      setAddress(marketAddress);
+    };
+    if (marketName) setMarketInfo(marketName.value, token);
+  }, [marketName]);
+
   return (
     <ProtmotionCreateContainer>
       <Bottom ref={(ref) => setRef(ref)}>
@@ -101,23 +109,11 @@ const PromotionCreate = () => {
         <HorizontalDiv>
           <VerticalDiv>
             <Text>소매점명</Text>
-            <TextInput
-              placeholder="매점명을 입력하세요."
-              value={marketName}
-              onChangeText={(text) => handleMarketName(text)}
+            <CategoryOfMarketListWithUserId
+              marketName={marketName}
+              setMarketName={setMarketName}
             />
           </VerticalDiv>
-          <VerticalDiv>
-            <Text>행사종류</Text>
-            <Category
-              pickedData={promotionType}
-              setPickedData={setPromotionType}
-            />
-          </VerticalDiv>
-        </HorizontalDiv>
-
-        {/* POS Quantity & Promotion Cost */}
-        <HorizontalDiv>
           <VerticalDiv>
             <Text>POS 수량</Text>
             <ShortInput
@@ -125,6 +121,23 @@ const PromotionCreate = () => {
               keyboardType="numeric"
               value={pos}
               onChangeText={(text) => handlePos(text)}
+            />
+          </VerticalDiv>
+        </HorizontalDiv>
+
+        {/* Address */}
+        <Text>주소</Text>
+        <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
+          <Text>{address ? address : "주소 입력"}</Text>
+        </Btn>
+
+        {/* POS Quantity & Promotion Cost */}
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>행사종류</Text>
+            <Category
+              pickedData={promotionType}
+              setPickedData={setPromotionType}
             />
           </VerticalDiv>
           <VerticalDiv>
@@ -137,12 +150,6 @@ const PromotionCreate = () => {
             />
           </VerticalDiv>
         </HorizontalDiv>
-
-        {/* Address */}
-        <Text>주소</Text>
-        <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
-          <Text>{address ? address : "주소 입력"}</Text>
-        </Btn>
 
         {/* Images */}
         <ImageContainer>

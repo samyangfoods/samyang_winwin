@@ -2,6 +2,8 @@ import React from "react";
 import { BasicContainer } from "../styles/Style";
 import { StyledPicker } from "../styles/Component";
 
+//TODO: 행사 생성 레이아웃 변경하기 로직에 맞게
+
 const Category = ({ pickedData, setPickedData }) => {
   const category = [
     { label: "전단행사", value: 1 },
@@ -12,7 +14,9 @@ const Category = ({ pickedData, setPickedData }) => {
   return (
     <BasicContainer>
       <StyledPicker
-        item={pickedData}
+        item={
+          pickedData ? pickedData : { label: "종류를 선택하세요", value: 0 }
+        }
         items={category}
         onItemChange={setPickedData}
         title="행사 종류"
