@@ -41,7 +41,8 @@
     "redux-flipper": "^2.0.1",
     "rn-async-storage-flipper": "^0.0.10",
     "socket.io-client": "^4.4.1",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "expo-file-system": "~13.1.4"
   },
   "author": "phainestha1",
   "license": "ISC",

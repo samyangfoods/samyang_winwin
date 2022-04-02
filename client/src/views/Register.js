@@ -109,9 +109,11 @@ const Register = ({ navigation }) => {
     }
 
     const data = await useRegister(userObj);
+
+    
     if (data) {
-      Alert.alert("알림", "회원가입이 완료되었습니다.");
-      navigation.goBack();
+      // Alert.alert("알림", "회원가입이 완료되었습니다.");
+      // navigation.goBack();
     } else {
       Alert.alert("알림", "오류가 발생하였습니다.");
     }
@@ -119,10 +121,12 @@ const Register = ({ navigation }) => {
 
   const addUserImage = async () => {
     const response = await useImageBase64();
+
     const obj = {
       uri: response.uri,
-      type: response.type,
+      type: response.type, 
       name: response.name,
+      base64: response.base64,
     };
 
     setUserImage(obj);
