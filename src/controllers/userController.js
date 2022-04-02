@@ -31,17 +31,18 @@ const authUser = expressAsyncHandler(async (req, res) => {
 const preSigned = expressAsyncHandler(async (req, res) => {
   console.log(req.body)
 
-  const imageFiles = req.body
+  const { name } = req.body
+  console.log('Name', name)
 
-  const presignedData = await Promise.all(
-    imageFiles.map(async (imagefile, index) => {
-      const imageKey = imagefile.name
-      const key = `raw/${imageKey}`
-      const presigned = await getSignedUrl({ key })
-      return { imageKey, presigned }
-    })
-  )
-  return res.json(presignedData)
+  // const presignedData = await Promise.all(
+  //   name.map(async (imagefile, index) => {
+  //     const imageKey = imagefile.name
+  //     const key = `raw/${imageKey}`
+  //     const presigned = await getSignedUrl({ key })
+  //     return { imageKey, presigned }
+  //   })
+  // )
+  // return res.json(presignedData)
 })
 
 // @desc    Register a new user
