@@ -43,7 +43,7 @@ const preSigned = expressAsyncHandler(async (req, res) => {
   console.log(imageKey)
   console.log(key)
   console.log(presigned)
-  return { imageKey, presigned }
+  return res.json({ imageKey, presigned })
 })
 
 // const presignedData = await Promise.all(
