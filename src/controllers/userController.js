@@ -28,6 +28,22 @@ const authUser = expressAsyncHandler(async (req, res) => {
   }
 })
 
+const preSigned = expressAsyncHandler(async (req, res) => {
+  console.log(req.body)
+
+  const imageFiles = req.body
+
+  const presignedData = await Promise.all(
+    imageFiles.map(async (imagefile, index) => {
+      const imageKey = imagefile.name
+      const key = `raw/${imageKey}`
+      const presigned = await getSignedUrl({ key })
+      return { imageKey, presigned }
+    })
+  )
+  return res.json(presignedData)
+})
+
 // @desc    Register a new user
 // @route   POST /api/user
 // @access  Public
@@ -286,4 +302,5 @@ export {
   deleteUser,
   getUserProfile,
   getUserProfileWithToken,
+  preSigned,
 }
