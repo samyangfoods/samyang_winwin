@@ -1,7 +1,7 @@
 import multer from 'multer'
 import path from 'path'
 import multerS3 from 'multer-s3'
-import { s3 } from '../aws.js'
+import { s3 } from '../../aws.js'
 
 const storage = multerS3({
   s3,
