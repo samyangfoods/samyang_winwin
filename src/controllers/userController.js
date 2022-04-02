@@ -32,7 +32,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
 const preSigned = expressAsyncHandler(async (req, res) => {
   console.log(req.body)
 
-  const { name } = req.body.userImage
+  const { name } = req.body.objForPreSigned
   console.log('Name', name)
 
   const imageKey = name
