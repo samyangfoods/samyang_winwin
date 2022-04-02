@@ -3,6 +3,7 @@ import expressAsyncHandler from 'express-async-handler'
 import { User } from '../models/User.js'
 import { Promotion } from '../models/Promotion.js'
 import generateToken from '../utils/generateToken.js'
+import { s3, getSignedUrl } from '../../aws.js'
 
 // @desc    Auth user & get token
 // @route   POST   /api/user/login
