@@ -37,7 +37,12 @@ const preSigned = expressAsyncHandler(async (req, res) => {
 
   const imageKey = name
   const key = `raw/${imageKey}`
+
   const presigned = await getSignedUrl({ key })
+
+  console.log(imageKey)
+  console.log(key)
+  console.log(presigned)
   return { imageKey, presigned }
 })
 
