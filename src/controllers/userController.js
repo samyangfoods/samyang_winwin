@@ -3,6 +3,7 @@ import expressAsyncHandler from 'express-async-handler'
 import { User } from '../models/User.js'
 import { Promotion } from '../models/Promotion.js'
 import generateToken from '../utils/generateToken.js'
+import { s3, getSignedUrl } from '../../aws.js'
 
 // @desc    Auth user & get token
 // @route   POST   /api/user/login
@@ -27,6 +28,33 @@ const authUser = expressAsyncHandler(async (req, res) => {
     throw new Error('Invalid userId or password')
   }
 })
+
+const preSigned = expressAsyncHandler(async (req, res) => {
+  console.log(req.body)
+
+  const { name } = req.body.objForPreSigned
+  console.log('Name', name)
+
+  const imageKey = name
+  const key = `raw/${imageKey}`
+
+  const presigned = await getSignedUrl({ key })
+
+  console.log(imageKey)
+  console.log(key)
+  console.log(presigned)
+  return res.json({ imageKey, presigned })
+})
+
+// const presignedData = await Promise.all(
+//   name.map(async (imagefile, index) => {
+//     const imageKey = imagefile.name
+//     const key = `raw/${imageKey}`
+//     const presigned = await getSignedUrl({ key })
+//     return { imageKey, presigned }
+//   })
+// )
+// return res.json(presignedData)
 
 // @desc    Register a new user
 // @route   POST /api/user
@@ -286,4 +314,5 @@ export {
   deleteUser,
   getUserProfile,
   getUserProfileWithToken,
+  preSigned,
 }

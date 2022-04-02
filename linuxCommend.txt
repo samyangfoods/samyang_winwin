@@ -11,6 +11,8 @@ PM2 서버내리기 : sudo pm2 kill
 PM2 실행 리스트 보기 : sudo pm2 list
 PM2 모니터링하기 : pm2 
 
+sudo lsof -i:80
+sudo kill PID
 
 Load Balancer
 

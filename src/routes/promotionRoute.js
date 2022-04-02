@@ -6,7 +6,8 @@ import {
   createPromotion,
   updatePromotionById,
   deletePromotionById,
-  searchPromotions
+  searchPromotions,
+  preSigned,
 } from '../controllers/promotionController.js'
 
 import { protect } from '../middleware/authMiddleware.js'
@@ -27,6 +28,8 @@ promotionRouter
     ]),
     createPromotion
   )
+promotionRouter.route('/presigned').post(protect, preSigned)
+
 promotionRouter.route('/:promotionId').put(protect, updatePromotionById)
 promotionRouter.route('/:promotionId').delete(protect, deletePromotionById)
 
