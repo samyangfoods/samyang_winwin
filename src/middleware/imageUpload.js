@@ -33,8 +33,4 @@ const upload = multer({
   },
 })
 
-<<<<<<< HEAD
-export { upload };
-=======
 export { upload }
->>>>>>> 426099393b08690a4eef2dba0f3630735ac51199
