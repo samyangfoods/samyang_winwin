@@ -6,12 +6,12 @@ import { s3 } from '../../aws.js'
 const storage = multerS3({
   s3,
   bucket: 'samyang-bucket',
-  filename(req, file, cb) {
+  key: (req, file, cb) => {
     console.log('imageUpload storage', file)
     //abc.png
     const ext = path.extname(file.originalname) // 확장자 추출
     const basename = path.basename(file.originalname, ext) //abc
-    cb(null, basename + new Date().getTime() + ext) // abc515585255852.png
+    cb(null, `raw/${basename + new Date().getTime() + ext}`) // abc515585255852.png
   },
 })
 

@@ -71,6 +71,16 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     role,
   } = req.body
 
+  console.log('Register - req.file : ', req.file)
+
+  let userImage = ''
+
+  if (req.file) {
+    userImage = req.file.key
+  } else {
+    userImage = ''
+  }
+
   if (!userId) return res.status(400).send({ err: 'userId is required' })
   if (!password) return res.status(400).send({ err: 'password is required' })
   if (!channel) return res.status(400).send({ err: 'channel is required' })
@@ -93,8 +103,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     channel,
     userName,
     storeName,
+    userImage,
     phoneNumber,
-    userImage: req.file.filename,
     userAddress,
     role,
   })

@@ -3,7 +3,6 @@ const userRouter = Router()
 import {
   authUser,
   registerUser,
-  getUsers,
   getUser,
   updateUser,
   deleteUser,
