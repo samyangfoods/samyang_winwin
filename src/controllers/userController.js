@@ -76,7 +76,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   let userImage = ''
 
   if (req.file) {
-    userImage = req.file.key
+    userImage = req.file.key.replace('raw/', '')
   } else {
     userImage = ''
   }

@@ -2,7 +2,7 @@
 
 파일보기 : cat package.json
 
-파일만들기 : vi aa.json
+파일수정 : vi aa.json
 
 폴더만들기 : mkdir aa
 
