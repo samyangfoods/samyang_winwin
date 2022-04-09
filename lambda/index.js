@@ -12,9 +12,7 @@ exports.handler = async (event) => {
     const Key = event.Records[0].s3.object.key
     const KeyOnly = Key.split('/')[1]
     console.log(`Image Resizing: ${KeyOnly}`)
-    const image = await s3
-      .getObject({ Bucket: 'samyang-bucket', Key })
-      .promise()
+    const image = await s3.getObject({ Bucket: 'sy-winwin', Key }).promise()
 
     await Promise.all(
       transformationOptions.map(async ({ foldername, width }) => {
@@ -27,7 +25,7 @@ exports.handler = async (event) => {
 
           await s3
             .putObject({
-              Bucket: 'samyang-bucket',
+              Bucket: 'sy-winwin',
               Body: resizedImage,
               Key: newKey,
             })

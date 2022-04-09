@@ -5,7 +5,7 @@ import { s3 } from '../../aws.js'
 
 const storage = multerS3({
   s3,
-  bucket: 'samyang-bucket',
+  bucket: 'sy-winwin',
   key: (req, file, cb) => {
     console.log('imageUpload storage', file)
     //abc.png
