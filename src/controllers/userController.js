@@ -3,6 +3,7 @@ import expressAsyncHandler from 'express-async-handler'
 import { User } from '../models/User.js'
 import { Promotion } from '../models/Promotion.js'
 import generateToken from '../utils/generateToken.js'
+import { s3, getSignedUrl } from '../../aws.js'
 
 // @desc    Auth user & get token
 // @route   POST   /api/user/login
@@ -28,6 +29,33 @@ const authUser = expressAsyncHandler(async (req, res) => {
   }
 })
 
+const preSigned = expressAsyncHandler(async (req, res) => {
+  console.log(req.body)
+
+  const { name } = req.body.objForPreSigned
+  console.log('Name', name)
+
+  const imageKey = name
+  const key = `raw/${imageKey}`
+
+  const presigned = await getSignedUrl({ key })
+
+  console.log(imageKey)
+  console.log(key)
+  console.log(presigned)
+  return res.json({ imageKey, presigned })
+})
+
+// const presignedData = await Promise.all(
+//   name.map(async (imagefile, index) => {
+//     const imageKey = imagefile.name
+//     const key = `raw/${imageKey}`
+//     const presigned = await getSignedUrl({ key })
+//     return { imageKey, presigned }
+//   })
+// )
+// return res.json(presignedData)
+
 // @desc    Register a new user
 // @route   POST /api/user
 // @access  Public
@@ -42,6 +70,16 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     userAddress,
     role,
   } = req.body
+
+  console.log('Register - req.file : ', req.file)
+
+  let userImage = ''
+
+  if (req.file) {
+    userImage = req.file.key.replace('raw/', '')
+  } else {
+    userImage = ''
+  }
 
   if (!userId) return res.status(400).send({ err: 'userId is required' })
   if (!password) return res.status(400).send({ err: 'password is required' })
@@ -65,8 +103,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     channel,
     userName,
     storeName,
+    userImage,
     phoneNumber,
-    userImage: req.file.filename,
     userAddress,
     role,
   })
@@ -286,4 +324,5 @@ export {
   deleteUser,
   getUserProfile,
   getUserProfileWithToken,
+  preSigned,
 }

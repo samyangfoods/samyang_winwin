@@ -39,22 +39,26 @@ const MarketList = ({ navigation, route }) => {
 
   return (
     <MainContainer>
-      <Top>
-        <Search
-          route={route}
-          searchText={searchText}
-          setSearchText={setSearchText}
-          navigation={navigation}
-        />
-      </Top>
+
 
       {markets ? (
         markets[0] !== null ? (
-          <Bottom
-            data={markets}
-            keyExtractor={(item) => item._id}
-            renderItem={renderItem}
-          />
+          <>
+            <Top>
+              <Search
+                route={route}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                navigation={navigation}
+              />
+            </Top>
+
+            <Bottom
+              data={markets}
+              keyExtractor={(item) => item._id}
+              renderItem={renderItem}
+            />
+          </>
         ) : (
           <NotFound title={"소매점"} />
         )

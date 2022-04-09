@@ -10,7 +10,29 @@ export const useMarketListWithId = async (userId, token) => {
 };
 
 export const useMarketCreate = async (marketObj, token) => {
-  const { data } = await axios.post(`${basicApiUrl}/market`, marketObj, {
+  const {
+          marketImage,
+          userId,
+          marketName,
+          size,
+          pos,
+          phoneNumber,
+          income,
+          address
+        } = marketObj
+        
+  const formData = new FormData();
+
+  formData.append("marketImage", marketImage);
+  formData.append("userId", userId);
+  formData.append("marketName", marketName);
+  formData.append("size", size);
+  formData.append("pos", pos);
+  formData.append("phone", phoneNumber);
+  formData.append("averageSales", income);
+  formData.append("marketAddress", address);
+
+  const { data } = await axios.post(`${basicApiUrl}/market`, formData, {
     headers: { token },
   });
 

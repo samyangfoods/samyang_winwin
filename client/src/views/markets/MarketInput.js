@@ -23,7 +23,6 @@ const MarketInput = ({ navigation }) => {
   const token = useSelector((state) => state.user.token);
 
   const [modal, setModal] = useState(false);
-  const [thumbnail, setThumbnail] = useState(null);
   const [marketImage, setMarketImage] = useState(null);
   const [address, setAddress] = useState(null);
   const [marketName, setMarketName] = useState(null);
@@ -52,25 +51,25 @@ const MarketInput = ({ navigation }) => {
     setModal(true);
     ref?.scrollTo({ y: 0, animated: false });
   };
-
   const modalIsClosed = () => {
     ref?.scrollToEnd({ animated: false });
   };
 
   // {uri: 경로, fileName: 파일이름, type: 확장자}
   const sumbitMarketInfo = async () => {
-    const formDataMarketImage = new FormData();
-    formDataMarketImage.append("marketImage", marketImage);
-    formDataMarketImage.append("userId", userId);
-    formDataMarketImage.append("marketName", marketName);
-    formDataMarketImage.append("size", size);
-    formDataMarketImage.append("pos", pos);
-    formDataMarketImage.append("phone", phoneNumber);
-    formDataMarketImage.append("averageSales", income);
-    formDataMarketImage.append("marketAddress", address);
+    const marketObj = {
+      marketImage,
+      userId,
+      marketName,
+      size,
+      pos,
+      phoneNumber,
+      income,
+      address
+    }
 
     try {
-      await useMarketCreate(formDataMarketImage, token);
+      await useMarketCreate(marketObj, token);
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {

@@ -12,9 +12,11 @@ export const useImageBase64 = async () => {
   if (!result.cancelled) {
     return {
       uri: result.uri,
+      base64: result.base64,
       type:
         Platform.OS === "android" ? `image/jpeg` || `image/png` : `image/jpg`,
-      name: result.uri,
+      name: 
+      `${result.base64.slice(5, 10)}_${Date.now()}${Platform.OS === "android" ? `.jpeg` || `.png` : `.jpg`}`
     };
   }
 };

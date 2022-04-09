@@ -15,7 +15,26 @@ export const setSocketIo = (httpServer, app) => {
   io.on('connection', (socket) => {
     console.log(socket.id, 'Socket is working..'.rainbow)
     let eachMarket
+    let eachPromotion
     let userProfile
+
+    // main
+    socket.on('main', ({token}) => {
+        try {
+          if (eachPromotion) clearInterval(eachPromotion)
+
+          eachPromotion = setInterval(async() => {
+            const {data} = await axios.get(`${API_URL_BASIC}/promotion`, {
+              headers: {token, "Access-Control-Allow-Origin": true},
+            });
+            
+            io.emit("getPromotionList", data);
+          }, 1000)
+
+        } catch (error) {
+          console.log("Error on the main socket", error)
+        }
+    })
 
     // profile
     socket.on('profile', ({ userId, token }) => {
@@ -30,7 +49,7 @@ export const setSocketIo = (httpServer, app) => {
           io.emit('getUserProfile', data)
         }, 1000)
       } catch (error) {
-        console.log(error)
+        console.log("Error on the profile socket", error)
         return
       }
     })
@@ -50,18 +69,15 @@ export const setSocketIo = (httpServer, app) => {
           io.emit('eachMarket', data)
         }, 1000)
       } catch (error) {
-        return
+        console.log("Error on the marketlist socket", error)
       }
     })
 
     socket.on('disconnect', () => {
       console.log(socket.id, 'Socket disconnected..'.rainbow)
-      if (userProfile) {
-        clearInterval(userProfile)
-      }
-      if (eachMarket) {
-        clearInterval(eachMarket)
-      }
+      if (userProfile) clearInterval(userProfile)
+      if (eachMarket) clearInterval(eachMarket)
+      if (eachPromotion) clearInterval(eachPromotion)
     })
   })
 

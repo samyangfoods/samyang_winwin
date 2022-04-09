@@ -1,14 +1,13 @@
 import { Platform } from "react-native";
 
+const PORT = 4000
+
 // Local Setting
-export const basicApiUrl =
-  Platform.OS === "android"
-    ? "http://10.0.2.2:5000/api"
-    : "http://localhost:5000/api";
+export const basicApiUrl = "http://3.39.151.104/api"
+  // Platform.OS === "android"
+  //   ? `http://10.0.2.2:${PORT}/api`
+  //   : `http://localhost:${PORT}/api`;
 
-export const socketUrl =
-  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
+export const socketUrl = "http://3.39.151.104/"
 
-// Production Setting
-// export const basicApiUrl = "https://api.samyangfoods.site/api";
-// export const socketUrl = "https://api.samyangfoods.site/";
+// Platform.OS === "android" ? `http://10.0.2.2:${PORT}` : `http://localhost:${PORT}`;

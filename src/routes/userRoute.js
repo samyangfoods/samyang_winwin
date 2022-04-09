@@ -3,11 +3,11 @@ const userRouter = Router()
 import {
   authUser,
   registerUser,
-  getUsers,
   getUser,
   updateUser,
   deleteUser,
   getUserProfile,
+  preSigned,
   getUserProfileWithToken,
 } from '../controllers/userController.js'
 import { protect } from '../middleware/authMiddleware.js'
@@ -19,6 +19,7 @@ userRouter.route('/profile').get(protect, getUserProfile)
 
 //🔥🔥🔥🔥🔥🔥🔥 로그인 유지를 위한 토큰 이용
 userRouter.route('/token').get(protect, getUserProfileWithToken)
+userRouter.route('/presigned').post(preSigned)
 
 userRouter.route('/:userId').get(protect, getUser)
 userRouter.route('/:userId').put(protect, updateUser)
