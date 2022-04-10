@@ -3,15 +3,17 @@ import path from 'path'
 import multerS3 from 'multer-s3'
 import { s3 } from '../../aws.js'
 
+const { BUCKET_NAME } = process.env
+
 const storage = multerS3({
   s3,
-  bucket: 'sy-winwin',
+  bucket: BUCKET_NAME,
   key: (req, file, cb) => {
     console.log('imageUpload storage', file)
     //abc.png
     const ext = path.extname(file.originalname) // 확장자 추출
     const basename = path.basename(file.originalname, ext) //abc
-    cb(null, `raw/${basename + new Date().getTime() + ext}`) // abc515585255852.png
+    cb(null, `raw/${basename + new Date().getTime() + ext}`) // raw/abc515585255852.png
   },
 })
 

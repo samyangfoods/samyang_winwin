@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const { AWS_ACCESS_KEY, AWS_SECRET_KEY } = process.env
+const { AWS_ACCESS_KEY, AWS_SECRET_KEY, BUCKET_NAME } = process.env
 
 const s3 = new aws.S3({
   secretAccessKey: AWS_SECRET_KEY,
@@ -15,7 +15,7 @@ const getSignedUrl = ({ key }) => {
   return new Promise((resolve, reject) => {
     s3.createPresignedPost(
       {
-        Bucket: 'sy-winwin',
+        Bucket: BUCKET_NAME,
         Fields: {
           key: key,
         },
