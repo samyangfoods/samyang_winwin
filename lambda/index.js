@@ -1,6 +1,11 @@
 const sharp = require('sharp')
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
+const dotenv = require('dotenv')
+
+dotenv.config()
+
+const { BUCKET_NAME } = process.env
 
 const transformationOptions = [
   { foldername: 'w140', width: 140 },
@@ -12,7 +17,7 @@ exports.handler = async (event) => {
     const Key = event.Records[0].s3.object.key
     const KeyOnly = Key.split('/')[1]
     console.log(`Image Resizing: ${KeyOnly}`)
-    const image = await s3.getObject({ Bucket: 'sy-winwin', Key }).promise()
+    const image = await s3.getObject({ Bucket: BUCKET_NAME, Key }).promise()
 
     await Promise.all(
       transformationOptions.map(async ({ foldername, width }) => {
@@ -25,7 +30,7 @@ exports.handler = async (event) => {
 
           await s3
             .putObject({
-              Bucket: 'sy-winwin',
+              Bucket: 'BUCKET_NAME',
               Body: resizedImage,
               Key: newKey,
             })
