@@ -2,6 +2,9 @@ import multer from 'multer'
 import path from 'path'
 import multerS3 from 'multer-s3'
 import { s3 } from '../../aws.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const { BUCKET_NAME } = process.env
 
