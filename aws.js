@@ -15,7 +15,7 @@ const getSignedUrl = ({ key }) => {
   return new Promise((resolve, reject) => {
     s3.createPresignedPost(
       {
-        Bucket: 'samyang-bucket',
+        Bucket: 'sy-winwin',
         Fields: {
           key: key,
         },
