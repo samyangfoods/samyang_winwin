@@ -2,8 +2,6 @@ const sharp = require('sharp')
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
 
-dotenv.config()
-
 const transformationOptions = [
   { foldername: 'w140', width: 140 },
   { foldername: 'w600', width: 600 },
