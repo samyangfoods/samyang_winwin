@@ -9,6 +9,7 @@ const transformationOptions = [
 
 exports.handler = async (event) => {
   try {
+    console.log(event.Records)
     const Key = event.Records[0].s3.object.key
     const KeyOnly = Key.split('/')[1]
     console.log(`Image Resizing: ${KeyOnly}`)
