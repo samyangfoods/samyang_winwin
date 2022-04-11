@@ -20,7 +20,7 @@ const storage = multerS3({
   },
 })
 
-const upload = multerS3({
+const upload = multer({
   storage,
   // 이미지 파일만 업로드 되도록 설정 , 이미지 사이즈 제한
   fileFilter: (req, file, cb) => {
