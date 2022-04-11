@@ -16,7 +16,6 @@ const PromotionSchema = mongoose.Schema(
     end_date: { type: String, required: true },
     promotionType: { type: String, required: true },
     promotionCost: { type: Number, default: 0 },
-    // promotionDetail: { type: String, required: true },
     promotionDetail: [
       {
         productName: { type: String },
