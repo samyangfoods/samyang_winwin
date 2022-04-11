@@ -1,26 +1,26 @@
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-import { basicApiUrl } from "./UrlSetting";
-import { RNS3 } from "react-native-aws3";
+import axios from 'axios'
+import * as SecureStore from 'expo-secure-store'
+import { basicApiUrl } from './UrlSetting'
+// import { RNS3 } from "react-native-aws3";
 
 export const useLogin = async (userId, password) => {
   try {
     const { data } = await axios.post(`${basicApiUrl}/user/login`, {
       userId,
       password,
-    });
+    })
 
-    await SecureStore.setItemAsync("token", data.token);
+    await SecureStore.setItemAsync('token', data.token)
 
-    return data;
+    return data
   } catch (error) {
-    console.log("userLogin", error);
-    return;
+    console.log('userLogin', error)
+    return
   }
-};
+}
 
 export const useRegister = async (userObj) => {
-  console.log("🔥UserHooks coming here🔥");
+  console.log('🔥UserHooks coming here🔥')
 
   const {
     userName,
@@ -32,45 +32,45 @@ export const useRegister = async (userObj) => {
     phoneNumber,
     userImage,
     userAddress,
-  } = userObj;
-  const { uri, type, name, base64 } = userImage;
-  const objForPreSigned = { type, name };
+  } = userObj
+  const { uri, type, name, base64 } = userImage
+  const objForPreSigned = { type, name }
   const getBlob = async (fileUri) => {
-    const resp = await fetch(fileUri);
-    const imageBody = await resp.blob();
-    return imageBody;
-  };
+    const resp = await fetch(fileUri)
+    const imageBody = await resp.blob()
+    return imageBody
+  }
 
   const { data } = await axios.post(`${basicApiUrl}/user/preSigned`, {
     objForPreSigned,
-  });
+  })
 
-  const { presigned } = data;
+  const { presigned } = data
 
-  const imageBody = await getBlob(uri);
-  const response = await axios.put(presigned.url, { imageBody });
+  const imageBody = await getBlob(uri)
+  const response = await axios.put(presigned.url, { imageBody })
 
-  console.log("response 🔥", response);
+  console.log('response 🔥', response)
 
-  return response;
-};
+  return response
+}
 
 export const useProfileChange = async (userId, userObj, token) => {
   const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {
     headers: { token },
-  });
+  })
 
-  return data;
-};
+  return data
+}
 
 export const useTokenLogin = async (token) => {
   // sample..
   const { data } = await axios.get(`${basicApiUrl}/user/token`, {
     headers: { token },
-  });
+  })
 
-  return data._id;
-};
+  return data._id
+}
 
 // formData.append('key', s3Data.s3Key);
 // formData.append('Content-Type', fileData.type);
