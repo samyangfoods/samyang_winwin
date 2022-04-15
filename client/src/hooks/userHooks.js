@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { basicApiUrl } from "./UrlSetting";
-import { RNS3 } from "react-native-aws3";
 
 export const useLogin = async (userId, password) => {
   try {
@@ -20,7 +19,7 @@ export const useLogin = async (userId, password) => {
 };
 
 export const useRegister = async (userObj) => {
-  console.log("🔥UserHooks coming here🔥");
+  console.log("✅ UserHooks coming here");
 
   const {
     userName,
@@ -33,26 +32,44 @@ export const useRegister = async (userObj) => {
     userImage,
     userAddress,
   } = userObj;
+
   const { uri, type, name, base64 } = userImage;
+
   const objForPreSigned = { type, name };
-  const getBlob = async (fileUri) => {
-    const resp = await fetch(fileUri);
+
+  const getBlob = async (uri) => {
+    const resp = await fetch(uri);
     const imageBody = await resp.blob();
     return imageBody;
   };
+  const formData = new FormData();
 
-  const { data } = await axios.post(`${basicApiUrl}/user/preSigned`, {
+  const {
+    data: { presigned },
+  } = await axios.post(`${basicApiUrl}/user/preSigned`, {
     objForPreSigned,
   });
 
-  const { presigned } = data;
+  const { fields, url } = presigned;
+  // const imageBody = await getBlob(uri);
 
-  const imageBody = await getBlob(uri);
-  const response = await axios.put(presigned.url, { imageBody });
+  // formData.append(fields.key, fields);
+  // formData.append("Content-Type", type);
+  // formData.append("file", { uri, name, type });
 
-  console.log("response 🔥", response);
-
-  return response;
+  try {
+    // const response =
+    // await fetch(url, {
+    //   method: "post",
+    //   body: formData,
+    // });
+    // await axios.post(url, formData);
+    // const hello = JSON.stringify(response);
+    // console.log("🌸 response: ", JSON.parse(hello));
+    // return response;
+  } catch (error) {
+    console.log("🥲 Error in s3: ", error);
+  }
 };
 
 export const useProfileChange = async (userId, userObj, token) => {

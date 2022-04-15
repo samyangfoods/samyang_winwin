@@ -30,18 +30,18 @@ import Channel from "../components/Channel";
 import { HorizontalDiv } from "../styles/Component";
 
 const Register = ({ navigation }) => {
-  const [userName, setUserName] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [passwordConfirmation, setPasswordConfirmation] = useState(null);
+  const [userName, setUserName] = useState("1");
+  const [userId, setUserId] = useState("1");
+  const [password, setPassword] = useState("1");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("1");
   const [channel, setChannel] = useState({
     label: "특약점",
     value: 1,
   });
-  const [storeName, setStoreName] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [storeName, setStoreName] = useState("1");
+  const [phoneNumber, setPhoneNumber] = useState("1");
   const [userImage, setUserImage] = useState(null);
-  const [userAddress, setAddress] = useState(null);
+  const [userAddress, setAddress] = useState("대구");
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
   const [modal, setModal] = useState(false);
@@ -104,15 +104,16 @@ const Register = ({ navigation }) => {
       userAddress,
     };
 
-    if (!/[\d\w\W\S]{8,}/.test(password)) {
-      return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
-    }
+    // if (!/[\d\w\W\S]{8,}/.test(password)) {
+    //   return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
+    // }
 
     const data = await useRegister(userObj);
 
     if (data) {
+      console.log("✅ Data from userRegisrer is alive.");
       Alert.alert("알림", "회원가입이 완료되었습니다.");
-      navigation.goBack();
+      // navigation.goBack();
     } else {
       Alert.alert("알림", "오류가 발생하였습니다.");
     }
