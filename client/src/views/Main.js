@@ -16,8 +16,8 @@ import * as SecureStore from "expo-secure-store";
 Main page helps users to check current promotion data.
 Flat list contains each promotion data and the function "renderItem" handles this part.  
 This page also has a search container so that users will search promotion by its type. e.g.) "전단행사", "엔드행사", "기타행사"
-
 */
+
 const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
@@ -27,14 +27,14 @@ const Main = ({ navigation, route }) => {
   useEffect(() => {
     const loadPromotions = async (token) => {
       const data = await usePromotions(token);
-      if (data) setPromotions(data);
+      if (data) {
+        setPromotions(data);
+      }
     };
 
     loadPromotions(token);
 
-
-    
-    console.log("Socket in the main page?")
+    console.log("Socket in the main page?");
     // socket.emit("main", {token} );
     // socket.on("getPromotionList", loadPromotions);
   }, [socket]);

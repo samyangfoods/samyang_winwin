@@ -61,7 +61,7 @@ const Promotion = ({ item, navigation }) => {
         <PromotionBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={{ uri: item.images.img1 }} />
+              {/* <Image source={{ uri: item.images.img1 }} /> */}
             </StoreInfoLeft>
 
             <StoreInfoRight>
@@ -82,17 +82,14 @@ const Promotion = ({ item, navigation }) => {
               </HorizontalDiv>
             </StoreInfoRight>
           </StoreInformation>
-          
-            <ProtmotionDetail>
-              {/* {
-              JSON.parse(item?.promotionDetail).map((res) => (
-                <Text style={{ marginRight: 5 }} key={Math.random()}>
-                  {res.productName}
-                </Text>
-              ))
-            } */}
-            </ProtmotionDetail>
-          
+
+          <ProtmotionDetail>
+            {(item?.promotionDetail).map((res) => (
+              <Text style={{ marginRight: 5 }} key={Math.random()}>
+                {res.productName}
+              </Text>
+            ))}
+          </ProtmotionDetail>
         </PromotionBottom>
       </MapContainer>
     </RouteBtn>

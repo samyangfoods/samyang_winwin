@@ -24,8 +24,8 @@ const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
       });
 
       setCategory([...arr]);
+      console.log(markets);
     };
-
     loadMarketListWithUserId(userId, token);
   }, []);
 
