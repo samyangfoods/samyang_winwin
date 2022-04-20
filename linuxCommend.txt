@@ -2,17 +2,22 @@
 
 파일보기 : cat package.json
 
-파일만들기 : vi aa.json
+파일수정 : vi aa.json
 
 폴더만들기 : mkdir aa
 
 PM2 서버실행하기  : sudo pm2 start npm -- start
 PM2 서버내리기 : sudo pm2 kill
 PM2 실행 리스트 보기 : sudo pm2 list
-PM2 모니터링하기 : pm2 
+PM2 모니터링하기 : sudo pm2 monit
+PM2 실행 클러스터 보기  : sudo pm2 list
+PM2 로그 보기 : sudo pm2 log
+PM2 로그 500라인까지 보기 : sudo pm2 log --lines 500 
 
 sudo lsof -i:80
 sudo kill PID
+
+
 
 Load Balancer
 

@@ -2,16 +2,21 @@ import multer from 'multer'
 import path from 'path'
 import multerS3 from 'multer-s3'
 import { s3 } from '../../aws.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const { BUCKET_NAME } = process.env
 
 const storage = multerS3({
   s3,
-  bucket: 'samyang-bucket',
-  filename(req, file, cb) {
+  bucket: BUCKET_NAME,
+  key: (req, file, cb) => {
     console.log('imageUpload storage', file)
     //abc.png
     const ext = path.extname(file.originalname) // 확장자 추출
     const basename = path.basename(file.originalname, ext) //abc
-    cb(null, basename + new Date().getTime() + ext) // abc515585255852.png
+    cb(null, `raw/${basename + new Date().getTime() + ext}`) // raw/abc515585255852.png
   },
 })
 
@@ -33,8 +38,4 @@ const upload = multer({
   },
 })
 
-<<<<<<< HEAD
-export { upload };
-=======
 export { upload }
->>>>>>> 426099393b08690a4eef2dba0f3630735ac51199

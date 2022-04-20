@@ -30,16 +30,16 @@ import Channel from "../components/Channel";
 import { HorizontalDiv } from "../styles/Component";
 
 const Register = ({ navigation }) => {
-  const [userName, setUserName] = useState("1");
-  const [userId, setUserId] = useState("1");
-  const [password, setPassword] = useState("1");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("1");
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [channel, setChannel] = useState({
     label: "특약점",
     value: 1,
   });
-  const [storeName, setStoreName] = useState("1");
-  const [phoneNumber, setPhoneNumber] = useState("1");
+  const [storeName, setStoreName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [userImage, setUserImage] = useState(null);
   const [userAddress, setAddress] = useState("대구");
   const [showing, setShowing] = useState(true);
@@ -92,30 +92,34 @@ const Register = ({ navigation }) => {
 
   // userName, role
   const submitUserInformation = async () => {
-    const userObj = {
-      userName,
-      userId,
-      password,
-      passwordConfirmation,
-      channel: channel.label,
-      storeName,
-      phoneNumber,
-      userImage,
-      userAddress,
-    };
+    if (password == passwordConfirmation) {
+      const userObj = {
+        userName,
+        userId,
+        password,
+        passwordConfirmation,
+        channel: channel.label,
+        storeName,
+        phoneNumber,
+        userImage,
+        userAddress,
+      };
 
-    // if (!/[\d\w\W\S]{8,}/.test(password)) {
-    //   return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
-    // }
+      // if (!/[\d\w\W\S]{8,}/.test(password)) {
+      //   return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
+      // }
 
-    const data = await useRegister(userObj);
+      const data = await useRegister(userObj);
 
-    if (data) {
-      console.log("✅ Data from userRegisrer is alive.");
-      Alert.alert("알림", "회원가입이 완료되었습니다.");
-      // navigation.goBack();
+      if (data) {
+        console.log("✅ Data from userRegisrer is alive.");
+        Alert.alert("알림", "회원가입이 완료되었습니다.");
+        // navigation.goBack();
+      } else {
+        Alert.alert("알림", "오류가 발생하였습니다.");
+      }
     } else {
-      Alert.alert("알림", "오류가 발생하였습니다.");
+      Alert.alert("알림", "비밀번호가 일치하지 않습니다.");
     }
   };
 
@@ -126,7 +130,6 @@ const Register = ({ navigation }) => {
       uri: response.uri,
       type: response.type,
       name: response.name,
-      base64: response.base64,
     };
 
     setUserImage(obj);
@@ -189,7 +192,7 @@ const Register = ({ navigation }) => {
           <PasswordContainer>
             <Input
               placeholder="비밀번호"
-              secureTextEntry={showing ? false : true}
+              secureTextEntry={showing}
               value={password}
               autoCapitalize="none"
               onChangeText={(text) => handlePassword(text)}
@@ -199,9 +202,9 @@ const Register = ({ navigation }) => {
             />
             <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
               {showing ? (
-                <Ionicons name="eye-off-outline" size={24} color="black" />
-              ) : (
                 <Ionicons name="eye-outline" size={24} color="black" />
+              ) : (
+                <Ionicons name="eye-off-outline" size={24} color="black" />
               )}
             </PasswordIcon>
           </PasswordContainer>
@@ -209,7 +212,7 @@ const Register = ({ navigation }) => {
           <PasswordContainer>
             <Input
               placeholder="비밀번호 확인"
-              secureTextEntry={showingConfirmation ? false : true}
+              secureTextEntry={showingConfirmation}
               value={passwordConfirmation}
               autoCapitalize="none"
               onChangeText={(text) => handlePasswordConfirmation(text)}
@@ -221,9 +224,9 @@ const Register = ({ navigation }) => {
               onPress={() => setShowingConfirmation((prev) => !prev)}
             >
               {showingConfirmation ? (
-                <Ionicons name="eye-off-outline" size={24} color="black" />
-              ) : (
                 <Ionicons name="eye-outline" size={24} color="black" />
+              ) : (
+                <Ionicons name="eye-off-outline" size={24} color="black" />
               )}
             </PasswordIcon>
           </PasswordContainer>

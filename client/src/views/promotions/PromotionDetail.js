@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import Swiper from "react-native-swiper";
 import { useSelector } from "react-redux";
-import winwin from "../../assets/winwin.png";
 import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";

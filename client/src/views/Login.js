@@ -23,7 +23,7 @@ import * as SplashScreen from "expo-splash-screen";
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [showing, setShowing] = useState(false);
+  const [showing, setShowing] = useState(true);
   const [loginLoading, setLoginLoading] = useState(false);
   const idRef = useRef();
   const passwordRef = useRef();
@@ -31,6 +31,7 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   // If system finds current login data with user's token, then navigation would move to the main page.
+  // TODO: 타임아웃 삭제
   useEffect(() => {
     const checkUserLogin = async () => {
       try {
@@ -115,7 +116,7 @@ const Login = ({ navigation }) => {
       <PasswordContainer>
         <Input
           placeholder="비밀번호"
-          secureTextEntry={showing ? false : true}
+          secureTextEntry={showing}
           onChangeText={(text) => handlePassword(text)}
           value={password}
           autoCapitalize="none"
@@ -124,9 +125,9 @@ const Login = ({ navigation }) => {
         />
         <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
           {showing ? (
-            <Ionicons name="eye-off-outline" size={24} color="black" />
-          ) : (
             <Ionicons name="eye-outline" size={24} color="black" />
+          ) : (
+            <Ionicons name="eye-off-outline" size={24} color="black" />
           )}
         </PasswordIcon>
       </PasswordContainer>
