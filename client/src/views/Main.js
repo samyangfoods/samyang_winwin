@@ -35,8 +35,8 @@ const Main = ({ navigation, route }) => {
     loadPromotions(token);
 
     console.log("Socket in the main page?");
-    // socket.emit("main", {token} );
-    // socket.on("getPromotionList", loadPromotions);
+    socket.emit("main", { token });
+    socket.on("getPromotionList", loadPromotions);
   }, [socket]);
 
   // SecureStore.deleteItemAsync("token")

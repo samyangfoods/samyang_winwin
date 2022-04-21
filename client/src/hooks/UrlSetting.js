@@ -14,3 +14,6 @@ export const socketUrl = "http://api.samyangfoods.site/";
 // Platform.OS === "android"
 //   ? `http://10.0.2.2:${PORT}`
 //   : `http://localhost:${PORT}`;
+
+export const imageW140 =
+  "https://samyang-bucket.s3.ap-northeast-2.amazonaws.com/w140/";

@@ -1,4 +1,5 @@
 import React from "react";
+import { imageW140 } from "../hooks/UrlSetting";
 import {
   RouteBtn,
   MapContainer,
@@ -36,7 +37,7 @@ const Market = ({ item, navigation }) => {
         <MarketBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={{ uri: item.marketImage }} />
+              <Image source={{ uri: imageW140 + item.marketImage }} />
             </StoreInfoLeft>
 
             <StoreInfoRight>

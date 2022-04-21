@@ -23,7 +23,7 @@ import { Alert } from "react-native";
 import { useRegister } from "../hooks/UserHooks";
 import {
   useCleanUpPhoneNumberForm,
-  useImageBase64,
+  useImageUri,
   usePhoneNumberFormat,
 } from "../hooks/Util";
 import Channel from "../components/Channel";
@@ -114,7 +114,7 @@ const Register = ({ navigation }) => {
       if (data) {
         console.log("✅ Data from userRegisrer is alive.");
         Alert.alert("알림", "회원가입이 완료되었습니다.");
-        // navigation.goBack();
+        navigation.goBack();
       } else {
         Alert.alert("알림", "오류가 발생하였습니다.");
       }
@@ -124,7 +124,7 @@ const Register = ({ navigation }) => {
   };
 
   const addUserImage = async () => {
-    const response = await useImageBase64();
+    const response = await useImageUri();
 
     const obj = {
       uri: response.uri,

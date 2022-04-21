@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 
-export const useImageBase64 = async () => {
+export const useImageUri = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     allowsEditing: true,
@@ -12,11 +12,11 @@ export const useImageBase64 = async () => {
   if (!result.cancelled) {
     return {
       uri: result.uri,
-      base64: result.base64,
       type:
         Platform.OS === "android" ? `image/jpeg` || `image/png` : `image/jpg`,
-      name: 
-      `${result.base64.slice(5, 10)}_${Date.now()}${Platform.OS === "android" ? `.jpeg` || `.png` : `.jpg`}`
+      name: `${result.base64.slice(5, 10)}_${Date.now()}${
+        Platform.OS === "android" ? `.jpeg` || `.png` : `.jpg`
+      }`,
     };
   }
 };

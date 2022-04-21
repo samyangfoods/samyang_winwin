@@ -22,6 +22,7 @@ import {
 } from "../../styles/profiles/UserProfile";
 import useSocket from "../../hooks/SocketHooks";
 import DataLoading from "../../components/DataLoading";
+import { imageW140 } from "../../hooks/UrlSetting";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
@@ -53,8 +54,6 @@ const Profile = ({ navigation }) => {
     navigation.navigate("Modal");
   };
 
-  // handleLogOut()
-
   return (
     <Container>
       {userInfo ? (
@@ -79,16 +78,20 @@ const Profile = ({ navigation }) => {
               <CardLeft>
                 <Image
                   source={{
-                    uri: userInfo.userImage,
+                    uri: imageW140 + userInfo.userImage,
                   }}
                 />
               </CardLeft>
               <CardRight>
                 <Name>{userInfo.userName}</Name>
                 <Text>{userInfo.storeName}</Text>
+
                 <HorizontalSeparator />
+
                 <Text>{usePhoneNumberFormat(userInfo.phoneNumber)}</Text>
+
                 <HorizontalSeparator />
+
                 <Text>{userInfo.channel}</Text>
                 <Text>{userInfo.address}</Text>
               </CardRight>

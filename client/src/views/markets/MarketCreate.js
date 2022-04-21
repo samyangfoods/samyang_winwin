@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Address from "../../components/Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import { ScrollContainer, Text } from "../../styles/Style";
@@ -17,6 +17,7 @@ import {
 import { useMarketCreate } from "../../hooks/MarketHooks";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
+import { usePhoneNumberFormat, cleanPhoneNumberFormat } from "../../hooks/Util";
 
 const MarketInput = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
@@ -31,6 +32,13 @@ const MarketInput = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [income, setIncome] = useState(null);
   const [ref, setRef] = useState(null);
+
+  const nameRef = useRef();
+  const sizeRef = useRef();
+  const posRef = useRef();
+  const phoneNumberRef = useRef();
+  const incomeRef = useRef();
+  const addressRef = useRef();
 
   const handleName = (text) => {
     setMarketName(text);
@@ -65,8 +73,10 @@ const MarketInput = ({ navigation }) => {
       pos,
       phoneNumber,
       income,
-      address
-    }
+      address,
+    };
+
+    console.log(marketObj);
 
     try {
       await useMarketCreate(marketObj, token);
@@ -111,6 +121,8 @@ const MarketInput = ({ navigation }) => {
           placeholder="소매점명을 입력하세요"
           value={marketName}
           onChangeText={(text) => handleName(text)}
+          ref={nameRef}
+          onSubmitEditing={() => sizeRef.current?.focus()}
         />
 
         <HorizontalDiv>
@@ -120,6 +132,8 @@ const MarketInput = ({ navigation }) => {
               placeholder="평수를 입력하세요"
               value={size}
               onChangeText={(text) => handleSize(text)}
+              ref={sizeRef}
+              onSubmitEditing={() => posRef.current?.focus()}
             />
           </VerticalDiv>
           <VerticalDiv>
@@ -128,6 +142,8 @@ const MarketInput = ({ navigation }) => {
               placeholder="POS 수량을 입력하세요"
               value={pos}
               onChangeText={(text) => handlePos(text)}
+              ref={posRef}
+              onSubmitEditing={() => phoneNumberRef.current?.focus()}
             />
           </VerticalDiv>
         </HorizontalDiv>
@@ -139,6 +155,11 @@ const MarketInput = ({ navigation }) => {
               placeholder="'-' 없이 입력하세요"
               value={phoneNumber}
               onChangeText={(text) => handlePhoneNumber(text)}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              onBlur={() => setPhoneNumber(usePhoneNumberFormat(phoneNumber))}
+              ref={phoneNumberRef}
+              onSubmitEditing={() => incomeRef.current?.focus()}
             />
           </VerticalDiv>
           <VerticalDiv>
@@ -147,12 +168,14 @@ const MarketInput = ({ navigation }) => {
               placeholder="월 평균 매출을 입력하세요"
               value={income}
               onChangeText={(text) => handleIncome(text)}
+              ref={incomeRef}
+              onSubmitEditing={() => addressRef.current?.focus()}
             />
           </VerticalDiv>
         </HorizontalDiv>
 
         <Text>주소 검색</Text>
-        <Btn onPress={handleModal}>
+        <Btn onPress={handleModal} ref={addressRef}>
           <Text>{address ? address : "주소 검색"}</Text>
         </Btn>
 

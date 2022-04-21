@@ -7,7 +7,7 @@ import Profile from "../views/profiles/Profile";
 import MarketInfoChange from "../views/markets/MarketInfoChange";
 import MarketInfo from "../views/markets/MarketInfo";
 import ProfileChange from "../views/profiles/ProfileChange";
-import MarketInput from "../views/markets/MarketInput";
+import MarketCreate from "../views/markets/MarketCreate";
 import UserMarketList from "../views/profiles/UserMarketList";
 
 const Nav = createNativeStackNavigator();
@@ -54,7 +54,7 @@ const Root = () => (
     />
     <Nav.Screen
       name="소매점 등록"
-      component={MarketInput}
+      component={MarketCreate}
       options={{ headerShown: true }}
     />
   </Nav.Navigator>
