@@ -13,14 +13,13 @@ const getPromotions = expressAsyncHandler(async (req, res) => {
   let { page = 0 } = req.query
   page = parseInt(page)
 
-  console.log('page :', page)
-  const promotions = await Promotion.find({})
+  const promotions = await Promotion.find({ 'user._id': req.user.id })
     // UpdatedAt 최근순으로
     .sort({ updatedAt: -1 })
     // 스킵숫자
     .skip(page * 3)
     // 프론트로 보내줄 숫자
-    .limit(3)
+    .limit(9)
   // .populate([
   //   { path: 'user' },
   //   { path: 'comments', populate: { path: 'user' } },
