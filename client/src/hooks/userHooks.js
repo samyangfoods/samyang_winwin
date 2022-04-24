@@ -66,5 +66,7 @@ export const useTokenLogin = async (token) => {
     headers: { token },
   });
 
+  console.log("🔥🔥", data);
+
   return data._id;
 };

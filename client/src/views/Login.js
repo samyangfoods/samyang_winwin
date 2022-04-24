@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
       try {
         await SplashScreen.preventAutoHideAsync();
         const token = await SecureStore.getItemAsync("token");
+        // console.log("🔥🔥🔥 token in login", token);
 
         if (token) {
           const userObjectId = await useTokenLogin(token);
@@ -49,6 +50,8 @@ const Login = ({ navigation }) => {
           );
 
           navigation.navigate("Stack");
+        } else {
+          return;
         }
       } catch (error) {
         console.log("error", error);
