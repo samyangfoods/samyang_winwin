@@ -152,19 +152,12 @@ const getUser = expressAsyncHandler(async (req, res) => {
 // @route   PUT   /api/user/:id
 // @access  Private
 const updateUser = expressAsyncHandler(async (req, res) => {
-  const { userId } = req.params
-  if (!mongoose.isValidObjectId(userId))
-    res.status(400).send({ err: 'invalid params userId' })
+  console.log(req.user)
+  const userId = req.user._id
+  console.log('유저아이디', userId)
 
-  const {
-    channel,
-    userName,
-    storeName,
-    userAddress,
-    phoneNumber,
-    userImage,
-    role,
-  } = req.body
+  const { channel, userName, storeName, phoneNumber, userAddress, role } =
+    req.body
 
   // type Validation
   if (
@@ -173,12 +166,19 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     !storeName &&
     !userAddress &&
     !phoneNumber &&
-    !userImage &&
     !role
   )
     return res.send({
       err: 'channel or userName or storeName or address or phoneNumber or userImage or role is required !!',
     })
+
+  let userImage = ''
+
+  if (req.file) {
+    userImage = req.file.key.replace('raw/', '')
+  } else {
+    userImage = ''
+  }
 
   if (channel && typeof channel !== 'string')
     return res.status(400).send({ err: 'channel must be String' })
@@ -190,8 +190,6 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     return res.status(400).send({ err: 'address must be String' })
   if (phoneNumber && typeof phoneNumber !== 'string')
     return res.status(400).send({ err: 'phoneNumber must be String' })
-  if (userImage && typeof userImage !== 'string')
-    return res.status(400).send({ err: 'userImage must be String' })
   if (role && typeof role !== 'string')
     return res.status(400).send({ err: 'role must be String' })
 

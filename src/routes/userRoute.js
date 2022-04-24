@@ -15,6 +15,7 @@ import { upload } from '../middleware/imageUpload.js'
 
 userRouter.route('/login').post(authUser)
 userRouter.route('/register').post(upload.single('userImage'), registerUser)
+userRouter.route('/update').put(protect, upload.single('userImage'), updateUser)
 userRouter.route('/profile').get(protect, getUserProfile)
 
 //🔥🔥🔥🔥🔥🔥🔥 로그인 유지를 위한 토큰 이용
