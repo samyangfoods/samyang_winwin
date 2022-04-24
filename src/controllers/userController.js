@@ -291,20 +291,19 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
-    res.json({
+    return res.json({
       _id: user._id,
       channel: user.channel,
       userName: user.userName,
       storeName: user.storeName,
-      address: user.address,
+      userAddress: user.userAddress,
+      userImage: user.userImage,
       role: user.role,
     })
   } else {
     res.status(404)
     throw new Error('User not found!!')
   }
-
-  return res.send('Success')
 })
 
 const getUserProfileWithToken = expressAsyncHandler(async (req, res) => {
