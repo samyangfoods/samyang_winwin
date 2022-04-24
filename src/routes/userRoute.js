@@ -15,15 +15,17 @@ import { upload } from "../middleware/imageUpload.js";
 
 userRouter.route("/login").post(authUser);
 userRouter.route("/register").post(upload.single("userImage"), registerUser);
-userRouter.route("/update").put(upload.single("userImage"), updateUser);
-userRouter.route("/profile").get(getUserProfile);
+userRouter
+  .route("/update")
+  .put(protect, upload.single("userImage"), updateUser);
+userRouter.route("/profile").get(protect, getUserProfile);
 
 //🔥🔥🔥🔥🔥🔥🔥 로그인 유지를 위한 토큰 이용
-userRouter.route("/token").get(getUserProfileWithToken);
+userRouter.route("/token").get(protect, getUserProfileWithToken);
 userRouter.route("/presigned").post(preSigned);
 
-userRouter.route("/:userId").get(getUser);
-userRouter.route("/:userId").put(updateUser);
-userRouter.route("/:userId").delete(deleteUser);
+userRouter.route("/:userId").get(protect, getUser);
+userRouter.route("/:userId").put(protect, updateUser);
+userRouter.route("/:userId").delete(protect, deleteUser);
 
 export default userRouter;

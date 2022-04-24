@@ -13,12 +13,13 @@ import {
 import { protect } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/imageUpload.js";
 
-promotionRouter.route("/").get(getPromotions);
-promotionRouter.route("/search").get(searchPromotions);
-promotionRouter.route("/:promotionId").get(getPromotionById);
+promotionRouter.route("/").get(protect, getPromotions);
+promotionRouter.route("/search").get(protect, searchPromotions);
+promotionRouter.route("/:promotionId").get(protect, getPromotionById);
 promotionRouter
   .route("/")
   .post(
+    protect,
     upload.fields([
       { name: "file1" },
       { name: "file2" },
@@ -27,9 +28,9 @@ promotionRouter
     ]),
     createPromotion
   );
-promotionRouter.route("/presigned").post(preSigned);
+promotionRouter.route("/presigned").post(protect, preSigned);
 
-promotionRouter.route("/:promotionId").put(updatePromotionById);
-promotionRouter.route("/:promotionId").delete(deletePromotionById);
+promotionRouter.route("/:promotionId").put(protect, updatePromotionById);
+promotionRouter.route("/:promotionId").delete(protect, deletePromotionById);
 
 export default promotionRouter;

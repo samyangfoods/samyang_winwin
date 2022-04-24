@@ -7,8 +7,10 @@ import {
   getUserImage,
 } from "../controllers/imageController.js";
 
-imageRouter.route("/user").post(upload.single("image"), createUserImage);
+imageRouter
+  .route("/user")
+  .post(protect, upload.single("image"), createUserImage);
 
-imageRouter.route("/user").get(getUserImage);
+imageRouter.route("/user").get(protect, getUserImage);
 
 export default imageRouter;
