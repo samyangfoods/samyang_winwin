@@ -62,13 +62,6 @@ const Login = ({ navigation }) => {
     checkUserLogin();
   }, []);
 
-  const handleId = useCallback((text) => {
-    setUserId(text.trim());
-  }, []);
-  const handlePassword = useCallback((text) => {
-    setPassword(text.trim());
-  }, []);
-
   // Send login data to BE to search user data matched.
   // BE will verify user info and issue a token.
   // FE will receive the token and save it to user's localstorage.
@@ -89,7 +82,7 @@ const Login = ({ navigation }) => {
           token: response.token,
         })
       );
-
+      console.log("🔥🔥🔥🔥response", response);
       navigation.navigate("Stack");
     } catch (error) {
       Alert.alert("알림", "오류 발생");
@@ -98,6 +91,12 @@ const Login = ({ navigation }) => {
     }
   }, [navigation, userId, password]);
 
+  const handleId = useCallback((text) => {
+    setUserId(text.trim());
+  }, []);
+  const handlePassword = useCallback((text) => {
+    setPassword(text.trim());
+  }, []);
   const leadToSignUp = useCallback(() => {
     navigation.navigate("Register");
   }, [navigation]);
