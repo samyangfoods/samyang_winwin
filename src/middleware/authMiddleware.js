@@ -22,7 +22,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 
     console.log("🔥🔥req.user🔥🔥", req.user);
 
-    return next();
+    next();
   } catch (error) {
     console.error("authMiddleware🔥🔥", error);
     res.status(401);
