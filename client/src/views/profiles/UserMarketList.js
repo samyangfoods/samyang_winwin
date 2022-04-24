@@ -39,8 +39,6 @@ const MarketList = ({ navigation, route }) => {
 
   return (
     <MainContainer>
-
-
       {markets ? (
         markets[0] !== null ? (
           <>

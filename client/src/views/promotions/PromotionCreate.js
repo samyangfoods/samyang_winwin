@@ -26,7 +26,7 @@ import { usePromotionCreation } from "../../hooks/PromotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
 import { useMarketInfo } from "../../hooks/MarketHooks";
 
-const PromotionCreate = () => {
+const PromotionCreate = ({ navigation }) => {
   const token = useSelector((state) => state.user.token);
 
   const [ref, setRef] = useState(null);
@@ -87,6 +87,7 @@ const PromotionCreate = () => {
     try {
       usePromotionCreation(promotionObj, token);
       Alert.alert("알림", "행사가 등록되었습니다.");
+      navigation.goBack();
     } catch (error) {
       Alert.alert("알림", error);
     }
@@ -109,10 +110,14 @@ const PromotionCreate = () => {
         <HorizontalDiv>
           <VerticalDiv>
             <Text>소매점명</Text>
-            <CategoryOfMarketListWithUserId
-              marketName={marketName}
-              setMarketName={setMarketName}
-            />
+            {marketName ? (
+              <CategoryOfMarketListWithUserId
+                marketName={marketName}
+                setMarketName={setMarketName}
+              />
+            ) : (
+              <Text>소매점 없음</Text>
+            )}
           </VerticalDiv>
           <VerticalDiv>
             <Text>POS 수량</Text>

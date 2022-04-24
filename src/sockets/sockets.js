@@ -25,7 +25,7 @@ export const setSocketIo = (httpServer, app) => {
 
         eachPromotion = setInterval(async () => {
           const { data } = await axios.get(`${API_URL_BASIC}/promotion`, {
-            headers: { token, "Access-Control-Allow-Origin": true },
+            headers: { token },
           });
 
           io.emit("getPromotionList", data);

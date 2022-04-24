@@ -16,7 +16,7 @@ import defaultUser from "../../assets/defaultUser.png";
 import { ActivityIndicator, Alert } from "react-native";
 import {
   useCleanUpPhoneNumberForm,
-  useImageBase64,
+  useImageUri,
   usePhoneNumberFormat,
 } from "../../hooks/Util";
 import { useProfileChange } from "../../hooks/UserHooks";
@@ -32,6 +32,7 @@ import {
   VerticalDiv,
 } from "../../styles/profiles/UserProfileChange";
 import Channel from "../../components/Channel";
+import { imageW140 } from "../../hooks/UrlSetting";
 
 const UserInfo = ({ navigation, route }) => {
   const { userInfo } = route.params;
@@ -57,8 +58,15 @@ const UserInfo = ({ navigation, route }) => {
   const [userImage, setUserImage] = useState(userInfo.userImage);
 
   const addUserImage = async () => {
-    const reponse = await useImageBase64();
-    setUserImage(reponse);
+    const response = await useImageUri();
+
+    const obj = {
+      uri: response.uri,
+      type: response.type,
+      name: response.name,
+    };
+
+    setUserImage(obj);
   };
 
   const handleUserName = (text) => {
@@ -109,7 +117,11 @@ const UserInfo = ({ navigation, route }) => {
       </Top>
       <Bottom>
         <Image
-          source={userImage ? { uri: userImage } : defaultUser}
+          source={
+            userImage.uri
+              ? { uri: userImage.uri }
+              : { uri: imageW140 + userImage }
+          }
           style={{ width: 100, height: 100, borderRadius: 100 }}
         />
 
