@@ -22,7 +22,7 @@ export const setSocketIo = (httpServer, app) => {
     socket.on("main", ({ token }) => {
       try {
         if (eachPromotion) clearInterval(eachPromotion);
-
+        console.log("Token from sockets", token);
         eachPromotion = setInterval(async () => {
           const { data } = await axios.get(`${API_URL_BASIC}/promotion`, {
             headers: { token },
