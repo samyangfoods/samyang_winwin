@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import expressAsyncHandler from "express-async-handler";
 import { User } from "../models/User.js";
 
-const protect = expressAsyncHandler(async (req, res, next) => {
+const protect = async (req, res, next) => {
   console.log("🔥🔥🔥🔥🔥🔥🔥🔥 Protect Middleware Started!!!!!");
 
   if (
@@ -23,7 +23,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   //   res.status(401)
   //   throw new Error('Not authorized, no token !!!')
   // }
-});
+};
 
 export { protect };
 
