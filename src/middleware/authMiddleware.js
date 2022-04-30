@@ -9,28 +9,14 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
-    console.log(
-      `🔥🔥🔥🔥🔥🔥🔥🔥 req.headers exists: ${req.headers.authorization}`
-    );
-    try {
-      let token = req.headers.authorization.split(" ")[1];
+    let token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 token: ${token}`);
+    req.user = await User.findById(decoded.id).select("-password");
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 decoded: ${decoded}`);
-
-      req.user = await User.findById(decoded.id).select("-password");
-
-      console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 req.user: ${req.user}`);
-
-      next();
-    } catch (error) {
-      console.error("authMiddleware", error);
-      res.status(401);
-      throw new Error("Not authorized, token failed !!");
-    }
+    return next();
+  } else {
+    return;
   }
 
   // if (!token) {
@@ -40,3 +26,26 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 });
 
 export { protect };
+
+// console.log(
+//   `🔥🔥🔥🔥🔥🔥🔥🔥 req.headers exists: ${req.headers.authorization}`
+// );
+// try {
+//   let token = req.headers.authorization.split(" ")[1];
+
+//   console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 token: ${token}`);
+
+//   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//   console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 decoded: ${decoded}`);
+
+//   req.user = await User.findById(decoded.id).select("-password");
+
+//   console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥 req.user: ${req.user}`);
+
+//   next();
+// } catch (error) {
+//   console.error("authMiddleware", error);
+//   res.status(401);
+//   throw new Error("Not authorized, token failed !!");
+// }
