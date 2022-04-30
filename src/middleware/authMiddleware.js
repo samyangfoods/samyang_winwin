@@ -17,7 +17,6 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 
       next()
     } catch (error) {
-      return
       console.error('authMiddleware', error)
       res.status(401)
       throw new Error('Not authorized, token failed !!')
