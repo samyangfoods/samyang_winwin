@@ -54,7 +54,7 @@ export const useRegister = async (userObj) => {
 
 export const useProfileChange = async (userId, userObj, token) => {
   const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {
-    headers: { token },
+    headers: { authorization: `Bearer ${token}` },
   });
 
   return data;
@@ -63,7 +63,7 @@ export const useProfileChange = async (userId, userObj, token) => {
 export const useTokenLogin = async (token) => {
   // sample..
   const { data } = await axios.get(`${basicApiUrl}/user/token`, {
-    headers: { token },
+    headers: { authorization: `Bearer ${token}` },
   });
 
   console.log("🔥🔥", data);
