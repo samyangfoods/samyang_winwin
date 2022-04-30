@@ -8,7 +8,12 @@ export const useSearchApiWithPromotionType = async (token, text) => {
   const { promotions } = await axios.post(
     `${basicApiUrl}/promotion/search`,
     { text },
-    { headers: { token, "Access-Control-Allow-Origin": true } }
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": true,
+      },
+    }
   );
   return promotions;
 };
@@ -17,7 +22,12 @@ export const useSearchApiWithMarketName = async (token, text) => {
   const { data } = await axios.post(
     `${basicApiUrl}/market/search`,
     { text },
-    { headers: { token, "Access-Control-Allow-Origin": true } }
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": true,
+      },
+    }
   );
 
   return data;

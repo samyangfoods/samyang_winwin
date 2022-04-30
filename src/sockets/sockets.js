@@ -25,7 +25,7 @@ export const setSocketIo = (httpServer, app) => {
         console.log("Token from sockets", token);
         eachPromotion = setInterval(async () => {
           const { data } = await axios.get(`${API_URL_BASIC}/promotion`, {
-            headers: { token },
+            headers: { authorization: `Bearer ${token}` },
           });
 
           io.emit("getPromotionList", data);
@@ -42,7 +42,7 @@ export const setSocketIo = (httpServer, app) => {
 
         userProfile = setInterval(async () => {
           const { data } = await axios.get(`${API_URL_BASIC}/user/${userId}`, {
-            headers: { token },
+            headers: { authorization: `Bearer ${token}` },
           });
 
           io.emit("getUserProfile", data);
@@ -62,7 +62,7 @@ export const setSocketIo = (httpServer, app) => {
           const { data } = await axios.get(
             `${API_URL_BASIC}/market/${userId}`,
             {
-              headers: { token },
+              headers: { authorization: `Bearer ${token}` },
             }
           );
           io.emit("eachMarket", data);
