@@ -119,6 +119,7 @@ const createMarket = expressAsyncHandler(async (req, res) => {
     averageSales,
     marketAddress,
     marketImage,
+    user: req.user,
   })
 
   if (market) {
