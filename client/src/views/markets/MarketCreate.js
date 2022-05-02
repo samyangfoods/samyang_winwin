@@ -76,8 +76,6 @@ const MarketInput = ({ navigation }) => {
       address,
     };
 
-    console.log(marketObj);
-
     try {
       await useMarketCreate(marketObj, token);
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");

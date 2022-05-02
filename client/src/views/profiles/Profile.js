@@ -26,29 +26,43 @@ import { imageW140 } from "../../hooks/UrlSetting";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
-  const token = useSelector((state) => state.user.token);
+  const userName = useSelector((state) => state.user.userName);
+  const channel = useSelector((state) => state.user.channel);
+  const role = useSelector((state) => state.user.role);
+  const phoneNumber = useSelector((state) => state.user.phoneNumber);
+  const userAddress = useSelector((state) => state.user.userAddress);
+  const storeName = useSelector((state) => state.user.storeName);
+  const userImage = useSelector((state) => state.user.userImage);
+  // const token = useSelector((state) => state.user.token);
   const [userInfo, setUserInfo] = useState(null);
-  const [socket, disconnect] = useSocket();
 
   // websocket
   useEffect(() => {
-    const getUserInfo = async (data) => {
-      setUserInfo(data.user);
+    console.log("Hello profile here");
+    const userObj = {
+      userId,
+      userName,
+      userImage,
+      channel,
+      role,
+      storeName,
+      phoneNumber,
+      userAddress,
     };
-
-    socket.emit("profile", { userId, token });
-    socket.on("getUserProfile", getUserInfo);
-
-    return () => {
-      if (socket) {
-        socket.off("getUserProfile", getUserInfo);
-      }
-    };
-  }, [socket]);
+    setUserInfo(userObj);
+  }, [
+    setUserInfo,
+    userId,
+    userName,
+    channel,
+    role,
+    phoneNumber,
+    userAddress,
+    storeName,
+  ]);
 
   // logout
   const handleLogOut = async () => {
-    disconnect();
     await SecureStore.deleteItemAsync("token");
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");
@@ -117,3 +131,16 @@ const Profile = ({ navigation }) => {
 };
 
 export default Profile;
+
+// const getUserInfo = async (data) => {
+//   setUserInfo(data.user);
+// };
+
+// socket.emit("profile", { userId, token });
+// socket.on("getUserProfile", getUserInfo);
+
+// return () => {
+//   if (socket) {
+//     socket.off("getUserProfile", getUserInfo);
+//   }
+// };

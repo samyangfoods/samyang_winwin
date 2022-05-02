@@ -45,6 +45,8 @@ export const useRegister = async (userObj) => {
   formData.append("userAddress", userAddress);
   formData.append("userImage", userImage);
 
+  // console.log("Form Data", formData);
+  console.log("response 직전!!");
   const response = await axios.post(`${basicApiUrl}/user/register`, formData);
 
   console.log("response 🔥", response);
@@ -66,7 +68,5 @@ export const useTokenLogin = async (token) => {
     headers: { authorization: `Bearer ${token}` },
   });
 
-  console.log("🔥🔥", data);
-
-  return data._id;
+  return data;
 };

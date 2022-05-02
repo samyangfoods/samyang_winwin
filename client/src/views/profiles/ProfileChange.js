@@ -20,7 +20,7 @@ import {
   usePhoneNumberFormat,
 } from "../../hooks/Util";
 import { useProfileChange } from "../../hooks/UserHooks";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   Top,
@@ -33,11 +33,11 @@ import {
 } from "../../styles/profiles/UserProfileChange";
 import Channel from "../../components/Channel";
 import { imageW140 } from "../../hooks/UrlSetting";
+import userSlice from "../../redux/slices/user";
 
 const UserInfo = ({ navigation, route }) => {
   const { userInfo } = route.params;
   const token = useSelector((state) => state.user.token);
-
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState(userInfo.userName);
@@ -56,6 +56,7 @@ const UserInfo = ({ navigation, route }) => {
   );
   const [address, setAddress] = useState(userInfo.userAddress);
   const [userImage, setUserImage] = useState(userInfo.userImage);
+  const dispatch = useDispatch();
 
   const addUserImage = async () => {
     const response = await useImageUri();
@@ -68,7 +69,6 @@ const UserInfo = ({ navigation, route }) => {
 
     setUserImage(obj);
   };
-
   const handleUserName = (text) => {
     setUserName(text);
   };
@@ -98,7 +98,20 @@ const UserInfo = ({ navigation, route }) => {
 
     try {
       setIsLoading(true);
-      await useProfileChange(userInfo._id, newUserInfo, token);
+      const response = await useProfileChange(userInfo._id, newUserInfo, token);
+      if (response) {
+        dispatch(
+          userSlice.actions.setUser({
+            userName: newUserInfo.userName,
+            userImage: newUserInfo.userImage,
+            channel: newUserInfo.channel,
+            storeName: newUserInfo.storeName,
+            phoneNumber: newUserInfo.phoneNumber,
+            userAddress: newUserInfo.userAddress,
+          })
+        );
+      }
+
       Alert.alert("알림", "사용자 정보가 변경되었습니다.");
       navigation.goBack();
     } catch (error) {
