@@ -19,6 +19,9 @@ const authUser = expressAsyncHandler(async (req, res) => {
       channel: user.channel,
       userName: user.userName,
       storeName: user.storeName,
+      userImage: user.userImage,
+      phoneNumber: user.phoneNumber,
+      userAddress: user.userAddress,
       role: user.role,
       token: generateToken(user._id),
     })
