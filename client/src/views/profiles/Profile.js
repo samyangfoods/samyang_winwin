@@ -33,23 +33,25 @@ const Profile = ({ navigation }) => {
   const userAddress = useSelector((state) => state.user.userAddress);
   const storeName = useSelector((state) => state.user.storeName);
   const userImage = useSelector((state) => state.user.userImage);
-  // const token = useSelector((state) => state.user.token);
   const [userInfo, setUserInfo] = useState(null);
 
-  // websocket
+  // Need to check why the userImage doesn't appear directly.
   useEffect(() => {
-    console.log("Hello profile here");
-    const userObj = {
-      userId,
-      userName,
-      userImage,
-      channel,
-      role,
-      storeName,
-      phoneNumber,
-      userAddress,
+    const setUserProfile = async () => {
+      const userObj = {
+        userId,
+        userName,
+        userImage,
+        channel,
+        role,
+        storeName,
+        phoneNumber,
+        userAddress,
+      };
+      await setUserInfo(userObj);
     };
-    setUserInfo(userObj);
+
+    setUserProfile();
   }, [
     setUserInfo,
     userId,
@@ -59,6 +61,7 @@ const Profile = ({ navigation }) => {
     phoneNumber,
     userAddress,
     storeName,
+    userImage,
   ]);
 
   // logout
@@ -131,16 +134,3 @@ const Profile = ({ navigation }) => {
 };
 
 export default Profile;
-
-// const getUserInfo = async (data) => {
-//   setUserInfo(data.user);
-// };
-
-// socket.emit("profile", { userId, token });
-// socket.on("getUserProfile", getUserInfo);
-
-// return () => {
-//   if (socket) {
-//     socket.off("getUserProfile", getUserInfo);
-//   }
-// };

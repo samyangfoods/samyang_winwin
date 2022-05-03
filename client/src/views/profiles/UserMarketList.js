@@ -4,34 +4,26 @@ import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
 import { AntDesign } from "@expo/vector-icons";
 import EachMarket from "../../components/EachMarket";
 import NotFound from "../../components/NotFound";
-import useSocket from "../../hooks/SocketHooks";
 import DataLoading from "../../components/DataLoading";
 import { useSelector } from "react-redux";
+import { useMarketListWithId } from "../../hooks/MarketHooks";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [markets, setMarkets] = useState(null);
-  const [socket, disconnect] = useSocket();
   const userId = useSelector((state) => state.user.userId);
   const token = useSelector((state) => state.user.token);
 
-  // Socket.io in order to read user market list
+  //TODO: set market redux
   useEffect(() => {
-    const loadMarketList = (data) => {
-      if (data) {
-        setMarkets(data);
-      }
+    const setUserMarketList = async (userId, token) => {
+      const response = await useMarketListWithId(userId, token);
+
+      setMarkets(response);
     };
 
-    socket.emit("userMarketList", { userId, token });
-    socket.on("eachMarket", loadMarketList);
-
-    return () => {
-      if (socket) {
-        socket.off("eachMarket", loadMarketList);
-      }
-    };
-  }, [socket]);
+    setUserMarketList(userId, token);
+  }, []);
 
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;

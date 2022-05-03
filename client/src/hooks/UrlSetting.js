@@ -16,4 +16,4 @@ export const socketUrl = "http://api.samyangfoods.site/";
 //   : `http://localhost:${PORT}`;
 
 export const imageW140 =
-  "https://samyang-bucket.s3.ap-northeast-2.amazonaws.com/raw/";
+  "https://samyang-bucket.s3.ap-northeast-2.amazonaws.com/w140/";

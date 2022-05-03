@@ -93,21 +93,21 @@ const UserInfo = ({ navigation, route }) => {
       userAddress: address,
       phoneNumber: useCleanUpPhoneNumberForm(phoneNumber),
       userImage,
-      role: "dealer",
     };
 
     try {
       setIsLoading(true);
-      const response = await useProfileChange(userInfo._id, newUserInfo, token);
+      console.log("🔥 token in profileChange", token);
+      const response = await useProfileChange(newUserInfo, token);
       if (response) {
         dispatch(
           userSlice.actions.setUser({
-            userName: newUserInfo.userName,
-            userImage: newUserInfo.userImage,
-            channel: newUserInfo.channel,
-            storeName: newUserInfo.storeName,
-            phoneNumber: newUserInfo.phoneNumber,
-            userAddress: newUserInfo.userAddress,
+            userName: response.user.userName,
+            userImage: response.user.userImage,
+            channel: response.user.channel,
+            storeName: response.user.storeName,
+            phoneNumber: response.user.phoneNumber,
+            userAddress: response.user.userAddress,
           })
         );
       }
@@ -190,8 +190,8 @@ const UserInfo = ({ navigation, route }) => {
           </Btn>
         </AddressDiv>
 
-        <LoginBtn>
-          <BtnText onPress={submitNewUserInfo}>
+        <LoginBtn onPress={submitNewUserInfo}>
+          <BtnText>
             {isLoading ? <ActivityIndicator color="white" /> : "수정하기"}
           </BtnText>
         </LoginBtn>

@@ -49,13 +49,26 @@ export const useRegister = async (userObj) => {
   console.log("response 직전!!");
   const response = await axios.post(`${basicApiUrl}/user/register`, formData);
 
-  console.log("response 🔥", response);
+  console.log("response in userRegister🔥", response);
 
   return response;
 };
 
-export const useProfileChange = async (userId, userObj, token) => {
-  const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {
+export const useProfileChange = async (userObj, token) => {
+  console.log("✅ userProfileChange: 프로필 변경이 시작됩니다.");
+  const { channel, userName, storeName, userAddress, phoneNumber, userImage } =
+    userObj;
+
+  const formData = new FormData();
+
+  formData.append("userName", userName);
+  formData.append("channel", channel);
+  formData.append("storeName", storeName);
+  formData.append("phoneNumber", phoneNumber);
+  formData.append("userAddress", userAddress);
+  formData.append("userImage", userImage);
+
+  const { data } = await axios.put(`${basicApiUrl}/user/update`, formData, {
     headers: { authorization: `Bearer ${token}` },
   });
 
