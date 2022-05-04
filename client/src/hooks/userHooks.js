@@ -19,7 +19,7 @@ export const useLogin = async (userId, password) => {
 };
 
 export const useRegister = async (userObj) => {
-  console.log("userHooks, useRegister: 회원가입이 시작됩니다.");
+  const role = "dealer";
 
   const {
     userName,
@@ -44,12 +44,9 @@ export const useRegister = async (userObj) => {
   formData.append("phoneNumber", phoneNumber);
   formData.append("userAddress", userAddress);
   formData.append("userImage", userImage);
+  formData.append("role", role);
 
-  // console.log("Form Data", formData);
-  console.log("response 직전!!");
   const response = await axios.post(`${basicApiUrl}/user/register`, formData);
-
-  console.log("response in userRegister🔥", response);
 
   return response;
 };

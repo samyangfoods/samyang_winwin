@@ -6,24 +6,18 @@ import EachMarket from "../../components/EachMarket";
 import NotFound from "../../components/NotFound";
 import DataLoading from "../../components/DataLoading";
 import { useSelector } from "react-redux";
-import { useMarketListWithId } from "../../hooks/MarketHooks";
 
 const MarketList = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [markets, setMarkets] = useState(null);
-  const userId = useSelector((state) => state.user.userId);
-  const token = useSelector((state) => state.user.token);
+  const marketArray = useSelector((state) => state.market.array);
 
   //TODO: set market redux
   useEffect(() => {
-    const setUserMarketList = async (userId, token) => {
-      const response = await useMarketListWithId(userId, token);
-
-      setMarkets(response);
-    };
-
-    setUserMarketList(userId, token);
-  }, []);
+    if (marketArray) {
+      setMarkets(marketArray);
+    }
+  }, [marketArray]);
 
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;

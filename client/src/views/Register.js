@@ -41,7 +41,7 @@ const Register = ({ navigation }) => {
   const [storeName, setStoreName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userImage, setUserImage] = useState(null);
-  const [userAddress, setAddress] = useState("대구");
+  const [userAddress, setAddress] = useState("");
   const [showing, setShowing] = useState(true);
   const [showingConfirmation, setShowingConfirmation] = useState(true);
   const [modal, setModal] = useState(false);
@@ -105,9 +105,9 @@ const Register = ({ navigation }) => {
         userAddress,
       };
 
-      // if (!/[\d\w\W\S]{8,}/.test(password)) {
-      //   return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
-      // }
+      if (!/[\d\w\W\S]{8,}/.test(password)) {
+        return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
+      }
 
       const data = await useRegister(userObj);
 

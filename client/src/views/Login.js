@@ -21,6 +21,8 @@ import * as SecureStore from "expo-secure-store";
 import * as SplashScreen from "expo-splash-screen";
 import { usePromotions } from "../hooks/PromotionHooks";
 import promotionSlice from "../redux/slices/Promotion";
+import { useMarketListWithId } from "../hooks/MarketHooks";
+import marketSlice from "../redux/slices/market";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
@@ -41,31 +43,45 @@ const Login = ({ navigation }) => {
         const token = await SecureStore.getItemAsync("token");
 
         if (token) {
-          const response = await useTokenLogin(token);
-          dispatch(
-            userSlice.actions.setUser({
-              userId: response._id,
-              userName: response.userName,
-              userImage: response.userImage,
-              channel: response.channel,
-              role: response.role,
-              storeName: response.storeName,
-              phoneNumber: response.phoneNumber,
-              userAddress: response.userAddress,
-              token,
-            })
-          );
-
-          const data = await usePromotions(token);
-
-          if (data) {
+          // Set user information
+          const userData = await useTokenLogin(token);
+          if (userData) {
+            const marketData = await useMarketListWithId(userData._id, token);
             dispatch(
-              promotionSlice.actions.setPromotion({
-                array: [...data],
+              userSlice.actions.setUser({
+                userId: userData._id,
+                userName: userData.userName,
+                userImage: userData.userImage,
+                channel: userData.channel,
+                role: userData.role,
+                storeName: userData.storeName,
+                phoneNumber: userData.phoneNumber,
+                userAddress: userData.userAddress,
+                token,
               })
             );
-            navigation.navigate("Stack");
+
+            // Set user's market list
+            if (marketData) {
+              dispatch(
+                marketSlice.actions.setMarket({
+                  array: [...marketData],
+                })
+              );
+            }
           }
+
+          // Set user's current promotion data
+          const promotionData = await usePromotions(token);
+          if (promotionData) {
+            dispatch(
+              promotionSlice.actions.setPromotion({
+                array: [...promotionData],
+              })
+            );
+          }
+
+          navigation.navigate("Stack");
         } else {
           return;
         }
