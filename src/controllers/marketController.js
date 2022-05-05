@@ -199,7 +199,7 @@ const getMarketWithUserId = expressAsyncHandler(async (req, res) => {
   console.log("getMarketWithUserId Started");
   console.log("userId: ", userId);
 
-  const markets = await Market.find({ user: userId });
+  const markets = await Market.find({ _id: userId });
 
   console.log(markets);
 
