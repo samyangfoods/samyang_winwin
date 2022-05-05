@@ -1,25 +1,25 @@
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-import { basicApiUrl } from "./UrlSetting";
+import axios from 'axios'
+import * as SecureStore from 'expo-secure-store'
+import { basicApiUrl } from './UrlSetting'
 
 export const useLogin = async (userId, password) => {
   try {
     const { data } = await axios.post(`${basicApiUrl}/user/login`, {
       userId,
       password,
-    });
+    })
 
-    await SecureStore.setItemAsync("token", data.token);
+    await SecureStore.setItemAsync('token', data.token)
 
-    return data;
+    return data
   } catch (error) {
-    console.log("userLogin", error);
-    return;
+    console.log('userLogin', error)
+    return
   }
-};
+}
 
 export const useRegister = async (userObj) => {
-  console.log("userHooks, useRegister: 회원가입이 시작됩니다.");
+  console.log('userHooks, useRegister: 회원가입이 시작됩니다.')
 
   const {
     userName,
@@ -31,42 +31,42 @@ export const useRegister = async (userObj) => {
     phoneNumber,
     userImage,
     userAddress,
-  } = userObj;
+  } = userObj
 
-  const formData = new FormData();
+  const formData = new FormData()
 
-  formData.append("userName", userName);
-  formData.append("userId", userId);
-  formData.append("password", password);
-  formData.append("passwordConfirmation", passwordConfirmation);
-  formData.append("channel", channel);
-  formData.append("storeName", storeName);
-  formData.append("phoneNumber", phoneNumber);
-  formData.append("userAddress", userAddress);
-  formData.append("userImage", userImage);
+  formData.append('userName', userName)
+  formData.append('userId', userId)
+  formData.append('password', password)
+  formData.append('passwordConfirmation', passwordConfirmation)
+  formData.append('channel', channel)
+  formData.append('storeName', storeName)
+  formData.append('phoneNumber', phoneNumber)
+  formData.append('userAddress', userAddress)
+  formData.append('userImage', userImage)
 
-  const response = await axios.post(`${basicApiUrl}/user/register`, formData);
+  const response = await axios.post(`${basicApiUrl}/user/register`, formData)
 
-  console.log("response 🔥", response);
+  console.log('response 🔥', response)
 
-  return response;
-};
+  return response
+}
 
 export const useProfileChange = async (userId, userObj, token) => {
   const { data } = await axios.put(`${basicApiUrl}/user/${userId}`, userObj, {
     headers: { authorization: `Bearer ${token}` },
-  });
+  })
 
-  return data;
-};
+  return data
+}
 
 export const useTokenLogin = async (token) => {
   // sample..
   const { data } = await axios.get(`${basicApiUrl}/user/token`, {
     headers: { authorization: `Bearer ${token}` },
-  });
+  })
 
-  console.log("🔥🔥", data);
+  console.log('🔥🔥', data)
 
-  return data._id;
-};
+  return data._id
+}
