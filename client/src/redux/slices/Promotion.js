@@ -4,14 +4,14 @@ const initialState = {
   array: [],
 };
 
-const marketSlice = createSlice({
-  name: "market",
+const promotionSlice = createSlice({
+  name: "promotion",
   initialState,
   reducers: {
-    setMarket(state, action) {
+    setPromotion(state, action) {
       state.array = action.payload.array;
     },
   },
 });
 
-export default marketSlice;
+export default promotionSlice;

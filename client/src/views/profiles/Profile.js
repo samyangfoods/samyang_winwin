@@ -26,29 +26,46 @@ import { imageW140 } from "../../hooks/UrlSetting";
 
 const Profile = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
-  const token = useSelector((state) => state.user.token);
+  const userName = useSelector((state) => state.user.userName);
+  const channel = useSelector((state) => state.user.channel);
+  const role = useSelector((state) => state.user.role);
+  const phoneNumber = useSelector((state) => state.user.phoneNumber);
+  const userAddress = useSelector((state) => state.user.userAddress);
+  const storeName = useSelector((state) => state.user.storeName);
+  const userImage = useSelector((state) => state.user.userImage);
   const [userInfo, setUserInfo] = useState(null);
-  const [socket, disconnect] = useSocket();
 
-  // websocket
+  // Need to check why the userImage doesn't appear directly.
   useEffect(() => {
-    const getUserInfo = async (data) => {
-      setUserInfo(data.user);
+    const setUserProfile = async () => {
+      const userObj = {
+        userId,
+        userName,
+        userImage,
+        channel,
+        role,
+        storeName,
+        phoneNumber,
+        userAddress,
+      };
+      await setUserInfo(userObj);
     };
 
-    socket.emit("profile", { userId, token });
-    socket.on("getUserProfile", getUserInfo);
-
-    return () => {
-      if (socket) {
-        socket.off("getUserProfile", getUserInfo);
-      }
-    };
-  }, [socket]);
+    setUserProfile();
+  }, [
+    setUserInfo,
+    userId,
+    userName,
+    channel,
+    role,
+    phoneNumber,
+    userAddress,
+    storeName,
+    userImage,
+  ]);
 
   // logout
   const handleLogOut = async () => {
-    disconnect();
     await SecureStore.deleteItemAsync("token");
     Alert.alert("알림", "로그아웃 되었습니다.");
     navigation.navigate("Modal");

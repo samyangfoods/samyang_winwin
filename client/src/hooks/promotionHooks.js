@@ -2,16 +2,14 @@ import axios from "axios";
 import { basicApiUrl } from "./UrlSetting";
 
 export const usePromotions = async (token) => {
-  const {
-    data: { promotions },
-  } = await axios.get(`${basicApiUrl}/promotion`, {
+  const { data } = await axios.get(`${basicApiUrl}/promotion`, {
     headers: {
       authorization: `Bearer ${token}`,
       "Access-Control-Allow-Origin": true,
     },
   });
 
-  return promotions;
+  return data.promotions;
 };
 
 export const usePromotionCreation = async (promotionObj, token) => {

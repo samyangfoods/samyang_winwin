@@ -14,7 +14,7 @@ import {
   LoginBtn,
   BtnText,
 } from "../../styles/MarketStyle";
-import { useMarketCreate } from "../../hooks/MarketHooks";
+import { useMarketCreate, useMarketListWithId } from "../../hooks/MarketHooks";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { usePhoneNumberFormat, cleanPhoneNumberFormat } from "../../hooks/Util";
@@ -63,7 +63,6 @@ const MarketInput = ({ navigation }) => {
     ref?.scrollToEnd({ animated: false });
   };
 
-  // {uri: 경로, fileName: 파일이름, type: 확장자}
   const sumbitMarketInfo = async () => {
     const marketObj = {
       marketImage,
@@ -76,10 +75,20 @@ const MarketInput = ({ navigation }) => {
       address,
     };
 
-    console.log(marketObj);
-
     try {
-      await useMarketCreate(marketObj, token);
+      const response = await useMarketCreate(marketObj, token);
+
+      if (response) {
+        const marketData = await useMarketListWithId(userId, token);
+        if (marketData) {
+          dispatch(
+            marketSlice.actions.setMarket({
+              array: [...marketData],
+            })
+          );
+        }
+      }
+
       Alert.alert("알림", "소매점 등록이 완료되었습니다.");
       navigation.goBack();
     } catch (error) {

@@ -20,7 +20,7 @@ import {
   usePhoneNumberFormat,
 } from "../../hooks/Util";
 import { useProfileChange } from "../../hooks/UserHooks";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   Top,
@@ -33,11 +33,11 @@ import {
 } from "../../styles/profiles/UserProfileChange";
 import Channel from "../../components/Channel";
 import { imageW140 } from "../../hooks/UrlSetting";
+import userSlice from "../../redux/slices/user";
 
 const UserInfo = ({ navigation, route }) => {
   const { userInfo } = route.params;
   const token = useSelector((state) => state.user.token);
-
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState(userInfo.userName);
@@ -56,6 +56,7 @@ const UserInfo = ({ navigation, route }) => {
   );
   const [address, setAddress] = useState(userInfo.userAddress);
   const [userImage, setUserImage] = useState(userInfo.userImage);
+  const dispatch = useDispatch();
 
   const addUserImage = async () => {
     const response = await useImageUri();
@@ -68,7 +69,6 @@ const UserInfo = ({ navigation, route }) => {
 
     setUserImage(obj);
   };
-
   const handleUserName = (text) => {
     setUserName(text);
   };
@@ -93,12 +93,25 @@ const UserInfo = ({ navigation, route }) => {
       userAddress: address,
       phoneNumber: useCleanUpPhoneNumberForm(phoneNumber),
       userImage,
-      role: "dealer",
     };
 
     try {
       setIsLoading(true);
-      await useProfileChange(userInfo._id, newUserInfo, token);
+      console.log("🔥 token in profileChange", token);
+      const response = await useProfileChange(newUserInfo, token);
+      if (response) {
+        dispatch(
+          userSlice.actions.setUser({
+            userName: response.user.userName,
+            userImage: response.user.userImage,
+            channel: response.user.channel,
+            storeName: response.user.storeName,
+            phoneNumber: response.user.phoneNumber,
+            userAddress: response.user.userAddress,
+          })
+        );
+      }
+
       Alert.alert("알림", "사용자 정보가 변경되었습니다.");
       navigation.goBack();
     } catch (error) {
@@ -177,8 +190,8 @@ const UserInfo = ({ navigation, route }) => {
           </Btn>
         </AddressDiv>
 
-        <LoginBtn>
-          <BtnText onPress={submitNewUserInfo}>
+        <LoginBtn onPress={submitNewUserInfo}>
+          <BtnText>
             {isLoading ? <ActivityIndicator color="white" /> : "수정하기"}
           </BtnText>
         </LoginBtn>

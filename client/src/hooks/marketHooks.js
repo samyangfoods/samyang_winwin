@@ -1,12 +1,12 @@
 import axios from "axios";
 import { basicApiUrl } from "./UrlSetting";
 
-export const useMarketListWithId = async (userId, token) => {
-  const { data } = await axios.get(`${basicApiUrl}/market/${userId}`, {
+export const useMarketListWithId = async (token) => {
+  const { data } = await axios.get(`${basicApiUrl}/market`, {
     headers: { authorization: `Bearer ${token}` },
   });
 
-  return data;
+  return data.markets;
 };
 
 export const useMarketCreate = async (marketObj, token) => {
@@ -16,21 +16,21 @@ export const useMarketCreate = async (marketObj, token) => {
     marketName,
     size,
     pos,
-    phoneNumber,
-    income,
-    address,
+    phoneNumber: phone,
+    income: averageSales,
+    address: marketAddress,
   } = marketObj;
 
   const formData = new FormData();
 
   formData.append("marketImage", marketImage);
-  formData.append("userId", userId);
   formData.append("marketName", marketName);
   formData.append("size", size);
   formData.append("pos", pos);
-  formData.append("phone", phoneNumber);
-  formData.append("averageSales", income);
-  formData.append("marketAddress", address);
+  formData.append("phone", phone);
+  formData.append("userId", userId);
+  formData.append("averageSales", averageSales);
+  formData.append("marketAddress", marketAddress);
 
   const { data } = await axios.post(`${basicApiUrl}/market`, formData, {
     headers: { authorization: `Bearer ${token}` },

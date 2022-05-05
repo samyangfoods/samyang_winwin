@@ -21,24 +21,15 @@ This page also has a search container so that users will search promotion by its
 const Main = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
-  const [socket, disconnect] = useSocket();
-  const token = useSelector((state) => state.user.token);
+  const promotionArray = useSelector((state) => state.promotion.array);
 
   useEffect(() => {
-    const loadPromotions = async (token) => {
-      const data = await usePromotions(token);
-      if (data) {
-        setPromotions(data);
-      }
-    };
+    if (promotionArray) {
+      setPromotions(promotionArray);
+    }
+  }, [promotionArray]);
 
-    loadPromotions(token);
-
-    socket.emit("main", { token });
-    socket.on("getPromotionList", loadPromotions);
-  }, [socket]);
-
-  // SecureStore.deleteItemAsync("token")
+  // SecureStore.deleteItemAsync("token");
 
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;
@@ -75,3 +66,15 @@ const Main = ({ navigation, route }) => {
 };
 
 export default Main;
+
+// const loadPromotions = async (token) => {
+//   const data = await usePromotions(token);
+//   if (data) {
+//     setPromotions(data);
+//   }
+// };
+
+// loadPromotions(token);
+
+// socket.emit("main", { token });
+// socket.on("getPromotionList", loadPromotions);

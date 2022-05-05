@@ -14,12 +14,12 @@ import { protect } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/imageUpload.js";
 
 marketRouter.route("/search").post(protect, searchMarkets);
-marketRouter.route("/").get(protect, getMarkets);
+// marketRouter.route("/").get(protect, getMarkets);
 marketRouter
   .route("/")
   .post(protect, upload.single("marketImage"), createMarket);
 
-marketRouter.route("/:userId([0-9a-f]{24})").get(protect, getMarketWithUserId);
+marketRouter.route("/").get(protect, getMarketWithUserId);
 
 marketRouter.route("/list/:marketId([0-9a-f]{24})").get(protect, getMarketById);
 marketRouter
