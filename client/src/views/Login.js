@@ -46,6 +46,7 @@ const Login = ({ navigation }) => {
           // Set user information
           const userData = await useTokenLogin(token);
           if (userData) {
+            console.log("userData ✅✅✅:", userData);
             dispatch(
               userSlice.actions.setUser({
                 userId: userData._id,
@@ -62,6 +63,7 @@ const Login = ({ navigation }) => {
 
             // Set user's market list
             const marketData = await useMarketListWithId(userData._id, token);
+            console.log("marketData✅✅✅", marketData);
             if (marketData) {
               dispatch(
                 marketSlice.actions.setMarket({

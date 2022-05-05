@@ -195,8 +195,12 @@ const deleteMarketById = expressAsyncHandler(async (req, res) => {
 // 🔥🔥🔥🔥🔥
 const getMarketWithUserId = expressAsyncHandler(async (req, res) => {
   const { userId } = req.params;
+  console.log("getMarketWithUserId Started");
+  console.log("userId: ", userId);
 
-  const markets = await Market.find({ _id: userId });
+  const markets = await Market.find({ user: userId });
+
+  console.log(markets);
 
   return res.send(markets);
 });
