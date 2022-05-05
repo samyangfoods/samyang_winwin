@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const MarketSchema = mongoose.Schema(
   {
@@ -6,7 +6,7 @@ const MarketSchema = mongoose.Schema(
       _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'user',
+        ref: "user",
       },
     },
     marketName: { type: String, required: true, unique: true },
@@ -20,8 +20,8 @@ const MarketSchema = mongoose.Schema(
   },
   // 언제 생성되고 언제 업데이트가 되었는지
   { timestamps: true }
-)
+);
 
-const Market = mongoose.model('market', MarketSchema)
+const Market = mongoose.model("market", MarketSchema);
 
-export { Market, MarketSchema }
+export { Market, MarketSchema };

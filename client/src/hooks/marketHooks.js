@@ -1,8 +1,8 @@
 import axios from "axios";
 import { basicApiUrl } from "./UrlSetting";
 
-export const useMarketListWithId = async (userId, token) => {
-  const { data } = await axios.get(`${basicApiUrl}/market/${userId}`, {
+export const useMarketListWithId = async (token) => {
+  const { data } = await axios.get(`${basicApiUrl}/market`, {
     headers: { authorization: `Bearer ${token}` },
   });
 

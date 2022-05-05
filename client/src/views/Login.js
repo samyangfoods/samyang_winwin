@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
             );
 
             // Set user's market list
-            const marketData = await useMarketListWithId(userData._id, token);
+            const marketData = await useMarketListWithId(token);
             console.log("marketData✅✅✅", marketData);
             if (marketData) {
               dispatch(

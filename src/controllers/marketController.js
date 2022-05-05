@@ -194,7 +194,8 @@ const deleteMarketById = expressAsyncHandler(async (req, res) => {
 
 // 🔥🔥🔥🔥🔥
 const getMarketWithUserId = expressAsyncHandler(async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.user;
+  console.log("req.user", req.user);
   console.log("getMarketWithUserId Started");
   console.log("userId: ", userId);
 
