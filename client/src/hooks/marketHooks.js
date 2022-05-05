@@ -6,7 +6,7 @@ export const useMarketListWithId = async (token) => {
     headers: { authorization: `Bearer ${token}` },
   });
 
-  return data.markets;
+  return data;
 };
 
 export const useMarketCreate = async (marketObj, token) => {
@@ -54,9 +54,6 @@ export const useMarketInfo = async (marketId, token) => {
   const { data } = await axios.get(`${basicApiUrl}/market/list/${marketId}`, {
     headers: { authorization: `Bearer ${token}` },
   });
-
-  console.log("Hello");
-  console.log(data.market);
 
   return data.market;
 };

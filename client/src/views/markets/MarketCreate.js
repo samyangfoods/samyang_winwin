@@ -15,9 +15,10 @@ import {
   BtnText,
 } from "../../styles/MarketStyle";
 import { useMarketCreate, useMarketListWithId } from "../../hooks/MarketHooks";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { usePhoneNumberFormat, cleanPhoneNumberFormat } from "../../hooks/Util";
+import marketSlice from "../../redux/slices/market";
 
 const MarketInput = ({ navigation }) => {
   const userId = useSelector((state) => state.user.userId);
@@ -39,6 +40,8 @@ const MarketInput = ({ navigation }) => {
   const phoneNumberRef = useRef();
   const incomeRef = useRef();
   const addressRef = useRef();
+
+  const dispatch = useDispatch();
 
   const handleName = (text) => {
     setMarketName(text);
@@ -76,10 +79,12 @@ const MarketInput = ({ navigation }) => {
     };
 
     try {
+      // Market creation process
       const response = await useMarketCreate(marketObj, token);
 
       if (response) {
-        const marketData = await useMarketListWithId(userId, token);
+        // Update Market redux if the previous process was done successfully.
+        const marketData = await useMarketListWithId(token);
         if (marketData) {
           dispatch(
             marketSlice.actions.setMarket({

@@ -8,12 +8,11 @@ import { useMarketListWithId } from "../hooks/MarketHooks";
 
 const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
   const token = useSelector((state) => state.user.token);
-  const userId = useSelector((state) => state.user.userId);
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    const loadMarketListWithUserId = async (userId, token) => {
-      const markets = await useMarketListWithId(userId, token);
+    const loadMarketListWithUserId = async (token) => {
+      const markets = await useMarketListWithId(token);
       let arr = [];
 
       markets.map((res) => {
@@ -24,9 +23,9 @@ const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
       });
 
       setCategory([...arr]);
-      console.log(markets);
     };
-    loadMarketListWithUserId(userId, token);
+
+    loadMarketListWithUserId(token);
   }, []);
 
   return (

@@ -16,13 +16,12 @@ const MarketList = ({ navigation, route }) => {
 
   //TODO: set market redux
   useEffect(() => {
-    if (marketArray) {
-      setMarkets(marketArray);
-    }
-
     const hello = async () => {
       const marketData = await useMarketListWithId(token);
-      console.log(marketData);
+
+      if (marketData) {
+        setMarkets(marketData);
+      }
     };
 
     hello();

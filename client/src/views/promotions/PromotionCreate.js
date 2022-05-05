@@ -24,10 +24,11 @@ import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { usePromotionCreation } from "../../hooks/PromotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
-import { useMarketInfo } from "../../hooks/MarketHooks";
+import { useMarketInfo, useMarketListWithId } from "../../hooks/MarketHooks";
 
 const PromotionCreate = ({ navigation }) => {
   const token = useSelector((state) => state.user.token);
+  const marketArray = useSelector((state) => state.market.array);
 
   const [ref, setRef] = useState(null);
   const [modal, setModal] = useState(false);
@@ -57,7 +58,6 @@ const PromotionCreate = ({ navigation }) => {
   const handlePromotionCost = (text) => {
     setPromotionCost(text);
   };
-
   const addItemArray = () => {
     setPromotionDetail([
       ...promotionDetail,
@@ -70,8 +70,7 @@ const PromotionCreate = ({ navigation }) => {
     ]);
     ref?.scrollToEnd({ animated: true });
   };
-
-  const submitPromotion = () => {
+  const submitPromotion = async () => {
     const promotionObj = {
       marketName,
       marketAddress: address,
@@ -85,7 +84,8 @@ const PromotionCreate = ({ navigation }) => {
     };
 
     try {
-      usePromotionCreation(promotionObj, token);
+      const response = await usePromotionCreation(promotionObj, token);
+      console.log("Promotion Creation ✅", response);
       Alert.alert("알림", "행사가 등록되었습니다.");
       navigation.goBack();
     } catch (error) {
@@ -110,7 +110,7 @@ const PromotionCreate = ({ navigation }) => {
         <HorizontalDiv>
           <VerticalDiv>
             <Text>소매점명</Text>
-            {marketName ? (
+            {marketArray ? (
               <CategoryOfMarketListWithUserId
                 marketName={marketName}
                 setMarketName={setMarketName}

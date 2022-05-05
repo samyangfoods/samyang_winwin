@@ -26,6 +26,9 @@ export const usePromotionCreation = async (promotionObj, token) => {
     promotionDetail,
   } = promotionObj;
 
+  console.log(promotionDetail);
+  console.log(JSON.stringify(promotionDetail));
+
   formData.append("marketName", marketName);
   formData.append("marketAddress", marketAddress);
   formData.append("pos", pos);
@@ -37,6 +40,8 @@ export const usePromotionCreation = async (promotionObj, token) => {
   formData.append("file2", image[1]);
   formData.append("file3", image[2]);
   formData.append("file4", image[3]);
+
+  //Need to check, should change model object to string
   formData.append("promotionDetail", JSON.stringify(promotionDetail));
 
   const { data } = await axios.post(`${basicApiUrl}/promotion`, formData, {
