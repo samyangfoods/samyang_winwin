@@ -46,7 +46,6 @@ const Login = ({ navigation }) => {
           // Set user information
           const userData = await useTokenLogin(token);
           if (userData) {
-            const marketData = await useMarketListWithId(userData._id, token);
             dispatch(
               userSlice.actions.setUser({
                 userId: userData._id,
@@ -62,6 +61,7 @@ const Login = ({ navigation }) => {
             );
 
             // Set user's market list
+            const marketData = await useMarketListWithId(userData._id, token);
             if (marketData) {
               dispatch(
                 marketSlice.actions.setMarket({
