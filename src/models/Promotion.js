@@ -19,9 +19,9 @@ const PromotionSchema = mongoose.Schema(
     promotionDetail: [
       {
         productName: { type: String },
-        price: { type: Number },
-        promotionValue: { type: Number },
-        prValue: { type: Number },
+        price: { type: String },
+        promotionValue: { type: String },
+        prValue: { type: String },
       },
     ],
 
