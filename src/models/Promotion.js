@@ -16,15 +16,16 @@ const PromotionSchema = mongoose.Schema(
     end_date: { type: String, required: true },
     promotionType: { type: String, required: true },
     promotionCost: { type: Number, default: 0 },
-    promotionDetail: [
-      {
-        productName: { type: String },
-        price: { type: Number },
-        promotionValue: { type: Number },
-        prValue: { type: Number },
-      },
-    ],
+    promotionDetail: { type: String, required: true },
 
+    // promotionDetail: [
+    //   {
+    //     productName: { type: String },
+    //     price: { type: String },
+    //     promotionValue: { type: String },
+    //     prValue: { type: String },
+    //   },
+    // ],
     // 프로모션에 유저정보 선택저장.
     user: {
       _id: {
