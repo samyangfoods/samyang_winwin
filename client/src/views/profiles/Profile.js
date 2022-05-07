@@ -20,7 +20,6 @@ import {
   Btn,
   HorizontalSeparator,
 } from "../../styles/profiles/UserProfile";
-import useSocket from "../../hooks/SocketHooks";
 import DataLoading from "../../components/DataLoading";
 import { imageW140 } from "../../hooks/UrlSetting";
 
@@ -37,7 +36,7 @@ const Profile = ({ navigation }) => {
 
   // Need to check why the userImage doesn't appear directly.
   useEffect(() => {
-    const setUserProfile = async () => {
+    const setUserProfile = () => {
       const userObj = {
         userId,
         userName,
@@ -48,7 +47,7 @@ const Profile = ({ navigation }) => {
         phoneNumber,
         userAddress,
       };
-      await setUserInfo(userObj);
+      setUserInfo(userObj);
     };
 
     setUserProfile();

@@ -7,6 +7,7 @@ import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
 import { usePromotionUpdate } from "../../hooks/PromotionHooks";
+import { imageW140 } from "../../hooks/UrlSetting";
 import {
   PromotionDetailContainer,
   RevisionContainer,
@@ -108,9 +109,9 @@ const PromotionDetail = ({ route, navigation }) => {
       {/* Image Swiper */}
       <SwiperContainer>
         <Swiper showsButtons={false}>
-          {images.map((data) => (
+          {images?.map((data) => (
             <SwiperImage key={Math.random()}>
-              <Image source={data || { uri: data }} />
+              <Image source={{ uri: imageW140 + data }} />
             </SwiperImage>
           ))}
         </Swiper>

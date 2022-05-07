@@ -21,7 +21,7 @@ import {
 import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
 import { useSelector } from "react-redux";
-import { Alert } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { usePromotionCreation } from "../../hooks/PromotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
 import { useMarketInfo, useMarketListWithId } from "../../hooks/MarketHooks";
@@ -51,6 +51,8 @@ const PromotionCreate = ({ navigation }) => {
       prValue: "",
     },
   ]);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const buttonActivated = Boolean(marketName && address && pos && image && dateStart && dateEnd && promotionCost && promotionDetail);
 
   const handlePos = (text) => {
     setPos(text);
@@ -72,7 +74,7 @@ const PromotionCreate = ({ navigation }) => {
   };
   const submitPromotion = async () => {
     const promotionObj = {
-      marketName,
+      marketName: marketName.label,
       marketAddress: address,
       pos: parseInt(pos),
       image,
@@ -83,7 +85,10 @@ const PromotionCreate = ({ navigation }) => {
       promotionDetail,
     };
 
+    if (loginLoading) return;
+
     try {
+      setLoginLoading(true);
       const response = await usePromotionCreation(promotionObj, token);
       console.log("Promotion Creation ✅", response);
       Alert.alert("알림", "행사가 등록되었습니다.");
@@ -202,9 +207,14 @@ const PromotionCreate = ({ navigation }) => {
       <BtnContainer>
         <FooterBtn
           onPress={submitPromotion}
-          style={{ backgroundColor: "#FF7D0D" }}
+          disabled={!buttonActivated}
+          style={{ backgroundColor: buttonActivated ? "#ff7d0d" : "#aaa" }}
         >
-          <Text style={{ color: "#fff" }}>등록하기</Text>
+          {loginLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={{ color: "#fff" }}>등록하기</Text>
+          )}
         </FooterBtn>
       </BtnContainer>
 

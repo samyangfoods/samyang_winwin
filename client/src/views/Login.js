@@ -21,8 +21,6 @@ import * as SecureStore from "expo-secure-store";
 import * as SplashScreen from "expo-splash-screen";
 import { usePromotions } from "../hooks/PromotionHooks";
 import promotionSlice from "../redux/slices/Promotion";
-import { useMarketListWithId } from "../hooks/MarketHooks";
-import marketSlice from "../redux/slices/market";
 
 const Login = ({ navigation }) => {
   const [userId, setUserId] = useState("");
@@ -175,7 +173,7 @@ const Login = ({ navigation }) => {
       </PasswordContainer>
       <LoginBtn
         onPress={submitUserInfo}
-        disabled={!btnActivation}
+        disabled={!btnActivation || loginLoading}
         style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
       >
         {loginLoading ? (

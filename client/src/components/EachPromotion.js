@@ -22,6 +22,7 @@ import {
   useExpirationValidation,
   usePromotionDuration,
 } from "../hooks/Util";
+import { imageW140 } from "../hooks/UrlSetting";
 
 const Promotion = ({ item, navigation }) => {
   const endDate = useDateFormat(item.end_date);
@@ -31,10 +32,8 @@ const Promotion = ({ item, navigation }) => {
 
   return (
     <RouteBtn
-      onPress={() =>
-        navigation.navigate("행사상세", {
-          promotionData: [item],
-        })
+      onPress={
+        () => navigation.navigate("행사상세", {promotionData: [item]})
       }
     >
       <MapContainer>
@@ -61,7 +60,7 @@ const Promotion = ({ item, navigation }) => {
         <PromotionBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              {/* <Image source={{ uri: item.images.img1 }} /> */}
+              <Image source={{ uri: imageW140 + item.images.img1 }} />
             </StoreInfoLeft>
 
             <StoreInfoRight>
@@ -83,13 +82,17 @@ const Promotion = ({ item, navigation }) => {
             </StoreInfoRight>
           </StoreInformation>
 
-          <ProtmotionDetail>
-            {(item?.promotionDetail).map((res) => (
+          {/* <ProtmotionDetail>
+            {
+            item.promotionDetail ? 
+            JSON.parse(item.promotionDetail).map((res) => (
               <Text style={{ marginRight: 5 }} key={Math.random()}>
                 {res.productName}
               </Text>
-            ))}
-          </ProtmotionDetail>
+            ))
+            : null
+          }
+          </ProtmotionDetail> */}
         </PromotionBottom>
       </MapContainer>
     </RouteBtn>

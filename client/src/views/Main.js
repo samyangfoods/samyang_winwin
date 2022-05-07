@@ -29,8 +29,6 @@ const Main = ({ navigation, route }) => {
     }
   }, [promotionArray]);
 
-  // SecureStore.deleteItemAsync("token");
-
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;
   };
@@ -66,15 +64,3 @@ const Main = ({ navigation, route }) => {
 };
 
 export default Main;
-
-// const loadPromotions = async (token) => {
-//   const data = await usePromotions(token);
-//   if (data) {
-//     setPromotions(data);
-//   }
-// };
-
-// loadPromotions(token);
-
-// socket.emit("main", { token });
-// socket.on("getPromotionList", loadPromotions);

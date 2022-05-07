@@ -12,6 +12,7 @@ export const usePromotions = async (token) => {
   return data.promotions;
 };
 
+// Create Promotion
 export const usePromotionCreation = async (promotionObj, token) => {
   const formData = new FormData();
   const {
@@ -26,9 +27,7 @@ export const usePromotionCreation = async (promotionObj, token) => {
     promotionDetail,
   } = promotionObj;
 
-  console.log(promotionDetail);
-  console.log(JSON.stringify(promotionDetail));
-
+  // Build formData in order to send promotion data to server.
   formData.append("marketName", marketName);
   formData.append("marketAddress", marketAddress);
   formData.append("pos", pos);
@@ -40,15 +39,12 @@ export const usePromotionCreation = async (promotionObj, token) => {
   formData.append("file2", image[1]);
   formData.append("file3", image[2]);
   formData.append("file4", image[3]);
-
-  //Need to check, should change model object to string
   formData.append("promotionDetail", JSON.stringify(promotionDetail));
 
+  // Send back result to frontend.
   const { data } = await axios.post(`${basicApiUrl}/promotion`, formData, {
     headers: { authorization: `Bearer ${token}` },
   });
-
-  console.log(data);
 
   return data;
 };
@@ -81,3 +77,5 @@ export const usePromotionUpdate = async (token, promotionObj, promotionId) => {
     return false;
   }
 };
+
+
