@@ -110,8 +110,8 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
   if (promotionCost && typeof promotionCost !== 'number')
     return res.status(400).send({ err: 'promotionCost must be Number' })
   // Promotion Detail Validation
-  if (promotionDetail && typeof promotionDetail !== 'array')
-    return res.status(400).send({ err: 'promotionDetail must be Array' })
+  if (promotionDetail && typeof promotionDetail !== 'string')
+    return res.status(400).send({ err: 'promotionDetail must be String' })
 
   let promotion = new Promotion({
     ...req.body,
