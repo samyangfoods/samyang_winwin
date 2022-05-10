@@ -12,4 +12,6 @@ export const BasicContainer = styled.View``;
 
 export const ScrollContainer = styled.ScrollView``;
 
-export const BasicTouchableOpacity = styled.TouchableOpacity;
+export const BasicTouchableOpacity = styled.TouchableOpacity``;
+
+export const KeyboardDismissView = styled.TouchableWithoutFeedback``;

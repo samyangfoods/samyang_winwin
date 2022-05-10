@@ -9,11 +9,11 @@ const Modal = () => (
   <ModalStack.Navigator screenOptions={{ headerShown: false }}>
     <ModalStack.Group>
       <ModalStack.Screen name="Login" component={Login} />
-    </ModalStack.Group>
-
-    <ModalStack.Group screenOptions={{ presentation: "modal" }}>
       <ModalStack.Screen name="Register" component={Register} />
     </ModalStack.Group>
+
+    {/* <ModalStack.Group screenOptions={{}}>
+    </ModalStack.Group> */}
   </ModalStack.Navigator>
 );
 

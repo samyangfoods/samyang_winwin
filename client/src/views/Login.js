@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../assets/logo.png";
-import { Text } from "../styles/Style";
+import { KeyboardDismissView, Text } from "../styles/Style";
 import {
   Container,
   Image,
@@ -13,13 +13,13 @@ import {
   CreateText,
   PasswordIcon,
 } from "../styles/Auth";
-import { ActivityIndicator, Alert } from "react-native";
+import { ActivityIndicator, Alert, Keyboard } from "react-native";
 import { useDispatch } from "react-redux";
 import userSlice from "../redux/slices/user";
-import { useLogin, useTokenLogin } from "../hooks/UserHooks";
+import { useLogin, useTokenLogin } from "../hooks/userHooks";
 import * as SecureStore from "expo-secure-store";
 import * as SplashScreen from "expo-splash-screen";
-import { usePromotions } from "../hooks/PromotionHooks";
+import { usePromotions } from "../hooks/promotionHooks";
 import promotionSlice from "../redux/slices/Promotion";
 
 const Login = ({ navigation }) => {
@@ -76,7 +76,8 @@ const Login = ({ navigation }) => {
       } catch (error) {
         console.log("error", error);
       } finally {
-        setTimeout(async () => await SplashScreen.hideAsync(), 350);
+        // setTimeout(async () => await SplashScreen.hideAsync(), 350);
+        await SplashScreen.hideAsync();
       }
     };
     checkUserLogin();
@@ -135,57 +136,59 @@ const Login = ({ navigation }) => {
   const handlePassword = useCallback((text) => {
     setPassword(text.trim());
   }, []);
-  const leadToSignUp = useCallback(() => {
+  const moveToSignUpPage = useCallback(() => {
     navigation.navigate("Register");
   }, [navigation]);
 
   return (
-    <Container>
-      <Image source={logo} />
-      <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
-      <Input
-        placeholder="아이디"
-        onChangeText={(text) => handleId(text)}
-        value={userId}
-        autoCapitalize="none"
-        ref={idRef}
-        onSubmitEditing={() => passwordRef.current?.focus()}
-        blurOnSubmit={false}
-        required={true}
-      />
-      <PasswordContainer>
+    <KeyboardDismissView onPress={Keyboard.dismiss}>
+      <Container>
+        <Image source={logo} />
+        <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
         <Input
-          placeholder="비밀번호"
-          secureTextEntry={showing}
-          onChangeText={(text) => handlePassword(text)}
-          value={password}
+          placeholder="아이디"
+          onChangeText={(text) => handleId(text)}
+          value={userId}
           autoCapitalize="none"
-          ref={passwordRef}
+          ref={idRef}
+          onSubmitEditing={() => passwordRef.current?.focus()}
+          blurOnSubmit={false}
           required={true}
         />
-        <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
-          {showing ? (
-            <Ionicons name="eye-outline" size={24} color="black" />
+        <PasswordContainer>
+          <Input
+            placeholder="비밀번호"
+            secureTextEntry={showing}
+            onChangeText={(text) => handlePassword(text)}
+            value={password}
+            autoCapitalize="none"
+            ref={passwordRef}
+            required={true}
+          />
+          <PasswordIcon onPress={() => setShowing((prev) => !prev)}>
+            {showing ? (
+              <Ionicons name="eye-outline" size={24} color="black" />
+            ) : (
+              <Ionicons name="eye-off-outline" size={24} color="black" />
+            )}
+          </PasswordIcon>
+        </PasswordContainer>
+        <LoginBtn
+          onPress={submitUserInfo}
+          disabled={!btnActivation || loginLoading}
+          style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
+        >
+          {loginLoading ? (
+            <ActivityIndicator color="white" />
           ) : (
-            <Ionicons name="eye-off-outline" size={24} color="black" />
+            <BtnText>로그인</BtnText>
           )}
-        </PasswordIcon>
-      </PasswordContainer>
-      <LoginBtn
-        onPress={submitUserInfo}
-        disabled={!btnActivation || loginLoading}
-        style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
-      >
-        {loginLoading ? (
-          <ActivityIndicator color="white" />
-        ) : (
-          <BtnText>로그인</BtnText>
-        )}
-      </LoginBtn>
-      <CreateBtn onPress={leadToSignUp}>
-        <CreateText>가입하기</CreateText>
-      </CreateBtn>
-    </Container>
+        </LoginBtn>
+        <CreateBtn onPress={moveToSignUpPage}>
+          <CreateText>가입하기</CreateText>
+        </CreateBtn>
+      </Container>
+    </KeyboardDismissView>
   );
 };
 

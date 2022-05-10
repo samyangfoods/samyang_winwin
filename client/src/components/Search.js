@@ -9,7 +9,7 @@ import {
   SearchTextResult,
   SearchContainer,
 } from "../styles/Component";
-import { useSearchText } from "../hooks/SearchHooks";
+import { useSearchText } from "../hooks/searchHooks";
 import { useSelector } from "react-redux";
 
 const Search = ({ route, searchText, setSearchText, navigation }) => {

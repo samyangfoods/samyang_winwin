@@ -3,7 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
-import { usePhoneNumberFormat } from "../../hooks/Util";
+import { usePhoneNumberFormat } from "../../hooks/util";
 import {
   Container,
   Top,
@@ -21,9 +21,11 @@ import {
   HorizontalSeparator,
 } from "../../styles/profiles/UserProfile";
 import DataLoading from "../../components/DataLoading";
-import { imageW140 } from "../../hooks/UrlSetting";
+import { imageW140 } from "../../hooks/urlSetting";
+import { BasicTouchableOpacity } from "../../styles/Style";
 
 const Profile = ({ navigation }) => {
+  // Redux variables
   const userId = useSelector((state) => state.user.userId);
   const userName = useSelector((state) => state.user.userName);
   const channel = useSelector((state) => state.user.channel);
@@ -32,9 +34,12 @@ const Profile = ({ navigation }) => {
   const userAddress = useSelector((state) => state.user.userAddress);
   const storeName = useSelector((state) => state.user.storeName);
   const userImage = useSelector((state) => state.user.userImage);
+
+  // Hooks variable
   const [userInfo, setUserInfo] = useState(null);
 
-  // Need to check why the userImage doesn't appear directly.
+  // This page will load redux data
+  // 🔥 Need to check why the userImage doesn't appear directly (May 2022)
   useEffect(() => {
     const setUserProfile = () => {
       const userObj = {
@@ -63,7 +68,7 @@ const Profile = ({ navigation }) => {
     userImage,
   ]);
 
-  // logout
+  // Logout
   const handleLogOut = async () => {
     await SecureStore.deleteItemAsync("token");
     Alert.alert("알림", "로그아웃 되었습니다.");
@@ -80,14 +85,13 @@ const Profile = ({ navigation }) => {
                 <Text>사용자 정보</Text>
               </Left>
               <Right>
-                <Text
-                  style={{ color: "#FA4A0C" }}
+                <BasicTouchableOpacity
                   onPress={() =>
                     navigation.navigate("사용자 정보변경", { userInfo })
                   }
                 >
-                  수정하기
-                </Text>
+                  <Text style={{ color: "#FA4A0C" }}>수정하기</Text>
+                </BasicTouchableOpacity>
               </Right>
             </TopTitle>
             <UserCard>

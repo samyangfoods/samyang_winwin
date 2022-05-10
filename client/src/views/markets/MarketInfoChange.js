@@ -17,7 +17,7 @@ import {
   FooterBtn,
   BtnContainer,
 } from "../../styles/MarketStyle";
-import { useMarketDelete } from "../../hooks/MarketHooks";
+import { useMarketDelete } from "../../hooks/marketHooks";
 import { ActivityIndicator, Alert } from "react-native";
 import { useSelector } from "react-redux";
 

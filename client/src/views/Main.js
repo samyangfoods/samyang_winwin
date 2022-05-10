@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import EachPromotion from "../components/EachPromotion";
 import { MainContainer, Top, Bottom } from "../styles/Lounge";
-import { usePromotions } from "../hooks/PromotionHooks";
 import NotFound from "../components/NotFound";
-import useSocket from "../hooks/SocketHooks";
 import DataLoading from "../components/DataLoading";
 import { useSelector } from "react-redux";
-import * as SecureStore from "expo-secure-store";
 
 // 2022 03 21
 //TODO: websocket, promotion detail & update & delete

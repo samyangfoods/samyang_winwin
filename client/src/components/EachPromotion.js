@@ -14,7 +14,6 @@ import {
   SmallText,
   TypeText,
   Image,
-  ProtmotionDetail,
 } from "../styles/Map";
 import { Title, Text } from "../styles/Style";
 import {
@@ -22,7 +21,7 @@ import {
   useExpirationValidation,
   usePromotionDuration,
 } from "../hooks/Util";
-import { imageW140 } from "../hooks/UrlSetting";
+import { imageW140 } from "../hooks/urlSetting";
 
 const Promotion = ({ item, navigation }) => {
   const endDate = useDateFormat(item.end_date);
@@ -32,9 +31,7 @@ const Promotion = ({ item, navigation }) => {
 
   return (
     <RouteBtn
-      onPress={
-        () => navigation.navigate("행사상세", {promotionData: [item]})
-      }
+      onPress={() => navigation.navigate("행사상세", { promotionData: [item] })}
     >
       <MapContainer>
         <PromotionTop>

@@ -6,8 +6,8 @@ import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
-import { usePromotionUpdate } from "../../hooks/PromotionHooks";
-import { imageW140 } from "../../hooks/UrlSetting";
+import { usePromotionUpdate } from "../../hooks/promotionHooks";
+import { imageW140 } from "../../hooks/urlSetting";
 import {
   PromotionDetailContainer,
   RevisionContainer,

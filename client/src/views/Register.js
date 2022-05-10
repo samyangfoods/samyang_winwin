@@ -19,17 +19,18 @@ import {
   Btn,
 } from "../styles/Auth";
 import defaultUser from "../assets/defaultUser.png";
-import { Alert } from "react-native";
-import { useRegister } from "../hooks/UserHooks";
+import { ActivityIndicator, Alert } from "react-native";
+import { useRegister } from "../hooks/userHooks";
 import {
   useCleanUpPhoneNumberForm,
   useImageUri,
   usePhoneNumberFormat,
-} from "../hooks/Util";
+} from "../hooks/util";
 import Channel from "../components/Channel";
 import { HorizontalDiv } from "../styles/Component";
 
 const Register = ({ navigation }) => {
+  // Hooks variables
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +47,9 @@ const Register = ({ navigation }) => {
   const [showingConfirmation, setShowingConfirmation] = useState(true);
   const [modal, setModal] = useState(false);
   const [ref, setRef] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Ref variables to move cursor from previous section to the next by tapping enter key
   const nameRef = useRef();
   const idRef = useRef();
   const passwordRef = useRef();
@@ -55,6 +58,7 @@ const Register = ({ navigation }) => {
   const storeNameRef = useRef();
   const phoneNumberRef = useRef();
 
+  // The register button will be remained disabled unless a user fills in all of information.
   const btnActivation = Boolean(
     userName &&
       userId &&
@@ -67,6 +71,7 @@ const Register = ({ navigation }) => {
       userAddress
   );
 
+  // Component functions to handle each textInput
   const handleUserName = useCallback((text) => {
     setUserName(text);
   }, []);
@@ -90,8 +95,9 @@ const Register = ({ navigation }) => {
     setPhoneNumber(number);
   };
 
-  // userName, role
+  // Submit user information and process account creation
   const submitUserInformation = async () => {
+    if (isLoading) return;
     if (password == passwordConfirmation) {
       const userObj = {
         userName,
@@ -109,20 +115,24 @@ const Register = ({ navigation }) => {
         return Alert.alert("알림", "비밀번호는 최소 8자 이상 입력해주세요.");
       }
 
-      const data = await useRegister(userObj);
+      try {
+        setIsLoading(true);
 
-      if (data) {
-        console.log("✅ Data from userRegisrer is alive.");
+        await useRegister(userObj);
+
         Alert.alert("알림", "회원가입이 완료되었습니다.");
         navigation.goBack();
-      } else {
-        Alert.alert("알림", "오류가 발생하였습니다.");
+      } catch (error) {
+        Alert.alert("알림", error);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       Alert.alert("알림", "비밀번호가 일치하지 않습니다.");
     }
   };
 
+  // Add user's profile image
   const addUserImage = async () => {
     const response = await useImageUri();
 
@@ -141,12 +151,13 @@ const Register = ({ navigation }) => {
     ref?.scrollTo({ y: 0, animated: true });
   };
 
-  // Scroll will go to the top place when address component installed.
-  // This function will lead container to end scroll.
+  // Scroll will go to the top place when address component installed
+  // This function will lead container to end scroll
   const modalIsClosed = () => {
     ref?.scrollToEnd({ animated: false });
   };
 
+  // This helps users get back to the login page
   const goBack = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
@@ -278,9 +289,13 @@ const Register = ({ navigation }) => {
           <LoginBtn
             onPress={submitUserInformation}
             style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
-            disabled={!btnActivation}
+            disabled={!btnActivation || isLoading}
           >
-            <BtnText>가입 신청하기</BtnText>
+            {isLoading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <BtnText>회원가입</BtnText>
+            )}
           </LoginBtn>
 
           <CreateBtn onPress={goBack}>

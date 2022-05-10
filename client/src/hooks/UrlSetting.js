@@ -1,7 +1,3 @@
-import { Platform } from "react-native";
-
-const PORT = 4000;
-
 // Local Setting
 export const basicApiUrl = "http://api.samyangfoods.site/api";
 // "http://3.39.151.104/api";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { basicApiUrl } from "./UrlSetting";
+import { basicApiUrl } from "./urlSetting";
 
 // Promotion Type 자동완성으로 추출된 소매점을 터치하면 상세 화면으로 이동
 // TODO: 최대 5개 로드하기

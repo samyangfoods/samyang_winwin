@@ -1,5 +1,5 @@
 import axios from "axios";
-import { basicApiUrl } from "./UrlSetting";
+import { basicApiUrl } from "./urlSetting";
 
 export const usePromotions = async (token) => {
   const { data } = await axios.get(`${basicApiUrl}/promotion`, {
@@ -77,5 +77,3 @@ export const usePromotionUpdate = async (token, promotionObj, promotionId) => {
     return false;
   }
 };
-
-

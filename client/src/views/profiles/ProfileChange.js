@@ -12,14 +12,13 @@ import {
   LoginBtn,
 } from "../../styles/Auth";
 import Address from "../../components/Address";
-import defaultUser from "../../assets/defaultUser.png";
 import { ActivityIndicator, Alert } from "react-native";
 import {
   useCleanUpPhoneNumberForm,
   useImageUri,
   usePhoneNumberFormat,
 } from "../../hooks/Util";
-import { useProfileChange } from "../../hooks/UserHooks";
+import { useProfileChange } from "../../hooks/userHooks";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
@@ -32,7 +31,7 @@ import {
   VerticalDiv,
 } from "../../styles/profiles/UserProfileChange";
 import Channel from "../../components/Channel";
-import { imageW140 } from "../../hooks/UrlSetting";
+import { imageW140 } from "../../hooks/urlSetting";
 import userSlice from "../../redux/slices/user";
 
 const UserInfo = ({ navigation, route }) => {
