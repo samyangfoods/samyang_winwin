@@ -34,7 +34,7 @@ const upload = multer({
   },
   limits: {
     // 10메가바이트 이하로 설정.
-    fileSize: 1024 * 1024 * 10,
+    fileSize: 1024 * 1024 * 20,
   },
 })
 

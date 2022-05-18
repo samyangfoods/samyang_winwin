@@ -11,7 +11,8 @@ exports.handler = async (event) => {
   try {
     console.log(event.Records)
     const Key = event.Records[0].s3.object.key
-    const KeyOnly = Key.split('/')[1]
+    const sanitizedKey = key.replace(/\+/g, ' ')
+    const KeyOnly = sanitizedKey.split('/')[1]
     console.log(`Image Resizing: ${KeyOnly}`)
     const image = await s3
       .getObject({ Bucket: 'samyang-bucket', Key })
