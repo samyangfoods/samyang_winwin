@@ -2,53 +2,37 @@ const sharp = require('sharp')
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
 
-const transformationOptions = [
-  { foldername: 'w140', width: 140 },
-  { foldername: 'w600', width: 600 },
+const Bucket = 'samyang-bucket'
+const transforms = [
+  { name: 'w140', width: 140 },
+  { name: 'w600', width: 600 },
 ]
 
-exports.handler = async (event) => {
+exports.handler = async (event, context, callback) => {
+  const key = event.Records[0].s3.object.key
+  const sanitizedKey = key.replace(/\+/g, ' ')
+  const parts = sanitizedKey.split('/')
+  const filename = parts[parts.length - 1]
+
   try {
-    console.log(event.Records)
-    const Key = event.Records[0].s3.object.key
-    const sanitizedKey = key.replace(/\+/g, ' ')
-    const KeyOnly = sanitizedKey.split('/')[1]
-    console.log(`Image Resizing: ${KeyOnly}`)
-    const image = await s3
-      .getObject({ Bucket: 'samyang-bucket', Key })
-      .promise()
+    const image = await s3.getObject({ Bucket, Key: sanitizedKey }).promise()
 
     await Promise.all(
-      transformationOptions.map(async ({ foldername, width }) => {
-        try {
-          const newKey = `${foldername}/${KeyOnly}`
-          const resizedImage = await sharp(image.Body)
-            .rotate()
-            .resize({ width, height: width, fit: 'outside' })
-            .toBuffer()
-
-          await s3
-            .putObject({
-              Bucket: 'samyang-bucket',
-              Body: resizedImage,
-              Key: newKey,
-            })
-            .promise()
-        } catch (err) {
-          throw err
-        }
+      transforms.map(async (item) => {
+        const resizedImg = await sharp(image.Body)
+          .resize({ width: item.width })
+          .toBuffer()
+        return await s3
+          .putObject({
+            Bucket,
+            Body: resizedImg,
+            Key: `${item.name}/${filename}`,
+          })
+          .promise()
       })
     )
-
-    return {
-      statusCode: 200,
-      body: event,
-    }
+    callback(null, `Success: ${filename}`)
   } catch (err) {
-    console.log(err)
-    return {
-      statusCode: 500,
-      body: event,
-    }
+    callback(`Error resizing files: ${err}`)
   }
 }
