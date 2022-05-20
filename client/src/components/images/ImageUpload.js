@@ -2,7 +2,7 @@ import React from "react";
 import { BasicContainer } from "../../styles/Style";
 import { Text } from "../../styles/Style";
 import { HorizontalDiv, ImageUploadBtn } from "../../styles/Component";
-import { useImageUri } from "../../hooks/Util";
+import { useImageUri } from "../../hooks/util";
 
 // Component to Add only One Image
 
