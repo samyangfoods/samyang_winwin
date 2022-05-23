@@ -20,7 +20,7 @@ import {
   useDateFormat,
   useExpirationValidation,
   usePromotionDuration,
-} from "../hooks/Util";
+} from "../hooks/util";
 import { imageW140 } from "../hooks/urlSetting";
 
 const Promotion = ({ item, navigation }) => {

@@ -17,7 +17,7 @@ import {
   useCleanUpPhoneNumberForm,
   useImageUri,
   usePhoneNumberFormat,
-} from "../../hooks/Util";
+} from "../../hooks/util";
 import { useProfileChange } from "../../hooks/userHooks";
 import { useDispatch, useSelector } from "react-redux";
 import {
