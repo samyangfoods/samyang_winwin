@@ -1,1 +1,0 @@
-D:\Dev\Project\samyang_winwin\lambda> npm install --arch=x64 --platform=linux sharp

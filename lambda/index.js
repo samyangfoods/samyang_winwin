@@ -2,51 +2,51 @@ const sharp = require('sharp')
 const aws = require('aws-sdk')
 const s3 = new aws.S3()
 
-const Bucket = 'samyang-bucket'
-const transforms = [
+const transformationOptions = [
   { name: 'w140', width: 140 },
   { name: 'w600', width: 600 },
 ]
 
-exports.handler = async (event, context, callback) => {
-  const key = event.Records[0].s3.object.key
-  const sanitizedKey = key.replace(/\+/g, ' ')
-  const parts = sanitizedKey.split('/')
-  const filename = parts[parts.length - 1]
-
+exports.handler = async (event) => {
   try {
-<<<<<<< HEAD
-    console.log('Event Key[0]', event.Records[0])
     const Key = event.Records[0].s3.object.key
-    console.log('Key', Key)
-    const sanitizedKey = Key.replace(/\+/g, ' ')
-    console.log('sanitizedKey', sanitizedKey)
-    const KeyOnly = sanitizedKey.split('/')[1]
-    console.log('KeyOnly', KeyOnly)
-    console.log(`Image Resizing: ${KeyOnly}`)
+    const keyOnly = Key.split('/')[1]
+    console.log('Image Resizing', `${keyOnly}`)
     const image = await s3
-      .getObject({ Bucket: 'samyang-bucket', Key: sanitizedKey })
+      .getObject({ Bucket: 'samyang-bucket', Key })
       .promise()
-=======
-    const image = await s3.getObject({ Bucket, Key: sanitizedKey }).promise()
->>>>>>> 982a3b82d81951cf18de80b6642a50cd0336ad3b
 
     await Promise.all(
-      transforms.map(async (item) => {
-        const resizedImg = await sharp(image.Body)
-          .resize({ width: item.width })
-          .toBuffer()
-        return await s3
-          .putObject({
-            Bucket,
-            Body: resizedImg,
-            Key: `${item.name}/${filename}`,
-          })
-          .promise()
+      transformationOptions.map(async ({ name, width }) => {
+        try {
+          const newKey = `${name}/${keyOnly}`
+          const resizedImage = await sharp(image.Body)
+            .rotate()
+            .resize(width)
+            .toBuffer()
+
+          await s3
+            .putObject({
+              Bucket: 'samyang-bucket',
+              Body: resizedImage,
+              Key: newKey,
+            })
+            .promise()
+        } catch (err) {
+          throw err
+        }
       })
     )
-    callback(null, `Success: ${filename}`)
+
+    return {
+      statusCode: 200,
+      body: event,
+    }
   } catch (err) {
-    callback(`Error resizing files: ${err}`)
+    console.log(err)
+    return {
+      statusCode: 500,
+      body: event,
+    }
   }
 }
