@@ -9,13 +9,16 @@ const transformationOptions = [
 
 exports.handler = async (event) => {
   try {
-    console.log(event.Records)
+    console.log('Event Key[0]', event.Records[0])
     const Key = event.Records[0].s3.object.key
-    const sanitizedKey = key.replace(/\+/g, ' ')
+    console.log('Key', Key)
+    const sanitizedKey = Key.replace(/\+/g, ' ')
+    console.log('sanitizedKey', sanitizedKey)
     const KeyOnly = sanitizedKey.split('/')[1]
+    console.log('KeyOnly', KeyOnly)
     console.log(`Image Resizing: ${KeyOnly}`)
     const image = await s3
-      .getObject({ Bucket: 'samyang-bucket', Key })
+      .getObject({ Bucket: 'samyang-bucket', Key: sanitizedKey })
       .promise()
 
     await Promise.all(
