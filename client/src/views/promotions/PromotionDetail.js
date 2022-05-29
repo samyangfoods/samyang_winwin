@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import Swiper from "react-native-swiper";
 import { useSelector } from "react-redux";
-import Calender from "../../components/Calender";
+import Calendar from "../../components/Calendar";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
@@ -167,11 +167,11 @@ const PromotionDetail = ({ route, navigation }) => {
         <Duration>
           <Start>
             <Text>시작일</Text>
-            <Calender date={dateStart} setDate={setDateStart} />
+            <Calendar date={dateStart} setDate={setDateStart} />
           </Start>
           <End>
             <Text>종료일</Text>
-            <Calender date={dateEnd} setDate={setDateEnd} />
+            <Calendar date={dateEnd} setDate={setDateEnd} />
           </End>
         </Duration>
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { DateText, DateBtn, CalenderContainer } from "../styles/Component";
+import { DateText, DateBtn, CalendarContainer } from "../styles/Component";
 
-function Calender({ date, setDate }) {
+function Calendar({ date, setDate }) {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
@@ -14,6 +14,7 @@ function Calender({ date, setDate }) {
     setShow(true);
     setMode("date");
   };
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(new Date(currentDate));
@@ -21,7 +22,7 @@ function Calender({ date, setDate }) {
   };
 
   return (
-    <CalenderContainer>
+    <CalendarContainer>
       <DateBtn onPress={showDatepicker}>
         <DateText>{`${year}년 ${month}월 ${date_}일`}</DateText>
       </DateBtn>
@@ -35,8 +36,8 @@ function Calender({ date, setDate }) {
           onChange={onChange}
         />
       )}
-    </CalenderContainer>
+    </CalendarContainer>
   );
 }
 
-export default Calender;
+export default Calendar;

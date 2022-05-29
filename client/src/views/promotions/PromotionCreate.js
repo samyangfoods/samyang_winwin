@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Calender from "../../components/Calender";
+import Calendar from "../../components/Calendar";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
 import { Text } from "../../styles/Style";
 import {
   ProtmotionCreateContainer,
-  Bottom,
+  Body,
   VerticalDiv,
   HorizontalDiv,
   ImageContainer,
@@ -27,7 +27,6 @@ import {
 } from "../../hooks/promotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
 import { useMarketInfo } from "../../hooks/marketHooks";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import promotionSlice from "../../redux/slices/Promotion";
 
 const PromotionCreate = ({ navigation }) => {
@@ -37,13 +36,13 @@ const PromotionCreate = ({ navigation }) => {
 
   // Hooks variables
   const [modal, setModal] = useState(false);
-  const [marketName, setMarketName] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [pos, setPos] = useState(null);
+  const [marketName, setMarketName] = useState("");
+  const [address, setAddress] = useState("");
+  const [pos, setPos] = useState("");
   const [image, setImage] = useState([]);
   const [dateStart, setDateStart] = useState(new Date());
   const [dateEnd, setDateEnd] = useState(new Date());
-  const [promotionCost, setPromotionCost] = useState(null);
+  const [promotionCost, setPromotionCost] = useState("");
   const [promotionType, setPromotionType] = useState({
     label: "전단행사",
     value: 1,
@@ -155,123 +154,120 @@ const PromotionCreate = ({ navigation }) => {
       setPos(pos);
       setAddress(marketAddress);
     };
+
     if (marketName) setMarketInfo(marketName.value, token);
   }, [marketName]);
 
   return (
     <ProtmotionCreateContainer>
-      <KeyboardAwareScrollView>
-        <Bottom>
-          <HorizontalDiv>
-            <VerticalDiv>
-              <Text>소매점명</Text>
-              {marketArray ? (
-                <CategoryOfMarketListWithUserId
-                  marketName={marketName}
-                  setMarketName={setMarketName}
-                />
-              ) : (
-                <Text>소매점 없음</Text>
-              )}
-            </VerticalDiv>
-            <VerticalDiv>
-              <Text>POS 수량</Text>
-              <ShortInput
-                placeholder="POS 수량"
-                keyboardType="numeric"
-                value={pos}
-                onChangeText={(text) => handlePos(text)}
+      <Body>
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>소매점명</Text>
+            {marketArray ? (
+              <CategoryOfMarketListWithUserId
+                marketName={marketName}
+                setMarketName={setMarketName}
               />
-            </VerticalDiv>
-          </HorizontalDiv>
-
-          {/* Address */}
-          <Text>주소</Text>
-          <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
-            <Text>{address ? address : "주소 입력"}</Text>
-          </Btn>
-
-          {/* POS Quantity & Promotion Cost */}
-          <HorizontalDiv>
-            <VerticalDiv>
-              <Text>행사종류</Text>
-              <Category
-                pickedData={promotionType}
-                setPickedData={setPromotionType}
-              />
-            </VerticalDiv>
-            <VerticalDiv>
-              <Text>지원금액</Text>
-              <ShortInput
-                placeholder="지원금액"
-                keyboardType="numeric"
-                value={promotionCost}
-                onChangeText={(text) => handlePromotionCost(text)}
-              />
-            </VerticalDiv>
-          </HorizontalDiv>
-
-          {/* Images */}
-          <ImageContainer>
-            <Text>이미지 등록</Text>
-            <ImageAccess image={image} setImage={setImage} />
-          </ImageContainer>
-
-          {/* Duration */}
-          <HorizontalDiv>
-            <VerticalDiv>
-              <Text>시작일</Text>
-              <Calender date={dateStart} setDate={setDateStart} />
-            </VerticalDiv>
-            <VerticalDiv>
-              <Text>종료일</Text>
-              <Calender date={dateEnd} setDate={setDateEnd} />
-            </VerticalDiv>
-          </HorizontalDiv>
-
-          {/* Promotion Items Details */}
-          <Text>행사 내역</Text>
-          <ItemCategory>
-            <TextBox>
-              <Text>제품명</Text>
-            </TextBox>
-            <TextBox>
-              <Text>가격</Text>
-            </TextBox>
-            <TextBox>
-              <Text>수량</Text>
-            </TextBox>
-            <TextBox>
-              <Text>PR수량</Text>
-            </TextBox>
-          </ItemCategory>
-
-          <HorizontalSeparator />
-
-          <ItemArray
-            item={promotionDetail}
-            setItem={setPromotionDetail}
-            addItemArray={addItemArray}
-          />
-        </Bottom>
-
-        <BtnContainer>
-          <FooterBtn
-            onPress={submitPromotion}
-            disabled={!buttonActivated}
-            style={{ backgroundColor: buttonActivated ? "#ff7d0d" : "#aaa" }}
-          >
-            {loginLoading ? (
-              <ActivityIndicator color="white" />
             ) : (
-              <Text style={{ color: "#fff" }}>등록하기</Text>
+              <Text>소매점 없음</Text>
             )}
-          </FooterBtn>
-        </BtnContainer>
+          </VerticalDiv>
+          <VerticalDiv>
+            <Text>POS 수량</Text>
+            <ShortInput
+              placeholder="POS 수량"
+              keyboardType="numeric"
+              value={pos}
+              onChangeText={(text) => handlePos(text)}
+            />
+          </VerticalDiv>
+        </HorizontalDiv>
 
-        {/* Address Modal Component */}
-        {modal && <Address setAddress={setAddress} setModal={setModal} />}
-      </KeyboardAwareScrollView>
+        {/* Address */}
+        <Text>주소</Text>
+        <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
+          <Text>{address ? address : "주소 입력"}</Text>
+        </Btn>
+
+        {/* POS Quantity & Promotion Cost */}
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>행사종류</Text>
+            <Category
+              pickedData={promotionType}
+              setPickedData={setPromotionType}
+            />
+          </VerticalDiv>
+          <VerticalDiv>
+            <Text>지원금액</Text>
+            <ShortInput
+              placeholder="지원금액"
+              keyboardType="numeric"
+              value={promotionCost}
+              onChangeText={(text) => handlePromotionCost(text)}
+            />
+          </VerticalDiv>
+        </HorizontalDiv>
+
+        {/* Duration */}
+        <HorizontalDiv>
+          <VerticalDiv>
+            <Text>시작일</Text>
+            <Calendar date={dateStart} setDate={setDateStart} />
+          </VerticalDiv>
+          <VerticalDiv>
+            <Text>종료일</Text>
+            <Calendar date={dateEnd} setDate={setDateEnd} />
+          </VerticalDiv>
+        </HorizontalDiv>
+
+        {/* Images */}
+        <Text>이미지 등록</Text>
+        <ImageAccess image={image} setImage={setImage} />
+
+        {/* Promotion Items Details */}
+        <Text>행사 내역</Text>
+        <ItemCategory>
+          <TextBox>
+            <Text>제품명</Text>
+          </TextBox>
+          <TextBox>
+            <Text>가격</Text>
+          </TextBox>
+          <TextBox>
+            <Text>수량</Text>
+          </TextBox>
+          <TextBox>
+            <Text>PR수량</Text>
+          </TextBox>
+        </ItemCategory>
+      </Body>
+
+      <HorizontalSeparator />
+
+      <ItemArray
+        item={promotionDetail}
+        setItem={setPromotionDetail}
+        addItemArray={addItemArray}
+      />
+
+      <BtnContainer>
+        <FooterBtn
+          onPress={submitPromotion}
+          disabled={!buttonActivated}
+          style={{ backgroundColor: buttonActivated ? "#ff7d0d" : "#aaa" }}
+        >
+          {loginLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={{ color: "#fff" }}>등록하기</Text>
+          )}
+        </FooterBtn>
+      </BtnContainer>
+
+      {/* Address Modal Component */}
+      {modal && <Address setAddress={setAddress} setModal={setModal} />}
     </ProtmotionCreateContainer>
   );
 };

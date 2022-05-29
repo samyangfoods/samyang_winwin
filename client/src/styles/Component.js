@@ -18,11 +18,11 @@ export const HorizontalDiv = styled.View`
 `;
 
 // Calender
-export const CalenderContainer = styled(BasicContainer)`
+export const CalendarContainer = styled(BasicContainer)`
   width: 100%;
 `;
 export const DateText = styled(Text)`
-  color: #aaa;
+  color: #000;
 `;
 export const DateBtn = styled(Btn)`
   align-items: center;
@@ -79,8 +79,9 @@ export const SearchTextResult = styled.View`
 export const ItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 2%;
+  margin: 2% 2% 0 2%;
 `;
+
 export const ItemInput = styled.TextInput`
   text-align: center;
   border: 1px solid #eee;
