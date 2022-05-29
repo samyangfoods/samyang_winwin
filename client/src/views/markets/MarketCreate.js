@@ -16,7 +16,7 @@ import {
 } from "../../styles/MarketStyle";
 import { useMarketCreate, useMarketListWithId } from "../../hooks/marketHooks";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { usePhoneNumberFormat } from "../../hooks/util";
 import marketSlice from "../../redux/slices/market";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -222,8 +222,9 @@ const MarketInput = ({ navigation }) => {
 
           <LoginBtn
             onPress={sumbitMarketInfo}
-            style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
-            disabled={!btnActivation || isLoading}
+            style={{ backgroundColor: "#ff7d0d" }}
+            // style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
+            // disabled={!btnActivation || isLoading}
           >
             {isLoading ? (
               <ActivityIndicator color="white" />

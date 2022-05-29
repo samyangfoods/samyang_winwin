@@ -11,7 +11,6 @@ import {
   HorizontalDiv,
   ImageContainer,
   ShortInput,
-  Detail,
   BtnContainer,
   FooterBtn,
   ItemCategory,
@@ -147,11 +146,13 @@ const PromotionCreate = ({ navigation }) => {
               />
             </VerticalDiv>
           </HorizontalDiv>
+
           {/* Address */}
           <Text>주소</Text>
           <Btn style={{ width: "100%" }} onPress={() => setModal(true)}>
             <Text>{address ? address : "주소 입력"}</Text>
           </Btn>
+
           {/* POS Quantity & Promotion Cost */}
           <HorizontalDiv>
             <VerticalDiv>
@@ -171,11 +172,13 @@ const PromotionCreate = ({ navigation }) => {
               />
             </VerticalDiv>
           </HorizontalDiv>
+
           {/* Images */}
           <ImageContainer>
             <Text>이미지 등록</Text>
             <ImageAccess image={image} setImage={setImage} />
           </ImageContainer>
+
           {/* Duration */}
           <HorizontalDiv>
             <VerticalDiv>
@@ -187,6 +190,8 @@ const PromotionCreate = ({ navigation }) => {
               <Calender date={dateEnd} setDate={setDateEnd} />
             </VerticalDiv>
           </HorizontalDiv>
+
+          {/* Promotion Items Details */}
           <Text>행사 내역</Text>
           <ItemCategory>
             <TextBox>
@@ -202,7 +207,9 @@ const PromotionCreate = ({ navigation }) => {
               <Text>PR수량</Text>
             </TextBox>
           </ItemCategory>
+
           <HorizontalSeparator />
+
           <ItemArray
             item={promotionDetail}
             setItem={setPromotionDetail}

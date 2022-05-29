@@ -57,3 +57,8 @@ export const useMarketInfo = async (marketId, token) => {
 
   return data.market;
 };
+
+// NTC
+export const useMarketUpdate = async (marketId, token) => {
+  console.log(marketId, token);
+};
