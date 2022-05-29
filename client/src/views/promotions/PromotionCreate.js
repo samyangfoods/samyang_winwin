@@ -21,10 +21,14 @@ import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
 import { useSelector } from "react-redux";
 import { ActivityIndicator, Alert } from "react-native";
-import { usePromotionCreation } from "../../hooks/promotionHooks";
+import {
+  usePromotionCreation,
+  usePromotions,
+} from "../../hooks/promotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
 import { useMarketInfo } from "../../hooks/marketHooks";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import promotionSlice from "../../redux/slices/Promotion";
 
 const PromotionCreate = ({ navigation }) => {
   // Redux variables
@@ -55,6 +59,7 @@ const PromotionCreate = ({ navigation }) => {
   const [loginLoading, setLoginLoading] = useState(false);
 
   // Button activation
+  // Create button is remained disabled unless a user completes info input process
   const buttonActivated = Boolean(
     marketName &&
       address &&
@@ -84,7 +89,11 @@ const PromotionCreate = ({ navigation }) => {
       },
     ]);
   };
+
+  // Promotion creation process
   const submitPromotion = async () => {
+    if (loginLoading) return;
+
     const promotionObj = {
       marketName: marketName.label,
       marketAddress: address,
@@ -97,13 +106,42 @@ const PromotionCreate = ({ navigation }) => {
       promotionDetail,
     };
 
-    if (loginLoading) return;
-
     try {
       setLoginLoading(true);
+
       const response = await usePromotionCreation(promotionObj, token);
-      console.log("Promotion Creation ✅", response);
+
+      if (response) {
+        const promotionData = await usePromotions(token);
+        if (promotionData) {
+          dispatch(
+            promotionSlice.actions.setPromotion({
+              array: [...promotionData],
+            })
+          );
+        }
+      }
+
       Alert.alert("알림", "행사가 등록되었습니다.");
+
+      // Reset input parts
+      setMarketName(null);
+      setAddress(null);
+      setPos(null);
+      setImage([]);
+      setDateStart(new Date());
+      setDateEnd(new Date());
+      setPromotionCost(null);
+      setPromotionType({ label: "전단행사", value: 1 });
+      setPromotionDetail([
+        {
+          productName: "",
+          price: "",
+          promotionValue: "",
+          prValue: "",
+        },
+      ]);
+
       navigation.goBack();
     } catch (error) {
       Alert.alert("알림", error);

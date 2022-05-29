@@ -6,8 +6,13 @@ import Calender from "../../components/Calender";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
-import { usePromotionUpdate } from "../../hooks/promotionHooks";
-import { imageW140 } from "../../hooks/urlSetting";
+import {
+  usePromotionDelete,
+  usePromotions,
+  usePromotionUpdate,
+} from "../../hooks/promotionHooks";
+import { imageW140, imageW600 } from "../../hooks/urlSetting";
+import promotionSlice from "../../redux/slices/Promotion";
 import {
   PromotionDetailContainer,
   RevisionContainer,
@@ -43,7 +48,12 @@ const PromotionDetail = ({ route, navigation }) => {
   );
   const [dateStart, setDateStart] = useState(new Date(data.start_date));
   const [dateEnd, setDateEnd] = useState(new Date(data.end_date));
-  const [images, setImages] = useState([data.images]);
+  const [images, setImages] = useState([
+    data.images?.img1,
+    data.images?.img2,
+    data.images?.img3,
+    data.images?.img4,
+  ]);
   const [marketName, setMarketName] = useState(data.marketName);
 
   const [ref, setRef] = useState(null);
@@ -83,21 +93,37 @@ const PromotionDetail = ({ route, navigation }) => {
       Alert.alert("알림", error);
     }
   };
+  const submitPromotionRemoval = async () => {
+    try {
+      const response = usePromotionDelete(token, data._id);
 
-  // Remove Promotion
-  const removeProtmotion = async () => {
-    // Push promotion ID to DB, and DB will delete data through the given ID.
-    // Confirmation Process would be good.
-    // console.log(data.id);
+      if (response) {
+        const promotionData = await usePromotions(token);
+
+        if (promotionData) {
+          dispatch(
+            promotionSlice.actions.setPromotion({
+              array: [...promotionData],
+            })
+          );
+        }
+
+        Alert.alert("알림", "행사가 삭제되었습니다.");
+        navigation.goBack();
+      }
+    } catch (error) {
+      Alert.alert("알림", error);
+    }
+  };
+
+  // Handling market name
+  const handleMarketName = (text) => {
+    setMarketName(text);
   };
 
   useEffect(() => {
     ref?.scrollTo({ y: -100, animated: false });
   }, []);
-
-  const handleMarketName = (text) => {
-    setMarketName(text);
-  };
 
   return (
     <PromotionDetailContainer
@@ -107,11 +133,16 @@ const PromotionDetail = ({ route, navigation }) => {
       }}
     >
       {/* Image Swiper */}
+
       <SwiperContainer>
         <Swiper showsButtons={false}>
-          {images?.map((data) => (
+          {images.map((data) => (
             <SwiperImage key={Math.random()}>
-              <Image source={{ uri: imageW140 + data }} />
+              <Image
+                source={
+                  data?.uri ? { uri: data.uri } : { uri: imageW600 + data }
+                }
+              />
             </SwiperImage>
           ))}
         </Swiper>
@@ -179,7 +210,7 @@ const PromotionDetail = ({ route, navigation }) => {
           <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
         </PromotionDetailFooterBtn>
         <PromotionDetailFooterBtn
-          onPress={() => navigation.goBack()}
+          onPress={submitPromotionRemoval}
           style={{ backgroundColor: "#B4B4B4" }}
         >
           <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>
