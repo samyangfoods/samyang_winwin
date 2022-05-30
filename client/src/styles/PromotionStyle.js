@@ -1,6 +1,6 @@
 // PromotionCreate, PromotionDetail
 import styled from "styled-components/native";
-import { Text } from "./Style";
+import { BasicContainer, Text } from "./Style";
 
 // Universal
 export const VerticalDiv = styled.View`
@@ -42,6 +42,9 @@ export const HorizontalSeparator = styled.View`
   height: 1px;
   border: 1px solid #f2f2f2;
   margin: 2% 0 0 0;
+`;
+export const ImageButtonContainer = styled(BasicContainer)`
+  height: 70px;
 `;
 
 // PromotionCreate

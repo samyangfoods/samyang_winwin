@@ -9,7 +9,6 @@ import {
   Body,
   VerticalDiv,
   HorizontalDiv,
-  ImageContainer,
   ShortInput,
   BtnContainer,
   FooterBtn,
@@ -210,6 +209,10 @@ const PromotionCreate = ({ navigation }) => {
           </VerticalDiv>
         </HorizontalDiv>
 
+        {/* Images */}
+        <Text>이미지 등록</Text>
+        <ImageAccess image={image} setImage={setImage} />
+
         {/* Duration */}
         <HorizontalDiv>
           <VerticalDiv>
@@ -221,13 +224,12 @@ const PromotionCreate = ({ navigation }) => {
             <Calendar date={dateEnd} setDate={setDateEnd} />
           </VerticalDiv>
         </HorizontalDiv>
+      </Body>
 
-        {/* Images */}
-        <Text>이미지 등록</Text>
-        <ImageAccess image={image} setImage={setImage} />
-
+      <Body>
         {/* Promotion Items Details */}
         <Text>행사 내역</Text>
+
         <ItemCategory>
           <TextBox>
             <Text>제품명</Text>
@@ -242,15 +244,14 @@ const PromotionCreate = ({ navigation }) => {
             <Text>PR수량</Text>
           </TextBox>
         </ItemCategory>
+
+        <HorizontalSeparator />
+        <ItemArray
+          item={promotionDetail}
+          setItem={setPromotionDetail}
+          addItemArray={addItemArray}
+        />
       </Body>
-
-      <HorizontalSeparator />
-
-      <ItemArray
-        item={promotionDetail}
-        setItem={setPromotionDetail}
-        addItemArray={addItemArray}
-      />
 
       <BtnContainer>
         <FooterBtn
