@@ -23,18 +23,22 @@ import { usePromotions } from "../hooks/promotionHooks";
 import promotionSlice from "../redux/slices/Promotion";
 
 const Login = ({ navigation }) => {
+  // Redux Variables
   const dispatch = useDispatch();
-  const idRef = useRef();
-  const passwordRef = useRef();
+
+  // useState Variables
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [showing, setShowing] = useState(true);
   const [loginLoading, setLoginLoading] = useState(false);
 
+  // useRef Variables
+  const idRef = useRef();
+  const passwordRef = useRef();
+
+  // Variables
   let btnActivation = Boolean(userId && password);
 
-  // If system finds current login data with user's token, then navigation would move to the main page.
-  // TODO: 타임아웃 삭제
   useEffect(() => {
     const checkUserLogin = async () => {
       try {
@@ -126,7 +130,7 @@ const Login = ({ navigation }) => {
         }
       }
     } catch (error) {
-      Alert.alert("알림", "오류 발생");
+      Alert.alert("알림", error.message);
     } finally {
       setLoginLoading(false);
     }

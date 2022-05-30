@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import Swiper from "react-native-swiper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Calendar from "../../components/Calendar";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
@@ -35,9 +35,12 @@ import {
 import { Text } from "../../styles/Style";
 
 const PromotionDetail = ({ route, navigation }) => {
+  // Redux Variables
   const data = route.params.promotionData[0];
   const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
 
+  // State Variables
   const [item, setItem] = useState(JSON.parse(data.promotionDetail));
   const [pickedData, setPickedData] = useState(
     data.promotionType === "전단행사"
@@ -55,7 +58,6 @@ const PromotionDetail = ({ route, navigation }) => {
     data.images?.img4,
   ]);
   const [marketName, setMarketName] = useState(data.marketName);
-
   const [ref, setRef] = useState(null);
 
   // Add Textinput, Submit and Remove
@@ -90,9 +92,20 @@ const PromotionDetail = ({ route, navigation }) => {
         Alert.alert("알림", "오류 발생");
       }
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", error.message);
     }
   };
+  const startPromotionRemoveProcess = async () => {
+    try {
+      Alert.alert("알림", "삭제하시겠습니까?", [
+        { text: "네", onPress: () => submitPromotionRemoval() },
+        { text: "아니오" },
+      ]);
+    } catch (error) {
+      Alert.alert("알림", error.message);
+    }
+  };
+
   const submitPromotionRemoval = async () => {
     try {
       const response = usePromotionDelete(token, data._id);
@@ -112,7 +125,7 @@ const PromotionDetail = ({ route, navigation }) => {
         navigation.goBack();
       }
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", error.message);
     }
   };
 
@@ -210,7 +223,7 @@ const PromotionDetail = ({ route, navigation }) => {
           <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
         </PromotionDetailFooterBtn>
         <PromotionDetailFooterBtn
-          onPress={submitPromotionRemoval}
+          onPress={startPromotionRemoveProcess}
           style={{ backgroundColor: "#B4B4B4" }}
         >
           <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>

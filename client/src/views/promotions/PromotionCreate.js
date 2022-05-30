@@ -18,7 +18,7 @@ import {
 } from "../../styles/PromotionStyle";
 import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator, Alert } from "react-native";
 import {
   usePromotionCreation,
@@ -32,6 +32,7 @@ const PromotionCreate = ({ navigation }) => {
   // Redux variables
   const token = useSelector((state) => state.user.token);
   const marketArray = useSelector((state) => state.market.array);
+  const dispatch = useDispatch();
 
   // Hooks variables
   const [modal, setModal] = useState(false);
@@ -142,7 +143,7 @@ const PromotionCreate = ({ navigation }) => {
 
       navigation.goBack();
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", error.message);
     }
   };
 

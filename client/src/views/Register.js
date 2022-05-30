@@ -123,7 +123,7 @@ const Register = ({ navigation }) => {
         Alert.alert("알림", "회원가입이 완료되었습니다.");
         navigation.goBack();
       } catch (error) {
-        Alert.alert("알림", error);
+        Alert.alert("알림", error.message);
       } finally {
         setIsLoading(false);
       }
