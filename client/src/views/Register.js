@@ -183,6 +183,7 @@ const Register = ({ navigation }) => {
           />
 
           <Input
+            placeholderTextColor="#000" 
             placeholder="이름"
             value={userName}
             autoCapitalize="none"
@@ -192,6 +193,7 @@ const Register = ({ navigation }) => {
             blurOnSubmit={false}
           />
           <Input
+            placeholderTextColor="#000" 
             placeholder="아이디"
             value={userId}
             autoCapitalize="none"
@@ -202,6 +204,7 @@ const Register = ({ navigation }) => {
           />
           <PasswordContainer>
             <Input
+              placeholderTextColor="#000" 
               placeholder="비밀번호"
               secureTextEntry={showing}
               value={password}
@@ -222,6 +225,7 @@ const Register = ({ navigation }) => {
 
           <PasswordContainer>
             <Input
+              placeholderTextColor="#000" 
               placeholder="비밀번호 확인"
               secureTextEntry={showingConfirmation}
               value={passwordConfirmation}
@@ -241,6 +245,7 @@ const Register = ({ navigation }) => {
               )}
             </PasswordIcon>
           </PasswordContainer>
+
           {passwordConfirmation ? (
             password !== passwordConfirmation ? (
               <Text style={{ color: "red" }}>
@@ -250,6 +255,7 @@ const Register = ({ navigation }) => {
               <Text style={{ color: "green" }}>비밀번호가 일치합니다.</Text>
             )
           ) : null}
+
           <HorizontalDiv>
             <Input
               placeholder="점포명"
@@ -259,6 +265,7 @@ const Register = ({ navigation }) => {
               onSubmitEditing={() => channelRef.current?.focus()}
               blurOnSubmit={false}
               style={{ width: 220 }}
+              placeholderTextColor="#000" 
             />
             <Channel
               pickedData={channel}
@@ -278,6 +285,7 @@ const Register = ({ navigation }) => {
             onBlur={() => setPhoneNumber(usePhoneNumberFormat(phoneNumber))}
             onPressIn={() => cleanPhoneNumberFormat(phoneNumber)}
             style={{ marginBottom: 15 }}
+            placeholderTextColor="#000" 
           />
 
           <Btn onPress={handleModal}>
@@ -285,7 +293,6 @@ const Register = ({ navigation }) => {
           </Btn>
 
           {/* Need to add the terms of use */}
-
           <LoginBtn
             onPress={submitUserInformation}
             style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}

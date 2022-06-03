@@ -12,7 +12,9 @@ export const Btn = styled.TouchableOpacity`
   border-radius: 6px;
 `;
 export const HorizontalDiv = styled.View`
+  width: 300px;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   margin: 3% 0;
 `;

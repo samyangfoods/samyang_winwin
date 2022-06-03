@@ -10,6 +10,8 @@ export const Text = styled.Text`
 `;
 export const BasicContainer = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ScrollContainer = styled.ScrollView``;

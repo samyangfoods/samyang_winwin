@@ -156,6 +156,7 @@ const MarketInput = ({ navigation }) => {
 
           <Text>소매점명</Text>
           <TextInput
+            placeholderTextColor="#000"
             placeholder="소매점명을 입력하세요"
             value={marketName}
             onChangeText={(text) => handleName(text)}
@@ -167,6 +168,7 @@ const MarketInput = ({ navigation }) => {
             <VerticalDiv>
               <Text>평수</Text>
               <TextInput
+                placeholderTextColor="#000"
                 placeholder="평수를 입력하세요"
                 value={size}
                 onChangeText={(text) => handleSize(text)}
@@ -178,6 +180,7 @@ const MarketInput = ({ navigation }) => {
             <VerticalDiv>
               <Text>POS 수</Text>
               <TextInput
+                placeholderTextColor="#000"
                 placeholder="POS 수량을 입력하세요"
                 value={pos}
                 onChangeText={(text) => handlePos(text)}
@@ -192,6 +195,7 @@ const MarketInput = ({ navigation }) => {
             <VerticalDiv>
               <Text>전화번호</Text>
               <TextInput
+                placeholderTextColor="#000"
                 placeholder="'-' 없이 입력하세요"
                 value={phoneNumber}
                 onChangeText={(text) => handlePhoneNumber(text)}
@@ -205,6 +209,7 @@ const MarketInput = ({ navigation }) => {
             <VerticalDiv>
               <Text>월 평균 매출</Text>
               <TextInput
+                placeholderTextColor="#000"
                 placeholder="월 평균 매출을 입력하세요"
                 value={income}
                 onChangeText={(text) => handleIncome(text)}

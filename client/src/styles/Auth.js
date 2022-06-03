@@ -22,9 +22,11 @@ export const Image = styled.Image`
 `;
 export const Input = styled.TextInput`
   width: 300px;
-  border: 1px solid #eee;
+  height: 55px;
   padding: 3% 5%;
   margin: 1.5% 0;
+  border: 1px solid #eee;
+  border-radius: 6px;
 `;
 export const LoginBtn = styled.TouchableOpacity`
   display: flex;

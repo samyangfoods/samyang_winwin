@@ -152,6 +152,7 @@ const Login = ({ navigation }) => {
         <Image source={logo} />
         <Text style={{ fontSize: 30, marginBottom: 40 }}>로 그 인</Text>
         <Input
+          placeholderTextColor="#000"
           placeholder="아이디"
           onChangeText={(text) => handleId(text)}
           value={userId}
@@ -163,6 +164,7 @@ const Login = ({ navigation }) => {
         />
         <PasswordContainer>
           <Input
+            placeholderTextColor="#000" 
             placeholder="비밀번호"
             secureTextEntry={showing}
             onChangeText={(text) => handlePassword(text)}

@@ -25,7 +25,7 @@ import {
   usePromotions,
 } from "../../hooks/promotionHooks";
 import CategoryOfMarketListWithUserId from "../../components/CategoryOfMarketListWithUserId";
-import { useMarketInfo } from "../../hooks/marketHooks";
+import { useMarketInfo, useMarketListWithId } from "../../hooks/marketHooks";
 import promotionSlice from "../../redux/slices/Promotion";
 
 const PromotionCreate = ({ navigation }) => {
@@ -147,6 +147,22 @@ const PromotionCreate = ({ navigation }) => {
     }
   };
 
+  // Set Initial value at once
+  useEffect(() => {
+    const setMarketInfo = async (token) => {
+        const markets = await useMarketListWithId(token);
+        const firstMarketInfo = markets[0]._id;
+
+        const { pos, marketAddress } = await useMarketInfo(firstMarketInfo, token);
+        
+        setPos(pos);
+        setAddress(marketAddress);
+    };
+
+    setMarketInfo(token);
+  }, []);
+
+  // Change market info whenever a user select a market
   useEffect(() => {
     const setMarketInfo = async (marketId, token) => {
       const { pos, marketAddress } = await useMarketInfo(marketId, token);
