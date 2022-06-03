@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import ImageAddButton from "./ImageAddButton";
-import { BasicContainer } from "../../styles/Style";
 import { HorizontalDiv } from "../../styles/Component";
 import { Alert } from "react-native";
 import { useImageUri } from "../../hooks/util";
+import { ImageButtonContainer } from "../../styles/PromotionStyle";
 
 const ImageAccess = ({ image, setImage }) => {
   let imageObj = [];
@@ -62,7 +62,7 @@ const ImageAccess = ({ image, setImage }) => {
   }, [imageObj]);
 
   return (
-    <BasicContainer>
+    <ImageButtonContainer>
       <HorizontalDiv>
         <ImageAddButton
           index={0}
@@ -89,7 +89,7 @@ const ImageAccess = ({ image, setImage }) => {
           deleteImage={deleteImage}
         />
       </HorizontalDiv>
-    </BasicContainer>
+    </ImageButtonContainer>
   );
 };
 

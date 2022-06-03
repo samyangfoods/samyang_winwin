@@ -17,8 +17,8 @@ const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
 
       markets.map((res) => {
         arr.push({
-          label: res.marketName,
           value: res._id,
+          label: res.marketName,
         });
       });
 
@@ -26,7 +26,7 @@ const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
     };
 
     loadMarketListWithUserId(token);
-  }, []);
+  }, [marketName]);
 
   return (
     <BasicContainer>

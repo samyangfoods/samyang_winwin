@@ -77,3 +77,14 @@ export const usePromotionUpdate = async (token, promotionObj, promotionId) => {
     return false;
   }
 };
+
+export const usePromotionDelete = async (token, promotionId) => {
+  const { data } = await axios.delete(
+    `${basicApiUrl}/promotion/${promotionId}`,
+    {
+      headers: { authorization: `Bearer ${token}` },
+    }
+  );
+
+  return data;
+};

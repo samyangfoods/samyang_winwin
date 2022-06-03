@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import Swiper from "react-native-swiper";
-import { useSelector } from "react-redux";
-import Calender from "../../components/Calender";
+import { useDispatch, useSelector } from "react-redux";
+import Calendar from "../../components/Calendar";
 import Category from "../../components/Category";
 import ImageAccess from "../../components/images/ImageAccess";
 import ItemArray from "../../components/items/ItemArray";
-import { usePromotionUpdate } from "../../hooks/promotionHooks";
-import { imageW140 } from "../../hooks/urlSetting";
+import {
+  usePromotionDelete,
+  usePromotions,
+  usePromotionUpdate,
+} from "../../hooks/promotionHooks";
+import { imageW140, imageW600 } from "../../hooks/urlSetting";
+import promotionSlice from "../../redux/slices/Promotion";
 import {
   PromotionDetailContainer,
   RevisionContainer,
@@ -30,9 +35,12 @@ import {
 import { Text } from "../../styles/Style";
 
 const PromotionDetail = ({ route, navigation }) => {
+  // Redux Variables
   const data = route.params.promotionData[0];
   const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
 
+  // State Variables
   const [item, setItem] = useState(JSON.parse(data.promotionDetail));
   const [pickedData, setPickedData] = useState(
     data.promotionType === "전단행사"
@@ -43,9 +51,13 @@ const PromotionDetail = ({ route, navigation }) => {
   );
   const [dateStart, setDateStart] = useState(new Date(data.start_date));
   const [dateEnd, setDateEnd] = useState(new Date(data.end_date));
-  const [images, setImages] = useState([data.images]);
+  const [images, setImages] = useState([
+    data.images?.img1,
+    data.images?.img2,
+    data.images?.img3,
+    data.images?.img4,
+  ]);
   const [marketName, setMarketName] = useState(data.marketName);
-
   const [ref, setRef] = useState(null);
 
   // Add Textinput, Submit and Remove
@@ -80,24 +92,51 @@ const PromotionDetail = ({ route, navigation }) => {
         Alert.alert("알림", "오류 발생");
       }
     } catch (error) {
-      Alert.alert("알림", error);
+      Alert.alert("알림", error.message);
+    }
+  };
+  const startPromotionRemoveProcess = async () => {
+    try {
+      Alert.alert("알림", "삭제하시겠습니까?", [
+        { text: "네", onPress: () => submitPromotionRemoval() },
+        { text: "아니오" },
+      ]);
+    } catch (error) {
+      Alert.alert("알림", error.message);
     }
   };
 
-  // Remove Promotion
-  const removeProtmotion = async () => {
-    // Push promotion ID to DB, and DB will delete data through the given ID.
-    // Confirmation Process would be good.
-    // console.log(data.id);
+  const submitPromotionRemoval = async () => {
+    try {
+      const response = usePromotionDelete(token, data._id);
+
+      if (response) {
+        const promotionData = await usePromotions(token);
+
+        if (promotionData) {
+          dispatch(
+            promotionSlice.actions.setPromotion({
+              array: [...promotionData],
+            })
+          );
+        }
+
+        Alert.alert("알림", "행사가 삭제되었습니다.");
+        navigation.goBack();
+      }
+    } catch (error) {
+      Alert.alert("알림", error.message);
+    }
+  };
+
+  // Handling market name
+  const handleMarketName = (text) => {
+    setMarketName(text);
   };
 
   useEffect(() => {
     ref?.scrollTo({ y: -100, animated: false });
   }, []);
-
-  const handleMarketName = (text) => {
-    setMarketName(text);
-  };
 
   return (
     <PromotionDetailContainer
@@ -107,11 +146,16 @@ const PromotionDetail = ({ route, navigation }) => {
       }}
     >
       {/* Image Swiper */}
+
       <SwiperContainer>
         <Swiper showsButtons={false}>
-          {images?.map((data) => (
+          {images.map((data) => (
             <SwiperImage key={Math.random()}>
-              <Image source={{ uri: imageW140 + data }} />
+              <Image
+                source={
+                  data?.uri ? { uri: data.uri } : { uri: imageW600 + data }
+                }
+              />
             </SwiperImage>
           ))}
         </Swiper>
@@ -136,11 +180,11 @@ const PromotionDetail = ({ route, navigation }) => {
         <Duration>
           <Start>
             <Text>시작일</Text>
-            <Calender date={dateStart} setDate={setDateStart} />
+            <Calendar date={dateStart} setDate={setDateStart} />
           </Start>
           <End>
             <Text>종료일</Text>
-            <Calender date={dateEnd} setDate={setDateEnd} />
+            <Calendar date={dateEnd} setDate={setDateEnd} />
           </End>
         </Duration>
 
@@ -179,7 +223,7 @@ const PromotionDetail = ({ route, navigation }) => {
           <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
         </PromotionDetailFooterBtn>
         <PromotionDetailFooterBtn
-          onPress={() => navigation.goBack()}
+          onPress={startPromotionRemoveProcess}
           style={{ backgroundColor: "#B4B4B4" }}
         >
           <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>

@@ -8,7 +8,9 @@ export const Title = styled.Text`
 export const Text = styled.Text`
   font-size: 14px;
 `;
-export const BasicContainer = styled.View``;
+export const BasicContainer = styled.View`
+  flex: 1;
+`;
 
 export const ScrollContainer = styled.ScrollView``;
 

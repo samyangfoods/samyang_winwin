@@ -1,6 +1,6 @@
 // PromotionCreate, PromotionDetail
 import styled from "styled-components/native";
-import { Text } from "./Style";
+import { BasicContainer, Text } from "./Style";
 
 // Universal
 export const VerticalDiv = styled.View`
@@ -43,9 +43,12 @@ export const HorizontalSeparator = styled.View`
   border: 1px solid #f2f2f2;
   margin: 2% 0 0 0;
 `;
+export const ImageButtonContainer = styled(BasicContainer)`
+  height: 70px;
+`;
 
 // PromotionCreate
-export const ProtmotionCreateContainer = styled.View`
+export const ProtmotionCreateContainer = styled.ScrollView`
   flex: 1;
 `;
 export const Top = styled.View`
@@ -53,9 +56,9 @@ export const Top = styled.View`
   align-items: center;
   padding: 0.5% 0;
 `;
-export const Bottom = styled.ScrollView`
+export const Body = styled.View`
   flex: 10;
-  margin-top: 8%;
+  margin-top: 3%;
   padding: 0 5%;
 `;
 export const ImageContainer = styled(HorizontalDiv)`
@@ -68,7 +71,7 @@ export const Detail = styled.View`
   margin-top: 3%;
 `;
 export const BtnContainer = styled.View`
-  flex-direction: row;
+  flex: 1;
   align-items: center;
   justify-content: center;
   margin: 3% 0;

@@ -23,17 +23,22 @@ import { usePromotions } from "../hooks/promotionHooks";
 import promotionSlice from "../redux/slices/Promotion";
 
 const Login = ({ navigation }) => {
+  // Redux Variables
+  const dispatch = useDispatch();
+
+  // useState Variables
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [showing, setShowing] = useState(true);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  // useRef Variables
   const idRef = useRef();
   const passwordRef = useRef();
-  const btnActivation = Boolean(userId && password);
-  const dispatch = useDispatch();
 
-  // If system finds current login data with user's token, then navigation would move to the main page.
-  // TODO: 타임아웃 삭제
+  // Variables
+  let btnActivation = Boolean(userId && password);
+
   useEffect(() => {
     const checkUserLogin = async () => {
       try {
@@ -88,6 +93,7 @@ const Login = ({ navigation }) => {
   // FE will receive the token and save it to user's localstorage.
   const submitUserInfo = useCallback(async () => {
     if (loginLoading) return;
+
     if (!userId || !userId.trim())
       return Alert.alert("알림", "아이디를 입력해주세요.");
     if (!password || !password.trim())
@@ -124,7 +130,7 @@ const Login = ({ navigation }) => {
         }
       }
     } catch (error) {
-      Alert.alert("알림", "오류 발생");
+      Alert.alert("알림", error.message);
     } finally {
       setLoginLoading(false);
     }

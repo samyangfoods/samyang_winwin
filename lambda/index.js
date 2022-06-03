@@ -3,27 +3,26 @@ const aws = require('aws-sdk')
 const s3 = new aws.S3()
 
 const transformationOptions = [
-  { foldername: 'w140', width: 140 },
-  { foldername: 'w600', width: 600 },
+  { name: 'w140', width: 140 },
+  { name: 'w600', width: 600 },
 ]
 
 exports.handler = async (event) => {
   try {
-    console.log(event.Records)
     const Key = event.Records[0].s3.object.key
-    const KeyOnly = Key.split('/')[1]
-    console.log(`Image Resizing: ${KeyOnly}`)
+    const keyOnly = Key.split('/')[1]
+    console.log('Image Resizing', `${keyOnly}`)
     const image = await s3
       .getObject({ Bucket: 'samyang-bucket', Key })
       .promise()
 
     await Promise.all(
-      transformationOptions.map(async ({ foldername, width }) => {
+      transformationOptions.map(async ({ name, width }) => {
         try {
-          const newKey = `${foldername}/${KeyOnly}`
+          const newKey = `${name}/${keyOnly}`
           const resizedImage = await sharp(image.Body)
             .rotate()
-            .resize({ width, height: width, fit: 'outside' })
+            .resize(width)
             .toBuffer()
 
           await s3

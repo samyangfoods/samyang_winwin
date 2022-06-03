@@ -16,9 +16,12 @@ This page also has a search container so that users will search promotion by its
 */
 
 const Main = ({ navigation, route }) => {
+  // Redux Variables
+  const promotionArray = useSelector((state) => state.promotion.array);
+
+  // useState Variables
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
-  const promotionArray = useSelector((state) => state.promotion.array);
 
   useEffect(() => {
     if (promotionArray) {

@@ -16,7 +16,7 @@ const MarketList = ({ navigation, route }) => {
 
   //TODO: set market redux
   useEffect(() => {
-    const hello = async () => {
+    const setMarketData = async () => {
       const marketData = await useMarketListWithId(token);
 
       if (marketData) {
@@ -24,7 +24,7 @@ const MarketList = ({ navigation, route }) => {
       }
     };
 
-    hello();
+    setMarketData();
   }, [marketArray]);
 
   const renderItem = ({ item }) => {

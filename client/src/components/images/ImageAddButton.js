@@ -11,6 +11,7 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { Text } from "../../styles/Style";
+import { imageW140 } from "../../hooks/urlSetting";
 
 const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
   return (
@@ -22,7 +23,9 @@ const ImageAddButton = ({ index, image, accessAlbum, deleteImage }) => {
           }}
         >
           {image[index] ? (
-            <Thumbnail source={{ uri: image[index].uri }} />
+            <Thumbnail
+              source={{ uri: image[index].uri || imageW140 + image[index] }}
+            />
           ) : (
             <ImageAddButtonTitle>{`이미지${index + 1}`}</ImageAddButtonTitle>
           )}

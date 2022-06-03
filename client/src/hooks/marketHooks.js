@@ -57,3 +57,38 @@ export const useMarketInfo = async (marketId, token) => {
 
   return data.market;
 };
+
+// NTC
+export const useMarketUpdate = async (marketObj, marketId, token) => {
+  const {
+    marketImage,
+    userId,
+    marketName,
+    size,
+    pos,
+    phoneNumber: phone,
+    income: averageSales,
+    address: marketAddress,
+  } = marketObj;
+
+  const formData = new FormData();
+
+  formData.append("marketImage", marketImage);
+  formData.append("marketName", marketName);
+  formData.append("size", size);
+  formData.append("pos", pos);
+  formData.append("phone", phone);
+  formData.append("userId", userId);
+  formData.append("averageSales", averageSales);
+  formData.append("marketAddress", marketAddress);
+
+  const { data } = await axios.put(
+    `${basicApiUrl}/market/list/${marketId}`,
+    formData,
+    {
+      headers: { authorization: `Bearer ${token}` },
+    }
+  );
+
+  return data;
+};
