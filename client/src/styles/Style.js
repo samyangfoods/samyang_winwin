@@ -10,8 +10,12 @@ export const Text = styled.Text`
 `;
 export const BasicContainer = styled.View`
   flex: 1;
+`;
+
+export const BasicFullContainer = styled.View`
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 export const ScrollContainer = styled.ScrollView``;

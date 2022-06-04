@@ -1,7 +1,7 @@
 import React from "react";
 import { BasicContainer } from "../../styles/Style";
 import { Text } from "../../styles/Style";
-import { HorizontalDiv, ImageUploadBtn } from "../../styles/Component";
+import { HorizontalFullDiv, ImageUploadBtn } from "../../styles/Component";
 import { useImageUri } from "../../hooks/util";
 
 // Component to Add only One Image
@@ -19,11 +19,11 @@ const ImageAccess = ({ placeholder, setMarketImage }) => {
 
   return (
     <BasicContainer>
-      <HorizontalDiv>
+      <HorizontalFullDiv>
         <ImageUploadBtn onPress={accessAlbum}>
           <Text>{placeholder}</Text>
         </ImageUploadBtn>
-      </HorizontalDiv>
+      </HorizontalFullDiv>
     </BasicContainer>
   );
 };

@@ -5,9 +5,7 @@ import { MainContainer, Top, Bottom } from "../styles/Lounge";
 import NotFound from "../components/NotFound";
 import DataLoading from "../components/DataLoading";
 import { useSelector } from "react-redux";
-
-// 2022 03 21
-//TODO: websocket, promotion detail & update & delete
+import { usePromotions } from "../hooks/promotionHooks";
 
 /*
 Main page helps users to check current promotion data.
@@ -18,17 +16,26 @@ This page also has a search container so that users will search promotion by its
 const Main = ({ navigation, route }) => {
   // Redux Variables
   const promotionArray = useSelector((state) => state.promotion.array);
+  const token = useSelector((state) => state.user.token);
 
   // useState Variables
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
 
+  // Set the current user's promotion data
   useEffect(() => {
-    if (promotionArray) {
-      setPromotions(promotionArray);
-    }
+    const setPromotionData = async () => {
+      const promotionData = await usePromotions(token);
+
+      if (promotionData) {
+        setPromotions(promotionData);
+      }
+    };
+
+    setPromotionData();
   }, [promotionArray]);
 
+  // Flat list
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;
   };

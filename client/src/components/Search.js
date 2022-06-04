@@ -22,6 +22,7 @@ const Search = ({ route, searchText, setSearchText, navigation }) => {
 
     setSearchResult(result);
   };
+
   // when a user inputs texts --> auto completion
   const handleText = async (text) => {
     setSearchText(text);

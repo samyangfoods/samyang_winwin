@@ -19,6 +19,14 @@ export const HorizontalDiv = styled.View`
   margin: 3% 0;
 `;
 
+export const HorizontalFullDiv = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3% 0;
+`;
+
 // Calender
 export const CalendarContainer = styled(BasicContainer)`
   width: 100%;
@@ -36,10 +44,13 @@ export const DateBtn = styled(Btn)`
 
 // Category
 export const StyledPicker = styled(Picker)`
-  height: 36px;
+  height: 50px;
   border: 1px solid #eee;
   border-radius: 6px;
   padding: 0 2%;
+`;
+export const StyledPickerInPromotionDetail = styled(StyledPicker)`
+  height: 50px;
 `;
 
 // Search

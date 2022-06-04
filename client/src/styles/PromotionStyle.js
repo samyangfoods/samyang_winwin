@@ -19,13 +19,14 @@ export const TextInput = styled.TextInput`
   border-radius: 6px;
 `;
 export const MarketName = styled.TextInput`
-  background-color: #f8f8f8;
   color: black;
   width: 240px;
   height: 50px;
   padding: 0 2%;
   margin-right: 5%;
   text-align: center;
+  border: 1px solid #eee;
+  border-radius: 6px;
 `;
 export const ItemCategory = styled.View`
   flex-direction: row;
@@ -45,6 +46,7 @@ export const HorizontalSeparator = styled.View`
 `;
 export const ImageButtonContainer = styled(BasicContainer)`
   height: 70px;
+  align-items: center;
 `;
 
 // PromotionCreate
@@ -66,6 +68,7 @@ export const ImageContainer = styled(HorizontalDiv)`
 `;
 export const ShortInput = styled(TextInput)`
   width: 100%;
+  height: 50px;
 `;
 export const Detail = styled.View`
   margin-top: 3%;

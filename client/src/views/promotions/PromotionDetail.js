@@ -42,7 +42,7 @@ const PromotionDetail = ({ route, navigation }) => {
 
   // State Variables
   const [item, setItem] = useState(JSON.parse(data.promotionDetail));
-  const [pickedData, setPickedData] = useState(
+  const [promotionType, setPromotionType] = useState(
     data.promotionType === "전단행사"
       ? { label: "전단행사", value: 1 }
       : data.promotionType === "엔드행사"
@@ -51,12 +51,7 @@ const PromotionDetail = ({ route, navigation }) => {
   );
   const [dateStart, setDateStart] = useState(new Date(data.start_date));
   const [dateEnd, setDateEnd] = useState(new Date(data.end_date));
-  const [images, setImages] = useState([
-    data.images?.img1,
-    data.images?.img2,
-    data.images?.img3,
-    data.images?.img4,
-  ]);
+  const [images, setImages] = useState([]);
   const [marketName, setMarketName] = useState(data.marketName);
   const [ref, setRef] = useState(null);
 
@@ -81,6 +76,7 @@ const PromotionDetail = ({ route, navigation }) => {
       start_date: dateStart.toString(),
       end_date: dateEnd.toString(),
       promotionDetail: item,
+      promotionType,
     };
 
     try {
@@ -105,7 +101,6 @@ const PromotionDetail = ({ route, navigation }) => {
       Alert.alert("알림", error.message);
     }
   };
-
   const submitPromotionRemoval = async () => {
     try {
       const response = usePromotionDelete(token, data._id);
@@ -134,8 +129,22 @@ const PromotionDetail = ({ route, navigation }) => {
     setMarketName(text);
   };
 
+  // Set Default Scroll Location
   useEffect(() => {
     ref?.scrollTo({ y: -100, animated: false });
+  }, []);
+
+  // Set Image Swiper
+  useEffect(() => {
+    const imgArray = [];
+    const { img1, img2, img3, img4 } = data.images;
+
+    if (img1 !== undefined) imgArray.push(img1);
+    if (img2 !== undefined) imgArray.push(img2);
+    if (img3 !== undefined) imgArray.push(img3);
+    if (img4 !== undefined) imgArray.push(img4);
+
+    setImages(imgArray);
   }, []);
 
   return (
@@ -173,7 +182,10 @@ const PromotionDetail = ({ route, navigation }) => {
             onChangeText={(text) => handleMarketName(text)}
             value={marketName}
           />
-          <Category pickedData={pickedData} setPickedData={setPickedData} />
+          <Category
+            pickedData={promotionType}
+            setPickedData={setPromotionType}
+          />
         </PromotionCategory>
 
         {/* Duration */}

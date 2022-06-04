@@ -1,16 +1,20 @@
 {
   "expo": {
-    "plugins": [
-      "expo-community-flipper"
-    ],
+    "name": "Winwin",
+    "icon": "./src/assets/logoSquare.png",
+    "version": "1.0.0",
+    "slug": "winwin-slug",
+    "plugins": ["expo-community-flipper"],
     "android": {
-      "package": "com.ggong.winwin"
+      "package": "com.ggong.winwin",
+      "versionCode": 1
     },
     "splash": {
       "image": "./src/assets/sample.png"
     },
     "ios": {
-      "bundleIdentifier": "com.samyangfoods.winwin"
+      "bundleIdentifier": "com.samyangfoods.winwin",
+      "buildNumber": "1.0.0"
     }
   }
 }

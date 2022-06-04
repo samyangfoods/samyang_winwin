@@ -26,7 +26,7 @@ const CategoryOfMarketListWithUserId = ({ marketName, setMarketName }) => {
     };
 
     loadMarketListWithUserId(token);
-  }, [marketName]);
+  }, [useMarketListWithId]);
 
   return (
     <BasicContainer>

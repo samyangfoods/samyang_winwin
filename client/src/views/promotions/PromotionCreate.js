@@ -47,14 +47,7 @@ const PromotionCreate = ({ navigation }) => {
     label: "전단행사",
     value: 1,
   });
-  const [promotionDetail, setPromotionDetail] = useState([
-    {
-      productName: "",
-      price: "",
-      promotionValue: "",
-      prValue: "",
-    },
-  ]);
+  const [promotionDetail, setPromotionDetail] = useState([]);
   const [loginLoading, setLoginLoading] = useState(false);
 
   // Button activation
@@ -63,7 +56,7 @@ const PromotionCreate = ({ navigation }) => {
     marketName &&
       address &&
       pos &&
-      image &&
+      image[0] &&
       dateStart &&
       dateEnd &&
       promotionCost &&
@@ -94,7 +87,7 @@ const PromotionCreate = ({ navigation }) => {
     if (loginLoading) return;
 
     const promotionObj = {
-      marketName: marketName.label,
+      marketName: marketName.label || marketName,
       marketAddress: address,
       pos: parseInt(pos),
       image,
@@ -122,45 +115,42 @@ const PromotionCreate = ({ navigation }) => {
       }
 
       Alert.alert("알림", "행사가 등록되었습니다.");
-
-      // Reset input parts
-      setMarketName(null);
-      setAddress(null);
-      setPos(null);
-      setImage([]);
-      setDateStart(new Date());
-      setDateEnd(new Date());
-      setPromotionCost(null);
-      setPromotionType({ label: "전단행사", value: 1 });
-      setPromotionDetail([
-        {
-          productName: "",
-          price: "",
-          promotionValue: "",
-          prValue: "",
-        },
-      ]);
-
       navigation.goBack();
     } catch (error) {
       Alert.alert("알림", error.message);
+    } finally {
+      // Reset input parts
+      setMarketName("");
+      setAddress("");
+      setPos("");
+      setImage([]);
+      setDateStart(new Date());
+      setDateEnd(new Date());
+      setPromotionCost("");
+      setPromotionType({ label: "전단행사", value: 1 });
+      setPromotionDetail([]);
+      setLoginLoading(false);
+      setMarketInfo(token);
     }
   };
 
   // Set Initial value at once
+  const setMarketInfo = async (token) => {
+    const markets = await useMarketListWithId(token);
+    const firstMarketInfo = markets[0]._id;
+
+    const { marketName, pos, marketAddress } = await useMarketInfo(
+      firstMarketInfo,
+      token
+    );
+
+    setMarketName(marketName);
+    setPos(pos);
+    setAddress(marketAddress);
+  };
   useEffect(() => {
-    const setMarketInfo = async (token) => {
-        const markets = await useMarketListWithId(token);
-        const firstMarketInfo = markets[0]._id;
-
-        const { pos, marketAddress } = await useMarketInfo(firstMarketInfo, token);
-        
-        setPos(pos);
-        setAddress(marketAddress);
-    };
-
     setMarketInfo(token);
-  }, []);
+  }, [marketArray]);
 
   // Change market info whenever a user select a market
   useEffect(() => {
