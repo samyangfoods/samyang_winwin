@@ -30,12 +30,14 @@ const getMarkets = expressAsyncHandler(async (req, res) => {
 // @desc    Search  markets
 // @route   Get   /api/market/search?keyword=""
 // @access  Private
-const searchMarkets = expressAsyncHandler(async (req, res) => {
+const searchMarketsByUserId = expressAsyncHandler(async (req, res) => {
   const { text } = req.body
   const markets = await Market.find({
+    'user._id': req.user.id,
     marketName: { $regex: text, $options: 'i' },
   })
 
+  console.log(markets)
   return res.send(markets)
   // console.log(req.query);
   // const keyword = {
@@ -208,6 +210,6 @@ export {
   createMarket,
   updateMarketById,
   deleteMarketById,
-  searchMarkets,
+  searchMarketsByUserId,
   getMarketWithUserId,
 }

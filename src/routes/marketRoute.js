@@ -1,19 +1,18 @@
 import { Router } from 'express'
 const marketRouter = Router({ mergeParams: true })
 import {
-  getMarkets,
   getMarketById,
   createMarket,
   updateMarketById,
   deleteMarketById,
-  searchMarkets,
+  searchMarketsByUserId,
   getMarketWithUserId,
 } from '../controllers/marketController.js'
 
 import { protect } from '../middleware/authMiddleware.js'
 import { upload } from '../middleware/imageUpload.js'
 
-marketRouter.route('/search').post(protect, searchMarkets)
+marketRouter.route('/search').post(protect, searchMarketsByUserId)
 // marketRouter.route("/").get(protect, getMarkets);
 marketRouter
   .route('/')
