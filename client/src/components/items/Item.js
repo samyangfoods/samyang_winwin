@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import { ItemContainer, ItemInput } from "../../styles/Component";
+import React, { useState, useEffect } from "react";
+import {
+  ItemContainer,
+  ItemInputMiddle,
+  ItemInputShort,
+} from "../../styles/Component";
+import CategoryOfProductName from "../CategoryOfProductName";
 
-const Item = ({ data }) => {
+const Item = ({ data, category }) => {
   const [productName, setProductName] = useState(data.productName.toString());
   const [price, setPrice] = useState(data.price.toString());
   const [promotionValue, setPromotionValue] = useState(
@@ -9,9 +14,9 @@ const Item = ({ data }) => {
   );
   const [prValue, setPrValue] = useState(data.prValue.toString());
 
-  const handleName = (text) => {
-    data.productName = text;
-    setProductName(data.productName);
+  const handleName = (selectedCategory) => {
+    data.productName = selectedCategory.label;
+    setProductName(selectedCategory);
   };
   const handlePrice = (text) => {
     data.price = parseInt(text);
@@ -26,27 +31,33 @@ const Item = ({ data }) => {
     setPrValue(data.prValue);
   };
 
+  useEffect(() => {
+    console.log("🔥", data);
+  }, [data]);
+
   return (
     <ItemContainer>
-      <ItemInput
-        onChangeText={(text) => handleName(text)}
-        value={productName}
-        placeholder={"제품명"}
+      <CategoryOfProductName
+        setProductName={setProductName}
+        productName={productName}
+        dataName={data.productName}
+        handleName={handleName}
+        category={category}
       />
-      <ItemInput
+      <ItemInputMiddle
         onChangeText={(text) => handlePrice(text)}
         value={price}
         placeholder={"가격"}
       />
-      <ItemInput
+      <ItemInputShort
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionValue}
         placeholder={"수량"}
       />
-      <ItemInput
+      <ItemInputShort
         onChangeText={(text) => handlePrQuantity(text)}
         value={prValue}
-        placeholder={"PR수량"}
+        placeholder={"PR"}
       />
     </ItemContainer>
   );

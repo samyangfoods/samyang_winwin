@@ -24,6 +24,7 @@ const MarketList = ({ navigation, route }) => {
       }
     };
 
+    console.log("On:", Date.now());
     setMarketData();
   }, [marketArray]);
 

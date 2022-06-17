@@ -95,11 +95,22 @@ export const ItemContainer = styled.View`
   margin: 2% 2% 0 2%;
 `;
 
-export const ItemInput = styled.TextInput`
+export const StyledPickerInItem = styled(StyledPicker)`
+  text-align: center;
+  border: 1px solid #eee;
+  width: 100%;
+  height: 35px;
+`;
+
+export const ItemInputMiddle = styled.TextInput`
   text-align: center;
   border: 1px solid #eee;
   width: 22%;
   height: 35px;
+  margin: 0 1.5%;
+`;
+export const ItemInputShort = styled(ItemInputMiddle)`
+  width: 11%;
 `;
 
 // ItemArray

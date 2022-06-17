@@ -13,8 +13,10 @@ import {
   BtnContainer,
   FooterBtn,
   ItemCategory,
-  TextBox,
   HorizontalSeparator,
+  TextBoxLong,
+  TextBoxMiddle,
+  TextBoxShort,
 } from "../../styles/PromotionStyle";
 import Address from "../../components/Address";
 import { Btn } from "../../styles/Auth";
@@ -238,18 +240,18 @@ const PromotionCreate = ({ navigation }) => {
         <Text>행사 내역</Text>
 
         <ItemCategory>
-          <TextBox>
+          <TextBoxLong>
             <Text>제품명</Text>
-          </TextBox>
-          <TextBox>
+          </TextBoxLong>
+          <TextBoxMiddle>
             <Text>가격</Text>
-          </TextBox>
-          <TextBox>
+          </TextBoxMiddle>
+          <TextBoxShort>
             <Text>수량</Text>
-          </TextBox>
-          <TextBox>
-            <Text>PR수량</Text>
-          </TextBox>
+          </TextBoxShort>
+          <TextBoxShort>
+            <Text>PR</Text>
+          </TextBoxShort>
         </ItemCategory>
 
         <HorizontalSeparator />

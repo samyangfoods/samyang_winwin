@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Address from "../../components/Address";
 import ImageUpload from "../../components/images/ImageUpload";
 import { ScrollContainer, Text } from "../../styles/Style";
@@ -227,9 +227,9 @@ const MarketInput = ({ navigation }) => {
 
           <LoginBtn
             onPress={sumbitMarketInfo}
-            style={{ backgroundColor: "#ff7d0d" }}
-            // style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
-            // disabled={!btnActivation || isLoading}
+            // style={{ backgroundColor: "#ff7d0d" }}
+            style={{ backgroundColor: btnActivation ? "#ff7d0d" : "#aaa" }}
+            disabled={!btnActivation || isLoading}
           >
             {isLoading ? (
               <ActivityIndicator color="white" />

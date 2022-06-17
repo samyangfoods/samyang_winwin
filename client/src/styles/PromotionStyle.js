@@ -31,13 +31,21 @@ export const MarketName = styled.TextInput`
 export const ItemCategory = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  margin: 2% 0 0 0;
+  margin: 2% 1% 0 0;
 `;
-export const TextBox = styled.View`
+export const TextBoxLong = styled.View`
+  align-items: center;
+  width: 44%;
+`;
+export const TextBoxMiddle = styled.View`
   align-items: center;
   width: 22%;
 `;
+export const TextBoxShort = styled.View`
+  align-items: center;
+  width: 11%;
+`;
+
 export const HorizontalSeparator = styled.View`
   width: 100%;
   height: 1px;
@@ -75,6 +83,7 @@ export const Detail = styled.View`
 `;
 export const BtnContainer = styled.View`
   flex: 1;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 3% 0;

@@ -29,8 +29,10 @@ import {
   PromotionDetailFooterBtn,
   Detail,
   ItemCategory,
-  TextBox,
   HorizontalSeparator,
+  TextBoxLong,
+  TextBoxMiddle,
+  TextBoxShort,
 } from "../../styles/PromotionStyle";
 import { Text } from "../../styles/Style";
 
@@ -204,20 +206,22 @@ const PromotionDetail = ({ route, navigation }) => {
         <Detail>
           <Text>행사 내역</Text>
           <ItemCategory>
-            <TextBox>
+            <TextBoxLong>
               <Text>제품명</Text>
-            </TextBox>
-            <TextBox>
+            </TextBoxLong>
+            <TextBoxMiddle>
               <Text>가격</Text>
-            </TextBox>
-            <TextBox>
+            </TextBoxMiddle>
+            <TextBoxShort>
               <Text>수량</Text>
-            </TextBox>
-            <TextBox>
-              <Text>PR수량</Text>
-            </TextBox>
+            </TextBoxShort>
+            <TextBoxShort>
+              <Text>PR</Text>
+            </TextBoxShort>
           </ItemCategory>
+
           <HorizontalSeparator />
+
           <ItemArray
             item={item}
             setItem={setItem}

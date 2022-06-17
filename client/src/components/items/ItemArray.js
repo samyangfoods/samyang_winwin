@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Item from "./Item";
 import { AntDesign } from "@expo/vector-icons";
 import { BasicContainer } from "../../styles/Style";
 import { ItemPlusBtnContainer, ItemPlusBtn } from "../../styles/Component";
+import { productData } from "../../datas/ProductData";
 
-function ItemArray({ item, addItemArray }) {
+const ItemArray = ({ item, setItem, addItemArray }) => {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    const setProductNameCategory = async () => {
+      let arr = [];
+      productData.map((data) =>
+        arr.push({
+          value: data.product_id,
+          label: data.product_name,
+        })
+      );
+
+      setCategory([...arr]);
+    };
+
+    setProductNameCategory();
+  }, []);
+
   return (
     <BasicContainer>
       {item.map((data) => (
-        <Item key={Math.random()} data={data} />
+        <Item key={Math.random()} data={data} category={category} />
       ))}
 
       <ItemPlusBtnContainer>
@@ -18,6 +37,6 @@ function ItemArray({ item, addItemArray }) {
       </ItemPlusBtnContainer>
     </BasicContainer>
   );
-}
+};
 
 export default ItemArray;

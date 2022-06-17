@@ -17,6 +17,9 @@ import {
 import { Title } from "../styles/Style";
 
 const Market = ({ item, navigation }) => {
+  console.log("----------");
+  console.log(item.marketName, item.marketImage);
+
   return (
     <RouteBtn
       onPress={() =>
@@ -37,7 +40,7 @@ const Market = ({ item, navigation }) => {
         <MarketBottom>
           <StoreInformation>
             <StoreInfoLeft>
-              <Image source={{ uri: imageW140 + item.marketImage }} />
+              <Image source={{ uri: `${imageW140}${item.marketImage}` }} />
             </StoreInfoLeft>
 
             <StoreInfoRight>
