@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { productData } from "../../datas/ProductData";
 import {
   ItemContainer,
   ItemInputMiddle,
@@ -7,6 +8,7 @@ import {
 import CategoryOfProductName from "../CategoryOfProductName";
 
 const Item = ({ data, category }) => {
+  // State Variables
   const [productName, setProductName] = useState(data.productName.toString());
   const [price, setPrice] = useState(data.price.toString());
   const [promotionValue, setPromotionValue] = useState(
@@ -14,41 +16,39 @@ const Item = ({ data, category }) => {
   );
   const [prValue, setPrValue] = useState(data.prValue.toString());
 
+  // Handling Functions
   const handleName = (selectedCategory) => {
     data.productName = selectedCategory.label;
     setProductName(selectedCategory);
+
+    handlePrice(data.productName);
   };
   const handlePrice = (text) => {
-    data.price = parseInt(text);
-    setPrice(data.price);
+    productData.map((promoData) => {
+      if (promoData.product_name === text) {
+        data.price = parseInt(promoData.product_price);
+        setPrice(JSON.stringify(promoData.product_price));
+      }
+    });
   };
   const handlePromotionQuantity = (text) => {
     data.promotionValue = parseInt(text);
-    setPromotionValue(data.promotionValue);
+    setPromotionValue(JSON.stringify(data.promotionValue));
   };
   const handlePrQuantity = (text) => {
     data.prValue = parseInt(text);
-    setPrValue(data.prValue);
+    setPrValue(JSON.stringify(data.prValue));
   };
-
-  useEffect(() => {
-    console.log("🔥", data);
-  }, [data]);
 
   return (
     <ItemContainer>
       <CategoryOfProductName
-        setProductName={setProductName}
         productName={productName}
         dataName={data.productName}
         handleName={handleName}
         category={category}
       />
-      <ItemInputMiddle
-        onChangeText={(text) => handlePrice(text)}
-        value={price}
-        placeholder={"가격"}
-      />
+      <ItemInputMiddle value={price} placeholder={"가격"} />
       <ItemInputShort
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionValue}

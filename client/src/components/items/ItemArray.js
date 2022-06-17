@@ -5,7 +5,7 @@ import { BasicContainer } from "../../styles/Style";
 import { ItemPlusBtnContainer, ItemPlusBtn } from "../../styles/Component";
 import { productData } from "../../datas/ProductData";
 
-const ItemArray = ({ item, setItem, addItemArray }) => {
+const ItemArray = ({ item, addItemArray }) => {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {

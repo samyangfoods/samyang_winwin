@@ -259,7 +259,7 @@ const PromotionCreate = ({ navigation }) => {
         <ItemArray
           item={promotionDetail}
           setItem={setPromotionDetail}
-          addItemArray={addItemArray}
+          addItemArray={addItemArray}  
         />
       </Body>
 
