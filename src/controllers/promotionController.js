@@ -225,9 +225,17 @@ const deletePromotionById = expressAsyncHandler(async (req, res) => {
 
 const searchPromotions = expressAsyncHandler(async (req, res) => {
   const { text } = req.body
-  const promotions = new Promotion.find({ promotionType: text })
+  const promotions = await Promotion.find({
+    'user._id': req.user.id,
+    promotionType: { $regex: text, $options: 'i' },
+  })
 
-  return promotions
+  // const promotions = await Promotion.find({
+  //   'user._id': req.user.id,
+  //   $month: { start_date: new Date(text1) },
+  // })
+
+  return res.send(promotions)
 })
 
 export {

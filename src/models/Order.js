@@ -12,7 +12,7 @@ const OrderSchema = mongoose.Schema(
     orderDetail: { type: String, required: true },
     // orderDetail : 삼양라면 10박스 228,000 , 150박스 , 1,285,000원
     // product_id, product_category, product_sapcode, product_name, product_price
-    // totalQuantity , totalSumOfMoney
+    // sumOfQuantity , sumOfMoney
 
     user: {
       _id: {
