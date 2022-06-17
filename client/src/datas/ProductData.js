@@ -209,6 +209,7 @@ const productData = [
     product_name: '삼양라면(20입)',
     product_price: 11814.0,
   },
+  // 용기면 300번대
   {
     product_id: 301,
     product_category: 'B00',
@@ -405,6 +406,7 @@ const productData = [
     product_name: '육개장(24입)',
     product_price: 14916.0,
   },
+  // 스낵류 500번대
   {
     product_id: 501,
     product_category: 'C00',
@@ -496,6 +498,7 @@ const productData = [
     product_name: '불닭오징어(20입)',
     product_price: 64900.0,
   },
+  // 소스류 550번대
   {
     product_id: 551,
     product_category: 'K02',
@@ -546,13 +549,6 @@ const productData = [
     product_price: 86592.0,
   },
   {
-    product_id: 600,
-    product_category: 'U00',
-    product_sapcode: '502830',
-    product_name: '불닭볶음김치(24입)',
-    product_price: 52008.0,
-  },
-  {
     product_id: 601,
     product_category: 'U00',
     product_sapcode: '304664',
@@ -572,20 +568,6 @@ const productData = [
     product_sapcode: '304666',
     product_name: '까르보불닭떡볶이(16입)',
     product_price: 34672.0,
-  },
-  {
-    product_id: 650,
-    product_category: 'U01',
-    product_sapcode: '304230',
-    product_name: '불닭라볶이(10입)',
-    product_price: 40040.0,
-  },
-  {
-    product_id: 651,
-    product_category: 'U01',
-    product_sapcode: '304230',
-    product_name: '까르보불닭라볶이(10입)',
-    product_price: 40040.0,
   },
   {
     product_id: 700,

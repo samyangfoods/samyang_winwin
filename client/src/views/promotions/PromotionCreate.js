@@ -150,6 +150,7 @@ const PromotionCreate = ({ navigation }) => {
     setPos(pos);
     setAddress(marketAddress);
   };
+
   useEffect(() => {
     setMarketInfo(token);
   }, [marketArray]);
