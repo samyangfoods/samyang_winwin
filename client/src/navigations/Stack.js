@@ -1,11 +1,11 @@
 import React from 'react'
+import { Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Main from '../views/Main'
-import { FontAwesome } from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons'
-import { Ionicons } from '@expo/vector-icons'
+import { Feather, Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
 import PromotionCreate from '../views/promotions/PromotionCreate'
 import Profile from '../views/profiles/Profile'
+import ReturnDetail from '../views/returns/ReturnDetail'
 
 const Tab = createBottomTabNavigator()
 
@@ -14,7 +14,7 @@ const Stack = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#FF7D0D',
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
       }}
     >
       <Tab.Screen
@@ -42,6 +42,15 @@ const Stack = () => {
         options={{
           tabBarIcon: ({ color, size }) => {
             return <FontAwesome name='user' size={size} color={color} />
+          },
+        }}
+      />
+      <Tab.Screen
+        name='반품'
+        component={ReturnDetail}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <Entypo name='trash' size={size} color={color} />
           },
         }}
       />
