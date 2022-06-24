@@ -10,7 +10,7 @@ import ProfileChange from '../views/profiles/ProfileChange'
 import MarketCreate from '../views/markets/MarketCreate'
 import UserMarketList from '../views/profiles/UserMarketList'
 import ReturnCreate from '../views/returns/ReturnCreate'
-import ReturnDetail from '../views/returns/ReturnDetail'
+import ReturnList from '../views/returns/ReturnList'
 
 const Nav = createNativeStackNavigator()
 
@@ -60,8 +60,8 @@ const Root = () => (
       options={{ headerShown: true }}
     />
     <Nav.Screen
-      name='반품 목록'
-      component={ReturnDetail}
+      name='반품 리스트'
+      component={ReturnList}
       options={{ headerShown: true }}
     />
     <Nav.Screen
