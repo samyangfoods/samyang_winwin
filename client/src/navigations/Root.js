@@ -11,6 +11,7 @@ import MarketCreate from '../views/markets/MarketCreate'
 import UserMarketList from '../views/profiles/UserMarketList'
 import ReturnCreate from '../views/returns/ReturnCreate'
 import ReturnList from '../views/returns/ReturnList'
+import PromotionCreate from '../views/promotions/PromotionCreate'
 
 const Nav = createNativeStackNavigator()
 
@@ -18,6 +19,11 @@ const Root = () => (
   <Nav.Navigator screenOptions={{ headerShown: false }}>
     <Nav.Screen name='Modal' component={Modal} />
     <Nav.Screen name='Stack' component={Stack} />
+    <Nav.Screen
+        name='행사등록'
+        component={PromotionCreate}
+        options={{ headerShown: true }}
+      />
     <Nav.Screen
       name='행사상세'
       component={PromotionDetail}

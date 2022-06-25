@@ -80,6 +80,7 @@ export const ShortInput = styled(TextInput)`
 `;
 export const Detail = styled.View`
   margin-top: 3%;
+  height: 100%;
 `;
 export const BtnContainer = styled.View`
   flex: 1;
@@ -108,7 +109,6 @@ export const SwiperContainer = styled.View`
   height: 220px;
 `;
 export const SwiperImage = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;

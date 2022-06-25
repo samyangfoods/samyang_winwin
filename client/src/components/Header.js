@@ -23,19 +23,21 @@ export default function Header() {
         // shadowOpacity: 1.0,
       }}
     >
-      <View style={{ flexDirection: 'row', margin: 5 }}>
+
+      <View style={{flex: 1}} />
+
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <Image source={require('../assets/logo2.png')} />
       </View>
+
       <View
         style={{
+          flex: 1,
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          width: 150,
-          margin: 6,
-          marginRight: 10,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('반품 리스트')}>
+        <TouchableOpacity onPress={() => navigation.navigate('사용자 정보')}>
           <MaterialCommunityIcons
             name='account-circle'
             size={32}

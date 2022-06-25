@@ -11,9 +11,6 @@ const Modal = () => (
       <ModalStack.Screen name="Login" component={Login} />
       <ModalStack.Screen name="Register" component={Register} />
     </ModalStack.Group>
-
-    {/* <ModalStack.Group screenOptions={{}}>
-    </ModalStack.Group> */}
   </ModalStack.Navigator>
 );
 

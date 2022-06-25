@@ -11,7 +11,7 @@ import {
   usePromotions,
   usePromotionUpdate,
 } from "../../hooks/promotionHooks";
-import { imageW140, imageW600 } from "../../hooks/urlSetting";
+import { imageW600 } from "../../hooks/urlSetting";
 import promotionSlice from "../../redux/slices/Promotion";
 import {
   PromotionDetailContainer,
