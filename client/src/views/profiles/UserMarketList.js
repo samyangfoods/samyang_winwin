@@ -9,10 +9,14 @@ import { useSelector } from "react-redux";
 import { useMarketListWithId } from "../../hooks/marketHooks";
 
 const MarketList = ({ navigation, route }) => {
-  const [searchText, setSearchText] = useState(null);
-  const [markets, setMarkets] = useState(null);
+  // Redux Variables
   const token = useSelector((state) => state.user.token);
   const marketArray = useSelector((state) => state.market.array);
+  
+  // Hooks Variables
+  const [searchText, setSearchText] = useState(null);
+  const [markets, setMarkets] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   //TODO: set market redux
   useEffect(() => {
@@ -28,8 +32,20 @@ const MarketList = ({ navigation, route }) => {
     setMarketData();
   }, [marketArray]);
 
+  // Flat list
   const renderItem = ({ item }) => {
     return <EachMarket item={item} navigation={navigation} />;
+  };
+
+  // Pull to refresh
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+
+    setTimeout(() =>{
+      console.log("Main is refreshing now!!!")
+    }, 200)
+
+    setIsRefreshing(false);
   };
 
   return (
@@ -50,6 +66,8 @@ const MarketList = ({ navigation, route }) => {
               data={markets}
               keyExtractor={(item) => item._id}
               renderItem={renderItem}
+              onRefresh={onRefresh}
+              refreshing={isRefreshing}
             />
           </>
         ) : (

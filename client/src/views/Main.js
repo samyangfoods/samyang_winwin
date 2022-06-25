@@ -23,6 +23,7 @@ const Main = ({ navigation, route }) => {
   // useState Variables
   const [searchText, setSearchText] = useState(null);
   const [promotions, setPromotions] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Set the current user's promotion data
   useEffect(() => {
@@ -40,6 +41,17 @@ const Main = ({ navigation, route }) => {
   // Flat list
   const renderItem = ({ item }) => {
     return <EachPromotion item={item} navigation={navigation} />;
+  };
+
+  // Pull to refresh
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+
+    setTimeout(() =>{
+      console.log("Main is refreshing now!!!")
+    }, 200)
+
+    setIsRefreshing(false);
   };
 
   return (
@@ -62,6 +74,8 @@ const Main = ({ navigation, route }) => {
               data={promotions}
               keyExtractor={(item) => item._id}
               renderItem={renderItem}
+              onRefresh={onRefresh}
+              refreshing={isRefreshing}
             />
           </>
         ) : (
