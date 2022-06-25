@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { returnData } from '../../datas/ReturnData'
 import Header from '../../components/Header'
 import { TextInput, Button } from 'react-native-paper'
@@ -15,13 +15,14 @@ import ReturnItem from './ReturnItem'
 
 export default function ReturnList() {
   const [returnProductList, setReturnProductList] = useState(returnData)
-  const [returnArrayValue, setReturnArrayValue] = useState([])
+  const [returnArray, setReturnArray] = useState([])
 
-  const changeReturnValue = (code, returnValue) => {
-    const NewReturnArray = OrderList.map((item) =>
-      item.code === code ? { ...item, returnValue } : item
-    )
-    setReturnArrayValue(NewReturnArray)
+  const changeReturnValue = (returnArrayInput) => {
+    const NewReturnArray = []
+    NewReturnArray.unshift(returnArrayInput)
+
+    setReturnArray(NewReturnArray)
+    console.log(returnArray)
   }
 
   return (
@@ -33,18 +34,20 @@ export default function ReturnList() {
     >
       <Header />
       <ScrollView>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
           {returnProductList.map((item) => {
             return (
-              // <TextInput
-              //   key={item.no}
-              //   label={item.productName}
-              //   value={returnValue}
-              //   mode='outlined'
-              //   style={styles.inputStyle}
-              //   theme={theme}
-              // />
-              <ReturnItem item={item} onChange={changeReturnValue} />
+              <ReturnItem
+                key={item.no}
+                item={item}
+                changeReturnValue={changeReturnValue}
+              />
             )
           })}
         </View>
