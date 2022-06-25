@@ -20,24 +20,18 @@ const Item = ({ data, category }) => {
   const handleName = (selectedCategory) => {
     data.productName = selectedCategory.label;
     setProductName(selectedCategory);
-
-    handlePrice(data.productName);
   };
   const handlePrice = (text) => {
-    productData.map((promoData) => {
-      if (promoData.product_name === text) {
-        data.price = parseInt(promoData.product_price);
-        setPrice(JSON.stringify(promoData.product_price));
-      }
-    });
+      data.price = parseInt(text);
+      setPrice(JSON.stringify(data.price));
   };
   const handlePromotionQuantity = (text) => {
     data.promotionValue = parseInt(text);
     setPromotionValue(JSON.stringify(data.promotionValue));
   };
   const handlePrQuantity = (text) => {
-    data.prValue = parseInt(text);
-    setPrValue(JSON.stringify(data.prValue));
+      data.prValue = parseInt(text);
+      setPrValue(JSON.stringify(data.prValue));
   };
 
   return (
@@ -48,16 +42,23 @@ const Item = ({ data, category }) => {
         handleName={handleName}
         category={category}
       />
-      <ItemInputMiddle value={price} placeholder={"가격"} />
+      <ItemInputMiddle 
+        onChangeText={(text) => handlePrice(text)}
+        value={price} 
+        placeholder={"가격"}
+        keyboardType={"numeric"}
+        />
       <ItemInputShort
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionValue}
         placeholder={"수량"}
+        keyboardType={"numeric"}
       />
       <ItemInputShort
         onChangeText={(text) => handlePrQuantity(text)}
         value={prValue}
         placeholder={"PR"}
+        keyboardType={"numeric"}
       />
     </ItemContainer>
   );
