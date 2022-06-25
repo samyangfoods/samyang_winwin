@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import EachPromotion from "../components/EachPromotion";
-import { MainContainer, Top, Bottom } from "../styles/Lounge";
+import { MainContainer, Top, Bottom, PlusBtn } from "../styles/Lounge";
 import NotFound from "../components/NotFound";
 import DataLoading from "../components/DataLoading";
 import { useSelector } from "react-redux";
 import { usePromotions } from "../hooks/promotionHooks";
+import { AntDesign } from "@expo/vector-icons";
+import Header from "../components/Header";
 
 /*
 Main page helps users to check current promotion data.
@@ -42,6 +44,8 @@ const Main = ({ navigation, route }) => {
 
   return (
     <MainContainer>
+      {/* Body */}
+      <Header />
       {promotions ? (
         promotions.length !== 0 ? (
           <>
@@ -66,6 +70,12 @@ const Main = ({ navigation, route }) => {
       ) : (
         <DataLoading />
       )}
+
+      {/* Promotion Creation Button */}
+      <PlusBtn onPress={() => navigation.navigate("행사등록")}>
+        <AntDesign name="plus" size={24} color="white" />
+      </PlusBtn>
+
     </MainContainer>
   );
 };

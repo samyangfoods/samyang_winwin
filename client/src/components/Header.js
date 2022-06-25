@@ -21,18 +21,25 @@ export default function Header() {
         // shadowOpacity: 1.0,
       }}
     >
+<<<<<<< HEAD
       <View style={{ flexDirection: 'row', margin: 5 }}>
         <TouchableOpacity onPress={() => navigation.navigate('행사현황')}>
           <Image source={require('../assets/logo2.png')} />
         </TouchableOpacity>
+=======
+
+      <View style={{flex: 1}} />
+
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        <Image source={require('../assets/logo2.png')} />
+>>>>>>> c2714a58e6b080bd5c9ce7d12f095a089f430dec
       </View>
+
       <View
         style={{
+          flex: 1,
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          width: 150,
-          margin: 6,
-          marginRight: 10,
         }}
       >
         <TouchableOpacity onPress={() => navigation.navigate('사용자 정보')}>
