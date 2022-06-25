@@ -10,13 +10,11 @@ export default function Header() {
   return (
     <View
       style={{
-        marginTop: Constant.statusBarHeight,
         height: 45,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
         elevation: 4,
-
         // Ios elevation대신 시용
         // shadowOffset: { width: 10, height: 10 },
         // shadowColor: 'black',
@@ -24,7 +22,9 @@ export default function Header() {
       }}
     >
       <View style={{ flexDirection: 'row', margin: 5 }}>
-        <Image source={require('../assets/logo2.png')} />
+        <TouchableOpacity onPress={() => navigation.navigate('행사현황')}>
+          <Image source={require('../assets/logo2.png')} />
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -35,7 +35,7 @@ export default function Header() {
           marginRight: 10,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('반품 리스트')}>
+        <TouchableOpacity onPress={() => navigation.navigate('사용자 정보')}>
           <MaterialCommunityIcons
             name='account-circle'
             size={32}
