@@ -45,7 +45,6 @@ export const TextBoxShort = styled.View`
   align-items: center;
   width: 11%;
 `;
-
 export const HorizontalSeparator = styled.View`
   width: 100%;
   height: 1px;
@@ -80,14 +79,13 @@ export const ShortInput = styled(TextInput)`
 `;
 export const Detail = styled.View`
   margin-top: 3%;
-  height: 100%;
+  background-color: red;
 `;
 export const BtnContainer = styled.View`
-  flex: 1;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 3% 0;
+  margin: 3% 0 10% 0;
 `;
 export const FooterBtn = styled.TouchableOpacity`
   align-items: center;
@@ -99,11 +97,15 @@ export const FooterBtn = styled.TouchableOpacity`
 
 // PromotionDetail
 export const PromotionDetailContainer = styled.ScrollView`
-  flex: 1;
 `;
-export const RevisionContainer = styled.View`
+export const RevisionVContainer = styled.View`
+  flex: 1;
   padding: 0 3%;
   margin-top: 3%;
+  justify-content: center;
+`;
+export const RevisionHContainer = styled(RevisionVContainer)`
+  flex-direction: row;
 `;
 export const SwiperContainer = styled.View`
   height: 220px;

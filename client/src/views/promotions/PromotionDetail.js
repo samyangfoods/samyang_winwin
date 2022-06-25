@@ -33,6 +33,8 @@ import {
   TextBoxLong,
   TextBoxMiddle,
   TextBoxShort,
+  RevisionVContainer,
+  RevisionHContainer,
 } from "../../styles/PromotionStyle";
 import { Text } from "../../styles/Style";
 
@@ -156,8 +158,8 @@ const PromotionDetail = ({ route, navigation }) => {
         ref?.scrollToEnd({ animated: true });
       }}
     >
-      {/* Image Swiper */}
 
+      {/* Image Swiper */}
       <SwiperContainer>
         <Swiper showsButtons={false}>
           {images.map((data) => (
@@ -172,15 +174,17 @@ const PromotionDetail = ({ route, navigation }) => {
         </Swiper>
       </SwiperContainer>
 
-      {/* Revision */}
-      <RevisionContainer>
-        {/* Image */}
+      {/* Image */}
+      <RevisionVContainer>
         <Text>이미지 등록</Text>
-        <ImageAccess image={images} setImage={setImages} />
+        <PromotionCategory>
+          <ImageAccess image={images} setImage={setImages} />
+        </PromotionCategory>
+      </RevisionVContainer>
 
         {/* Protmotion Type */}
-        <PromotionCategory>
-          <MarketName
+      <RevisionHContainer>
+        <MarketName
             onChangeText={(text) => handleMarketName(text)}
             value={marketName}
           />
@@ -188,10 +192,10 @@ const PromotionDetail = ({ route, navigation }) => {
             pickedData={promotionType}
             setPickedData={setPromotionType}
           />
-        </PromotionCategory>
+      </RevisionHContainer>
 
         {/* Duration */}
-        <Duration>
+        <RevisionHContainer>
           <Start>
             <Text>시작일</Text>
             <Calendar date={dateStart} setDate={setDateStart} />
@@ -200,10 +204,10 @@ const PromotionDetail = ({ route, navigation }) => {
             <Text>종료일</Text>
             <Calendar date={dateEnd} setDate={setDateEnd} />
           </End>
-        </Duration>
+        </RevisionHContainer>
 
         {/* Item Detail */}
-        <Detail>
+        <RevisionVContainer>
           <Text>행사 내역</Text>
           <ItemCategory>
             <TextBoxLong>
@@ -219,32 +223,35 @@ const PromotionDetail = ({ route, navigation }) => {
               <Text>PR</Text>
             </TextBoxShort>
           </ItemCategory>
+        </RevisionVContainer>
 
-          <HorizontalSeparator />
+        <HorizontalSeparator />
 
+        <RevisionVContainer>
           <ItemArray
             item={item}
             setItem={setItem}
             addItemArray={addItemArray}
           />
-        </Detail>
-      </RevisionContainer>
+        </RevisionVContainer>
 
       {/* Submit and Remove Button Container */}
-      <BtnContainer>
-        <PromotionDetailFooterBtn
-          onPress={submitPromotionChanged}
-          style={{ backgroundColor: "#FF7D0D" }}
-        >
-          <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
-        </PromotionDetailFooterBtn>
-        <PromotionDetailFooterBtn
-          onPress={startPromotionRemoveProcess}
-          style={{ backgroundColor: "#B4B4B4" }}
-        >
-          <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>
-        </PromotionDetailFooterBtn>
-      </BtnContainer>
+      <RevisionHContainer>
+        <BtnContainer>
+          <PromotionDetailFooterBtn
+            onPress={submitPromotionChanged}
+            style={{ backgroundColor: "#FF7D0D" }}
+          >
+            <BtnText style={{ color: "#fff" }}>수정하기</BtnText>
+          </PromotionDetailFooterBtn>
+          <PromotionDetailFooterBtn
+            onPress={startPromotionRemoveProcess}
+            style={{ backgroundColor: "#B4B4B4" }}
+          >
+            <BtnText style={{ color: "#fff" }}>삭제하기</BtnText>
+          </PromotionDetailFooterBtn>
+        </BtnContainer>
+      </RevisionHContainer>
     </PromotionDetailContainer>
   );
 };
