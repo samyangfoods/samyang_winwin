@@ -10,8 +10,8 @@ export default function Header() {
   return (
     <View
       style={{
-        marginTop: Constant.statusBarHeight,
-        height: 45,
+        // marginTop: Constant.statusBarHeight,
+        height: 40,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -23,11 +23,13 @@ export default function Header() {
         // shadowOpacity: 1.0,
       }}
     >
-
-      <View style={{flex: 1}} />
-
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Image source={require('../assets/logo2.png')} />
+      <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('행사현황')}>
+          <Image
+            style={{ height: 35, width: 100 }}
+            source={require('../assets/logo2.png')}
+          />
+        </TouchableOpacity>
       </View>
 
       <View
@@ -35,6 +37,7 @@ export default function Header() {
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'flex-end',
+          margin: 5,
         }}
       >
         <TouchableOpacity onPress={() => navigation.navigate('사용자 정보')}>

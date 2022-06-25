@@ -1,28 +1,29 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { TextInput } from 'react-native-paper'
 
 export default function ReturnItem({ item, changeReturnValue }) {
   const [returnValue, setReturnValue] = useState('')
 
-  const onChangeCount = (e) => {
-    setReturnValue(e.currentTarget.value)
-  }
-
   useEffect(() => {
-    setReturnValue(item.code, parseInt(returnValue))
+    const inputArray = []
+    console.log(returnValue)
+    inputArray.unshift(item.code, returnValue)
+    changeReturnValue(inputArray)
   }, [returnValue])
 
   return (
     <View>
       <TextInput
-        key={item.no}
         label={item.productName}
         value={returnValue}
         mode='outlined'
         style={styles.inputStyle}
         theme={theme}
-        onChange={onChangeCount}
+        onChange={(event) => {
+          const { eventCount, target, text } = event.nativeEvent
+          setReturnValue(text)
+        }}
       />
     </View>
   )
