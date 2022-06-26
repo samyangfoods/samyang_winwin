@@ -1,86 +1,37 @@
-import React, { useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import { Text } from "../styles/Style";
-import {
-  SearchElementContainer,
-  SearchInput,
-  SearchBtn,
-  AutoCompleteContainer,
-  SearchTextResult,
-  SearchContainer,
-} from "../styles/Component";
-import { useSearchText } from "../hooks/searchHooks";
+import React, { useState, useEffect } from "react";
+import { SearchContainer } from "../styles/Component";
 import { useSelector } from "react-redux";
+import { date, dateIndicator } from "../hooks/util";
+import { SearchBtnBox } from "./searches/SearchBtn";
+import DateList from "./searches/DateList";
 
-const Search = ({ route, searchText, setSearchText, navigation }) => {
+const Search = () => {
   // Put API results in this hook
   const token = useSelector((state) => state.user.token);
-  const [searchResult, setSearchResult] = useState([]);
+  const [promotion, setPromotion] = useState(false);
+  const [end, setEnd] = useState(false);
+  const [etc, setEtc] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(dateIndicator(date));
+  const [dateData, setDateData] = useState(date);
 
-  const handleSearchAutoCompletion = async (text) => {
-    const result = await useSearchText(token, text, route.name);
-
-    setSearchResult(result);
-  };
-
-  // when a user inputs texts --> auto completion
-  const handleText = async (text) => {
-    setSearchText(text);
-    handleSearchAutoCompletion(text);
-  };
-
-  // when touches the search button
-  const handleSearch = () => {
-    switch (route.name) {
-      case "행사현황":
-        // use axios and send searchText to backend
-        return console.log("행사현황 입니다.", searchText);
-      case "소매점 목록":
-        return console.log("소매점 목록 입니다.", searchText);
-      default:
-        return;
-    }
-  };
+  console.log("Korean", selectedDate);
+  console.log("Numeric", dateData);
 
   return (
     <SearchContainer>
-      <SearchElementContainer>
-        <SearchInput
-          placeholder="검색"
-          autoCapitalize="none"
-          onChangeText={(text) => handleText(text)}
-          value={searchText}
-        />
-        <SearchBtn onPress={handleSearch}>
-          <FontAwesome name="search" size={20} color="white" />
-        </SearchBtn>
+      <DateList
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        setDateData={setDateData}
+      />
 
-        {/* Autocomplete */}
-      </SearchElementContainer>
-
-      {searchText !== "" && searchText !== null && (
-        <AutoCompleteContainer>
-          <SearchTextResult>
-            {[...searchResult].map((res) => (
-              // TODO: Route에 따라 다른 곳으로 보내기, 행사 수정/ 소매점 수정
-              <Text
-                key={Math.random()}
-                onPress={() =>
-                  route.name === "소매점 목록"
-                    ? navigation.navigate("소매점 수정하기", {
-                        marketData: [res],
-                      })
-                    : navigation.navigate("행사 수정하기", {
-                        promotionData: [res],
-                      })
-                }
-              >
-                {res.marketName}
-              </Text>
-            ))}
-          </SearchTextResult>
-        </AutoCompleteContainer>
-      )}
+      <SearchBtnBox
+        text={"전단행사"}
+        state={promotion}
+        setState={setPromotion}
+      />
+      <SearchBtnBox text={"엔드행사"} state={end} setState={setEnd} />
+      <SearchBtnBox text={"기타행사"} state={etc} setState={setEtc} />
     </SearchContainer>
   );
 };

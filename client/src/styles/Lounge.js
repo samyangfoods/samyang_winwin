@@ -1,19 +1,18 @@
 // Main, MarketList
 
-import styled from 'styled-components/native'
+import styled from "styled-components/native";
 
 // Universal
 export const MainContainer = styled.View`
   flex: 1;
-`
+`;
 export const Top = styled.View`
   flex: 1;
-  margin-top: 2%;
-`
+  justify-content: center;
+`;
 export const Bottom = styled.FlatList`
   flex: 10;
-  margin-top: 8%;
-`
+`;
 
 // MarketList
 export const PlusBtn = styled.TouchableOpacity`
@@ -26,4 +25,4 @@ export const PlusBtn = styled.TouchableOpacity`
   height: 50px;
   border-radius: 999px;
   background-color: #ff7d0d;
-`
+`;
