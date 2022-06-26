@@ -18,10 +18,7 @@ export default function ReturnList() {
   const [returnArray, setReturnArray] = useState([])
 
   const changeReturnValue = (returnArrayInput) => {
-    const NewReturnArray = []
-    NewReturnArray.unshift(returnArrayInput)
-
-    setReturnArray(NewReturnArray)
+    setReturnArray([...returnArray], returnArrayInput)
     console.log(returnArray)
   }
 

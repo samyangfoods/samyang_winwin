@@ -5,12 +5,23 @@ import { TextInput } from 'react-native-paper'
 export default function ReturnItem({ item, changeReturnValue }) {
   const [returnValue, setReturnValue] = useState('')
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const inputArray = []
+  //   inputArray.code = item.code
+  //   inputArray.returnValue = returnValue
+  //   changeReturnValue(inputArray)
+  // }, [returnValue])
+
+  const onChangeEvent = (e) => {
+    const { eventCount, target, text } = e.nativeEvent
+    setReturnValue(text)
+
     const inputArray = []
-    console.log(returnValue)
-    inputArray.unshift(item.code, returnValue)
+    inputArray.code = item.code
+    inputArray.returnValue = returnValue
     changeReturnValue(inputArray)
-  }, [returnValue])
+    console.log(inputArray)
+  }
 
   return (
     <View>
@@ -20,10 +31,7 @@ export default function ReturnItem({ item, changeReturnValue }) {
         mode='outlined'
         style={styles.inputStyle}
         theme={theme}
-        onChange={(event) => {
-          const { eventCount, target, text } = event.nativeEvent
-          setReturnValue(text)
-        }}
+        onChange={onChangeEvent}
       />
     </View>
   )
