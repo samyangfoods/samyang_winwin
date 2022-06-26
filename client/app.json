@@ -10,7 +10,7 @@
       "versionCode": 1
     },
     "splash": {
-      "image": "./src/assets/splash2.jpg"
+      "image": "./src/assets/sample.png"
     },
     "ios": {
       "bundleIdentifier": "com.samyangfoods.winwin",
