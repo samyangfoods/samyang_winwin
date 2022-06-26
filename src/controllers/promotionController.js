@@ -203,19 +203,19 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   }
 
   if (req.files.file2) {
-    sampleObject.img2 = req.files.file1[0].key.replace('raw/', '')
+    sampleObject.img2 = req.files.file2[0].key.replace('raw/', '')
   } else {
     if (images[1]) sampleObject.img2 = images[1]
   }
 
   if (req.files.file3) {
-    sampleObject.img3 = req.files.file1[0].key.replace('raw/', '')
+    sampleObject.img3 = req.files.file3[0].key.replace('raw/', '')
   } else {
     if (images[2]) sampleObject.img3 = images[2]
   }
 
   if (req.files.file4) {
-    sampleObject.img4 = req.files.file1[0].key.replace('raw/', '')
+    sampleObject.img4 = req.files.file4[0].key.replace('raw/', '')
   } else {
     if (images[3]) sampleObject.img4 = images[3]
   }
