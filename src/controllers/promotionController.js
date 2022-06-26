@@ -144,7 +144,6 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 const updatePromotionById = expressAsyncHandler(async (req, res) => {
   const { promotionId } = req.params
   const {
-    images,
     start_date,
     end_date,
     promotionType,
@@ -156,7 +155,6 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   console.log('req', req)
 
   if (
-    !images &&
     !start_date &&
     !end_date &&
     !promotionType &&
@@ -198,10 +196,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   //   newImages.img4 = req.files.file4[0].key.replace('raw/', '')
 
   console.log('Promotion', promotion)
-  console.log('images', images)
-  const imageArr = JSON.parse(images)
-  console.log('ImageArr', imageArr)
-  const sampleObject = {}
+  const sampleObject = promotion.images
 
   if (req.files.file1) {
     sampleObject.img1 = req.files.file1[0].key.replace('raw/', '')
@@ -233,11 +228,10 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
     console.log('imageArr[4]', imageArr[4])
     if (imageArr[3]) sampleObject.img4 = imageArr[3]
   }
-  console.log('sampleObject.img4', sampleObject.img4)
 
   console.log('SmapleObject', sampleObject)
 
-  if (sampleObject != {}) promotion.images = sampleObject
+  if (sampleObject) promotion.images = sampleObject
   if (start_date) promotion.start_date = start_date
   if (end_date) promotion.end_date = end_date
   if (promotionType) promotion.promotionType = promotionType
