@@ -165,13 +165,62 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   let promotion = await Promotion.findById(promotionId)
 
   // 이미지가 있다면 바로 프론트에서 받고 추가된다면 람다를 거치도록
+  //
 
-  if (req.files.file1) images.img1 = req.files.file1[0].key.replace('raw/', '')
-  if (req.files.file2) images.img2 = req.files.file2[0].key.replace('raw/', '')
-  if (req.files.file3) images.img3 = req.files.file3[0].key.replace('raw/', '')
-  if (req.files.file4) images.img4 = req.files.file4[0].key.replace('raw/', '')
+  // const newImages = {}
 
-  if (images) promotion.images = images
+  // if (images.img1) {
+  //   newImages.push(images.img1)
+  // }
+
+  // if (images.img2) {
+  //   newImages.push(images.img2)
+  // }
+
+  // if (images.img3) {
+  //   newImages.push(images.img3)
+  // }
+
+  // if (images.img4) {
+  //   newImages.push(images.img4)
+  // }
+
+  // if (req.files.file1)
+  //   newImages.img1 = req.files.file1[0].key.replace('raw/', '')
+  // if (req.files.file2)
+  //   newImages.img2 = req.files.file2[0].key.replace('raw/', '')
+  // if (req.files.file3)
+  //   newImages.img3 = req.files.file3[0].key.replace('raw/', '')
+  // if (req.files.file4)
+  //   newImages.img4 = req.files.file4[0].key.replace('raw/', '')
+
+  const sampleObject = {}
+
+  if (req.files.file1) {
+    sampleObject.img1 = req.files.file1[0].key.replace('raw/', '')
+  } else {
+    if (images[0]) sampleObject.img1 = images[0]
+  }
+
+  if (req.files.file2) {
+    sampleObject.img2 = req.files.file1[0].key.replace('raw/', '')
+  } else {
+    if (images[1]) sampleObject.img2 = images[1]
+  }
+
+  if (req.files.file3) {
+    sampleObject.img3 = req.files.file1[0].key.replace('raw/', '')
+  } else {
+    if (images[2]) sampleObject.img3 = images[2]
+  }
+
+  if (req.files.file4) {
+    sampleObject.img4 = req.files.file1[0].key.replace('raw/', '')
+  } else {
+    if (images[3]) sampleObject.img4 = images[3]
+  }
+
+  if (sampleObject != {}) promotion.images = sampleObject
   if (start_date) promotion.start_date = start_date
   if (end_date) promotion.end_date = end_date
   if (promotionType) promotion.promotionType = promotionType
