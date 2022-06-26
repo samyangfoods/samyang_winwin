@@ -217,14 +217,23 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
 
   console.log('SmapleObject', sampleObject)
 
-  if (sampleObject) promotion.images = sampleObject
-  if (start_date) promotion.start_date = start_date
-  if (end_date) promotion.end_date = end_date
-  if (promotionType) promotion.promotionType = promotionType
-  if (promotionCost) promotion.promotionCost = promotionCost
-  if (promotionDetail) promotion.promotionDetail = promotionDetail
+  // if (sampleObject) promotion.images = sampleObject
+  // if (start_date) promotion.start_date = start_date
+  // if (end_date) promotion.end_date = end_date
+  // if (promotionType) promotion.promotionType = promotionType
+  // if (promotionCost) promotion.promotionCost = promotionCost
+  // if (promotionDetail) promotion.promotionDetail = promotionDetail
 
-  await promotion.save()
+  await Promotion.findByIdAndUpdate(promotionId, {
+    images: sampleObject,
+    start_date,
+    end_date,
+    promotionType,
+    promotionCost,
+    promotionDetail,
+  })
+
+  // await promotion.save()
 
   return res.send({ promotion })
 })
