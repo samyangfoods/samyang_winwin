@@ -144,6 +144,7 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 const updatePromotionById = expressAsyncHandler(async (req, res) => {
   const { promotionId } = req.params
   const {
+    images,
     start_date,
     end_date,
     promotionType,
@@ -152,6 +153,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   } = req.body
 
   if (
+    !images &&
     !start_date &&
     !end_date &&
     !promotionType &&
@@ -163,8 +165,6 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   let promotion = await Promotion.findById(promotionId)
 
   // 이미지가 있다면 바로 프론트에서 받고 추가된다면 람다를 거치도록
-
-  const images = {}
 
   if (req.files.file1) images.img1 = req.files.file1[0].key.replace('raw/', '')
   if (req.files.file2) images.img2 = req.files.file2[0].key.replace('raw/', '')
