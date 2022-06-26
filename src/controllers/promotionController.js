@@ -199,37 +199,39 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
 
   console.log('Promotion', promotion)
   console.log('images', images)
+  const imageArr = JSON.parse(images)
+  console.log('ImageArr', imageArr)
   const sampleObject = {}
 
   if (req.files.file1) {
     sampleObject.img1 = req.files.file1[0].key.replace('raw/', '')
   } else {
-    console.log('images[0]', images[0])
-    if (images[0]) sampleObject.img1 = images[0]
+    console.log('imageArr[0]', imageArr[0])
+    if (imageArr[0]) sampleObject.img1 = imageArr[0]
   }
   console.log('sampleObject.img1', sampleObject.img1)
 
   if (req.files.file2) {
     sampleObject.img2 = req.files.file2[0].key.replace('raw/', '')
   } else {
-    console.log('images[1]', images[1])
-    if (images[1]) sampleObject.img2 = images[1]
+    console.log('imageArr[1]', imageArr[1])
+    if (imageArr[1]) sampleObject.img2 = imageArr[1]
   }
   console.log('sampleObject.img2', sampleObject.img2)
 
   if (req.files.file3) {
     sampleObject.img3 = req.files.file3[0].key.replace('raw/', '')
   } else {
-    console.log('images[3]', images[3])
-    if (images[2]) sampleObject.img3 = images[2]
+    console.log('imageArr[3]', imageArr[3])
+    if (imageArr[2]) sampleObject.img3 = imageArr[2]
   }
   console.log('sampleObject.img3', sampleObject.img3)
 
   if (req.files.file4) {
     sampleObject.img4 = req.files.file4[0].key.replace('raw/', '')
   } else {
-    console.log('images[4]', images[4])
-    if (images[3]) sampleObject.img4 = images[3]
+    console.log('imageArr[4]', imageArr[4])
+    if (imageArr[3]) sampleObject.img4 = imageArr[3]
   }
   console.log('sampleObject.img4', sampleObject.img4)
 
