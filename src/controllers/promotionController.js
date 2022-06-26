@@ -152,6 +152,9 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
     promotionDetail,
   } = req.body
 
+  console.log('req.body', req.body)
+  console.log('req', req)
+
   if (
     !images &&
     !start_date &&
