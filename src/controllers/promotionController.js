@@ -144,9 +144,6 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 const updatePromotionById = expressAsyncHandler(async (req, res) => {
   const { promotionId } = req.params
   const {
-    superMarketName,
-    address,
-    pos,
     image,
     start_date,
     end_date,
@@ -156,9 +153,6 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   } = req.body
 
   if (
-    !superMarketName &&
-    !address &&
-    !pos &&
     !image &&
     !start_date &&
     !end_date &&
@@ -177,9 +171,6 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   if (req.files.file3) images.img3 = req.files.file3[0].key.replace('raw/', '')
   if (req.files.file4) images.img4 = req.files.file4[0].key.replace('raw/', '')
 
-  if (superMarketName) promotion.superMarketName = superMarketName
-  if (address) promotion.address = address
-  if (pos) promotion.pos = pos
   if (images) promotion.images = images
   if (start_date) promotion.start_date = start_date
   if (end_date) promotion.end_date = end_date
