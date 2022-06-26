@@ -194,6 +194,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   // if (req.files.file4)
   //   newImages.img4 = req.files.file4[0].key.replace('raw/', '')
 
+  console.log('Promotion', promotion)
   const sampleObject = {}
 
   if (req.files.file1) {
@@ -201,24 +202,30 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   } else {
     if (images[0]) sampleObject.img1 = images[0]
   }
+  console.log('sampleObject.img1', sampleObject.img1)
 
   if (req.files.file2) {
     sampleObject.img2 = req.files.file2[0].key.replace('raw/', '')
   } else {
     if (images[1]) sampleObject.img2 = images[1]
   }
+  console.log('sampleObject.img2', sampleObject.img2)
 
   if (req.files.file3) {
     sampleObject.img3 = req.files.file3[0].key.replace('raw/', '')
   } else {
     if (images[2]) sampleObject.img3 = images[2]
   }
+  console.log('sampleObject.img3', sampleObject.img3)
 
   if (req.files.file4) {
     sampleObject.img4 = req.files.file4[0].key.replace('raw/', '')
   } else {
     if (images[3]) sampleObject.img4 = images[3]
   }
+  console.log('sampleObject.img4', sampleObject.img4)
+
+  console.log('SmapleObject', sampleObject)
 
   if (sampleObject != {}) promotion.images = sampleObject
   if (start_date) promotion.start_date = start_date
