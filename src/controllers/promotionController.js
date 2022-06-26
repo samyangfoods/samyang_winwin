@@ -144,7 +144,7 @@ const createPromotion = expressAsyncHandler(async (req, res) => {
 const updatePromotionById = expressAsyncHandler(async (req, res) => {
   const { promotionId } = req.params
   const {
-    image,
+    images,
     start_date,
     end_date,
     promotionType,
@@ -153,7 +153,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
   } = req.body
 
   if (
-    !image &&
+    !images &&
     !start_date &&
     !end_date &&
     !promotionType &&
@@ -164,7 +164,7 @@ const updatePromotionById = expressAsyncHandler(async (req, res) => {
 
   let promotion = await Promotion.findById(promotionId)
 
-  const images = {}
+  // const images = {}
 
   if (req.files.file1) images.img1 = req.files.file1[0].key.replace('raw/', '')
   if (req.files.file2) images.img2 = req.files.file2[0].key.replace('raw/', '')
