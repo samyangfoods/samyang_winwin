@@ -1,5 +1,5 @@
 import React from "react";
-import { BasicContainer, Text } from "../styles/Style";
+import { NotFoundContainer, Text } from "../styles/Style";
 import { AntDesign } from "@expo/vector-icons";
 
 const NotFound = ({ title }) => {
@@ -10,15 +10,16 @@ const NotFound = ({ title }) => {
       return `${title}이`;
     }
   };
+
   return (
-    <BasicContainer
+    <NotFoundContainer
       style={{ flex: 10, alignItems: "center", justifyContent: "center" }}
     >
       <AntDesign name="exclamationcircleo" size={24} color="#aaa" />
       <Text style={{ color: "#aaa", marginTop: 5 }}>
         {`등록된 ${sentenceCompletion()} 없습니다.`}
       </Text>
-    </BasicContainer>
+    </NotFoundContainer>
   );
 };
 

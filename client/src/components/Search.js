@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { SearchContainer } from "../styles/Component";
-import { useSelector } from "react-redux";
 import { date, dateIndicator } from "../hooks/util";
 import { SearchBtnBox } from "./searches/SearchBtn";
 import DateList from "./searches/DateList";
+import { useSearch } from "../hooks/searchHooks";
+import { useDispatch } from "react-redux";
 
-const Search = () => {
-  // Put API results in this hook
-  const token = useSelector((state) => state.user.token);
-  const [promotion, setPromotion] = useState(false);
-  const [end, setEnd] = useState(false);
-  const [etc, setEtc] = useState(false);
+const Search = ({ promotionArray, setSearchResult }) => {
+  // State Variables
+  const [promotion, setPromotion] = useState(true);
+  const [end, setEnd] = useState(true);
+  const [etc, setEtc] = useState(true);
   const [selectedDate, setSelectedDate] = useState(dateIndicator(date));
   const [dateData, setDateData] = useState(date);
 
-  console.log("Korean", selectedDate);
-  console.log("Numeric", dateData);
+  // useEffect
+  useEffect(() => {
+    const handleSearch = async () => {
+      const response = await useSearch(
+        promotionArray,
+        dateData,
+        promotion,
+        end,
+        etc
+      );
+
+      setSearchResult([...response]);
+    };
+
+    handleSearch();
+  }, [dateData, promotion, end, etc]);
 
   return (
     <SearchContainer>

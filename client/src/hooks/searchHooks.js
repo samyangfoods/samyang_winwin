@@ -1,9 +1,34 @@
 import axios from "axios";
 import { basicApiUrl } from "./urlSetting";
 
-// Promotion Type 자동완성으로 추출된 소매점을 터치하면 상세 화면으로 이동
-// TODO: 최대 5개 로드하기
-// 돋보기 아이콘을 터치하면 화면에 소매점 정보를 표시함 -> 터치하면 상세 화면으로 이동
+export const useSearch = async (
+  promotionArray,
+  dateData,
+  promotion,
+  end,
+  etc
+) => {
+  let sampleArr = [];
+
+  await promotionArray.map((data) => {
+    if (
+      (new Date(data.start_date) <= dateData &&
+        promotion &&
+        data.promotionType == "전단행사") ||
+      (end && data.promotionType == "엔드행사") ||
+      (etc && data.promotionType == "기타행사")
+    ) {
+      sampleArr.push(data);
+    }
+  });
+
+  console.log("I m working!!!", Date.now());
+  console.log("✅✅✅", sampleArr.length);
+  console.log("🔥🔥🔥🔥🔥🔥🔥");
+
+  return sampleArr;
+};
+
 export const useSearchApiWithPromotionType = async (token, text) => {
   const { promotions } = await axios.post(
     `${basicApiUrl}/promotion/search`,
@@ -31,21 +56,4 @@ export const useSearchApiWithMarketName = async (token, text) => {
   );
 
   return data;
-};
-
-export const useSearchText = async (token, text, routeName) => {
-  switch (routeName) {
-    case "행사현황":
-      const dataWithPromotionType = await useSearchApiWithPromotionType(
-        token,
-        text
-      );
-
-    case "소매점 목록":
-      const dataWithMarketName = await useSearchApiWithMarketName(token, text);
-      return dataWithMarketName;
-
-    default:
-      return;
-  }
 };
