@@ -15,7 +15,6 @@ import { imageW600 } from "../../hooks/urlSetting";
 import promotionSlice from "../../redux/slices/Promotion";
 import {
   PromotionDetailContainer,
-  RevisionContainer,
   SwiperContainer,
   BtnContainer,
   SwiperImage,
@@ -23,11 +22,9 @@ import {
   MarketName,
   Image,
   PromotionCategory,
-  Duration,
   Start,
   End,
   PromotionDetailFooterBtn,
-  Detail,
   ItemCategory,
   HorizontalSeparator,
   TextBoxLong,
@@ -73,9 +70,8 @@ const PromotionDetail = ({ route, navigation }) => {
   };
 
   // Submit Changed Info
-  const submitPromotionChanged = () => {
+  const submitPromotionChanged = async () => {
     const promotionObj = {
-      marketName,
       images,
       start_date: dateStart.toString(),
       end_date: dateEnd.toString(),
@@ -84,9 +80,13 @@ const PromotionDetail = ({ route, navigation }) => {
     };
 
     try {
-      const result = usePromotionUpdate(token, promotionObj);
+      const result = await usePromotionUpdate(token, promotionObj, data._id);
+
       if (result) {
         Alert.alert("알림", "행사 정보가 변경되었습니다.");
+
+        console.log("✅ PromotionDetail, Result:", result);
+
         navigation.goBack();
       } else {
         Alert.alert("알림", "오류 발생");

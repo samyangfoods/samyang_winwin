@@ -26,16 +26,18 @@ const Main = ({ navigation, route }) => {
   const [promotions, setPromotions] = useState(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
 
+  // Handling Functions
+  const setPromotionData = async () => {
+    const promotionData = await usePromotions(token)
+    setPromotions(null)
+
+    if (promotionData) {
+      setPromotions(promotionData)
+    }
+  }
+
   // Set the current user's promotion data
   useEffect(() => {
-    const setPromotionData = async () => {
-      const promotionData = await usePromotions(token)
-
-      if (promotionData) {
-        setPromotions(promotionData)
-      }
-    }
-
     setPromotionData()
   }, [promotionArray])
 
@@ -49,7 +51,7 @@ const Main = ({ navigation, route }) => {
     setIsRefreshing(true)
 
     setTimeout(() => {
-      console.log('Main is refreshing now!!!')
+      setPromotionData()
     }, 200)
 
     setIsRefreshing(false)
