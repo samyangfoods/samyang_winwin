@@ -11,8 +11,8 @@ const Search = ({ promotionArray, setSearchResult }) => {
   const [promotion, setPromotion] = useState(true);
   const [end, setEnd] = useState(true);
   const [etc, setEtc] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(dateIndicator(date));
-  const [dateData, setDateData] = useState(date);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [dateData, setDateData] = useState(null);
 
   // useEffect
   useEffect(() => {

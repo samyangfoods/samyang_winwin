@@ -1,6 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
 
-export const date = new Date();
+// Time related
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth() + 1;
+export const date = new Date(`2022-0${currentMonth}-01T00:00:00.214Z`);
 export const month = date.getMonth() + 1;
 export const year = date.getFullYear().toString().slice(2, 4);
 

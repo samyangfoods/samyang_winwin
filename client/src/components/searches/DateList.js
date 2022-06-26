@@ -38,7 +38,7 @@ const DateList = ({ selectedDate, setSelectedDate, setDateData }) => {
           backgroundColor: "#f8f8f8",
         }}
       >
-        <Text>{`${selectedDate}`}</Text>
+        <Text>{`${selectedDate || "날짜선택"}`}</Text>
       </MenuTrigger>
 
       <MenuOptions customStyles={optionsStyles}>

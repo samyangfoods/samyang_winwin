@@ -12,19 +12,14 @@ export const useSearch = async (
 
   await promotionArray.map((data) => {
     if (
-      (new Date(data.start_date) <= dateData &&
-        promotion &&
-        data.promotionType == "전단행사") ||
-      (end && data.promotionType == "엔드행사") ||
-      (etc && data.promotionType == "기타행사")
+      new Date(data.start_date) >= dateData &&
+      ((promotion && data.promotionType == "전단행사") ||
+        (end && data.promotionType == "엔드행사") ||
+        (etc && data.promotionType == "기타행사"))
     ) {
       sampleArr.push(data);
     }
   });
-
-  console.log("I m working!!!", Date.now());
-  console.log("✅✅✅", sampleArr.length);
-  console.log("🔥🔥🔥🔥🔥🔥🔥");
 
   return sampleArr;
 };
