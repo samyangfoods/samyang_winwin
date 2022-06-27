@@ -73,14 +73,7 @@ const MarketInput = ({ navigation }) => {
 
   // Button activation
   const btnActivation = Boolean(
-    marketImage &&
-      userId &&
-      marketName &&
-      size &&
-      pos &&
-      phoneNumber &&
-      income &&
-      address
+    marketImage && marketName && size && pos && phoneNumber && income && address
   );
 
   // Submit market info and process market creation
