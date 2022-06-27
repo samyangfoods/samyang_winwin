@@ -10,13 +10,14 @@ import { usePromotions } from "../hooks/promotionHooks";
 import { AntDesign } from "@expo/vector-icons";
 import Header from "../components/Header";
 import Constant from "expo-constants";
+
 /*
 Main page helps users to check current promotion data.
 Flat list contains each promotion data and the function "renderItem" handles this part.  
 This page also has a search container so that users will search promotion by its type. e.g.) "전단행사", "엔드행사", "기타행사"
 */
 
-const Main = ({ navigation, route }) => {
+const Main = ({ navigation }) => {
   // Redux Variables
   const promotionArray = useSelector((state) => state.promotion.array);
   const token = useSelector((state) => state.user.token);
@@ -25,8 +26,6 @@ const Main = ({ navigation, route }) => {
   const [promotions, setPromotions] = useState(null);
   const [searchResult, setSearchResult] = useState(promotionArray);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
-  // Handling Functions
 
   // Set the current user's promotion data
   useEffect(() => {
