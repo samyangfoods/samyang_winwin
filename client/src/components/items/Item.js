@@ -9,12 +9,16 @@ import CategoryOfProductName from "../CategoryOfProductName";
 
 const Item = ({ data, category }) => {
   // State Variables
-  const [productName, setProductName] = useState(data.productName.toString());
-  const [price, setPrice] = useState(data.price.toString());
-  const [promotionValue, setPromotionValue] = useState(
-    data.promotionValue.toString()
+  const [productName, setProductName] = useState(
+    "" || data.productName.toString()
   );
-  const [prValue, setPrValue] = useState(data.prValue.toString());
+  const [price, setPrice] = useState("" || data.price.toString());
+  const [promotionValue, setPromotionValue] = useState(
+    "" || data.promotionValue.toString()
+  );
+  const [prValue, setPrValue] = useState("" || data.prValue.toString());
+
+  console.log(data);
 
   // Handling Functions
   const handleName = (selectedCategory) => {
@@ -22,16 +26,16 @@ const Item = ({ data, category }) => {
     setProductName(selectedCategory);
   };
   const handlePrice = (text) => {
-      data.price = parseInt(text);
-      setPrice(JSON.stringify(data.price));
+    data.price = parseInt(text);
+    setPrice(JSON.stringify(data.price));
   };
   const handlePromotionQuantity = (text) => {
     data.promotionValue = parseInt(text);
     setPromotionValue(JSON.stringify(data.promotionValue));
   };
   const handlePrQuantity = (text) => {
-      data.prValue = parseInt(text);
-      setPrValue(JSON.stringify(data.prValue));
+    data.prValue = parseInt(text);
+    setPrValue(JSON.stringify(data.prValue));
   };
 
   return (
@@ -42,12 +46,12 @@ const Item = ({ data, category }) => {
         handleName={handleName}
         category={category}
       />
-      <ItemInputMiddle 
+      <ItemInputMiddle
         onChangeText={(text) => handlePrice(text)}
-        value={price} 
+        value={price}
         placeholder={"가격"}
         keyboardType={"numeric"}
-        />
+      />
       <ItemInputShort
         onChangeText={(text) => handlePromotionQuantity(text)}
         value={promotionValue}

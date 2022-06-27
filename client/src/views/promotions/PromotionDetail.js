@@ -61,10 +61,10 @@ const PromotionDetail = ({ route, navigation }) => {
     setItem([
       ...item,
       {
-        productName: "제품명",
-        price: "판매가격",
-        promotionValue: "행사수량",
-        prValue: "PR수량",
+        productName: "",
+        price: "",
+        promotionValue: "",
+        prValue: "",
       },
     ]);
   };
@@ -158,7 +158,6 @@ const PromotionDetail = ({ route, navigation }) => {
         ref?.scrollToEnd({ animated: true });
       }}
     >
-
       {/* Image Swiper */}
       <SwiperContainer>
         <Swiper showsButtons={false}>
@@ -182,58 +181,51 @@ const PromotionDetail = ({ route, navigation }) => {
         </PromotionCategory>
       </RevisionVContainer>
 
-        {/* Protmotion Type */}
+      {/* Protmotion Type */}
       <RevisionHContainer>
         <MarketName
-            onChangeText={(text) => handleMarketName(text)}
-            value={marketName}
-          />
-          <Category
-            pickedData={promotionType}
-            setPickedData={setPromotionType}
-          />
+          onChangeText={(text) => handleMarketName(text)}
+          value={marketName}
+        />
+        <Category pickedData={promotionType} setPickedData={setPromotionType} />
       </RevisionHContainer>
 
-        {/* Duration */}
-        <RevisionHContainer>
-          <Start>
-            <Text>시작일</Text>
-            <Calendar date={dateStart} setDate={setDateStart} />
-          </Start>
-          <End>
-            <Text>종료일</Text>
-            <Calendar date={dateEnd} setDate={setDateEnd} />
-          </End>
-        </RevisionHContainer>
+      {/* Duration */}
+      <RevisionHContainer>
+        <Start>
+          <Text>시작일</Text>
+          <Calendar date={dateStart} setDate={setDateStart} />
+        </Start>
+        <End>
+          <Text>종료일</Text>
+          <Calendar date={dateEnd} setDate={setDateEnd} />
+        </End>
+      </RevisionHContainer>
 
-        {/* Item Detail */}
-        <RevisionVContainer>
-          <Text>행사 내역</Text>
-          <ItemCategory>
-            <TextBoxLong>
-              <Text>제품명</Text>
-            </TextBoxLong>
-            <TextBoxMiddle>
-              <Text>가격</Text>
-            </TextBoxMiddle>
-            <TextBoxShort>
-              <Text>수량</Text>
-            </TextBoxShort>
-            <TextBoxShort>
-              <Text>PR</Text>
-            </TextBoxShort>
-          </ItemCategory>
-        </RevisionVContainer>
+      {/* Item Detail */}
+      <RevisionVContainer>
+        <Text>행사 내역</Text>
+        <ItemCategory>
+          <TextBoxLong>
+            <Text>제품명</Text>
+          </TextBoxLong>
+          <TextBoxMiddle>
+            <Text>가격</Text>
+          </TextBoxMiddle>
+          <TextBoxShort>
+            <Text>수량</Text>
+          </TextBoxShort>
+          <TextBoxShort>
+            <Text>PR</Text>
+          </TextBoxShort>
+        </ItemCategory>
+      </RevisionVContainer>
 
-        <HorizontalSeparator />
+      <HorizontalSeparator />
 
-        <RevisionVContainer>
-          <ItemArray
-            item={item}
-            setItem={setItem}
-            addItemArray={addItemArray}
-          />
-        </RevisionVContainer>
+      <RevisionVContainer>
+        <ItemArray item={item} setItem={setItem} addItemArray={addItemArray} />
+      </RevisionVContainer>
 
       {/* Submit and Remove Button Container */}
       <RevisionHContainer>
