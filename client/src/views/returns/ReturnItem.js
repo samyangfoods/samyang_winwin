@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { View, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { TextInput } from 'react-native-paper'
@@ -6,26 +7,77 @@ import { FloatingLabelInput } from 'react-native-floating-label-input'
 export default function ReturnItem({ item, changeReturnValue }) {
   const [returnValue, setReturnValue] = useState('')
   const [phone, setPhone] = useState('')
+=======
+import React, { useEffect, useState, useRef } from 'react'
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  Animated,
+  Pressable,
+} from 'react-native'
 
-  // useEffect(() => {
-  //   const inputArray = []
-  //   inputArray.code = item.code
-  //   inputArray.returnValue = returnValue
-  //   changeReturnValue(inputArray)
-  // }, [returnValue])
+export const ReturnItem = () => {
+  const [value, setValue] = useState('')
+  const moveText = useRef(new Animated.Value(0)).current
+>>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
 
-  const onChangeEvent = (e) => {
-    const { eventCount, target, text } = e.nativeEvent
-    setReturnValue(text)
+  useEffect(() => {
+    if (value !== '') {
+      moveTextTop()
+    } else if (value === '') {
+      moveTextBottom()
+    }
+  }, [value])
 
-    const inputArray = []
-    inputArray.code = item.code
-    inputArray.returnValue = returnValue
-    changeReturnValue(inputArray)
-    console.log(inputArray)
+  const onChangeText = (text) => {
+    setValue(text)
+  }
+
+  const onFocusHandler = () => {
+    if (value !== '') {
+      moveTextTop()
+    }
+  }
+
+  const onBlurHandler = () => {
+    if (value === '') {
+      moveTextBottom()
+    }
+  }
+
+  const moveTextTop = () => {
+    Animated.timing(moveText, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const moveTextBottom = () => {
+    Animated.timing(moveText, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const yVal = moveText.interpolate({
+    inputRange: [0, 1],
+    outputRange: [4, -20],
+  })
+
+  const animStyle = {
+    transform: [
+      {
+        translateY: yVal,
+      },
+    ],
   }
 
   return (
+<<<<<<< HEAD
     // <View>
     //    <TextInput
     //     label={item.productName}
@@ -66,22 +118,58 @@ export default function ReturnItem({ item, changeReturnValue }) {
         onChangeText={(value) => {
           setPhone(value)
         }}
+=======
+    <View style={styles.container}>
+      <Animated.View style={[styles.animatedStyle, animStyle]}>
+        <Text style={styles.label}>Enter Your Name</Text>
+      </Animated.View>
+      <TextInput
+        autoCapitalize={'none'}
+        style={styles.input}
+        value={value}
+        onChangeText={(text) => onChangeText(text)}
+        editable={true}
+        onFocus={onFocusHandler}
+        onBlur={onBlurHandler}
+        blurOnSubmit
+>>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
       />
     </View>
   )
 }
 
-const theme = {
-  colors: { primary: '#006aff' },
-}
-
 const styles = StyleSheet.create({
-  root: {},
-  inputStyle: {
-    margin: 4,
-    width: 110,
-    height: 30,
-    fontSize: 12,
-    backgroundColor: 'white',
+  container: {
+    marginBottom: 20,
+    marginTop: 20,
+    backgroundColor: '#fff',
+    paddingTop: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#bdbdbd',
+    borderRadius: 2,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  icon: {
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    fontSize: 13,
+    height: 35,
+    color: '#000',
+  },
+  label: {
+    color: 'grey',
+    fontSize: 10,
+  },
+  animatedStyle: {
+    top: 5,
+    left: 15,
+    position: 'absolute',
+    borderRadius: 90,
+    zIndex: 10000,
   },
 })

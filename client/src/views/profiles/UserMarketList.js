@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Search from "../../components/Search";
-import { MainContainer, Top, Bottom, PlusBtn } from "../../styles/Lounge";
+import { MainContainer, Bottom, PlusBtn } from "../../styles/Lounge";
 import { AntDesign } from "@expo/vector-icons";
 import EachMarket from "../../components/EachMarket";
 import NotFound from "../../components/NotFound";
@@ -8,13 +7,12 @@ import DataLoading from "../../components/DataLoading";
 import { useSelector } from "react-redux";
 import { useMarketListWithId } from "../../hooks/marketHooks";
 
-const MarketList = ({ navigation, route }) => {
+const MarketList = ({ navigation }) => {
   // Redux Variables
   const token = useSelector((state) => state.user.token);
   const marketArray = useSelector((state) => state.market.array);
-  
+
   // Hooks Variables
-  const [searchText, setSearchText] = useState(null);
   const [markets, setMarkets] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -28,7 +26,6 @@ const MarketList = ({ navigation, route }) => {
       }
     };
 
-    console.log("On:", Date.now());
     setMarketData();
   }, [marketArray]);
 
@@ -41,9 +38,7 @@ const MarketList = ({ navigation, route }) => {
   const onRefresh = async () => {
     setIsRefreshing(true);
 
-    setTimeout(() =>{
-      console.log("Main is refreshing now!!!")
-    }, 200)
+    setTimeout(() => {}, 200);
 
     setIsRefreshing(false);
   };
@@ -52,24 +47,13 @@ const MarketList = ({ navigation, route }) => {
     <MainContainer>
       {markets ? (
         markets[0] !== null ? (
-          <>
-            <Top>
-              <Search
-                route={route}
-                searchText={searchText}
-                setSearchText={setSearchText}
-                navigation={navigation}
-              />
-            </Top>
-
-            <Bottom
-              data={markets}
-              keyExtractor={(item) => item._id}
-              renderItem={renderItem}
-              onRefresh={onRefresh}
-              refreshing={isRefreshing}
-            />
-          </>
+          <Bottom
+            data={markets}
+            keyExtractor={(item) => item._id}
+            renderItem={renderItem}
+            onRefresh={onRefresh}
+            refreshing={isRefreshing}
+          />
         ) : (
           <NotFound title={"소매점"} />
         )

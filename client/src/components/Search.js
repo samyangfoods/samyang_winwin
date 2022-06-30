@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { SearchContainer } from "../styles/Component";
-import { date, dateIndicator } from "../hooks/util";
 import { SearchBtnBox } from "./searches/SearchBtn";
 import DateList from "./searches/DateList";
 import { useSearch } from "../hooks/searchHooks";
-import { useDispatch } from "react-redux";
 
 const Search = ({ promotionArray, setSearchResult }) => {
   // State Variables
@@ -30,6 +28,13 @@ const Search = ({ promotionArray, setSearchResult }) => {
 
     handleSearch();
   }, [dateData, promotion, end, etc]);
+
+  useEffect(() => {
+    setSelectedDate(null);
+    setPromotion(true);
+    setEnd(true);
+    setEtc(true);
+  }, [promotionArray]);
 
   return (
     <SearchContainer>
