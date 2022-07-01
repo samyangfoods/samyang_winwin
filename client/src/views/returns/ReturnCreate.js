@@ -1,69 +1,121 @@
+import React, { useEffect, useState, useRef } from 'react'
 import {
   View,
-  Text,
-  FlatList,
   StyleSheet,
-  KeyboardAvoidingView,
-  ScrollView,
+  TextInput,
+  Text,
+  Animated,
+  Pressable,
 } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { returnData } from '../../datas/ReturnData'
-import Header from '../../components/Header'
-import { TextInput, Button } from 'react-native-paper'
-import Constant from 'expo-constants'
-import ReturnItem from './ReturnItem'
 
-export default function ReturnList() {
-  const [returnProductList, setReturnProductList] = useState(returnData)
-  const [returnArray, setReturnArray] = useState([])
+export const ReturnCreate = () => {
+  const [value, setValue] = useState('')
+  const moveText = useRef(new Animated.Value(0)).current
 
-  const changeReturnValue = (returnArrayInput) => {
-    setReturnArray([...returnArray], returnArrayInput)
-    console.log(returnArray)
+  useEffect(() => {
+    if (value !== '') {
+      moveTextTop()
+    } else if (value === '') {
+      moveTextBottom()
+    }
+  }, [value])
+
+  const onChangeText = (text) => {
+    setValue(text)
+  }
+
+  const onFocusHandler = () => {
+    if (value !== '') {
+      moveTextTop()
+    }
+  }
+
+  const onBlurHandler = () => {
+    if (value === '') {
+      moveTextBottom()
+    }
+  }
+
+  const moveTextTop = () => {
+    Animated.timing(moveText, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const moveTextBottom = () => {
+    Animated.timing(moveText, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const yVal = moveText.interpolate({
+    inputRange: [0, 1],
+    outputRange: [4, -20],
+  })
+
+  const animStyle = {
+    transform: [
+      {
+        translateY: yVal,
+      },
+    ],
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        marginTop: Constant.statusBarHeight,
-      }}
-    >
-      <Header />
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-        >
-          {returnProductList.map((item) => {
-            return (
-              <ReturnItem
-                key={item.no}
-                item={item}
-                changeReturnValue={changeReturnValue}
-              />
-            )
-          })}
-        </View>
-      </ScrollView>
+    <View style={styles.container}>
+      <Animated.View style={[styles.animatedStyle, animStyle]}>
+        <Text style={styles.label}>Enter Your Name</Text>
+      </Animated.View>
+      <TextInput
+        autoCapitalize={'none'}
+        style={styles.input}
+        value={value}
+        onChangeText={(text) => onChangeText(text)}
+        editable={true}
+        onFocus={onFocusHandler}
+        onBlur={onBlurHandler}
+        blurOnSubmit
+      />
     </View>
   )
 }
 
-const theme = {
-  colors: { primary: '#006aff' },
-}
-
 const styles = StyleSheet.create({
-  root: {},
-  inputStyle: {
-    margin: 4,
-    width: 110,
-    height: 30,
-    fontSize: 12,
-    backgroundColor: 'white',
+  container: {
+    marginBottom: 20,
+    marginTop: 20,
+    backgroundColor: '#fff',
+    paddingTop: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#bdbdbd',
+    borderRadius: 2,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  icon: {
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    fontSize: 13,
+    height: 35,
+    color: '#000',
+  },
+  label: {
+    color: 'grey',
+    fontSize: 10,
+  },
+  animatedStyle: {
+    top: 5,
+    left: 15,
+    position: 'absolute',
+    borderRadius: 90,
+    zIndex: 10000,
   },
 })

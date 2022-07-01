@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import { View, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { TextInput } from 'react-native-paper'
-import { FloatingLabelInput } from 'react-native-floating-label-input'
-
-export default function ReturnItem({ item, changeReturnValue }) {
-  const [returnValue, setReturnValue] = useState('')
-  const [phone, setPhone] = useState('')
-=======
 import React, { useEffect, useState, useRef } from 'react'
 import {
   View,
@@ -21,7 +11,6 @@ import {
 export const ReturnItem = () => {
   const [value, setValue] = useState('')
   const moveText = useRef(new Animated.Value(0)).current
->>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
 
   useEffect(() => {
     if (value !== '') {
@@ -77,48 +66,6 @@ export const ReturnItem = () => {
   }
 
   return (
-<<<<<<< HEAD
-    // <View>
-    //    <TextInput
-    //     label={item.productName}
-    //     value={returnValue}
-    //     mode='outlined'
-    //     style={styles.inputStyle}
-    //     theme={theme}
-    //     onChange={onChangeEvent}
-    //   />
-    // </View>
-    <View style={{ padding: 50, flex: 1, backgroundColor: '#fff' }}>
-      <FloatingLabelInput
-        label='Phone'
-        value={phone}
-        staticLabel
-        hintTextColor={'#aaa'}
-        mask='99 (99) 99999-9999'
-        hint='55 (22) 98765-4321'
-        containerStyles={{
-          borderWidth: 2,
-          paddingHorizontal: 10,
-          backgroundColor: '#fff',
-          borderColor: 'blue',
-          borderRadius: 8,
-        }}
-        customLabelStyles={{
-          colorFocused: 'red',
-          fontSizeFocused: 12,
-        }}
-        labelStyles={{
-          backgroundColor: '#fff',
-          paddingHorizontal: 5,
-        }}
-        inputStyles={{
-          color: 'blue',
-          paddingHorizontal: 10,
-        }}
-        onChangeText={(value) => {
-          setPhone(value)
-        }}
-=======
     <View style={styles.container}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
         <Text style={styles.label}>Enter Your Name</Text>
@@ -132,7 +79,6 @@ export const ReturnItem = () => {
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
         blurOnSubmit
->>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
       />
     </View>
   )
