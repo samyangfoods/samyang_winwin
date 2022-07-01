@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect, useRef } from 'react'
 
 export default function ReturnItem({ item }) {
-  const [isFocused, setisFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
   const moveText = useRef(new Animated.Value(0)).current
 
@@ -26,14 +26,17 @@ export default function ReturnItem({ item }) {
   }
 
   const onFocusHandler = () => {
-    if (value !== '') {
+    setIsFocused(true)
+    if (isFocused != true) {
       moveTextTop()
+    }
+    if (value !== '') {
+      setIsFocused(true)
     }
   }
 
-  const FocusHandler2 = () => {}
-
   const onBlurHandler = () => {
+    setIsFocused(false)
     if (value === '') {
       moveTextBottom()
     }
@@ -57,7 +60,7 @@ export default function ReturnItem({ item }) {
 
   const yVal = moveText.interpolate({
     inputRange: [0, 1],
-    outputRange: [4, -13],
+    outputRange: [4, -19],
   })
 
   const animStyle = {
@@ -68,25 +71,29 @@ export default function ReturnItem({ item }) {
     ],
   }
 
+  const labelStyle = {
+    color: !isFocused ? '#aaa' : '#006aff',
+    borderColor: !isFocused ? '#aaa' : '#006aff',
+  }
+
+  const fontStyle = {
+    fontSize: !isFocused ? 14 : 12,
+  }
+
   return (
-    // <View style={{ paddingTop: 18, marginTop: 5 }}>
-    //   <Text style={labelStyle}>{item.productName}</Text>
-    //   <TextInput
-    //     style={styles.floatingInput}
-    //     onFocus={handleFocus}
-    //     onBlur={handleBlur}
-    //     blurOnSubmit
-    //   />
-    // </View> <View style={styles.container}>
     <View styles={styles.container}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
-        <Text style={styles.label} numberOfLines={1} ellipsizeMode='tail'>
+        <Text
+          style={[styles.label, labelStyle, fontStyle]}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >
           {item.productName}
         </Text>
       </Animated.View>
       <TextInput
         autoCapitalize={'none'}
-        style={styles.input}
+        style={[styles.input, labelStyle]}
         value={value}
         onChangeText={(text) => onChangeInputValue(text)}
         editable={true}
@@ -118,25 +125,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    fontSize: 13,
-    width: 120,
+    fontSize: 18,
+    width: 100,
     marginLeft: 3,
     marginTop: 25,
     borderWidth: 1,
     height: 35,
     color: '#000',
     textAlign: 'center',
+    zIndex: 10000,
   },
   label: {
-    color: 'grey',
-    fontSize: 16,
+    fontSize: 14,
+    width: 90,
+    backgroundColor: '#fff',
   },
   animatedStyle: {
-    top: 25,
-    left: 5,
+    top: 27,
+    left: 8,
     position: 'absolute',
     borderRadius: 90,
-    zIndex: 10000,
+    zIndex: 9000,
     backgroundColor: '#fff',
   },
 })
