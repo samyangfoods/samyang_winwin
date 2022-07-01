@@ -1,27 +1,17 @@
-<<<<<<< HEAD
-import { View, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { TextInput } from 'react-native-paper'
-import { FloatingLabelInput } from 'react-native-floating-label-input'
-
-export default function ReturnItem({ item, changeReturnValue }) {
-  const [returnValue, setReturnValue] = useState('')
-  const [phone, setPhone] = useState('')
-=======
-import React, { useEffect, useState, useRef } from 'react'
 import {
   View,
-  StyleSheet,
-  TextInput,
   Text,
+  TextInput,
+  StyleSheet,
   Animated,
   Pressable,
 } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 
-export const ReturnItem = () => {
+export default function ReturnItem({ item }) {
+  const [isFocused, setisFocused] = useState(false)
   const [value, setValue] = useState('')
   const moveText = useRef(new Animated.Value(0)).current
->>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
 
   useEffect(() => {
     if (value !== '') {
@@ -31,7 +21,7 @@ export const ReturnItem = () => {
     }
   }, [value])
 
-  const onChangeText = (text) => {
+  const onChangeInputValue = (text) => {
     setValue(text)
   }
 
@@ -40,6 +30,8 @@ export const ReturnItem = () => {
       moveTextTop()
     }
   }
+
+  const FocusHandler2 = () => {}
 
   const onBlurHandler = () => {
     if (value === '') {
@@ -65,7 +57,7 @@ export const ReturnItem = () => {
 
   const yVal = moveText.interpolate({
     inputRange: [0, 1],
-    outputRange: [4, -20],
+    outputRange: [4, -13],
   })
 
   const animStyle = {
@@ -77,62 +69,31 @@ export const ReturnItem = () => {
   }
 
   return (
-<<<<<<< HEAD
-    // <View>
-    //    <TextInput
-    //     label={item.productName}
-    //     value={returnValue}
-    //     mode='outlined'
-    //     style={styles.inputStyle}
-    //     theme={theme}
-    //     onChange={onChangeEvent}
+    // <View style={{ paddingTop: 18, marginTop: 5 }}>
+    //   <Text style={labelStyle}>{item.productName}</Text>
+    //   <TextInput
+    //     style={styles.floatingInput}
+    //     onFocus={handleFocus}
+    //     onBlur={handleBlur}
+    //     blurOnSubmit
     //   />
-    // </View>
-    <View style={{ padding: 50, flex: 1, backgroundColor: '#fff' }}>
-      <FloatingLabelInput
-        label='Phone'
-        value={phone}
-        staticLabel
-        hintTextColor={'#aaa'}
-        mask='99 (99) 99999-9999'
-        hint='55 (22) 98765-4321'
-        containerStyles={{
-          borderWidth: 2,
-          paddingHorizontal: 10,
-          backgroundColor: '#fff',
-          borderColor: 'blue',
-          borderRadius: 8,
-        }}
-        customLabelStyles={{
-          colorFocused: 'red',
-          fontSizeFocused: 12,
-        }}
-        labelStyles={{
-          backgroundColor: '#fff',
-          paddingHorizontal: 5,
-        }}
-        inputStyles={{
-          color: 'blue',
-          paddingHorizontal: 10,
-        }}
-        onChangeText={(value) => {
-          setPhone(value)
-        }}
-=======
-    <View style={styles.container}>
+    // </View> <View style={styles.container}>
+    <View styles={styles.container}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
-        <Text style={styles.label}>Enter Your Name</Text>
+        <Text style={styles.label} numberOfLines={1} ellipsizeMode='tail'>
+          {item.productName}
+        </Text>
       </Animated.View>
       <TextInput
         autoCapitalize={'none'}
         style={styles.input}
         value={value}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={(text) => onChangeInputValue(text)}
         editable={true}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
         blurOnSubmit
->>>>>>> 8fc2c8e686a29dfa48fe50d14678f92c8c27717c
+        keyboardType='numeric'
       />
     </View>
   )
@@ -158,18 +119,24 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 13,
+    width: 120,
+    marginLeft: 3,
+    marginTop: 25,
+    borderWidth: 1,
     height: 35,
     color: '#000',
+    textAlign: 'center',
   },
   label: {
     color: 'grey',
-    fontSize: 10,
+    fontSize: 16,
   },
   animatedStyle: {
-    top: 5,
-    left: 15,
+    top: 25,
+    left: 5,
     position: 'absolute',
     borderRadius: 90,
     zIndex: 10000,
+    backgroundColor: '#fff',
   },
 })
