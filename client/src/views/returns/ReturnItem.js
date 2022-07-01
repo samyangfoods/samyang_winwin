@@ -7,7 +7,6 @@ import {
   Animated,
   Pressable,
 } from 'react-native'
-import React, { useState, useEffect, useRef } from 'react'
 
 export default function ReturnItem({ item }) {
   const [isFocused, setIsFocused] = useState(false)
@@ -27,17 +26,12 @@ export default function ReturnItem({ item }) {
   }
 
   const onFocusHandler = () => {
-    setIsFocused(true)
-    if (isFocused != true) {
-      moveTextTop()
-    }
     if (value !== '') {
-      setIsFocused(true)
+      moveTextTop()
     }
   }
 
   const onBlurHandler = () => {
-    setIsFocused(false)
     if (value === '') {
       moveTextBottom()
     }
@@ -72,29 +66,25 @@ export default function ReturnItem({ item }) {
     ],
   }
 
-  const labelStyle = {
-    color: !isFocused ? '#aaa' : '#006aff',
-    borderColor: !isFocused ? '#aaa' : '#006aff',
-  }
+  // const labelStyle = {
+  //   color: !isFocused ? '#aaa' : '#006aff',
+  //   borderColor: !isFocused ? '#aaa' : '#006aff',
+  // }
 
-  const fontStyle = {
-    fontSize: !isFocused ? 14 : 12,
-  }
+  // const fontStyle = {
+  //   fontSize: !isFocused ? 14 : 12,
+  // }
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
-        <Text
-          style={[styles.label, labelStyle, fontStyle]}
-          numberOfLines={1}
-          ellipsizeMode='tail'
-        >
+        <Text style={[styles.label]} numberOfLines={1} ellipsizeMode='tail'>
           {item.productName}
         </Text>
       </Animated.View>
       <TextInput
         autoCapitalize={'none'}
-        style={[styles.input, labelStyle]}
+        style={styles.input}
         value={value}
         onChangeText={(text) => onChangeInputValue(text)}
         editable={true}
@@ -108,45 +98,27 @@ export default function ReturnItem({ item }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-    marginTop: 20,
-    backgroundColor: '#fff',
-    paddingTop: 5,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#bdbdbd',
-    borderRadius: 2,
-    width: '90%',
-    alignSelf: 'center',
-  },
-  icon: {
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   input: {
-    fontSize: 18,
-    width: 100,
-    marginLeft: 3,
-    marginTop: 25,
-    borderWidth: 1,
-    height: 35,
+    width: '31%',
+    height: 30,
+    marginTop: 15,
+    marginLeft: 10,
+    fontSize: 13,
     color: '#000',
+    borderWidth: 1,
     textAlign: 'center',
     zIndex: 10000,
   },
   label: {
-    fontSize: 14,
-    width: 90,
-    backgroundColor: '#fff',
+    color: 'grey',
+    fontSize: 10,
+    marginBottom: -4,
   },
   animatedStyle: {
-    top: 27,
-    left: 8,
+    top: 15,
+    left: 15,
     position: 'absolute',
     borderRadius: 90,
-    zIndex: 9000,
-    backgroundColor: '#fff',
+    zIndex: 10000,
   },
 })
