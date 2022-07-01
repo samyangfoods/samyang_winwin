@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
 import {
   View,
-  StyleSheet,
-  TextInput,
   Text,
+  TextInput,
+  StyleSheet,
   Animated,
   Pressable,
 } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 
-export const ReturnItem = () => {
+export default function ReturnItem({ item }) {
+  const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
   const moveText = useRef(new Animated.Value(0)).current
 
@@ -20,17 +22,22 @@ export const ReturnItem = () => {
     }
   }, [value])
 
-  const onChangeText = (text) => {
+  const onChangeInputValue = (text) => {
     setValue(text)
   }
 
   const onFocusHandler = () => {
-    if (value !== '') {
+    setIsFocused(true)
+    if (isFocused != true) {
       moveTextTop()
+    }
+    if (value !== '') {
+      setIsFocused(true)
     }
   }
 
   const onBlurHandler = () => {
+    setIsFocused(false)
     if (value === '') {
       moveTextBottom()
     }
@@ -54,7 +61,7 @@ export const ReturnItem = () => {
 
   const yVal = moveText.interpolate({
     inputRange: [0, 1],
-    outputRange: [4, -20],
+    outputRange: [4, -19],
   })
 
   const animStyle = {
@@ -65,20 +72,36 @@ export const ReturnItem = () => {
     ],
   }
 
+  const labelStyle = {
+    color: !isFocused ? '#aaa' : '#006aff',
+    borderColor: !isFocused ? '#aaa' : '#006aff',
+  }
+
+  const fontStyle = {
+    fontSize: !isFocused ? 14 : 12,
+  }
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
-        <Text style={styles.label}>Enter Your Name</Text>
+        <Text
+          style={[styles.label, labelStyle, fontStyle]}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >
+          {item.productName}
+        </Text>
       </Animated.View>
       <TextInput
         autoCapitalize={'none'}
-        style={styles.input}
+        style={[styles.input, labelStyle]}
         value={value}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={(text) => onChangeInputValue(text)}
         editable={true}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
         blurOnSubmit
+        keyboardType='numeric'
       />
     </View>
   )
@@ -103,19 +126,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    fontSize: 13,
+    fontSize: 18,
+    width: 100,
+    marginLeft: 3,
+    marginTop: 25,
+    borderWidth: 1,
     height: 35,
     color: '#000',
+    textAlign: 'center',
+    zIndex: 10000,
   },
   label: {
-    color: 'grey',
-    fontSize: 10,
+    fontSize: 14,
+    width: 90,
+    backgroundColor: '#fff',
   },
   animatedStyle: {
-    top: 5,
-    left: 15,
+    top: 27,
+    left: 8,
     position: 'absolute',
     borderRadius: 90,
-    zIndex: 10000,
+    zIndex: 9000,
+    backgroundColor: '#fff',
   },
 })
