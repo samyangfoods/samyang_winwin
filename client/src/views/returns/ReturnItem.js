@@ -8,79 +8,84 @@ import {
   Pressable,
 } from 'react-native'
 
-export default function ReturnItem({ item }) {
+export default function ReturnItem({ label }) {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
-  const moveText = useRef(new Animated.Value(0)).current
+  const animatedIsFocused = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    if (value !== '') {
-      moveTextTop()
-    } else if (value === '') {
-      moveTextBottom()
-    }
-  }, [value])
+    Animated.timing(animatedIsFocused, {
+      toValue: isFocused ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }, [])
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(animatedIsFocused, {
+      toValue: isFocused ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(animatedIsFocused, {
+      toValue: isFocused ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
 
   const onChangeInputValue = (text) => {
     setValue(text)
   }
 
   const onFocusHandler = () => {
-    if (value !== '') {
-      moveTextTop()
-    }
+    // if (value !== '') {
+    //   moveTextTop()
+    // }
+    setIsFocused(true)
   }
 
   const onBlurHandler = () => {
-    if (value === '') {
-      moveTextBottom()
-    }
+    // if (value === '') {
+    //   moveTextBottom()
+    // }
+    setIsFocused(false)
   }
 
-  const moveTextTop = () => {
-    Animated.timing(moveText, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
+  const labelStyle = {
+    // color: !isFocused ? '#aaa' : '#006aff',
+    left: 0,
+    top: animatedIsFocused.interpolate({
+      inputRange: [0, 1],
+      outputRange: [18, 0],
+    }),
+    color: animatedIsFocused.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['#aaa', '#006aff'],
+    }),
+    fontSize: animatedIsFocused.interpolate({
+      inputRange: [0, 1],
+      outputRange: [18, 14],
+    }),
+    borderColor: animatedIsFocused.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['#aaa', '#006aff'],
+    }),
   }
-
-  const moveTextBottom = () => {
-    Animated.timing(moveText, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
-  }
-
-  const yVal = moveText.interpolate({
-    inputRange: [0, 1],
-    outputRange: [4, -19],
-  })
-
-  const animStyle = {
-    transform: [
-      {
-        translateY: yVal,
-      },
-    ],
-  }
-
-  // const labelStyle = {
-  //   color: !isFocused ? '#aaa' : '#006aff',
-  //   borderColor: !isFocused ? '#aaa' : '#006aff',
-  // }
 
   // const fontStyle = {
   //   fontSize: !isFocused ? 14 : 12,
   // }
 
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <Animated.View style={[styles.animatedStyle, animStyle]}>
-        <Text style={[styles.label]} numberOfLines={1} ellipsizeMode='tail'>
-          {item.productName}
-        </Text>
+    <View sytle={styles.container}>
+      <Animated.View style={labelStyle}>
+        <Text>{label}</Text>
       </Animated.View>
       <TextInput
         autoCapitalize={'none'}
@@ -98,6 +103,9 @@ export default function ReturnItem({ item }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   input: {
     width: '31%',
     height: 30,

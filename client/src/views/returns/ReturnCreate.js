@@ -17,9 +17,11 @@ export default function ReturnCreate() {
     >
       <Header />
       <ScrollView>
-        {returnProductList.map((item) => {
-          return <ReturnItem key={item.no} item={item} />
-        })}
+        <View style={{ display: 'flex' }}>
+          {returnProductList.map((item) => {
+            return <ReturnItem key={item.no} label={item.productName} />
+          })}
+        </View>
       </ScrollView>
     </View>
   )
