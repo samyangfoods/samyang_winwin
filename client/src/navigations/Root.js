@@ -20,10 +20,10 @@ const Root = () => (
     <Nav.Screen name='Modal' component={Modal} />
     <Nav.Screen name='Stack' component={Stack} />
     <Nav.Screen
-        name='행사등록'
-        component={PromotionCreate}
-        options={{ headerShown: true }}
-      />
+      name='행사등록'
+      component={PromotionCreate}
+      options={{ headerShown: true }}
+    />
     <Nav.Screen
       name='행사상세'
       component={PromotionDetail}
@@ -66,12 +66,12 @@ const Root = () => (
       options={{ headerShown: true }}
     />
     <Nav.Screen
-      name='반품 리스트'
+      name='반품리스트'
       component={ReturnList}
       options={{ headerShown: true }}
     />
     <Nav.Screen
-      name='반품 등록'
+      name='반품등록'
       component={ReturnCreate}
       options={{ headerShown: true }}
     />

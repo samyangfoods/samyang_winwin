@@ -5,6 +5,7 @@ import { Feather, Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
 import PromotionCreate from '../views/promotions/PromotionCreate'
 import Profile from '../views/profiles/Profile'
 import ReturnCreate from '../views/returns/ReturnCreate'
+import ReturnList from '../views/returns/ReturnList'
 
 const Tab = createBottomTabNavigator()
 
@@ -27,8 +28,8 @@ const Stack = () => {
         }}
       />
       <Tab.Screen
-        name='반품'
-        component={ReturnCreate}
+        name='반품 리스트'
+        component={ReturnList}
         options={{
           tabBarIcon: ({ color, size }) => {
             return <Entypo name='trash' size={size} color={color} />

@@ -500,25 +500,25 @@ const returnData = [
   {
     no: 228,
     code: 305540,
-    productName: '큰컵삼양라면골드',
+    productName: '큰컵삼양골드',
     반품단가: 931.95,
   },
   {
     no: 229,
     code: 305541,
-    productName: '큰컵삼양라면매운맛',
+    productName: '큰컵삼양매운맛',
     반품단가: 756.2,
   },
   {
     no: 230,
     code: 304105,
-    productName: '큰컵삼양라면콰트로치즈',
+    productName: '큰컵삼양콰트로치즈',
     반품단가: 945.25,
   },
   {
     no: 231,
     code: 303255,
-    productName: '큰컵삼양라면클래식',
+    productName: '큰컵삼양클래식',
     반품단가: 840.75,
   },
   {

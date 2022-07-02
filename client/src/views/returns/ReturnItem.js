@@ -5,91 +5,92 @@ import {
   TextInput,
   StyleSheet,
   Animated,
-  Pressable,
+  KeyboardAvoidingView,
 } from 'react-native'
 
 export default function ReturnItem({ label }) {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
-  const animatedIsFocused = useRef(new Animated.Value(0)).current
+  const moveText = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    Animated.timing(animatedIsFocused, {
-      toValue: isFocused ? 1 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
-  }, [])
-
-  const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(animatedIsFocused, {
-      toValue: isFocused ? 1 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
-  }
-
-  const fadeOut = () => {
-    // Will change fadeAnim value to 0 in 3 seconds
-    Animated.timing(animatedIsFocused, {
-      toValue: isFocused ? 1 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start()
-  }
+    if (value !== '') {
+      moveTextTop()
+      setIsFocused(true)
+    } else if (value === '') {
+      moveTextBottom()
+      setIsFocused(false)
+    }
+  }, [value])
 
   const onChangeInputValue = (text) => {
     setValue(text)
   }
 
   const onFocusHandler = () => {
-    // if (value !== '') {
-    //   moveTextTop()
-    // }
-    setIsFocused(true)
+    if (value !== '') {
+      moveTextTop()
+    }
   }
 
   const onBlurHandler = () => {
-    // if (value === '') {
-    //   moveTextBottom()
-    // }
-    setIsFocused(false)
+    if (value === '') {
+      moveTextBottom()
+    }
   }
 
-  const labelStyle = {
-    // color: !isFocused ? '#aaa' : '#006aff',
-    left: 0,
-    top: animatedIsFocused.interpolate({
-      inputRange: [0, 1],
-      outputRange: [18, 0],
-    }),
-    color: animatedIsFocused.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['#aaa', '#006aff'],
-    }),
-    fontSize: animatedIsFocused.interpolate({
-      inputRange: [0, 1],
-      outputRange: [18, 14],
-    }),
-    borderColor: animatedIsFocused.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['#aaa', '#006aff'],
-    }),
+  const moveTextTop = () => {
+    Animated.timing(moveText, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
   }
 
-  // const fontStyle = {
-  //   fontSize: !isFocused ? 14 : 12,
-  // }
+  const moveTextBottom = () => {
+    Animated.timing(moveText, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const yVal = moveText.interpolate({
+    inputRange: [0, 1],
+    outputRange: [4, -22],
+  })
+
+  const animStyle = {
+    transform: [
+      {
+        translateY: yVal,
+      },
+    ],
+  }
+
+  const activeLabelStyle = {
+    color: !isFocused ? '#aaa' : '#006aff',
+    fontSize: !isFocused ? 15 : 12,
+  }
+
+  const activeInputStyle = {
+    borderColor: !isFocused ? '#aaa' : '#006aff',
+  }
 
   return (
-    <View sytle={styles.container}>
-      <Animated.View style={labelStyle}>
-        <Text>{label}</Text>
+    <View style={styles.container}>
+      <Animated.View style={[styles.animatedStyle, animStyle]}>
+        <Text
+          style={[styles.label, activeLabelStyle]}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >
+          {label}
+        </Text>
       </Animated.View>
       <TextInput
+        style={[styles.input, activeInputStyle]}
         autoCapitalize={'none'}
-        style={styles.input}
         value={value}
         onChangeText={(text) => onChangeInputValue(text)}
         editable={true}
@@ -103,30 +104,30 @@ export default function ReturnItem({ label }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { marginTop: 10, alignItems: 'center', justifyContent: 'center' },
   input: {
-    width: '31%',
-    height: 30,
-    marginTop: 15,
+    width: 100,
+    height: 40,
+    marginTop: 20,
     marginLeft: 10,
-    fontSize: 13,
-    color: '#000',
-    borderWidth: 1,
+    fontSize: 15,
+    color: '#006aff',
+    borderWidth: 2,
+    borderRadius: 10,
+    zIndex: 10,
     textAlign: 'center',
-    zIndex: 10000,
   },
   label: {
     color: 'grey',
-    fontSize: 10,
-    marginBottom: -4,
+    fontSize: 12,
+    width: 99,
+    marginLeft: 1,
   },
   animatedStyle: {
-    top: 15,
+    top: 25,
     left: 15,
     position: 'absolute',
     borderRadius: 90,
-    zIndex: 10000,
+    zIndex: 1,
   },
 })
