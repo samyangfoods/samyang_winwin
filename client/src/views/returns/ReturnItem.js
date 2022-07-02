@@ -104,7 +104,7 @@ export default function ReturnItem({ label }) {
 }
 
 const styles = StyleSheet.create({
-  container: { marginTop: 10, alignItems: 'center', justifyContent: 'center' },
+  container: { marginTop: 10 },
   input: {
     width: 100,
     height: 40,
