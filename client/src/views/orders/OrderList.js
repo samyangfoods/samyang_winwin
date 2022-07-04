@@ -21,7 +21,7 @@ const OrderList = ({ navigation }) => {
       <Text>Hello</Text>
       <Text>Hello</Text>
 
-      {/* Promotion Creation Button */}
+      {/* Order Creation Button */}
       <PlusBtn onPress={() => navigation.navigate("주문하기")}>
         <AntDesign name="plus" size={24} color="white" />
       </PlusBtn>
