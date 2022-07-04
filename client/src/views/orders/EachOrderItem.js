@@ -1,12 +1,17 @@
 import React from "react";
-import { BasicContainer, Text } from "../../styles/Style";
+import {
+  EachOrderItemContainer,
+  EachOrderItemTextInput,
+} from "../../styles/orders/Orders";
 
 const EachOrderItem = ({ item }) => {
   return (
-    <BasicContainer>
-      <Text>{item.product_id}</Text>
-      <Text>{item.product_name}</Text>
-    </BasicContainer>
+    <EachOrderItemContainer>
+      <EachOrderItemTextInput
+        placeholder={item.product_name}
+        keyboardType="numeric"
+      />
+    </EachOrderItemContainer>
   );
 };
 
