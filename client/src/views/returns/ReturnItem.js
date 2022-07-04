@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native'
 
-export default function ReturnItem({ label }) {
+export default function ReturnItem({ label, onChangeReturnArray }) {
   const [isFocused, setIsFocused] = useState(false)
   const [value, setValue] = useState('')
   const moveText = useRef(new Animated.Value(0)).current
@@ -17,15 +17,12 @@ export default function ReturnItem({ label }) {
     if (value !== '') {
       moveTextTop()
       setIsFocused(true)
+      console.log(value)
     } else if (value === '') {
       moveTextBottom()
       setIsFocused(false)
     }
   }, [value])
-
-  const onChangeInputValue = (text) => {
-    setValue(text)
-  }
 
   const onFocusHandler = () => {
     if (value !== '') {
@@ -77,6 +74,8 @@ export default function ReturnItem({ label }) {
     borderColor: !isFocused ? '#aaa' : '#006aff',
   }
 
+  // '#ff7d0d'
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.animatedStyle, animStyle]}>
@@ -92,7 +91,7 @@ export default function ReturnItem({ label }) {
         style={[styles.input, activeInputStyle]}
         autoCapitalize={'none'}
         value={value}
-        onChangeText={(text) => onChangeInputValue(text)}
+        onChangeText={(text) => setValue(text)}
         editable={true}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}

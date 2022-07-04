@@ -6,8 +6,13 @@ import ReturnItem from './ReturnItem'
 
 export default function ReturnCreate() {
   const [returnProductList, setReturnProductList] = useState(returnData)
+  const [formData, setFormData] = useState([])
 
-  const [returnValues, setReturnValues] = useState([])
+  function onChangeReturnArray(text) {
+    setFormData(...formData, text)
+  }
+
+  console.log(formData)
 
   return (
     <View>
@@ -31,6 +36,7 @@ export default function ReturnCreate() {
                 key={item.no}
                 label={item.productName}
                 code={item.code}
+                onChangeReturnArray={onChangeReturnArray}
               />
             )
           })}
