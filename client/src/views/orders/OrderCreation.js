@@ -3,11 +3,12 @@ import { MainContainer } from "../../styles/Lounge";
 import { Text } from "../../styles/Style";
 import { productData } from "../../datas/ProductData";
 import { FlatList } from "react-native";
+import EachOrderItem from "./EachOrderItem";
 
-const OrderList = () => {
+const OrderList = ({ navigation }) => {
   // Flat list
   const renderItem = ({ item }) => {
-    return <Text>{item.product_name}</Text>;
+    return <EachOrderItem item={item} />;
   };
 
   return (
