@@ -6,13 +6,16 @@ import ReturnItem from './ReturnItem'
 
 export default function ReturnCreate() {
   const [returnProductList, setReturnProductList] = useState(returnData)
-  const [formData, setFormData] = useState([])
 
-  function onChangeReturnArray(text) {
-    setFormData(...formData, text)
+  const changeReturnValue = (product_sapcode, product_returnCount) => {
+    const newReturnList = returnProductList.map((item) =>
+      item.product_sapcode === product_sapcode
+        ? { ...item, product_returnCount }
+        : item
+    )
+    setReturnProductList(newReturnList)
+    console.log(returnProductList)
   }
-
-  console.log(formData)
 
   return (
     <View>
@@ -30,13 +33,13 @@ export default function ReturnCreate() {
             justifyContent: 'center',
           }}
         >
-          {returnProductList.map((item) => {
+          {returnProductList.map((item, index) => {
             return (
               <ReturnItem
-                key={item.no}
-                label={item.productName}
-                code={item.code}
-                onChangeReturnArray={onChangeReturnArray}
+                key={item.product_sapcode}
+                item={item}
+                index={index}
+                changeReturnValue={changeReturnValue}
               />
             )
           })}

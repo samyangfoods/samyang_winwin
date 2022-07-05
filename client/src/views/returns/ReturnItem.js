@@ -8,30 +8,43 @@ import {
   KeyboardAvoidingView,
 } from 'react-native'
 
-export default function ReturnItem({ label, onChangeReturnArray }) {
+export default function ReturnItem({
+  item: { product_sapcode, product_returnName, product_returnPrice },
+  changeReturnValue,
+}) {
   const [isFocused, setIsFocused] = useState(false)
-  const [value, setValue] = useState('')
+
+  const [product_returnCount, setProduct_returnCount] = useState('')
+
+  const onChangeCount = (e) => {
+    const { text } = e.nativeEvent
+    setProduct_returnCount(text)
+  }
+
+  useEffect(() => {
+    changeReturnValue(product_sapcode, parseInt(product_returnCount))
+  }, [product_returnCount])
+
   const moveText = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    if (value !== '') {
+    if (product_returnCount !== '') {
       moveTextTop()
       setIsFocused(true)
-      console.log(value)
-    } else if (value === '') {
+    } else if (product_returnCount === '') {
       moveTextBottom()
       setIsFocused(false)
     }
-  }, [value])
+  }, [product_returnCount])
 
   const onFocusHandler = () => {
-    if (value !== '') {
+    if (product_returnCount !== '') {
       moveTextTop()
     }
   }
 
   const onBlurHandler = () => {
-    if (value === '') {
+    if (product_returnCount === '') {
       moveTextBottom()
     }
   }
@@ -84,14 +97,14 @@ export default function ReturnItem({ label, onChangeReturnArray }) {
           numberOfLines={1}
           ellipsizeMode='tail'
         >
-          {label}
+          {product_returnName}
         </Text>
       </Animated.View>
       <TextInput
         style={[styles.input, activeInputStyle]}
         autoCapitalize={'none'}
-        value={value}
-        onChangeText={(text) => setValue(text)}
+        value={product_returnCount}
+        onChange={onChangeCount}
         editable={true}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
