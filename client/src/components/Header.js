@@ -11,7 +11,7 @@ export default function Header() {
     <View
       style={{
         // marginTop: Constant.statusBarHeight,
-        height: 40,
+        height: 50,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -26,7 +26,7 @@ export default function Header() {
       <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
         <TouchableOpacity onPress={() => navigation.navigate('행사현황')}>
           <Image
-            style={{ height: 35, width: 100 }}
+            style={{ margin: 5, height: 35, width: 100 }}
             source={require('../assets/logo2.png')}
           />
         </TouchableOpacity>
@@ -45,6 +45,7 @@ export default function Header() {
             name='account-circle'
             size={32}
             color='black'
+            style={{ margin: 5 }}
           />
         </TouchableOpacity>
       </View>

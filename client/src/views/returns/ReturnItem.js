@@ -67,7 +67,7 @@ export default function ReturnItem({ label, onChangeReturnArray }) {
 
   const activeLabelStyle = {
     color: !isFocused ? '#aaa' : '#006aff',
-    fontSize: !isFocused ? 15 : 12,
+    fontSize: !isFocused ? 14 : 12,
   }
 
   const activeInputStyle = {
