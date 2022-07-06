@@ -1,13 +1,11 @@
 import styled from "styled-components/native";
 import { LoginBtn } from "../Auth";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // OrderList
 
 // OrderCreation
-export const OrderCreationContainer = styled.View`
-  flex: 1;
-  align-items: center;
-`;
+export const OrderCreationContainer = styled(KeyboardAwareScrollView)``;
 
 export const OrderCreationButton = styled(LoginBtn)`
   margin-bottom: 5%;
@@ -15,8 +13,11 @@ export const OrderCreationButton = styled(LoginBtn)`
 
 // EachOrderItem
 export const EachOrderItemContainer = styled.View`
-  align-items: center;
+  width: 100px;
+  height: 40px;
+  margin: 2%;
 `;
+
 export const EachOrderItemTextInput = styled.TextInput`
   border: 1px solid #aaa;
   border-radius: 7px;
