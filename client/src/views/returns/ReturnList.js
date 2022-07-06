@@ -25,112 +25,365 @@ export default function ReturnList({ navigation }) {
       no: 1,
       user: 'object(1222333255)',
       ReturnDate: '22년 7월',
-      sumValue: 125,
+      returnSumEA: 125,
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 2,
       user: 'object(1222333255)',
-      sumValue: 145,
+      returnSumEA: 145,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 3,
       user: 'object(1222333255)',
-      sumValue: 160,
+      returnSumEA: 160,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
+      product_returnPrice: 652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 4,
       user: 'object(1222333255)',
-      sumValue: 160,
+      returnSumEA: 160,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 5,
       user: 'object(1222333255)',
-      sumValue: 160,
+      returnSumEA: 160,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 6,
       user: 'object(1222333255)',
-      sumValue: 160,
+      returnSumEA: 160,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
     {
       no: 7,
       user: 'object(1222333255)',
-      sumValue: 160,
+      returnSumEA: 160,
       ReturnDate: '22년 7월',
+      returnSumPrice: 125652,
       // gunnySack : 마대
       gunnySack: [
-        { code: '333266', productName: '짱구', value: 2 },
-        { code: '333267', productName: '왕짱구', value: 12 },
-        { code: '333268', productName: '삼양라면', value: 3 },
-        { code: '333269', productName: '불닭볶음면', value: 7 },
-        { code: '333210', productName: '달고나짱구', value: 33 },
-        { code: '333211', productName: '짜짜로니', value: 25 },
-        { code: '333212', productName: '맛있는라면', value: 16 },
+        {
+          product_sapcode: '333266',
+          product_returnName: '짱구',
+          product_returnValue: 2,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333267',
+          product_returnName: '왕짱구',
+          product_returnValue: 12,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333268',
+          product_returnName: '삼양라면',
+          product_returnValue: 3,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333269',
+          product_returnName: '불닭볶음면',
+          product_returnValue: 7,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333210',
+          product_returnName: '달고나짱구',
+          product_returnValue: 33,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333211',
+          product_returnName: '짜짜로니',
+          product_returnValue: 25,
+          product_returnPrice: 652,
+        },
+        {
+          product_sapcode: '333212',
+          product_returnName: '맛있는라면',
+          product_returnValue: 16,
+          product_returnPrice: 652,
+        },
       ],
     },
   ]
@@ -186,7 +439,11 @@ export default function ReturnList({ navigation }) {
                     flexDirection: 'row',
                   }}
                 >
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('반품상세')
+                    }}
+                  >
                     <View
                       style={{
                         marginLeft: 10,
@@ -225,7 +482,7 @@ export default function ReturnList({ navigation }) {
                     />
                   </View>
                   <View>
-                    <Text>{item.sumValue} EA</Text>
+                    <Text>{item.returnSumEA} EA</Text>
                   </View>
 
                   <View>
